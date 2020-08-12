@@ -5,30 +5,35 @@
  
 #include <stdio.h>
 #include <stdlib.h>
-#include <iostream>
+//#include <iostream.h>
 #include <math.h>
+#include <time.h>
 
 #include "papi.h" /* This needs to be included every time you use PAPI */
 
-#define NUM_EVENTS 2
+#define NUM_EVENTS 8
 #define ERROR_RETURN(retval) { fprintf(stderr, "Error %d %s:line %d: \n", retval,__FILE__,__LINE__);  exit(retval); }
 
 void vecMul(float *a, float *b, float *c, int n)
 {
     float total;
-    for(int i = 0; i < n; i++)
+    int i = 0;
+    //srand(time(NULL));   // Initialization, should only be called once.
+    for(i = 0; i < n; i= i + 5000)
     {
-        total += a[i] * b[i];
-        //c[i] = a[i] * b[i];
-        //std::cout << c[i] << "\n";
+        c[i] = a[i] * b[i];
+	//int r = rand()*rand()*rand()*rand();      // Returns a pseudo-random integer between 0 and RAND_MAX.
+	
+        //printf("%d\n", i);
+	//break;
     }
-    printf("total %f",total);
 }
 
 void fill_cache(float *a, int n)
 {
     float delta = 1.9;
-    for(int i = 0; i < n; i++)
+    int i = 0;
+    for(i = 0; i < n; i++)
     {
         a[i] = a[i] * delta;
         //std::cout << c[i] << "\n";
@@ -40,6 +45,7 @@ int main()
     // Size of vectors
     int n = 100000000;
     int fill = 10000000;
+    int i = 0;
 
     // Host input vectors
     float *h_a;
@@ -64,14 +70,14 @@ int main()
  
     //int i;
     // Initialize vectors on host
-    for( int i = 0; i < n; i++ ) {
+    for( i = 0; i < n; i++ ) {
         h_a[i] = sin(i)*sin(i);
         h_b[i] = cos(i)*cos(i);
     }
 
 
     // Initialize vectors on host
-    for( int i = 0; i < fill; i++ ) {
+    for( i = 0; i < fill; i++ ) {
         h_d[i] = sin(i)*sin(i);
     }
 
@@ -80,7 +86,7 @@ int main()
 
     int EventSet = PAPI_NULL;
    
-    int tmp, i;
+    int tmp;
     /*must be initialized to PAPI_NULL before calling PAPI_create_event*/
     
     long long values[NUM_EVENTS];
@@ -119,13 +125,25 @@ int main()
             NULL }; */
 
 
+ char *native_name[] =
+	{"bdx_unc_imc0::UNC_M_CAS_COUNT:RD:cpu=21",
+	"bdx_unc_imc1::UNC_M_CAS_COUNT:RD:cpu=21",
+	"bdx_unc_imc4::UNC_M_CAS_COUNT:RD:cpu=21",
+	"bdx_unc_imc5::UNC_M_CAS_COUNT:RD:cpu=21",
+	"bdx_unc_imc0::UNC_M_CAS_COUNT:WR:cpu=21",
+	"bdx_unc_imc1::UNC_M_CAS_COUNT:WR:cpu=21",
+	"bdx_unc_imc4::UNC_M_CAS_COUNT:WR:cpu=21",
+	"bdx_unc_imc5::UNC_M_CAS_COUNT:WR:cpu=21",
+         NULL }; 
 
+/*
  char *native_name[] =
          { "OFFCORE_RESPONSE_0:ANY_DATA", 
           "OFFCORE_RESPONSE_0:L3_MISS", 
           "OFFCORE_RESPONSE_1:ANY_DATA", 
           "OFFCORE_RESPONSE_1:L3_MISS", 
             NULL }; 
+*/
 
           /*"perf::LLC-STORE-MISSES:excl=0", 
           "perf::LLC-STORE-MISSES:precise=0", */
@@ -175,12 +193,14 @@ int main()
     if ( (retval = PAPI_stop(EventSet, values)) != PAPI_OK)
        ERROR_RETURN(retval);
 
-    printf("TCM Cache Misses %lld \n", values[0] );
-    printf("LDM load misses %lld \n", values[1] );
-    printf("LDM load misses %lld \n", values[2] );
-    printf("LDM load misses %lld \n", values[3] );
-    printf("LDM load misses %lld \n", values[4] );
-    printf("LDM load misses %lld \n", values[5] );
+    printf("IMC0 load misses %lld \n", values[0] );
+    printf("IMC1 load misses %lld \n", values[1] );
+    printf("IMC4 load misses %lld \n", values[2] );
+    printf("IMC5 load misses %lld \n", values[3] );
+    printf("IMC0 store misses %lld \n", values[4] );
+    printf("IMC1 store misses %lld \n", values[5] );
+    printf("IMC4 store misses %lld \n", values[6] );
+    printf("IMC5 store misses %lld \n", values[7] );
 
 /*
     printf("DCA data cache access %lld \n", values[3] );

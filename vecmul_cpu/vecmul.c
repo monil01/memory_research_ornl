@@ -2,13 +2,15 @@
 #include <stdlib.h>
 #include <math.h>
 #include <iostream>
+
+int stride = 1;
  
 void vecMul(float *a, float *b, float *c, int n)
 {
-    for(int i = 0; i < n; i++)
+    for(int i = 0; i < n; i += stride)
     {
         c[i] = a[i] * b[i];
-        //std::cout << c[i] << "\n";
+        //std::cout << i << " " << c[i] << " " << a[i] << " " << b[i] << "\n";
     } 
 }
 
@@ -25,9 +27,23 @@ void fill_cache(float *a, int n)
  
 int main( int argc, char* argv[] )
 {
+ 
+    //std::cout << "stride :" << stride << "\n";
     // Size of vectors
-    int n = 100000000;
+    int n = 500000000;
+    //int n = 100000000;
     int fill = 10000000;
+
+
+    if (argc>1) {
+	stride = atoi(argv[1]);
+    }
+    if (argc>2) {
+	n = atoi(argv[2]);
+    }
+
+
+    //std::cout << "stride :" << stride << " data size " << n <<  "\n";
  
     // Host input vectors
     float *h_a;
@@ -42,9 +58,21 @@ int main( int argc, char* argv[] )
     size_t fill_bytes = fill*sizeof(float);
  
     // Allocate memory for each vector on host
-    h_a = (float*)malloc(bytes);
+    /*h_a = (float*)malloc(bytes);
     h_b = (float*)malloc(bytes);
-    h_c = (float*)malloc(bytes);
+    h_c = (float*)malloc(bytes); */
+    void *ptr = NULL;
+    void *ptr1 = NULL;
+    void *ptr2 = NULL; 
+    int error = 0;
+    if (posix_memalign(&ptr, 16, bytes) ) std::cout << "error allocating \n";
+    if (posix_memalign(&ptr1, 16, bytes) ) std::cout << "error allocating \n";
+    if (posix_memalign(&ptr2, 16, bytes) ) std::cout << "error allocating \n";
+
+    h_a = static_cast<float*>(ptr);
+    h_b = static_cast<float*>(ptr1);
+    h_c = static_cast<float*>(ptr2);
+
 
     h_d = (float*)malloc(fill_bytes);
  

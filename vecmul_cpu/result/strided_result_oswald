@@ -1,0 +1,347 @@
+rm serial_vecmul papi_add_remove vecmul_PAPI tau_vecmul omp_vecmul profile.0.0* *.o; rm -rf MULT*
+tau_cxx.sh -optCompInst vecmul.c -o tau_vecmul
+Debug: Using compiler-based instrumentation
+
+
+Debug: Compiling (Individually) with Instrumented Code
+Executing> /auto/software/gcc/x86_64/gcc-9.1.0/bin/g++ -I. -c vecmul.c -g -DPROFILING_ON -DTAU_PAPI -I/home/mmonil/packages/download_tar/papi/src/install/include -DTAU_GNU -DTAU_DOT_H_LESS_HEADERS -DTAU_LINUX_TIMERS -DTAU_LARGEFILE -D_LARGEFILE64_SOURCE -DTAU_BFD -DHAVE_GNU_DEMANGLE -DHAVE_TR1_HASH_MAP -DTAU_SS_ALLOC_SUPPORT -DEBS_CLOCK_RES=1 -DTAU_STRSIGNAL_OK -DTAU_TRACK_LD_LOADER -DTAU_PAPI_PERF_RAPL -DTAU_ELF_BFD -I/home/mmonil/packages/download_tar/tau-2.29/install/include -o vecmul.o -g -finstrument-functions -finstrument-functions-exclude-file-list=/usr/include
+
+
+Debug: Linking (Together) object files
+Executing> /auto/software/gcc/x86_64/gcc-9.1.0/bin/g++ vecmul.o -L/home/mmonil/packages/download_tar/tau-2.29/install/x86_64/lib -ltau-papi-pdt -Wl,-rpath,/home/mmonil/packages/download_tar/papi/src/install/lib -L/home/mmonil/packages/download_tar/papi/src/install/lib/ -L/home/mmonil/packages/download_tar/papi/src/install/lib64/ -Wl,-rpath,/home/mmonil/packages/download_tar/papi/src/install/lib -lpapi -L/home/mmonil/packages/download_tar/tau-2.29/install/x86_64/binutils-2.23.2/lib -L/home/mmonil/packages/download_tar/tau-2.29/install/x86_64/binutils-2.23.2/lib64 -Wl,-rpath,/home/mmonil/packages/download_tar/tau-2.29/install/x86_64/binutils-2.23.2/lib -Wl,-rpath,/home/mmonil/packages/download_tar/tau-2.29/install/x86_64/binutils-2.23.2/lib64 -lbfd -liberty -lz -ldl -Wl,--export-dynamic -lrt -ldl -lm -L/auto/software/gcc/x86_64/gcc-9.1.0/lib/gcc/x86_64-pc-linux-gnu/9.1.0/ -lstdc++ -lgcc_s -L/home/mmonil/packages/download_tar/tau-2.29/install/x86_64/lib/static-papi-pdt -g -o tau_vecmul
+
+
+Found Broadwell-DE/EP CPU
+Disable all prefetch
+	Core 0 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 0 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 1 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 1 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 2 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 2 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 3 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 3 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 4 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 4 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 5 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 5 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 6 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 6 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 7 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 7 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 8 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 8 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 9 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 9 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 10 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 10 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 11 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 11 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 12 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 12 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 13 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 13 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 14 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 14 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 15 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 15 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 16 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 16 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 17 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 17 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 18 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 18 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 19 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 19 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 20 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 20 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 21 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 21 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 22 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 22 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 23 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 23 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 24 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 24 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 25 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 25 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 26 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 26 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 27 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 27 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 28 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 28 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 29 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 29 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 30 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 30 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 31 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 31 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+----------------------Array size = 1000000 -------------------
+stride: 1 132611 166461
+stride: 2 131213 164653
+stride: 4 130325 163595
+stride: 8 130029 168479
+stride: 16 129892 166162
+stride: 32 71091 112064
+stride: 64 37167 85477
+stride: 128 20449 66005
+stride: 256 12634 61501
+stride: 512 8671 62075
+stride: 1024 6852 55409
+stride: 2048 4319 41428
+stride: 4096 3320 32723
+stride: 8192 2831 32047
+----------------------Array size = 5000000 -------------------
+stride: 1 659271 663927
+stride: 2 652357 660452
+stride: 4 648323 655073
+stride: 8 647808 654025
+stride: 16 645810 648568
+stride: 32 333065 482001
+stride: 64 177616 382254
+stride: 128 98157 321358
+stride: 256 56667 329609
+stride: 512 37309 295404
+stride: 1024 27922 281781
+stride: 2048 19023 257310
+stride: 4096 17216 261607
+stride: 8192 16861 292655
+----------------------Array size = 10000000 -------------------
+stride: 1 1339493 983409
+stride: 2 1334576 978230
+stride: 4 1298514 968085
+stride: 8 1291552 959746
+stride: 16 1290301 961180
+stride: 32 664979 798985
+stride: 64 350093 715264
+stride: 128 192381 671617
+stride: 256 115124 649398
+stride: 512 74116 637509
+stride: 1024 55183 634084
+stride: 2048 43025 607991
+stride: 4096 36881 599701
+stride: 8192 35062 622297
+----------------------Array size = 50000000 -------------------
+stride: 1 6533922 3618938
+stride: 2 6524401 3615809
+stride: 4 6474111 3556955
+stride: 8 6462760 3539423
+stride: 16 6452525 3534842
+stride: 32 3315596 3344474
+stride: 64 1740450 3250046
+stride: 128 952735 3215582
+stride: 256 557531 3191224
+stride: 512 363785 3158452
+stride: 1024 266305 3171310
+stride: 2048 217741 3158886
+stride: 4096 188254 3102127
+stride: 8192 177068 3167247
+----------------------Array size = 100000000 -------------------
+stride: 1 13058939 6912853
+stride: 2 13019508 6874974
+stride: 4 12935173 6793000
+stride: 8 12891315 6757685
+stride: 16 12879236 6742949
+stride: 32 6609380 6559251
+stride: 64 3474199 6445801
+stride: 128 1985516 6442060
+stride: 256 1118506 6357768
+stride: 512 730145 6377454
+stride: 1024 531435 6353869
+stride: 2048 432230 6334685
+stride: 4096 382032 6347598
+stride: 8192 353338 6316528
+----------------------Array size = 500000000 -------------------
+stride: 1 65380044 33323816
+stride: 2 65137322 33101498
+stride: 4 64719054 32680692
+stride: 8 64461492 32510921
+stride: 16 64514480 32466171
+stride: 32 33048249 32161335
+stride: 64 17346527 32022622
+stride: 128 9475102 31982017
+stride: 256 5589674 31941600
+stride: 512 3627300 31906059
+stride: 1024 2651773 31910925
+stride: 2048 2208612 31880981
+stride: 4096 1909999 31888299
+stride: 8192 1781185 31857642
+----------------------Array size = 1000000000 -------------------
+stride: 1 130628281 66515748
+stride: 2 130274461 65844061
+stride: 4 129321259 65032862
+stride: 8 128915222 64695457
+stride: 16 128767982 64550725
+stride: 32 66078581 64186319
+stride: 64 34676422 64001079
+stride: 128 19018773 63899767
+stride: 256 11202814 63876850
+stride: 512 7248914 63833337
+stride: 1024 5328409 63855645
+stride: 2048 4312453 63830738
+stride: 4096 3827689 63823238
+stride: 8192 3579576 63796172
+
+Found Broadwell-DE/EP CPU
+Enable all prefetch
+	Core 0 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 0 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 1 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 1 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 2 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 2 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 3 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 3 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 4 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 4 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 5 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 5 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 6 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 6 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 7 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 7 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 8 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 8 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 9 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 9 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 10 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 10 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 11 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 11 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 12 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 12 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 13 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 13 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 14 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 14 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 15 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 15 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 16 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 16 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 17 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 17 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 18 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 18 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 19 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 19 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 20 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 20 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 21 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 21 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 22 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 22 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 23 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 23 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 24 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 24 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 25 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 25 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 26 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 26 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 27 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 27 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 28 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 28 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 29 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 29 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 30 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 30 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 31 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 31 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+----------------------Array size = 1000000 -------------------
+stride: 1 136256 173464
+stride: 2 135398 168394
+stride: 4 154803 191545
+stride: 8 135265 172628
+stride: 16 135158 169294
+stride: 32 141105 175311
+stride: 64 67027 109767
+stride: 128 21443 66838
+stride: 256 15373 65393
+stride: 512 9618 55618
+stride: 1024 7685 72293
+stride: 2048 5069 39214
+stride: 4096 3593 31942
+stride: 8192 2894 29817
+----------------------Array size = 5000000 -------------------
+stride: 1 657764 671785
+stride: 2 654125 664776
+stride: 4 653960 665407
+stride: 8 650935 674139
+stride: 16 656991 665748
+stride: 32 608554 640215
+stride: 64 389861 520758
+stride: 128 99911 344931
+stride: 256 61282 310054
+stride: 512 36024 268670
+stride: 1024 32999 309360
+stride: 2048 22454 298234
+stride: 4096 18723 264541
+stride: 8192 16978 260579
+----------------------Array size = 10000000 -------------------
+stride: 1 1324083 997155
+stride: 2 1297446 987967
+stride: 4 1325368 987378
+stride: 8 1307430 991223
+stride: 16 1324627 977101
+stride: 32 1270193 921153
+stride: 64 788756 808593
+stride: 128 199782 634347
+stride: 256 117132 645670
+stride: 512 78845 633531
+stride: 1024 60573 620689
+stride: 2048 45793 604833
+stride: 4096 42809 600140
+stride: 8192 37374 575462
+----------------------Array size = 50000000 -------------------
+stride: 1 6485286 3581053
+stride: 2 6458184 3559232
+stride: 4 6457638 3557450
+stride: 8 6455921 3558825
+stride: 16 6448013 3561571
+stride: 32 6175519 3498509
+stride: 64 3965477 3384839
+stride: 128 964768 3220756
+stride: 256 574629 3182064
+stride: 512 380954 3160323
+stride: 1024 279969 3181792
+stride: 2048 226029 3166365
+stride: 4096 199988 3134912
+stride: 8192 191104 3131129
+----------------------Array size = 100000000 -------------------
+stride: 1 12973715 6826310
+stride: 2 12920186 6770670
+stride: 4 12925918 6761439
+stride: 8 12929263 6763378
+stride: 16 12921658 6757765
+stride: 32 12321241 6681890
+stride: 64 7830300 6577563
+stride: 128 1935556 6391438
+stride: 256 1144720 6373174
+stride: 512 757418 6354650
+stride: 1024 559969 6356476
+stride: 2048 455531 6342996
+stride: 4096 402968 6345778
+stride: 8192 382277 6317445
+----------------------Array size = 500000000 -------------------
+stride: 1 64783956 32655248
+stride: 2 64553901 32462032
+stride: 4 64492519 32398778
+stride: 8 64490167 32400480
+stride: 16 64482874 32394520
+stride: 32 61577535 32323036
+stride: 64 39539687 32182613
+stride: 128 9714225 31964918
+stride: 256 5737779 31926415
+stride: 512 3763923 31892805
+stride: 1024 2784130 31898785
+stride: 2048 2293917 31871531
+stride: 4096 2078629 31864018
+stride: 8192 1944093 31902162
+----------------------Array size = 1000000000 -------------------
+stride: 1 129546766 64965247
+stride: 2 129123073 64604844
+stride: 4 128982692 64474629
+stride: 8 128953719 64459052
+stride: 16 128948338 64441503

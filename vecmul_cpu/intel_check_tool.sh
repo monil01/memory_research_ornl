@@ -20,6 +20,7 @@ run_skylake()
     #echo " " 
     declare -i read=0
     declare -i write=0
+    declare -i write_ratio=$2/$1
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc0__UNC_M_CAS_COUNT_RD_cpu\=12
     IFS=' ' read -ra ADDR <<< $(pprof | grep -i "vecmul(")
@@ -101,16 +102,24 @@ run_skylake()
     
     #write=$write*64
     #read=$read*64
-    echo "stride: $stride $read $write"
+    #write_ratio=$write/$write_ratio
+    #echo "$stride $(($write/$write_ratio))" >> temp
+    VAR=$(echo "scale=4; $write/$write_ratio" | bc)
+    ideal=$(echo "scale=4; $1/16" | bc)
+    #echo $VAR
+    echo "$stride $ideal $VAR" >> temp
+    #echo "stride: $stride $read $write"
 }
-
 
 run_broadwell()
 {
     
     # for oswald
     export TAU_METRICS=TIME,PAPI_NATIVE_bdx_unc_imc0::UNC_M_CAS_COUNT:RD:cpu=12,PAPI_NATIVE_bdx_unc_imc1::UNC_M_CAS_COUNT:RD:cpu=12,PAPI_NATIVE_bdx_unc_imc4::UNC_M_CAS_COUNT:RD:cpu=12,PAPI_NATIVE_bdx_unc_imc5::UNC_M_CAS_COUNT:RD:cpu=12,PAPI_NATIVE_bdx_unc_imc0::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_bdx_unc_imc1::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_bdx_unc_imc4::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_bdx_unc_imc5::UNC_M_CAS_COUNT:WR:cpu=12
+
+    echo " started executing"
     taskset --cpu 12 ./tau_vecmul $1 $2
+    echo " finished executing"
 
     #export TAU_METRICS=TIME,PAPI_NATIVE_bdx_unc_imc0::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_bdx_unc_imc1::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_bdx_unc_imc4::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_bdx_unc_imc5::UNC_M_CAS_COUNT:WR:cpu=12
 #taskset --cpu 12 ./tau_vecmul
@@ -122,6 +131,9 @@ run_broadwell()
     #echo " " 
     declare -i read=0
     declare -i write=0
+    declare -i write_ratio=$2/$1
+
+
 
     cd MULTI__PAPI_NATIVE_bdx_unc_imc0__UNC_M_CAS_COUNT_RD_cpu\=12
     IFS=' ' read -ra ADDR <<< $(pprof | grep -i "vecmul(")
@@ -173,79 +185,43 @@ run_broadwell()
     #echo ${ADDR[5]}
     write=$write+${ADDR[5]} 
     cd ..
-    
+     
     #write=$write*64
     #read=$read*64
-    echo "stride: $stride $read $write"
+    #write_ratio=$write/$write_ratio
+    #echo "$stride $(($write/$write_ratio))" >> temp
+    VAR=$(echo "scale=4; $write/$write_ratio" | bc)
+    ideal=$(echo "scale=4; $1/16" | bc)
+    #echo $VAR
+    echo "$stride $ideal $VAR"
+    echo "$stride $ideal $VAR" >> temp
+    #echo "stride: $stride $read $write"
+
 }
 
 
 
-#stride_array=(4096)
-stride_array=(2048	4096	8192	16384	32768	65536	131072	262144	524288	1048576	2097152	4194304	8388608	16777216	33554432	67108864)
+stride_array=( 4 8 16 32 64 128 256)
 #stride_array=(1 2 4 8 16 32 64 128 256 512 1024 2048 4096 8192)
-#stride_array=(1 2 4 8 16 32 64 128 256 512 1024 2048 4096 8192)
-#stride_array=(2 4 8 16 32 64 128 256 512)
-n_array=(1000000000)
-#n_array=(1000000 5000000 10000000 50000000 100000000 500000000)
-#n_array=(1000000 5000000 10000000 50000000 100000000 500000000 1000000000)
-#stride_array=(1 8 11)
+n_array=(5000000)
 
-
+rm temp
 make clean
 make
 
-intel-prefetch -e
-
-#intel-prefetch-disable -d
 
 for array_size in "${n_array[@]}"
 do
-    echo "----------------------Array size = $array_size -------------------"
 for stride in "${stride_array[@]}"
 do
-    #echo "----------------------stride = $stride-------------------"
     for i in 1
-    #for i in 1 2 3 4 5 
     do
 	#run_skylake $stride $array_size
 	run_broadwell $stride $array_size
 	rm -rf MULT*
-
     done
 done
 done
 
-intel-prefetch -d
-#intel-prefetch-disable -e
-
-for array_size in "${n_array[@]}"
-do
-    echo "----------------------Array size = $array_size -------------------"
-for stride in "${stride_array[@]}"
-do
-    #echo "----------------------stride = $stride-------------------"
-    for i in 1
-    #for i in 1 2 3 4 5 
-    do
-	#run_skylake $stride $array_size
-	run_broadwell $stride $array_size
-	rm -rf MULT*
-
-    done
-done
-done
-
-#for stride in "${stride_array[@]}"
-#do
-#    #echo "----------------------stride = $stride-------------------"
-#    for i in 1 
-#    #for i in 1 2 3 4 5 
-#    do
-#	run $stride
-#	rm -rf MULT*
-#
-#    done
-#done
 
 

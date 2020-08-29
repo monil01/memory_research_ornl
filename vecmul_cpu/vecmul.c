@@ -7,6 +7,7 @@ int stride = 1;
  
 void vecMul(float *a, float *b, float *c, int n)
 {
+    //for(int i = 0; i < n/2; i += rand())
     for(int i = 0; i < n; i += stride)
     {
         c[i] = a[i] * b[i];
@@ -81,6 +82,7 @@ int main( int argc, char* argv[] )
     for( int i = 0; i < n; i++ ) {
         h_a[i] = sin(i)*sin(i);
         h_b[i] = cos(i)*cos(i);
+        //h_c[i] = cos(i)*cos(i);
     }
 
     // Initialize vectors on host

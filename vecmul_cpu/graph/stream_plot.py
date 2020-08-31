@@ -12,7 +12,7 @@ fig, ax = plt.subplots()
 
 fig.set_size_inches(5, 2)
 
-labels = ['Manaul', 'PAPI']
+labels = ['PAPI Preset', 'Manual']
 traffic = [12.46, 18.75]
 
 y_pos = np.arange(len(labels))  # the label locations
@@ -20,7 +20,7 @@ y_pos = np.arange(len(labels))  # the label locations
 ax.barh(y_pos, traffic, hatch='....', color='white', edgecolor='black')
 #rects1 = plt.bar(x, traffic, .8, hatch='....', color='white', edgecolor='black')
 
-ax.set_xlabel('Cacheline transferred between LLC-DRAM', fontsize=12)
+ax.set_xlabel('Cacheline transferred between LLC-DRAM in Million', fontsize=12)
 #plt.title('', fontsize=18)
 ax.set_yticks(y_pos)
 ax.set_yticklabels(labels, fontsize=12)

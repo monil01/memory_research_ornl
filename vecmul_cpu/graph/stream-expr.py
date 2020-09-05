@@ -40,7 +40,7 @@ rects1 = ax.bar(x,read, width, hatch='....', color='white', edgecolor='black')
 
 # Add some text for labels, title and custom x-axis tick labels, etc.
 ax.set_ylabel('Traffic in Million', fontsize=12)
-ax.set_title('Read', fontsize=18)
+ax.set_title('Read', fontsize=14)
 ax.set_xticks(x)
 #ax.set_xticklabels(labels, fontsize=12,)
 ax.set_xticklabels(labels, fontsize=12, rotation=25)
@@ -53,11 +53,11 @@ x = np.arange(len(labels))  # the label locations
 
 width = 0.35  # the width of the bars
 
-rects1 = ax1.bar(x, write, width, hatch='////', color='white', edgecolor='black')
+rects1 = ax1.bar(x, write, width, hatch='////', color='grey', edgecolor='black')
 
 # Add some text for labels, title and custom x-axis tick labels, etc.
 ax1.set_ylabel('Traffic in Million', fontsize=12)
-ax1.set_title('Write', fontsize=18)
+ax1.set_title('Write', fontsize=14)
 ax1.set_xticks(x)
 #ax1.set_xticklabels(labels, fontsize=12)
 ax1.set_xticklabels(labels, fontsize=12, rotation=25)
@@ -69,13 +69,13 @@ ax1.set_yticks(np.arange(0, max(write)+1, 1))
 
 x = np.arange(len(labels))  # the label locations
 
-width = 0.35  # the width of the bars
+barwidth = 0.35  # the width of the bars
 
 rects2 = ax2.bar(x, total, width, hatch='oo', color='white', edgecolor='black')
 
 # Add some text for labels, title and custom x-axis tick labels, etc.
 ax2.set_ylabel('Traffic in Million', fontsize=12)
-ax2.set_title('Total', fontsize=18)
+ax2.set_title('Total', fontsize=14)
 ax2.set_xticks(x)
 ax2.set_xticklabels(labels, fontsize=12, rotation=25)
 #ax2.set_xticklabels(labels, fontsize=12, rotation='vertical')

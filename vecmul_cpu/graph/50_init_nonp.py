@@ -20,6 +20,13 @@ slake=[0.159616817401684, 0.119840210921328, 0.12671921865537, 0.102247347794585
 clake=[0.350090063588601, 8.53364951909188, 0.207934730560625, 0.103365046119479, 0.0773880644918124, 0.043485082249818, 0.0929694863148149, 0.0285521499256748, 0.127779066533547, 0.0767410628637207, 0.00384014746166253, 0.497987671302664, 1.92398465432049, 3.16107056443616]
 
 
+def average(lst):
+    return sum(lst) / len(lst)
+
+print("accurcy")
+print("Broadwell showed {:.1f}".format((100-average(bwell)))+"\% accuracy, Sky Lake showed {:.1f}".format((100-average(slake)))+"\% accuracy, and Cascade Lake showed {:.1f}".format((100-average(slake)))+"\% accuracy")
+
+
 barwidth=.25
 # Set position of bar on X axis
 r1 = np.arange(len(bwell))

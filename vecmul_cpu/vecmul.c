@@ -3,6 +3,18 @@
 #include <math.h>
 #include <iostream>
 
+#include <sys/time.h>
+
+double getTime() {
+    double time;
+    struct timeval tm;
+    gettimeofday(&tm, NULL);
+    time = tm.tv_sec + (tm.tv_usec / 1000000.0);
+    return time;
+}
+
+
+
 int stride = 1;
  
 void vecMul(float *a, float *b, float *c, int n)
@@ -92,8 +104,17 @@ int main( int argc, char* argv[] )
 
     fill_cache(h_d, fill);
 
+    double seconds = 0;
+    double startTime, endTime;
+    startTime = getTime();
 
     vecMul(h_a, h_b, h_c, n);
+
+    endTime = getTime();
+    seconds += (double)(endTime - startTime);
+    //printf("Total time: %15.6lf \n", seconds);
+
+
  
     /*float sum = 0;
     for(i=0; i<n; i++)

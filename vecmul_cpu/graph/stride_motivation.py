@@ -9,7 +9,7 @@ import matplotlib.patches as mpatches
 #plt.rcdefaults()
 fig, ax = plt.subplots()
 
-fig.set_size_inches(7, 4)
+fig.set_size_inches(7, 3.2)
 
 #labels = ['Manaul', 'PAPI']
 #traffic = [12.46, 18.75]
@@ -36,7 +36,7 @@ plt.legend(handlelength=3, fontsize=16)
 #plt.legend(loc="upper right", fontsize=12)
 
 
-ax.set_ylabel('Read/Write in Million', fontsize=16)
+ax.set_ylabel('Read/Write traffic', fontsize=16)
 ax.set_xlabel('Stride', fontsize=16)
 
 

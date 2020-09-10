@@ -9,7 +9,7 @@ import matplotlib.patches as mpatches
 #plt.rcdefaults()
 fig, ax = plt.subplots()
 
-fig.set_size_inches(7, 4.5)
+fig.set_size_inches(7, 3.5)
 
 #labels = ['Manaul', 'PAPI']
 #traffic = [12.46, 18.75]

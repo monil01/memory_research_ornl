@@ -20,8 +20,9 @@ def autolabel(rects, xpos='center'):
 
     for rect in rects:
         height = rect.get_height()
-        ax.text(rect.get_x() + rect.get_width()*offset[xpos], 1.01*height,
-                '{}'.format(height), ha=ha[xpos], va='bottom')
+        ax.text(rect.get_x() + rect.get_width()*offset[xpos], height + 2,
+                '{}'.format(height), ha=ha[xpos], va='bottom', fontsize=14, rotation=90)
+
 
 
 
@@ -59,7 +60,7 @@ rects3=ax.bar(r3, clake, width=barwidth, hatch='oo', color='white', edgecolor='b
 #plt.bar(r2, slake, width=barwidth, hatch='////', color='grey', edgecolor='black', label='Sky Lake')
 #plt.bar(r3, clake, width=barwidth, hatch='oo', color='white', edgecolor='black', label='Cascade Lake')
 
-plt.legend(handlelength=3, fontsize=14)
+#plt.legend(handlelength=3, fontsize=14)
 
 
 #plt.legend(handlelength=3, fontsize=12)
@@ -68,7 +69,7 @@ plt.legend(handlelength=3, fontsize=14)
 
 
 ax.set_ylabel('Error', fontsize=16)
-ax.set_xlabel('Array Size', fontsize=16)
+ax.set_xlabel('Array Size', fontsize=12)
 
 
 #plt.title('', fontsize=18)
@@ -79,7 +80,7 @@ plt.yticks(fontsize=14)
 
 #plt.yticks(np.arange(0, 100, 10), fontsize=14)
 #ax.get_yaxis().get_major_formatter().set_scientific(False)
-plt.yticks(np.arange(0, max(bwell)+15, 10), fontsize=14)
+plt.yticks(np.arange(0, max(bwell)+30, 10), fontsize=14)
 plt.xticks([r + barwidth for r in range(len(bwell))], stride, fontsize=12)
 
 #plt.xticks(rotation=90, fontsize=14)

@@ -9,7 +9,7 @@ import matplotlib.patches as mpatches
 #plt.rcdefaults()
 fig, ax = plt.subplots()
 
-fig.set_size_inches(7, 3.5)
+fig.set_size_inches(7, 4)
 
 
 #stride = ['stride-1', 'stride-2', 'stride-4', 'stride-8', 'stride-16', 'stride-32', 'stride-64', 'stride-128', 'stride-256', 'stride-512', 'stride-1024', 'stride-2048', 'stride-4096', 'stride-8192']
@@ -23,7 +23,7 @@ def average(lst):
     return sum(lst) / len(lst)
 
 print("accurcy")
-print("Broadwell shows {:.1f}".format((100-average(bwell)))+"\% accuracy, Sky Lake shows {:.1f}".format((100-average(slake)))+"\% accuracy, and Cascade Lake shows {:.1f}".format((100-average(slake)))+"\% accuracy")
+print("Broadwell shows {:.1f}".format((100-average(bwell)))+"\% accuracy, Sky Lake shows {:.1f}".format((100-average(slake)))+"\% accuracy, and Cascade Lake shows {:.1f}".format((100-average(clake)))+"\% accuracy")
 
 
 
@@ -47,18 +47,18 @@ plt.bar(r3, clake, width=barwidth, hatch='oo', color='white', edgecolor='black',
 #plt.legend(loc="upper right", fontsize=12)
 
 
-ax.set_ylabel('Error', fontsize=16)
-ax.set_xlabel('Stride', fontsize=16)
+ax.set_ylabel('Error', fontsize=20)
+ax.set_xlabel('Stride', fontsize=20)
 
 
 #plt.title('', fontsize=18)
 #ax.set_xticks(x_pos)
 
-plt.yticks(fontsize=14)
+plt.yticks(fontsize=20)
 #plt.yticks(np.arange(0, 100, 10), fontsize=14)
 #ax.get_yaxis().get_major_formatter().set_scientific(False)
 
-plt.xticks([r + barwidth for r in range(len(bwell))], stride, fontsize=12, rotation=90)
+plt.xticks([r + barwidth for r in range(len(bwell))], stride, fontsize=20, rotation=90)
 
 #plt.xticks(rotation=90, fontsize=14)
 #ax.set_xticklabels(stride, fontsize=12)

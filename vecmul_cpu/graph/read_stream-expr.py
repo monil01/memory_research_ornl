@@ -22,8 +22,8 @@ def autolabel(rects, xpos='center'):
 
     for rect in rects:
         height = rect.get_height()
-        ax.text(rect.get_x() + rect.get_width()*offset[xpos], 1.01*height,
-                '{}'.format(height), ha=ha[xpos], va='bottom')
+        ax.text(rect.get_x() + rect.get_width()*offset[xpos], height + .2,
+                '{}'.format(height), ha=ha[xpos], va='bottom', fontsize=14, rotation=90)
 
 
 #plt.rcdefaults()
@@ -36,8 +36,11 @@ fig.set_size_inches(5, 3)
 stride = ['500M', '50M', '5M']
 
 bwell=[0.57,0.85,1.58]
+#bwell=[0.57,0.85,1.58]
 slake=[0.11,0.11,0.77]
+#slake=[0.11,0.11,0.77]
 clake=[0.14,0.07,0.59]
+#clake=[0.14,0.07,0.59]
 
 barwidth=.25
 # Set position of bar on X axis
@@ -64,11 +67,11 @@ rects3=ax.bar(r3, clake, width=barwidth, hatch='oo', color='white', edgecolor='b
 
 #plt.legend(handlelength=3, fontsize=14)
 
-#plt.legend(loc="upper right", fontsize=12)
+plt.legend(loc="upper left", fontsize=14)
 
 
 ax.set_ylabel('Error', fontsize=16)
-ax.set_xlabel('Array Size', fontsize=16)
+ax.set_xlabel('Array Size', fontsize=12)
 
 
 #plt.title('', fontsize=18)
@@ -77,7 +80,7 @@ ax.set_xlabel('Array Size', fontsize=16)
 #plt.yticks(fontsize=14)
 #plt.title('Read', fontsize=14)
 
-plt.yticks(np.arange(0, max(bwell)+1, .5), fontsize=14)
+plt.yticks(np.arange(0, max(bwell)+4, 1), fontsize=14)
 #ax.get_yaxis().get_major_formatter().set_scientific(False)
 
 plt.xticks([r + barwidth for r in range(len(bwell))], stride, fontsize=12)

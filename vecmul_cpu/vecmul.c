@@ -16,7 +16,7 @@ double getTime() {
 
 
 int stride = 1;
- 
+
 void vecMul(float *a, float *b, float *c, int n)
 {
     //for(int i = 0; i < n/2; i += rand())
@@ -25,6 +25,31 @@ void vecMul(float *a, float *b, float *c, int n)
         c[i] = a[i] * b[i];
         //std::cout << i << " " << c[i] << " " << a[i] << " " << b[i] << "\n";
     } 
+} 
+
+void warmup(float *a, float *b, float *c, int n)
+{
+    //for(int i = 0; i < n/2; i += rand())
+    float x = 22/7, y=100/3, z = 0;
+    for(int i = 0; i < 1000000000; i += 1)
+    {
+	x = x * y;
+        //std::cout << i << " " << c[i] << " " << a[i] << " " << b[i] << "\n";
+    }
+a[0] = x; 
+}
+
+
+void vecMull(float *a, float *b, float *c, int n)
+{
+    //for(int i = 0; i < n/2; i += rand())
+    float x = 22/7, y=100/3, z = 0;
+    for(int i = 0; i < n; i += stride)
+    {
+	c[i] = x * i;
+        //std::cout << i << " " << c[i] << " " << a[i] << " " << b[i] << "\n";
+    }
+//a[0] = x; 
 }
 
 void fill_cache(float *a, int n)
@@ -43,7 +68,7 @@ int main( int argc, char* argv[] )
  
     //std::cout << "stride :" << stride << "\n";
     // Size of vectors
-    int n = 500000000;
+    int n = 100000000;
     //int n = 100000000;
     int fill = 10000000;
 
@@ -89,12 +114,12 @@ int main( int argc, char* argv[] )
 
     h_d = (float*)malloc(fill_bytes);
  
- 
+     
     // Initialize vectors on host
     for( int i = 0; i < n; i++ ) {
         h_a[i] = sin(i)*sin(i);
         h_b[i] = cos(i)*cos(i);
-        //h_c[i] = cos(i)*cos(i);
+        h_c[i] = cos(i)*cos(i);
     }
 
     // Initialize vectors on host
@@ -103,6 +128,8 @@ int main( int argc, char* argv[] )
     }
 
     fill_cache(h_d, fill);
+    
+    //warmup(h_a,h_b,h_c,n);
 
     double seconds = 0;
     double startTime, endTime;

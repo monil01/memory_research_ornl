@@ -14,12 +14,21 @@
 #define NUM_EVENTS 8
 #define ERROR_RETURN(retval) { fprintf(stderr, "Error %d %s:line %d: \n", retval,__FILE__,__LINE__);  exit(retval); }
 
+/*double getTime() {
+    double time;
+    struct timeval tm;
+    gettimeofday(&tm, NULL);
+    time = tm.tv_sec + (tm.tv_usec / 1000000.0);
+    return time;
+} */
+
+
 void vecMul(float *a, float *b, float *c, int n)
 {
     float total;
     int i = 0;
     //srand(time(NULL));   // Initialization, should only be called once.
-    for(i = 0; i < n; i= i + 5000)
+    for(i = 0; i < n; i= i + 1)
     {
         c[i] = a[i] * b[i];
 	//int r = rand()*rand()*rand()*rand();      // Returns a pseudo-random integer between 0 and RAND_MAX.
@@ -71,14 +80,18 @@ int main()
     //int i;
     // Initialize vectors on host
     for( i = 0; i < n; i++ ) {
-        h_a[i] = sin(i)*sin(i);
-        h_b[i] = cos(i)*cos(i);
+        h_a[i] = 9.5;
+        //h_a[i] = sin(i)*sin(i);
+        h_b[i] = 3;
+        //h_c[i] = 3;
+        //h_b[i] = cos(i)*cos(i);
     }
 
 
     // Initialize vectors on host
     for( i = 0; i < fill; i++ ) {
-        h_d[i] = sin(i)*sin(i);
+        h_d[i] = 20;
+        //h_d[i] = sin(i)*sin(i);
     }
 
     fill_cache(h_d, fill);
@@ -184,9 +197,18 @@ int main()
 
     if ( (retval = PAPI_start(EventSet)) != PAPI_OK)
        ERROR_RETURN(retval);
-   
+ 
+
+    double seconds = 0;
+    double startTime, endTime;
+    //startTime = getTime();
 
     vecMul(h_a, h_b, h_c, n);
+
+    //endTime = getTime();
+    //seconds += (double)(endTime - startTime);
+    //printf("Total time: %15.6lf \n", seconds);
+
 
 
     /* Stop counting and store the values into the array */

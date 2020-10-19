@@ -14,7 +14,7 @@ fig.set_size_inches(7, 3.5)
 
 #stride = ['stride-1', 'stride-2', 'stride-4', 'stride-8', 'stride-16', 'stride-32', 'stride-64', 'stride-128', 'stride-256', 'stride-512', 'stride-1024', 'stride-2048', 'stride-4096', 'stride-8192']
 stride = ['MAPInt', 'literature', 'BW_no_pref', 'BW_pref', 'SL_no_pref', 'SL_pref', 'CL_no_pref', 'CL_pref']
-total=[8388608, 8388608, 9441832, 9310190, 8837973, 9382619, 9266269, 9326488]
+total=[2000000, 1500000, 2338203, 2346605, 2377012, 2529912, 2006509, 2007643]
 total = np.array(total) / 1000000
 
 mapint=total[0]
@@ -24,8 +24,8 @@ mapint_accuracy=np.arange(6)
 literature_accuracy=np.arange(6)
 for x in total:
     if i > 1: 
-    	mapint_accuracy[i-2]=100-abs((x-mapint)/x*100)
-    	literature_accuracy[i-2]=100-abs((x-literature)/x*100)
+    	mapint_accuracy[i-2]=100-abs(x-mapint)/x*100
+    	literature_accuracy[i-2]=100-abs(x-literature)/x*100
     i=i+1
 
 def average(lst):
@@ -66,7 +66,7 @@ plt.bar(stride, total, width=barwidth, hatch='....', color='white', edgecolor='b
 ax.set_ylabel('Traffic in million', fontsize=16)
 #ax.set_xlabel('Stride', fontsize=16)
 
-plt.yticks(np.arange(0, max(total)+3, 3))
+plt.yticks(np.arange(0, max(total)+1, 1))
 
 #plt.title('', fontsize=18)
 #ax.set_xticks(x_pos)
@@ -84,6 +84,6 @@ plt.xticks(rotation=45, fontsize=14)
 plt.tight_layout()
 
 plt.show()
-fig.savefig('jacobi.png', dpi=100)
+fig.savefig('vecmul-200.png', dpi=100)
 
 # Example data

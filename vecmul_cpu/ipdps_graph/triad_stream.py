@@ -25,8 +25,8 @@ mapint_accuracy=np.arange(6)
 literature_accuracy=np.arange(6)
 for x in total:
     if i > 1: 
-    	mapint_accuracy[i-2]=100-abs((x-mapint)/mapint*100)
-    	literature_accuracy[i-2]=100-abs((x-literature)/literature*100)
+    	mapint_accuracy[i-2]=100-abs((x-mapint)/x*100)
+    	literature_accuracy[i-2]=100-abs((x-literature)/x*100)
     i=i+1
 
 def average(lst):

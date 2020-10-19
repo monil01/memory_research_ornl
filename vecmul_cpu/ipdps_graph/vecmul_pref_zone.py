@@ -13,20 +13,33 @@ fig.set_size_inches(7, 3.5)
 
 
 #stride = ['stride-1', 'stride-2', 'stride-4', 'stride-8', 'stride-16', 'stride-32', 'stride-64', 'stride-128', 'stride-256', 'stride-512', 'stride-1024', 'stride-2048', 'stride-4096', 'stride-8192']
-stride = ['MAPInt', 'literature', 'BW_no_pref', 'BW_pref', 'SL_no_pref', 'SL_pref', 'CL_no_pref', 'CL_pref']
-total=[8388608, 8388608, 9441832, 9310190, 8837973, 9382619, 9266269, 9326488]
+stride = ['MAPInt-no-pref',  'literature', 'BW_no_pref',  'SL_no_pref', 'CL_no_pref','MAPInt-pref','BW_pref','SL_pref', 'CL_pref']
+#total=[6291456, 4194304, 6860474, 6775994, 6053006, 6029796, 6297782, 5666516]
+total=[10250000,  6000000, 10896302,  11144894,  10927516, 18250000, 16974365, 15319403,14936328]
+
 total = np.array(total) / 1000000
 
 mapint=total[0]
-literature=total[1]
+mapint_p=total[1]
+literature=total[2]
 i=0
-mapint_accuracy=np.arange(6)
-literature_accuracy=np.arange(6)
-for x in total:
-    if i > 1: 
-    	mapint_accuracy[i-2]=100-abs((x-mapint)/x*100)
-    	literature_accuracy[i-2]=100-abs((x-literature)/x*100)
-    i=i+1
+j=0
+k=0
+mapint_accuracy=np.arange(3)
+mapint_accuracy_p=np.arange(3)
+literature_accuracy=np.arange(3)
+literature_accuracy_p=np.arange(3)
+#for x in total:
+#    if i > 2:
+#	if i%2 == 1:
+#		mapint_accuracy[j]=100-abs(x-mapint)/x*100
+#    	    	literature_accuracy[j]=100-abs(x-literature)/x*100
+#	    	j = j+1
+#	else: 
+#    	    	mapint_accuracy_p[k]=100-abs(x-mapint_p)/x*100
+#    	    	literature_accuracy_p[k]=100-abs(x-literature)/x*100
+#	    	k = k+1
+#    i=i+1
 
 def average(lst):
     return sum(lst) / len(lst)
@@ -84,6 +97,6 @@ plt.xticks(rotation=45, fontsize=14)
 plt.tight_layout()
 
 plt.show()
-fig.savefig('jacobi.png', dpi=100)
+fig.savefig('vecmul-50.png', dpi=100)
 
 # Example data

@@ -13,9 +13,11 @@ fig.set_size_inches(7, 3.5)
 
 
 #stride = ['stride-1', 'stride-2', 'stride-4', 'stride-8', 'stride-16', 'stride-32', 'stride-64', 'stride-128', 'stride-256', 'stride-512', 'stride-1024', 'stride-2048', 'stride-4096', 'stride-8192']
-stride = ['MAPInt', 'literature', 'BW_no_pref', 'BW_pref', 'SL_no_pref', 'SL_pref', 'CL_no_pref', 'CL_pref']
-total=[8388608, 8388608, 9441832, 9310190, 8837973, 9382619, 9266269, 9326488]
-total = np.array(total) / 1000000
+stride = ['MAPInt', 'BW_no_pref', 'BW_pref', 'SL_no_pref', 'SL_pref', 'CL_no_pref', 'CL_pref']
+#total=[8388608, 8388608, 9441832, 9310190, 8837973, 9382619, 9266269, 9326488]
+total=[588570.264030711, 426155, 472839, 534214, 1152437, 428042, 394083]
+
+total = np.array(total) / 100000
 
 mapint=total[0]
 literature=total[1]
@@ -23,9 +25,9 @@ i=0
 mapint_accuracy=np.arange(6)
 literature_accuracy=np.arange(6)
 for x in total:
-    if i > 1: 
-    	mapint_accuracy[i-2]=100-abs((x-mapint)/x*100)
-    	literature_accuracy[i-2]=100-abs((x-literature)/x*100)
+    if i > 0: 
+    	mapint_accuracy[i-1]=100-abs((x-mapint)/x*100)
+    	literature_accuracy[i-1]=100-abs((x-literature)/x*100)
     i=i+1
 
 def average(lst):
@@ -63,7 +65,7 @@ plt.bar(stride, total, width=barwidth, hatch='....', color='white', edgecolor='b
 #plt.legend(loc="upper right", fontsize=12)
 
 
-ax.set_ylabel('Traffic in million', fontsize=16)
+ax.set_ylabel('Traffic in 100,000', fontsize=16)
 #ax.set_xlabel('Stride', fontsize=16)
 
 plt.yticks(np.arange(0, max(total)+3, 3))
@@ -84,6 +86,6 @@ plt.xticks(rotation=45, fontsize=14)
 plt.tight_layout()
 
 plt.show()
-fig.savefig('jacobi.png', dpi=100)
+fig.savefig('xsbench.png', dpi=100)
 
 # Example data

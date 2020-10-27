@@ -15,6 +15,8 @@ fig.set_size_inches(7, 3.5)
 #stride = ['stride-1', 'stride-2', 'stride-4', 'stride-8', 'stride-16', 'stride-32', 'stride-64', 'stride-128', 'stride-256', 'stride-512', 'stride-1024', 'stride-2048', 'stride-4096', 'stride-8192']
 stride = ['MAPInt', 'literature', 'BW_no_pref', 'BW_pref', 'SL_no_pref', 'SL_pref', 'CL_no_pref', 'CL_pref']
 total=[25000000, 18750000, 25338856, 25080477, 24939117, 25049457, 24732952, 24489835]
+total1=[25000000, 18750000, 25338856, 25080477, 24939117, 25049457, 24732952, 24489835]
+total2=[25000000, 18750000, 25338856, 25080477, 24939117, 25049457, 24732952, 24489835]
 
 total = np.array(total) / 1000000
 
@@ -58,6 +60,8 @@ x_pos = np.arange(len(stride))  # the label locations
 #ax.barh(x_pos, read, hatch='....', color='white', edgecolor='black')
 #rects1 = plt.bar(x, traffic, .8, hatch='....', color='white', edgecolor='black')
 plt.bar(stride, total, width=barwidth, hatch='....', color='white', edgecolor='black', label="Total Traffic = Read + Write")
+plt.bar(stride, total1, width=barwidth, hatch='....', color='white', edgecolor='black', label="Total Traffic = Read + Write")
+plt.bar(stride, total2, width=barwidth, hatch='....', color='white', edgecolor='black', label="Total Traffic = Read + Write")
 
 #plt.legend(handlelength=3, fontsize=16)
 

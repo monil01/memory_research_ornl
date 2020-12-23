@@ -14,13 +14,22 @@
 #define NUM_EVENTS 8
 #define ERROR_RETURN(retval) { fprintf(stderr, "Error %d %s:line %d: \n", retval,__FILE__,__LINE__);  exit(retval); }
 
-/*double getTime() {
+#ifndef STRIDE
+#define STRIDE 1
+int stride = STRIDE;
+#else
+//int stride = 1;
+int stride = STRIDE;
+
+#endif
+
+double getTime() {
     double time;
     struct timeval tm;
     gettimeofday(&tm, NULL);
     time = tm.tv_sec + (tm.tv_usec / 1000000.0);
     return time;
-} */
+} 
 
 
 void vecMul(float *a, float *b, float *c, int n)
@@ -28,7 +37,12 @@ void vecMul(float *a, float *b, float *c, int n)
     float total;
     int i = 0;
     //srand(time(NULL));   // Initialization, should only be called once.
+#ifdef STRIDE
+    for(i = 0; i < n; i= i + STRIDE)
+#else
     for(i = 0; i < n; i= i + 1)
+#endif
+    //for(i = 0; i < n; i= i + stride)
     {
         c[i] = a[i] * b[i];
 	//int r = rand()*rand()*rand()*rand();      // Returns a pseudo-random integer between 0 and RAND_MAX.
@@ -49,12 +63,23 @@ void fill_cache(float *a, int n)
     }
 }
 
-int main()
+int main(int argc, char** argv)
 {
     // Size of vectors
     int n = 100000000;
     int fill = 10000000;
     int i = 0;
+
+
+    if (argc>1) {
+	stride = atoi(argv[1]);
+    }
+    if (argc>2) {
+	n = atoi(argv[2]);
+    }
+
+    //printf("stride %d, n %d\n", stride, n);
+
 
     // Host input vectors
     float *h_a;
@@ -83,7 +108,7 @@ int main()
         h_a[i] = 9.5;
         //h_a[i] = sin(i)*sin(i);
         h_b[i] = 3;
-        //h_c[i] = 3;
+        h_c[i] = 3;
         //h_b[i] = cos(i)*cos(i);
     }
 
@@ -164,7 +189,7 @@ int main()
 
     for ( i = 0; native_name[i] != NULL; i++ ) {
         retval = PAPI_event_name_to_code( native_name[i], &native );
-        printf(" code name: %d \n", native);
+        //printf(" code name: %d \n", native);
         if ( retval != PAPI_OK )
       	    ERROR_RETURN(retval);
             //test_fail( __FILE__, __LINE__, "PAPI_event_name_to_code", retval );
@@ -190,7 +215,7 @@ int main()
     if ( (retval = PAPI_list_events(EventSet, NULL, &number)) != PAPI_OK)
        ERROR_RETURN(retval);
 
-    printf("There are %d events in the event set\n", number);
+    //printf("There are %d events in the event set\n", number);
 
     /* Start counting */
 
@@ -201,13 +226,13 @@ int main()
 
     double seconds = 0;
     double startTime, endTime;
-    //startTime = getTime();
+    startTime = getTime();
 
     vecMul(h_a, h_b, h_c, n);
 
-    //endTime = getTime();
-    //seconds += (double)(endTime - startTime);
-    //printf("Total time: %15.6lf \n", seconds);
+    endTime = getTime();
+    seconds += (double)(endTime - startTime);
+    printf("Total time: %15.6lf \n", seconds);
 
 
 
@@ -215,6 +240,7 @@ int main()
     if ( (retval = PAPI_stop(EventSet, values)) != PAPI_OK)
        ERROR_RETURN(retval);
 
+    long long read = 0, write = 0;
     printf("IMC0 load misses %lld \n", values[0] );
     printf("IMC1 load misses %lld \n", values[1] );
     printf("IMC4 load misses %lld \n", values[2] );
@@ -223,6 +249,11 @@ int main()
     printf("IMC1 store misses %lld \n", values[5] );
     printf("IMC4 store misses %lld \n", values[6] );
     printf("IMC5 store misses %lld \n", values[7] );
+
+    read =  values[0] +values[1] +values[2] +values[3];
+    write =  values[4] +values[5] +values[6] +values[7];
+
+    printf("stride %d %lld %lld \n", stride, read, write);
 
 /*
     printf("DCA data cache access %lld \n", values[3] );

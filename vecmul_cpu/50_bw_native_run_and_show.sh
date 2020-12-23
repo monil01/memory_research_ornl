@@ -197,9 +197,9 @@ n_array=(100000000)
 make clean
 make tau
 
-#intel-prefetch -d
+intel-prefetch -d
 
-intel-prefetch-disable -d
+#intel-prefetch-disable -d
 
 for array_size in "${n_array[@]}"
 do
@@ -218,8 +218,8 @@ do
 done
 done
 
-#intel-prefetch -e
-intel-prefetch-disable -e
+intel-prefetch -e
+#intel-prefetch-disable -e
 
 for array_size in "${n_array[@]}"
 do

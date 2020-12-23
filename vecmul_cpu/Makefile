@@ -13,7 +13,8 @@ PAPIINCLUDE_PW=-I/home/mmonil/packages/download_tar/papi_pw/src/install/include
 
 #all: omp
 #all: papi
-all: nat_papi 
+all: tau
+#all: nat_papi 
 #all: papi_pw 
 #all: vecmul papi nat_papi papi_pw tau omp
 
@@ -34,6 +35,11 @@ nat_papi: vecmul_NAT_PAPI.c
 	#${GCC} ${PAPIINCLUDE} ${PAPILDPATH} ${GCCFLAG} vecmul_NAT_PAPI.c -o vecmul_NAT_PAPI ${PAPILD}
 	${ICC} ${PAPIINCLUDE} ${PAPILDPATH} ${ICCFLAG} vecmul_NAT_PAPI.c -o vecmul_NAT_PAPI ${PAPILD}
 
+stream: stream.c
+	#${GCC} ${PAPIINCLUDE} ${PAPILDPATH} ${GCCFLAG} vecmul_NAT_PAPI.c -o vecmul_NAT_PAPI ${PAPILD}
+	tau_cxx.sh -optCompInst ${ICCFLAG} stream.c -o stream
+
+
 nat_omp: vecmul_NAT_OMP.c
 	${GCC} ${PAPIINCLUDE} ${PAPILDPATH} ${GCCFLAG} vecmul_NAT_OMP.c -o vecmul_NAT_OMP ${PAPILD} -fopenmp
 	#${ICC} ${PAPIINCLUDE} ${PAPILDPATH} ${ICCFLAG} vecmul_NAT_PAPI.c -o vecmul_NAT_PAPI ${PAPILD}
@@ -44,7 +50,7 @@ jacobi: jacobi.c
 
 tau: vecmul.c
 	#tau_cxx.sh -optCompInst -qopt-streaming-stores=always vecmul.c -o tau_vecmul
-	tau_cxx.sh -optCompInst  vecmul.c -o tau_vecmul -fopenmp
+	tau_cxx.sh -optCompInst  vecmul.c -o tau_vecmul
 
 omp: vecmul_openmp.c
 	#g++ vecmul_openmp.c -o omp_vecmul -fopenmp

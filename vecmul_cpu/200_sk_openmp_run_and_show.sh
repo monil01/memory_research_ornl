@@ -5,12 +5,13 @@ run_skylake()
 {
     
     # for oswald
-    #export TAU_METRICS=TIME,PAPI_NATIVE_bdx_unc_imc0::UNC_M_CAS_COUNT:RD:cpu=12,PAPI_NATIVE_bdx_unc_imc1::UNC_M_CAS_COUNT:RD:cpu=12,PAPI_NATIVE_bdx_unc_imc4::UNC_M_CAS_COUNT:RD:cpu=12,PAPI_NATIVE_bdx_unc_imc5::UNC_M_CAS_COUNT:RD:cpu=12,PAPI_NATIVE_bdx_unc_imc0::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_bdx_unc_imc1::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_bdx_unc_imc4::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_bdx_unc_imc5::UNC_M_CAS_COUNT:WR:cpu=12
-    export TAU_METRICS=TIME,PAPI_NATIVE_skx_unc_imc0::UNC_M_CAS_COUNT:RD:cpu=12,PAPI_NATIVE_skx_unc_imc1::UNC_M_CAS_COUNT:RD:cpu=12,PAPI_NATIVE_skx_unc_imc4::UNC_M_CAS_COUNT:RD:cpu=12,PAPI_NATIVE_skx_unc_imc5::UNC_M_CAS_COUNT:RD:cpu=12,PAPI_NATIVE_skx_unc_imc0::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_skx_unc_imc1::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_skx_unc_imc4::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_skx_unc_imc5::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_skx_unc_imc2::UNC_M_CAS_COUNT:RD:cpu=12,PAPI_NATIVE_skx_unc_imc3::UNC_M_CAS_COUNT:RD:cpu=12,PAPI_NATIVE_skx_unc_imc2::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_skx_unc_imc3::UNC_M_CAS_COUNT:WR:cpu=12
+    #export TAU_METRICS=TIME,PAPI_NATIVE_bdx_unc_imc0::UNC_M_CAS_COUNT:RD:cpu=9,PAPI_NATIVE_bdx_unc_imc1::UNC_M_CAS_COUNT:RD:cpu=9,PAPI_NATIVE_bdx_unc_imc4::UNC_M_CAS_COUNT:RD:cpu=9,PAPI_NATIVE_bdx_unc_imc5::UNC_M_CAS_COUNT:RD:cpu=9,PAPI_NATIVE_bdx_unc_imc0::UNC_M_CAS_COUNT:WR:cpu=9,PAPI_NATIVE_bdx_unc_imc1::UNC_M_CAS_COUNT:WR:cpu=9,PAPI_NATIVE_bdx_unc_imc4::UNC_M_CAS_COUNT:WR:cpu=9,PAPI_NATIVE_bdx_unc_imc5::UNC_M_CAS_COUNT:WR:cpu=9
+    export TAU_METRICS=TIME,PAPI_NATIVE_skx_unc_imc0::UNC_M_CAS_COUNT:RD:cpu=9,PAPI_NATIVE_skx_unc_imc1::UNC_M_CAS_COUNT:RD:cpu=9,PAPI_NATIVE_skx_unc_imc4::UNC_M_CAS_COUNT:RD:cpu=9,PAPI_NATIVE_skx_unc_imc5::UNC_M_CAS_COUNT:RD:cpu=9,PAPI_NATIVE_skx_unc_imc0::UNC_M_CAS_COUNT:WR:cpu=9,PAPI_NATIVE_skx_unc_imc1::UNC_M_CAS_COUNT:WR:cpu=9,PAPI_NATIVE_skx_unc_imc4::UNC_M_CAS_COUNT:WR:cpu=9,PAPI_NATIVE_skx_unc_imc5::UNC_M_CAS_COUNT:WR:cpu=9,PAPI_NATIVE_skx_unc_imc2::UNC_M_CAS_COUNT:RD:cpu=9,PAPI_NATIVE_skx_unc_imc3::UNC_M_CAS_COUNT:RD:cpu=9,PAPI_NATIVE_skx_unc_imc2::UNC_M_CAS_COUNT:WR:cpu=9,PAPI_NATIVE_skx_unc_imc3::UNC_M_CAS_COUNT:WR:cpu=9
  
-    taskset --cpu 12 ./tau_vecmul $1 $2
+    #taskset --cpu 12 ./tau_vecmul $1 $2
+    ./omp_vecmul $1 $2
 
-    #export TAU_METRICS=TIME,PAPI_NATIVE_bdx_unc_imc0::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_bdx_unc_imc1::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_bdx_unc_imc4::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_bdx_unc_imc5::UNC_M_CAS_COUNT:WR:cpu=12
+    #export TAU_METRICS=TIME,PAPI_NATIVE_bdx_unc_imc0::UNC_M_CAS_COUNT:WR:cpu=9,PAPI_NATIVE_bdx_unc_imc1::UNC_M_CAS_COUNT:WR:cpu=9,PAPI_NATIVE_bdx_unc_imc4::UNC_M_CAS_COUNT:WR:cpu=9,PAPI_NATIVE_bdx_unc_imc5::UNC_M_CAS_COUNT:WR:cpu=9
 #taskset --cpu 12 ./tau_vecmul
 
 
@@ -21,7 +22,7 @@ run_skylake()
     declare -i read=0
     declare -i write=0
 
-    cd MULTI__PAPI_NATIVE_skx_unc_imc0__UNC_M_CAS_COUNT_RD_cpu\=12
+    cd MULTI__PAPI_NATIVE_skx_unc_imc0__UNC_M_CAS_COUNT_RD_cpu\=9
     IFS=' ' read -ra ADDR <<< $(pprof | grep -i "vecmul(")
        #for i in "${ADDR[@]}"; do
        #  echo -n "$i" 
@@ -30,13 +31,13 @@ run_skylake()
     read=$read+${ADDR[5]} 
     cd ..
 
-    cd MULTI__PAPI_NATIVE_skx_unc_imc1__UNC_M_CAS_COUNT_RD_cpu\=12
+    cd MULTI__PAPI_NATIVE_skx_unc_imc1__UNC_M_CAS_COUNT_RD_cpu\=9
     IFS=' ' read -ra ADDR <<< $(pprof | grep -i "vecmul(")
     #echo ${ADDR[5]}
     read=$read+${ADDR[5]} 
     cd ..
 
-    cd MULTI__PAPI_NATIVE_skx_unc_imc2__UNC_M_CAS_COUNT_RD_cpu\=12
+    cd MULTI__PAPI_NATIVE_skx_unc_imc2__UNC_M_CAS_COUNT_RD_cpu\=9
     IFS=' ' read -ra ADDR <<< $(pprof | grep -i "vecmul(")
        #for i in "${ADDR[@]}"; do
        #  echo -n "$i" 
@@ -45,55 +46,55 @@ run_skylake()
     read=$read+${ADDR[5]} 
     cd ..
 
-    cd MULTI__PAPI_NATIVE_skx_unc_imc3__UNC_M_CAS_COUNT_RD_cpu\=12
+    cd MULTI__PAPI_NATIVE_skx_unc_imc3__UNC_M_CAS_COUNT_RD_cpu\=9
     IFS=' ' read -ra ADDR <<< $(pprof | grep -i "vecmul(")
     #echo ${ADDR[5]}
     read=$read+${ADDR[5]} 
     cd ..
 
-    cd MULTI__PAPI_NATIVE_skx_unc_imc4__UNC_M_CAS_COUNT_RD_cpu\=12
+    cd MULTI__PAPI_NATIVE_skx_unc_imc4__UNC_M_CAS_COUNT_RD_cpu\=9
     IFS=' ' read -ra ADDR <<< $(pprof | grep -i "vecmul(")
     #echo ${ADDR[5]}
     read=$read+${ADDR[5]} 
     cd ..
 
-    cd MULTI__PAPI_NATIVE_skx_unc_imc5__UNC_M_CAS_COUNT_RD_cpu\=12
+    cd MULTI__PAPI_NATIVE_skx_unc_imc5__UNC_M_CAS_COUNT_RD_cpu\=9
     IFS=' ' read -ra ADDR <<< $(pprof | grep -i "vecmul(")
     #echo ${ADDR[5]}
     read=$read+${ADDR[5]} 
     cd ..
 
-    cd MULTI__PAPI_NATIVE_skx_unc_imc0__UNC_M_CAS_COUNT_WR_cpu\=12
+    cd MULTI__PAPI_NATIVE_skx_unc_imc0__UNC_M_CAS_COUNT_WR_cpu\=9
     IFS=' ' read -ra ADDR <<< $(pprof | grep -i "vecmul(")
     #echo ${ADDR[5]}
     write=$write+${ADDR[5]} 
     cd ..
 
-    cd MULTI__PAPI_NATIVE_skx_unc_imc1__UNC_M_CAS_COUNT_WR_cpu\=12
+    cd MULTI__PAPI_NATIVE_skx_unc_imc1__UNC_M_CAS_COUNT_WR_cpu\=9
     IFS=' ' read -ra ADDR <<< $(pprof | grep -i "vecmul(")
     #echo ${ADDR[5]}
     write=$write+${ADDR[5]} 
     cd ..
 
-    cd MULTI__PAPI_NATIVE_skx_unc_imc2__UNC_M_CAS_COUNT_WR_cpu\=12
+    cd MULTI__PAPI_NATIVE_skx_unc_imc2__UNC_M_CAS_COUNT_WR_cpu\=9
     IFS=' ' read -ra ADDR <<< $(pprof | grep -i "vecmul(")
     #echo ${ADDR[5]}
     write=$write+${ADDR[5]} 
     cd ..
 
-    cd MULTI__PAPI_NATIVE_skx_unc_imc3__UNC_M_CAS_COUNT_WR_cpu\=12
+    cd MULTI__PAPI_NATIVE_skx_unc_imc3__UNC_M_CAS_COUNT_WR_cpu\=9
     IFS=' ' read -ra ADDR <<< $(pprof | grep -i "vecmul(")
     #echo ${ADDR[5]}
     write=$write+${ADDR[5]} 
     cd ..
 
-    cd MULTI__PAPI_NATIVE_skx_unc_imc4__UNC_M_CAS_COUNT_WR_cpu\=12
+    cd MULTI__PAPI_NATIVE_skx_unc_imc4__UNC_M_CAS_COUNT_WR_cpu\=9
     IFS=' ' read -ra ADDR <<< $(pprof | grep -i "vecmul(")
     #echo ${ADDR[5]}
     write=$write+${ADDR[5]} 
     cd ..
 
-    cd MULTI__PAPI_NATIVE_skx_unc_imc5__UNC_M_CAS_COUNT_WR_cpu\=12
+    cd MULTI__PAPI_NATIVE_skx_unc_imc5__UNC_M_CAS_COUNT_WR_cpu\=9
     IFS=' ' read -ra ADDR <<< $(pprof | grep -i "vecmul(")
     #echo ${ADDR[5]}
     write=$write+${ADDR[5]} 
@@ -109,10 +110,14 @@ run_broadwell()
 {
     
     # for oswald
-    export TAU_METRICS=TIME,PAPI_NATIVE_bdx_unc_imc0::UNC_M_CAS_COUNT:RD:cpu=12,PAPI_NATIVE_bdx_unc_imc1::UNC_M_CAS_COUNT:RD:cpu=12,PAPI_NATIVE_bdx_unc_imc4::UNC_M_CAS_COUNT:RD:cpu=12,PAPI_NATIVE_bdx_unc_imc5::UNC_M_CAS_COUNT:RD:cpu=12,PAPI_NATIVE_bdx_unc_imc0::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_bdx_unc_imc1::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_bdx_unc_imc4::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_bdx_unc_imc5::UNC_M_CAS_COUNT:WR:cpu=12
-    taskset --cpu 12 ./tau_vecmul $1 $2
 
-    #export TAU_METRICS=TIME,PAPI_NATIVE_bdx_unc_imc0::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_bdx_unc_imc1::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_bdx_unc_imc4::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_bdx_unc_imc5::UNC_M_CAS_COUNT:WR:cpu=12
+
+
+    export TAU_METRICS=TIME,PAPI_NATIVE_bdx_unc_imc0::UNC_M_CAS_COUNT:RD:cpu=16,PAPI_NATIVE_bdx_unc_imc1::UNC_M_CAS_COUNT:RD:cpu=16,PAPI_NATIVE_bdx_unc_imc4::UNC_M_CAS_COUNT:RD:cpu=16,PAPI_NATIVE_bdx_unc_imc5::UNC_M_CAS_COUNT:RD:cpu=16,PAPI_NATIVE_bdx_unc_imc0::UNC_M_CAS_COUNT:WR:cpu=16,PAPI_NATIVE_bdx_unc_imc1::UNC_M_CAS_COUNT:WR:cpu=16,PAPI_NATIVE_bdx_unc_imc4::UNC_M_CAS_COUNT:WR:cpu=16,PAPI_NATIVE_bdx_unc_imc5::UNC_M_CAS_COUNT:WR:cpu=16
+    #taskset --cpu 12 ./tau_vecmul $1 $2
+    ./omp_vecmul $1 $2
+
+    #export TAU_METRICS=TIME,PAPI_NATIVE_bdx_unc_imc0::UNC_M_CAS_COUNT:WR:cpu=9,PAPI_NATIVE_bdx_unc_imc1::UNC_M_CAS_COUNT:WR:cpu=9,PAPI_NATIVE_bdx_unc_imc4::UNC_M_CAS_COUNT:WR:cpu=9,PAPI_NATIVE_bdx_unc_imc5::UNC_M_CAS_COUNT:WR:cpu=9
 #taskset --cpu 12 ./tau_vecmul
 
 
@@ -123,7 +128,7 @@ run_broadwell()
     declare -i read=0
     declare -i write=0
 
-    cd MULTI__PAPI_NATIVE_bdx_unc_imc0__UNC_M_CAS_COUNT_RD_cpu\=12
+    cd MULTI__PAPI_NATIVE_bdx_unc_imc0__UNC_M_CAS_COUNT_RD_cpu\=16
     IFS=' ' read -ra ADDR <<< $(pprof | grep -i "vecmul(")
        #for i in "${ADDR[@]}"; do
        #  echo -n "$i" 
@@ -132,43 +137,43 @@ run_broadwell()
     read=$read+${ADDR[5]} 
     cd ..
 
-    cd MULTI__PAPI_NATIVE_bdx_unc_imc1__UNC_M_CAS_COUNT_RD_cpu\=12
+    cd MULTI__PAPI_NATIVE_bdx_unc_imc1__UNC_M_CAS_COUNT_RD_cpu\=16
     IFS=' ' read -ra ADDR <<< $(pprof | grep -i "vecmul(")
     #echo ${ADDR[5]}
     read=$read+${ADDR[5]} 
     cd ..
 
-    cd MULTI__PAPI_NATIVE_bdx_unc_imc4__UNC_M_CAS_COUNT_RD_cpu\=12
+    cd MULTI__PAPI_NATIVE_bdx_unc_imc4__UNC_M_CAS_COUNT_RD_cpu\=16
     IFS=' ' read -ra ADDR <<< $(pprof | grep -i "vecmul(")
     #echo ${ADDR[5]}
     read=$read+${ADDR[5]} 
     cd ..
 
-    cd MULTI__PAPI_NATIVE_bdx_unc_imc5__UNC_M_CAS_COUNT_RD_cpu\=12
+    cd MULTI__PAPI_NATIVE_bdx_unc_imc5__UNC_M_CAS_COUNT_RD_cpu\=16
     IFS=' ' read -ra ADDR <<< $(pprof | grep -i "vecmul(")
     #echo ${ADDR[5]}
     read=$read+${ADDR[5]} 
     cd ..
 
-    cd MULTI__PAPI_NATIVE_bdx_unc_imc0__UNC_M_CAS_COUNT_WR_cpu\=12
+    cd MULTI__PAPI_NATIVE_bdx_unc_imc0__UNC_M_CAS_COUNT_WR_cpu\=16
     IFS=' ' read -ra ADDR <<< $(pprof | grep -i "vecmul(")
     #echo ${ADDR[5]}
     write=$write+${ADDR[5]} 
     cd ..
 
-    cd MULTI__PAPI_NATIVE_bdx_unc_imc1__UNC_M_CAS_COUNT_WR_cpu\=12
+    cd MULTI__PAPI_NATIVE_bdx_unc_imc1__UNC_M_CAS_COUNT_WR_cpu\=16
     IFS=' ' read -ra ADDR <<< $(pprof | grep -i "vecmul(")
     #echo ${ADDR[5]}
     write=$write+${ADDR[5]} 
     cd ..
 
-    cd MULTI__PAPI_NATIVE_bdx_unc_imc4__UNC_M_CAS_COUNT_WR_cpu\=12
+    cd MULTI__PAPI_NATIVE_bdx_unc_imc4__UNC_M_CAS_COUNT_WR_cpu\=16
     IFS=' ' read -ra ADDR <<< $(pprof | grep -i "vecmul(")
     #echo ${ADDR[5]}
     write=$write+${ADDR[5]} 
     cd ..
 
-    cd MULTI__PAPI_NATIVE_bdx_unc_imc5__UNC_M_CAS_COUNT_WR_cpu\=12
+    cd MULTI__PAPI_NATIVE_bdx_unc_imc5__UNC_M_CAS_COUNT_WR_cpu\=16
     IFS=' ' read -ra ADDR <<< $(pprof | grep -i "vecmul(")
     #echo ${ADDR[5]}
     write=$write+${ADDR[5]} 
@@ -180,11 +185,17 @@ run_broadwell()
 }
 
 
+export OMP_NUM_THREADS=8
+#export OMP_PLACES='{16},{18},{20},{22},{24},{26},{28},{30}'
+export OMP_PLACES='{2},{3},{4},{5},{6},{7},{8},{9}'
+
+
 
 #stride_array=(1)
-stride_array=(50)
 #stride_array=( 1 2 4 8 16 32 64 128 256 512 1024 2048	4096	8192	16384	32768	65536	131072	262144	524288	1048576	2097152	4194304	8388608	16777216	33554432	67108864)
+#stride_array=(1)
 #stride_array=(1 2 4 8 16 32 48 64 80 96 112 128 )
+stride_array=(200)
 #stride_array=(1 2 4 8 16 32 64 128 256 512 1024 2048 4096 8192)
 #stride_array=(2 4 8 16 32 64 128 256 512)
 n_array=(100000000)
@@ -195,7 +206,7 @@ n_array=(100000000)
 
 
 make clean
-make tau
+make omp
 
 #intel-prefetch -d
 
@@ -210,8 +221,8 @@ do
     for i in 1
     #for i in 1 2 3 4 5 
     do
-	#run_skylake $stride $array_size
-	run_broadwell $stride $array_size
+	run_skylake $stride $array_size
+	#run_broadwell $stride $array_size
 	rm -rf MULT*
 
     done
@@ -230,9 +241,9 @@ do
     for i in 1
     #for i in 1 2 3 4 5 
     do
-	#run_skylake $stride $array_size
-	run_broadwell $stride $array_size
-	rm -rf MULT*
+	run_skylake $stride $array_size
+	#run_broadwell $stride $array_size
+	#rm -rf MULT*
 
     done
 done

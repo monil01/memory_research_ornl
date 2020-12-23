@@ -210,8 +210,8 @@ do
     for i in 1
     #for i in 1 2 3 4 5 
     do
-	#run_skylake $stride $array_size
-	run_broadwell $stride $array_size
+	run_skylake $stride $array_size
+	#run_broadwell $stride $array_size
 	rm -rf MULT*
 
     done
@@ -230,8 +230,8 @@ do
     for i in 1
     #for i in 1 2 3 4 5 
     do
-	#run_skylake $stride $array_size
-	run_broadwell $stride $array_size
+	run_skylake $stride $array_size
+	#run_broadwell $stride $array_size
 	rm -rf MULT*
 
     done

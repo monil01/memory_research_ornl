@@ -1,76 +1,68 @@
-include ../../../../make.header
+GCC=gcc
+ICC=icc
+PAPILD=-lpapi
+#ICCFLAG=-qopt-streaming-stores always
+#ICCFLAG=-qopt-streaming-stores=never
+ICCFLAG=-qopt-streaming-stores=always
+PAPILDPATH=-L/home/mmonil/packages/download_tar/papi/src/install/lib
+PAPIINCLUDE=-I/home/mmonil/packages/download_tar/papi/src/install/include
+PAPILDPATH_PW=-L/home/mmonil/packages/download_tar/papi_pw/src/install/lib
+PAPIINCLUDE_PW=-I/home/mmonil/packages/download_tar/papi_pw/src/install/include
 
-########################
-# Set the program name #
-########################
-BENCHMARK = lulesh
+#all: omp
+#all: tau
+#all: jacobi
+#all: nat_papi 
+#all: papi_pw 
+#all: vecmul papi nat_papi papi_pw tau omp
 
-########################################
-# Set the input C source files (CSRCS) #
-########################################
-CSRCS = lulesh.c
+vecmul: vecmul.c
+	${GCC} vecmul.c -o serial_vecmul
 
-#########################################
-# Set macros used for the input program #
-#########################################
-T_EDGEELEM ?= 45
-_OPENACCM ?= 0
-DEFSET_CPU = -DT_EDGEELEM=$(T_EDGEELEM) -D_OPENACCM=$(_OPENACCM)
-DEFSET_ACC = -DT_EDGEELEM=$(T_EDGEELEM) -D_OPENACCM=$(_OPENACCM)
+papi_ex: PAPI_add_remove_event.c
+	${GCC} ${PAPIINCLUDE} ${PAPILDPATH} PAPI_add_remove_event.c -o  papi_add_remove ${PAPILD}
+	#${GCC} ${PAPIINCLUDE} PAPI_add_remove_event.c -o  papi_add_remove ${PAPILD}
 
-##########################################################
-# Makefile options that the user can overwrite           #
-# OMP: set to 1 to use OpenMP (default: 0)               # 
-# MODE: set to profile to use a built-in profiling tool  #
-#       (default: normal)                                #
-#       If this is set to profile, the runtime system    #
-#       will print profiling results according to the    #
-#       verbosity level set by OPENARCRT_VERBOSITY       #
-#       environment variable.                            # 
-# AOCL_FLAGS: set Altera OpenCL Compiler (AOC) flags     #
-#    - commonly used options                             #
-#      -march=emulator //compile a kernel for emulation  #
-#      -v //show progress of the compilation on-screen   # 
-#      -c //compile the kernel and generate a Quartus II #
-#         //hardware design project without creating a   #
-#         //hardware configuration file.                 #
-#      -profile //instrument the OpenCL kernel pipeline  #
-#                //with performance counters.            #
-#      -report  //display estimated resource usage on    #
-#                //the screen.                           #
-#    (default: -march=emulator)                          #
-# AOCL_BOARD: set a target Altera FPGA board             #
-#    - "-board=$(AOCL_BOARD)" will be added to the AOC   #
-#     in addition to the above flags                     # 
-#    - Examples                                          #
-#    p385_hpc_d5 //for Stratix V                         #
-#    p510t_sch_ax115 //for Arria 10 (Nallatech 510T)     #
-##########################################################
-OMP ?= 0
-MODE ?= normal
-#AOCL_BOARD ?= p385_hpc_d5
-AOCL_BOARD ?= p510t_sch_ax115 
-#AOCL_FLAGS ?= -march=emulator
-#AOCL_FLAGS ?= -march=emulator -c
-#AOCL_FLAGS ?= -v -g -c -report
-AOCL_FLAGS ?= -v -c -report
-#AOCL_FLAGS ?= -v -report
+papi: vecmul_PAPI.c
+	${GCC} ${PAPIINCLUDE} ${PAPILDPATH} vecmul_PAPI.c -o vecmul_PAPI ${PAPILD}
 
-#########################################################
-# Use the following macros to give program-specific     #
-# compiler flags and libraries                          #
-# - CFLAGS1 and CLIBS1 to compile the input C program   #
-# - CFLAGS2 and CLIBS2 to compile the OpenARC-generated #
-#   output C++ program                                  # 
-#########################################################
-#CFLAGS1 =  
-#CFLAGS2 =  
-#CLIBS1 = 
-#CLIBS2 = 
+papi_pw: vecmul_PAPI_pw.c
+	${GCC} ${PAPIINCLUDE_PW} ${PAPILDPATH_PW} vecmul_PAPI_pw.c -o vecmul_PAPI_pw ${PAPILD}
 
-################################################
-# TARGET is where the output binary is stored. #
-################################################
-#TARGET ?= ./bin
+nat_papi: vecmul_NAT_PAPI.c
+	#${GCC} ${PAPIINCLUDE} ${PAPILDPATH} vecmul_NAT_PAPI.c -o vecmul_NAT_PAPI ${PAPILD}
+	${ICC} ${PAPIINCLUDE} ${PAPILDPATH} ${ICCFLAG} vecmul_NAT_PAPI.c -o vecmul_NAT_PAPI ${PAPILD}
 
-include ../../../../make.template
+laplace: laplace2d.c
+	#tau_cxx.sh -optCompInst jacobi.c -o tau_vecmul -fopenmp
+	#${GCC} jacobi.c -o jacobi
+	tau_cxx.sh -optCompInst laplace2d.c -o laplace2d -lm
+
+laplace2d_omp: laplace2d.c
+	#tau_cxx.sh -optCompInst jacobi.c -o tau_vecmul -fopenmp
+	#${GCC} jacobi.c -o jacobi
+	tau_cxx.sh -optCompInst laplace2d.c -o laplace2d_omp -fopenmp -lm
+
+matmul: matmul_trimmed.c
+	#tau_cxx.sh -optCompInst jacobi.c -o tau_vecmul -fopenmp
+	#${GCC} jacobi.c -o jacobi
+	tau_cxx.sh -optCompInst matmul_trimmed.c -o matmul -fopenmp -lm
+
+lulesh: lulesh.c
+	#tau_cxx.sh -optCompInst jacobi.c -o tau_vecmul -fopenmp
+	#${GCC} jacobi.c -o jacobi
+	tau_cxx.sh -optCompInst lulesh.c -o lulesh -fopenmp -lm
+
+
+
+
+tau: vecmul.c
+	tau_cxx.sh -optCompInst vecmul.c -o tau_vecmul
+
+omp: vecmul_openmp.c
+	tau_cxx.sh -optCompInst vecmul_openmp.c -o omp_vecmul -fopenmp
+
+
+
+clean:
+	rm matmul jacobi lulesh laplace2d serial_vecmul papi_add_remove vecmul_PAPI tau_vecmul omp_vecmul profile.0.0* *.o; rm -rf MULT*

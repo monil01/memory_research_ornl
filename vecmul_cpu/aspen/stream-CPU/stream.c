@@ -46,6 +46,11 @@
 # include <float.h>
 # include <limits.h>
 # include <sys/time.h>
+#include "papi.h" /* This needs to be included every time you use PAPI */
+
+#define NUM_EVENTS 8
+#define ERROR_RETURN(retval) { fprintf(stderr, "Error %d %s:line %d: \n", retval,__FILE__,__LINE__);  exit(retval); }
+
 
 /*-----------------------------------------------------------------------
  * INSTRUCTIONS:
@@ -91,7 +96,7 @@
  *          per array.
  */
 #ifndef STREAM_ARRAY_SIZE
-#   define STREAM_ARRAY_SIZE	100000000
+#   define STREAM_ARRAY_SIZE	50000000
 #endif
 
 /*  2) STREAM runs each kernel "NTIMES" times and reports the *best* result
@@ -323,6 +328,10 @@ main()
 	
 	times[1][k] = mysecond();
 #ifdef TUNED
+
+
+
+
         tuned_STREAM_Scale(scalar);
 #else
 #pragma omp parallel for
@@ -343,7 +352,116 @@ main()
 	
 	times[3][k] = mysecond();
 #ifdef TUNED
+
+    int EventSet = PAPI_NULL;
+
+
+    int tmp, i ;
+    /*must be initialized to PAPI_NULL before calling PAPI_create_event*/
+
+    long long values[NUM_EVENTS];
+    /*This is where we store the values we read from the eventset */
+
+    /* We use number to keep track of the number of events in the EventSet */
+    int retval, number, native;
+
+    char errstring[PAPI_MAX_STR_LEN];
+
+    /*************************************************************************** 
+ *     *  This part initializes the library and compares the version number of the*
+ *         * header file, to the version of the library, if these don't match then it *
+ *             * is likely that PAPI won't work correctly.If there is an error, retval    *
+ *                 * keeps track of the version number.                                       *
+ *                     ***************************************************************************/
+
+
+    if((retval = PAPI_library_init(PAPI_VER_CURRENT)) != PAPI_VER_CURRENT )
+       ERROR_RETURN(retval);
+
+
+    /* Creating the eventset */
+    if ( (retval = PAPI_create_eventset(&EventSet)) != PAPI_OK)
+       ERROR_RETURN(retval);
+
+   /* static char *native_name[] =
+ *          { "OFFCORE_RESPONSE_1:L3_MISS", 
+ *                    "OFFCORE_RESPONSE_1:L3_MISS_LOCAL", 
+ *                              "OFFCORE_RESPONSE_0:L3_MISS", 
+ *                                        "OFFCORE_RESPONSE_0:L3_MISS_LOCAL", 
+ *                                                    NULL };*/
+ /* char *native_name[] =
+ *          { "ix86arch::LLC_MISSES:t=0", 
+ *                    "ix86arch::LLC_MISSES:e=0", 
+ *                                NULL }; */
+
+
+ char *native_name[] =
+        {"bdx_unc_imc0::UNC_M_CAS_COUNT:RD:cpu=21",
+        "bdx_unc_imc1::UNC_M_CAS_COUNT:RD:cpu=21",
+        "bdx_unc_imc4::UNC_M_CAS_COUNT:RD:cpu=21",
+        "bdx_unc_imc5::UNC_M_CAS_COUNT:RD:cpu=21",
+        "bdx_unc_imc0::UNC_M_CAS_COUNT:WR:cpu=21",
+        "bdx_unc_imc1::UNC_M_CAS_COUNT:WR:cpu=21",
+        "bdx_unc_imc4::UNC_M_CAS_COUNT:WR:cpu=21",
+        "bdx_unc_imc5::UNC_M_CAS_COUNT:WR:cpu=21",
+         NULL };
+
+
+
+    for ( i = 0; native_name[i] != NULL; i++ ) {
+        retval = PAPI_event_name_to_code( native_name[i], &native );
+        //printf(" code name: %d \n", native);
+        if ( retval != PAPI_OK )
+            ERROR_RETURN(retval);
+            //test_fail( __FILE__, __LINE__, "PAPI_event_name_to_code", retval );
+        printf( "Adding %s\n", native_name[i] );
+        if ( ( retval = PAPI_add_event( EventSet, native ) ) != PAPI_OK )
+            ERROR_RETURN(retval);
+            //test_fail( __FILE__, __LINE__, "PAPI_add_event", retval );
+    }
+
+
+
+    /* get the number of events in the event set */
+    number = 0;
+    if ( (retval = PAPI_list_events(EventSet, NULL, &number)) != PAPI_OK)
+       ERROR_RETURN(retval);
+
+    //printf("There are %d events in the event set\n", number);
+
+    /* Start counting */
+
+
+    if ( (retval = PAPI_start(EventSet)) != PAPI_OK)
+       ERROR_RETURN(retval);
+
+
+
         tuned_STREAM_Triad(scalar);
+
+
+
+    /* Stop counting and store the values into the array */
+    if ( (retval = PAPI_stop(EventSet, values)) != PAPI_OK)
+       ERROR_RETURN(retval);
+
+    long long read = 0, write = 0;
+    printf("IMC0 load misses %lld \n", values[0] );
+    printf("IMC1 load misses %lld \n", values[1] );
+    printf("IMC4 load misses %lld \n", values[2] );
+    printf("IMC5 load misses %lld \n", values[3] );
+    printf("IMC0 store misses %lld \n", values[4] );
+    printf("IMC1 store misses %lld \n", values[5] );
+    printf("IMC4 store misses %lld \n", values[6] );
+    printf("IMC5 store misses %lld \n", values[7] );
+
+    read =  values[0] +values[1] +values[2] +values[3];
+    write =  values[4] +values[5] +values[6] +values[7];
+
+    printf("stride %d %lld %lld \n", read, write);
+
+
+
 #else
 #pragma omp parallel for
 	for (j=0; j<STREAM_ARRAY_SIZE; j++)
@@ -578,6 +696,8 @@ void tuned_STREAM_Add()
 	for (j=0; j<STREAM_ARRAY_SIZE; j++)
 	    c[j] = a[j]+b[j];
 }
+
+
 
 void tuned_STREAM_Triad(STREAM_TYPE scalar)
 {

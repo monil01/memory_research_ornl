@@ -80,18 +80,19 @@ MatrixMultiplication_openmp(float * restrict a,float * restrict b, float * restr
 //#pragma omp for schedule(static,chunk)
 //#pragma omp for schedule(dynamic)
 #pragma omp for
-    for (i=0; i<M; i++){
+    for (i=0; i<N; i++){
       for (j=0; j<N; j++)
         {
 	  sum = 0.0 ;
 	  for (k=0; k<P; k++)
-	    sum += b[i*P+k]*1 ;
-	    //sum += b[i*P+k]*c[k*N+j] ;
-	    //a[i*N+j] = sum ;
+	    //sum += b[i*P+k]*1 ;
+	    sum += b[i*P+k]*c[k*N+j] ;
+	  
+	  a[i*N+j] = sum ;
         }
     }
   }
-	    a[0] = sum ;
+	    //a[0] = sum ;
 }
 
 

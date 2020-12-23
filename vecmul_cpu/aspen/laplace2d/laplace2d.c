@@ -28,6 +28,7 @@
 #endif
 
 #ifndef NN
+//#define NN 8192
 #define NN 4096
 //#define NN 1024
 #endif 

@@ -1222,7 +1222,7 @@ void CalcPositionForNodes(Domain &domain, const Real_t dt, Index_t numNode)
 
 /******************************************/
 
-static inline
+//static inline
 void LagrangeNodal(Domain& domain)
 {
 #ifdef SEDOV_SYNC_POS_VEL_EARLY
@@ -1234,7 +1234,7 @@ void LagrangeNodal(Domain& domain)
 
   /* time of boundary condition evaluation is beginning of step for force and
    * acceleration boundary conditions. */
-  CalcForceForNodes(domain);
+  //CalcForceForNodes(domain);
 
 #if USE_MPI  
 #ifdef SEDOV_SYNC_POS_VEL_EARLY

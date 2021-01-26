@@ -9,25 +9,32 @@ elif [ $# -ge 2 ]; then
 	postprocessing=2
 elif [ $# -ge 1 ]; then
     runMode=$1
-	aspen_param=512
+	aspen_param=300
+	#Monil aspen_param=45
 	postprocessing=2
 else
     runMode=3
-	aspen_param=512
+	aspen_param=300
+	#Monil aspen_param=45
 	postprocessing=2
 fi
 
 if [ "$runMode" = "4" ]; then
-    aspenrt="./cetus_output/aspenrt.c"
+    aspenrt="./cetus_output/aspenart.c"
 else
     aspenrt=""
 fi
 
-openarcbenchlib="../../../../openarcrt"
-openarcbenchbin="../../../../test/bin"
-openarclib="../../../../lib"
+#openarcbenchlib="../../../../openarcrt"
+#openarcbenchbin="../../../../test/bin"
+#openarclib="../../../../lib"
 
-benchname="vecmul"
+openarcbenchlib="../../../../OpenARC-devel/openarcrt"
+openarcbenchbin="../../../../OpenARC-devel/test/bin"
+openarclib="../../../../OpenARC-devel/lib"
+
+
+benchname="stream"
 verLevel=0
 
 if [ ! -f "openarcConf.txt" ]; then
@@ -46,8 +53,8 @@ if [ "$openarcbenchlib" != "" ]; then
     rm "openarcConf.txt_tmp"
 fi
 
+
 java -classpath $openarclib/cetus.jar:$openarclib/antlr.jar openacc.exec.ACC2GPUDriver -verbosity=${verLevel} -gpuConfFile=openarcConf.txt -ASPENModelGen=mode=${runMode}:modelname=${benchname}:postprocessing=${postprocessing} *.c ${aspenrt}
-#cp -f *.h ./cetus_output/
 if [ -f "$openarcbenchbin/smallmodeltest" ]; then
 	cp $openarcbenchbin/smallmodeltest ./cetus_output/
 fi

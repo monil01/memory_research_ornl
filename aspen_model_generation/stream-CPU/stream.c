@@ -91,7 +91,7 @@
  *          per array.
  */
 #ifndef STREAM_ARRAY_SIZE
-#   define STREAM_ARRAY_SIZE	100000000
+#   define STREAM_ARRAY_SIZE	50000000
 #endif
 
 /*  2) STREAM runs each kernel "NTIMES" times and reports the *best* result
@@ -105,11 +105,11 @@
  */
 #ifdef NTIMES
 #if NTIMES<=1
-#   define NTIMES	10
+#   define NTIMES	1
 #endif
 #endif
 #ifndef NTIMES
-#   define NTIMES	10
+#   define NTIMES	1
 #endif
 
 /*  Users are allowed to modify the "OFFSET" variable, which *may* change the
@@ -176,6 +176,11 @@
 # ifndef MAX
 # define MAX(x,y) ((x)>(y)?(x):(y))
 # endif
+
+#ifndef TUNED
+#define TUNED
+#endif
+
 
 #ifndef STREAM_TYPE
 #define STREAM_TYPE double
@@ -309,9 +314,11 @@ main()
     /*	--- MAIN LOOP --- repeat test cases NTIMES times --- */
 
     scalar = 3.0;
+#pragma aspen modelregion
     for (k=0; k<NTIMES; k++)
 	{
 	times[0][k] = mysecond();
+/*
 #ifdef TUNED
         tuned_STREAM_Copy();
 #else
@@ -342,20 +349,21 @@ main()
 	times[2][k] = mysecond() - times[2][k];
 	
 	times[3][k] = mysecond();
+*/
 #ifdef TUNED
-#pragma aspen modelregion
         tuned_STREAM_Triad(scalar);
 #else
 #pragma omp parallel for
 	for (j=0; j<STREAM_ARRAY_SIZE; j++)
 	    a[j] = b[j]+scalar*c[j];
 #endif
-	times[3][k] = mysecond() - times[3][k];
+	//times[3][k] = mysecond() - times[3][k];
 	}
+/*
 
-    /*	--- SUMMARY --- */
+    //	--- SUMMARY --- 
 
-    for (k=1; k<NTIMES; k++) /* note -- skip first iteration */
+    for (k=1; k<NTIMES; k++) // note -- skip first iteration 
 	{
 	for (j=0; j<4; j++)
 	    {
@@ -377,10 +385,10 @@ main()
     }
     printf(HLINE);
 
-    /* --- Check Results --- */
+    // --- Check Results ---
     checkSTREAMresults();
     printf(HLINE);
-
+*/
     return 0;
 }
 

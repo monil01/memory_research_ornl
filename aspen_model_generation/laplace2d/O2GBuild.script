@@ -23,9 +23,17 @@ else
     aspenrt=""
 fi
 
-openarcbenchlib="../../../../openarcrt"
-openarcbenchbin="../../../../test/bin"
-openarclib="../../../../lib"
+
+
+#openarcbenchlib="../../../../openarcrt"
+#openarcbenchbin="../../../../test/bin"
+#openarclib="../../../../lib"
+
+
+openarcbenchlib="../../../../OpenARC-devel/openarcrt"
+openarcbenchbin="../../../../OpenARC-devel/test/bin"
+openarclib="../../../../OpenARC-devel/lib"
+
 
 benchname="laplace2d"
 verLevel=0

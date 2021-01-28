@@ -23,9 +23,14 @@ else
     aspenrt=""
 fi
 
-openarcbenchlib="../../../../openarcrt"
-openarcbenchbin="../../../../test/bin"
-openarclib="../../../../lib"
+#openarcbenchlib="../../../../openarcrt"
+#openarcbenchbin="../../../../test/bin"
+#openarclib="../../../../lib"
+
+openarcbenchlib="../../../../OpenARC/openarcrt"
+openarcbenchbin="../../../../OpenARC/test/bin"
+openarclib="../../../../OpenARC/lib"
+
 
 benchname="lulesh"
 verLevel=0

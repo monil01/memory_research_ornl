@@ -4,7 +4,8 @@
 #include <math.h>
 //#define _OPENACCM
 #ifdef _OPENACCM
-#include <openacc.h>
+//#include <openacc.h>
+#include "../../../../OpenARC-devel/openarcrt/openacc.h"
 #endif
 
 #ifndef VERIFICATION
@@ -15,7 +16,7 @@
 #define RUN_CPUVERSION 1
 #endif
 
-#define ITER 	10
+#define ITER 	1
 
 #define CHECK_RESULT
 
@@ -67,6 +68,8 @@ void openacc_comp1(float *a, float *b, int m_size) {
         {
             for (j = 1; j <= m_size; j++)
             {
+#pragma aspen  control loads(0:from(b):traits(pattern(stencil4)))
+#pragma aspen  control stores(0:from(a):traits(initialized(0)))
                 a[i][j] = (b[i - 1][j] + b[i + 1][j] + b[i][j - 1] + b[i][j + 1]) / 4.0f;
             }
         }
@@ -137,7 +140,7 @@ int main (int argc, char *argv[])
     for (k = 0; k < ITER; k++)
     {
 		openacc_comp1(a,b,m_size);
-		openacc_comp2(a,b,m_size);
+		//openacc_comp2(a,b,m_size);
     }
 #ifdef _OPENACCM
 	acc_shutdown(acc_device_default);

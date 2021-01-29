@@ -1,0 +1,135 @@
+model backprop {
+param aspen_param_default = 1
+data input_units as Array(6553601)
+data hidden_units as Array(17)
+data output_units as Array(2)
+data hidden_delta as Array(17)
+data output_delta as Array(2)
+data target as Array(2)
+data input_weights as Matrix(17, 6553601)
+data hidden_weights as Matrix(2, 17)
+data input_prev_weights as Matrix(17, 6553601)
+data hidden_prev_weights as Matrix(2, 17)
+param aspen_param_sizeof_float = 4
+param nj = ((1+1)-1)
+param no = ((1+1)-1)
+param nh = ((16+1)-1)
+param hid = ((16+1)-1)
+param in_renamed = (6553601-1)
+param out = ((1+1)-1)
+kernel bpnn_output_error {
+execute  "block_bpnn_output_error12" {
+flops [1] as integer
+loads [((1*aspen_param_sizeof_float)*nj)] as stride(1)
+loads [((1*aspen_param_sizeof_float)*nj)] from target as stride(1)
+stores [((1*aspen_param_sizeof_float)*nj)] as stride(1)
+flops [(4*nj)] as sp, simd
+loads [((3*aspen_param_sizeof_float)*nj)] as stride(1)
+flops [(2*nj)] as sp, simd
+stores [(1*aspen_param_sizeof_float)]
+}
+}
+kernel bpnn_hidden_error {
+execute  "block_bpnn_hidden_error14" {
+flops [1] as integer
+loads [((1*aspen_param_sizeof_float)*nh)] as stride(1)
+flops [(1*nh)] as integer
+loads [(((1*aspen_param_sizeof_float)*no)*nh)] as stride(1)
+loads [(((1*aspen_param_sizeof_float)*no)*nh)]
+flops [((2*no)*nh)] as sp, simd
+stores [((1*aspen_param_sizeof_float)*nh)] as stride(1)
+flops [(3*nh)] as sp, simd
+loads [((3*aspen_param_sizeof_float)*nh)] as stride(1)
+flops [(2*nh)] as sp, simd
+stores [(1*aspen_param_sizeof_float)]
+}
+}
+kernel main {
+execute  "block_bpnn_train_kernel50__intracommIN" {
+intracomm [(aspen_param_sizeof_float*6553601)] to input_units as copyin
+intracomm [((aspen_param_sizeof_float*17)*6553601)] to input_weights as copyin
+intracomm [((aspen_param_sizeof_float*2)*17)] to hidden_weights as copyin
+intracomm [((aspen_param_sizeof_float*17)*6553601)] to input_prev_weights as copyin
+intracomm [((aspen_param_sizeof_float*2)*17)] to hidden_prev_weights as copyin
+flops [1]
+flops [1] as integer
+}
+iterate [hid] {
+execute [(1+in_renamed)] "block_bpnn_train_kernel60" {
+flops [1] as integer
+}
+execute [(1+in_renamed)] "block_bpnn_train_kernel61" {
+loads [(1*aspen_param_sizeof_float)] from input_weights as stride(1)
+loads [(1*aspen_param_sizeof_float)] from input_units as stride(1)
+flops [2] as sp, simd
+}
+execute  "block_bpnn_train_kernel63" {
+stores [(1*aspen_param_sizeof_float)] to hidden_units as stride(1)
+flops [3] as sp, simd
+}
+}
+execute  "block_bpnn_train_kernel65" {
+flops [1]
+intracomm [(aspen_param_sizeof_float*17)] to hidden_units as copyin
+flops [1] as integer
+}
+iterate [out] {
+execute [(1+hid)] "block_bpnn_train_kernel76" {
+flops [1] as integer
+}
+execute [(1+hid)] "block_bpnn_train_kernel77" {
+loads [(1*aspen_param_sizeof_float)] from hidden_units as stride(1)
+loads [(1*aspen_param_sizeof_float)] from hidden_weights as stride(1)
+flops [2] as sp, simd
+}
+execute  "block_bpnn_train_kernel79" {
+stores [(1*aspen_param_sizeof_float)] to output_units as stride(1)
+flops [3] as sp, simd
+}
+}
+execute  "block_bpnn_train_kernel81" {
+flops [1]
+}
+call bpnn_output_error()
+call bpnn_hidden_error()
+execute [(1+hid)] "block_bpnn_train_kernel88" {
+flops [1] as integer
+}
+execute  "block_bpnn_train_kernel88__intracommIN" {
+intracomm [(aspen_param_sizeof_float*2)] to output_delta as copyin
+}
+execute [(1+hid)] "block_bpnn_train_kernel89" {
+flops [1] as integer
+loads [((1*aspen_param_sizeof_float)*out)] from output_delta as stride(1)
+loads [((1*aspen_param_sizeof_float)*out)] from hidden_prev_weights
+loads [((1*aspen_param_sizeof_float)*out)] from hidden_units
+flops [(4*out)] as sp, simd
+stores [((1*aspen_param_sizeof_float)*out)] to hidden_weights
+flops [(1*out)] as sp
+stores [((1*aspen_param_sizeof_float)*out)] to hidden_prev_weights
+}
+execute  "block_bpnn_train_kernel96" {
+flops [1]
+}
+execute [(1+in_renamed)] "block_bpnn_train_kernel101" {
+flops [1] as integer
+}
+execute  "block_bpnn_train_kernel101__intracommIN" {
+intracomm [(aspen_param_sizeof_float*17)] to hidden_delta as copyin
+}
+execute [(1+in_renamed)] "block_bpnn_train_kernel102" {
+flops [1] as integer
+loads [((1*aspen_param_sizeof_float)*hid)] from hidden_delta as stride(1)
+loads [((1*aspen_param_sizeof_float)*hid)] from input_units
+loads [((1*aspen_param_sizeof_float)*hid)] from input_prev_weights
+flops [(4*hid)] as sp, simd
+stores [((1*aspen_param_sizeof_float)*hid)] to input_weights
+flops [(1*hid)] as sp
+stores [((1*aspen_param_sizeof_float)*hid)] to input_prev_weights
+}
+execute  "block_bpnn_train_kernel50__intracommOUT" {
+intracomm [((aspen_param_sizeof_float*17)*6553601)] to input_weights as copyout
+intracomm [((aspen_param_sizeof_float*2)*17)] to hidden_weights as copyout
+}
+}
+}

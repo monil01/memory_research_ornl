@@ -181,8 +181,8 @@ run_broadwell()
 
 
 
-stride_array=(1)
-#stride_array=(8192)
+#stride_array=(1)
+stride_array=(50)
 #stride_array=( 1 2 4 8 16 32 64 128 256 512 1024 2048	4096	8192	16384	32768	65536	131072	262144	524288	1048576	2097152	4194304	8388608	16777216	33554432	67108864)
 #stride_array=(1 2 4 8 16 32 48 64 80 96 112 128 )
 #stride_array=(1 2 4 8 16 32 64 128 256 512 1024 2048 4096 8192)
@@ -197,9 +197,9 @@ n_array=(100000000)
 make clean
 make tau
 
-intel-prefetch -d
+#intel-prefetch -d
 
-#intel-prefetch-disable -d
+intel-prefetch-disable -d
 
 for array_size in "${n_array[@]}"
 do
@@ -218,8 +218,8 @@ do
 done
 done
 
-intel-prefetch -e
-#intel-prefetch-disable -e
+#intel-prefetch -e
+intel-prefetch-disable -e
 
 for array_size in "${n_array[@]}"
 do

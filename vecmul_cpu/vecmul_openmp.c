@@ -16,7 +16,7 @@ double getTime() {
 
 
 int stride = 1;
- 
+/* 
 void vecMul(float *a, float *b, float *c, int n)
 {
 
@@ -40,13 +40,30 @@ void vecMul(float *a, float *b, float *c, int n)
         //std::cout << i << " " << omp_get_thread_num() << " " << c[i] << " " << a[i] << " " << b[i] << "\n";
     } 
     }
-}
+} */
+
+void vecMul(float *a, float *b, float *c, int n)
+{
+
+    int threadnum; 
+
+    #pragma omp parallel 
+    for(int i = 0; i < n; i += stride)
+    {
+     	//threadnum = omp_get_thread_num();
+   	//int numthreads = omp_get_num_threads();
+    	//printf("\nthread:%d %d\n",threadnum, numthreads); 
+
+       	c[i] = a[i] * b[i];
+        //std::cout << i << " " << omp_get_thread_num() << " " << c[i] << " " << a[i] << " " << b[i] << "\n";
+    } 
+} 
+
 
 void fill_cache(float *a, int n)
 {
     float delta = 1.9;
-    #pragma omp parallel
-    #pragma omp for 
+    #pragma omp parallel for 
     for(int i = 0; i < n; i++)
     {
         a[i] = a[i] * delta;
@@ -58,7 +75,7 @@ void fill_cache(float *a, int n)
 int main( int argc, char* argv[] )
 {
 
-    omp_set_num_threads(1);
+    omp_set_num_threads(8);
  
     //std::cout << "stride :" << stride << "\n";
     // Size of vectors
@@ -111,19 +128,24 @@ int main( int argc, char* argv[] )
  
     // Initialize vectors on host
     //#pragma omp parallel
-    //#pragma omp for 
+    #pragma omp parallel for 
     for( int i = 0; i < n; i++ ) {
-        h_a[i] = sin(i)*sin(i);
-        h_b[i] = cos(i)*cos(i);
-        h_c[i] = cos(i)*cos(i);
+        h_a[i] = 1; 
+        //h_a[i] = sin(i)*sin(i);
+        h_b[i] = 2; 
+        //h_b[i] = cos(i)*cos(i);
+        h_c[i] = 3;
+        //h_c[i] = cos(i)*cos(i);
     }
 
     // Initialize vectors on host
+    #pragma omp parallel for 
     for( int i = 0; i < fill; i++ ) {
-        h_d[i] = sin(i)*sin(i);
+       h_d[i] = 2.5;
+       //h_d[i] = sin(i)*sin(i);
     }
 
-    printf("\nstarting\n");
+    //printf("\nstarting\n");
     fill_cache(h_d, fill);
 
     double seconds = 0;

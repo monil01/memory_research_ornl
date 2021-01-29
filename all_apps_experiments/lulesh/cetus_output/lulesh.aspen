@@ -1,0 +1,2513 @@
+model lulesh {
+param aspen_param_default = 1
+param aspen_param_sizeof_double = 8
+param aspen_param_sizeof_int = 4
+data m_x as Array(m_numNode, aspen_param_sizeof_double)
+data m_y as Array(m_numNode, aspen_param_sizeof_double)
+data m_z as Array(m_numNode, aspen_param_sizeof_double)
+data m_xd as Array(m_numNode, aspen_param_sizeof_double)
+data m_yd as Array(m_numNode, aspen_param_sizeof_double)
+data m_zd as Array(m_numNode, aspen_param_sizeof_double)
+data m_xdd as Array(m_numNode, aspen_param_sizeof_double)
+data m_ydd as Array(m_numNode, aspen_param_sizeof_double)
+data m_zdd as Array(m_numNode, aspen_param_sizeof_double)
+data m_fx as Array(m_numNode, aspen_param_sizeof_double)
+data m_fy as Array(m_numNode, aspen_param_sizeof_double)
+data m_fz as Array(m_numNode, aspen_param_sizeof_double)
+data m_nodalMass as Array(m_numNode, aspen_param_sizeof_double)
+data m_symmX as Array(size_renamed, aspen_param_sizeof_int)
+data m_symmY as Array(size_renamed, aspen_param_sizeof_int)
+data m_symmZ as Array(size_renamed, aspen_param_sizeof_int)
+data m_nodeElemCount as Array(m_numNode, aspen_param_sizeof_int)
+data m_nodeElemStart as Array(m_numNode, aspen_param_sizeof_int)
+data m_matElemlist as Array(m_numElem, aspen_param_sizeof_int)
+data m_nodelist as Array((8*m_numElem), aspen_param_sizeof_int)
+data m_lxim as Array(m_numElem, aspen_param_sizeof_int)
+data m_lxip as Array(m_numElem, aspen_param_sizeof_int)
+data m_letam as Array(m_numElem, aspen_param_sizeof_int)
+data m_letap as Array(m_numElem, aspen_param_sizeof_int)
+data m_lzetam as Array(m_numElem, aspen_param_sizeof_int)
+data m_lzetap as Array(m_numElem, aspen_param_sizeof_int)
+data m_elemBC as Array(m_numElem, aspen_param_sizeof_int)
+data m_dxx as Array(m_numElem, aspen_param_sizeof_double)
+data m_dyy as Array(m_numElem, aspen_param_sizeof_double)
+data m_dzz as Array(m_numElem, aspen_param_sizeof_double)
+data m_delv_xi as Array(m_numElem, aspen_param_sizeof_double)
+data m_delv_eta as Array(m_numElem, aspen_param_sizeof_double)
+data m_delv_zeta as Array(m_numElem, aspen_param_sizeof_double)
+data m_delx_xi as Array(m_numElem, aspen_param_sizeof_double)
+data m_delx_eta as Array(m_numElem, aspen_param_sizeof_double)
+data m_delx_zeta as Array(m_numElem, aspen_param_sizeof_double)
+data m_e as Array(m_numElem, aspen_param_sizeof_double)
+data m_p as Array(m_numElem, aspen_param_sizeof_double)
+data m_q as Array(m_numElem, aspen_param_sizeof_double)
+data m_ql as Array(m_numElem, aspen_param_sizeof_double)
+data m_qq as Array(m_numElem, aspen_param_sizeof_double)
+data m_v as Array(m_numElem, aspen_param_sizeof_double)
+data m_volo as Array(m_numElem, aspen_param_sizeof_double)
+data m_vnew as Array(m_numElem, aspen_param_sizeof_double)
+data m_delv as Array(m_numElem, aspen_param_sizeof_double)
+data m_vdov as Array(m_numElem, aspen_param_sizeof_double)
+data m_arealg as Array(m_numElem, aspen_param_sizeof_double)
+data m_ss as Array(m_numElem, aspen_param_sizeof_double)
+data m_elemMass as Array(m_numElem, aspen_param_sizeof_double)
+data fx_elem as Array(m_numElem8, aspen_param_sizeof_double)
+data fy_elem as Array(m_numElem8, aspen_param_sizeof_double)
+data fz_elem as Array(m_numElem8, aspen_param_sizeof_double)
+data dvdx as Array(m_numElem8, aspen_param_sizeof_double)
+data dvdy as Array(m_numElem8, aspen_param_sizeof_double)
+data dvdz as Array(m_numElem8, aspen_param_sizeof_double)
+data x8n as Array(m_numElem8, aspen_param_sizeof_double)
+data y8n as Array(m_numElem8, aspen_param_sizeof_double)
+data z8n as Array(m_numElem8, aspen_param_sizeof_double)
+data e_old as Array(m_numElem, aspen_param_sizeof_double)
+data delvc as Array(m_numElem, aspen_param_sizeof_double)
+data p_old as Array(m_numElem, aspen_param_sizeof_double)
+data q_old as Array(m_numElem, aspen_param_sizeof_double)
+data compression as Array(m_numElem, aspen_param_sizeof_double)
+data compHalfStep as Array(m_numElem, aspen_param_sizeof_double)
+data qq as Array(m_numElem, aspen_param_sizeof_double)
+data ql as Array(m_numElem, aspen_param_sizeof_double)
+data work as Array(m_numElem, aspen_param_sizeof_double)
+data p_new as Array(m_numElem, aspen_param_sizeof_double)
+data e_new as Array(m_numElem, aspen_param_sizeof_double)
+data q_new as Array(m_numElem, aspen_param_sizeof_double)
+data bvc as Array(m_numElem, aspen_param_sizeof_double)
+data pbvc as Array(m_numElem, aspen_param_sizeof_double)
+data vnewc as Array(m_numElem, aspen_param_sizeof_double)
+data sigxx as Array(m_numElem, aspen_param_sizeof_double)
+data sigyy as Array(m_numElem, aspen_param_sizeof_double)
+data sigzz as Array(m_numElem, aspen_param_sizeof_double)
+data determ as Array(m_numElem, aspen_param_sizeof_double)
+param edgeElems = 45
+param edgeNodes = (edgeElems+1)
+param m_sizeX = edgeElems
+param m_numElem = ((edgeElems*edgeElems)*edgeElems)
+param m_numElem8 = (m_numElem*8)
+param m_numNode = ((edgeNodes*edgeNodes)*edgeNodes)
+param m_nCorner = m_numElem8
+param size_renamed = ((edgeElems+1)*(edgeElems+1))
+data m_nodeElemCornerList as Array(m_nCorner, aspen_param_int)
+data elemNodes as Array(8, aspen_param_int)
+param aspen_param_elemCount = 1
+data elemToNode_CalcFBHourglassForceForElems as Array(8, aspen_param_int)
+data fx_local as Array(8, aspen_param_double)
+data fy_local as Array(8, aspen_param_double)
+data fz_local as Array(8, aspen_param_double)
+data elemToNode_CalcHourglassControlForElems as Array(8, aspen_param_int)
+param numElem_CalcVolumeForceForElems = m_numElem
+data pfx as Array(8, aspen_param_double)
+data pfy as Array(8, aspen_param_double)
+data pfz as Array(8, aspen_param_double)
+param detJ = 0.0
+data elemToNode_CalcKinematicsForElems as Array(8, aspen_param_int)
+param numElem_CalcLagrangeElements = m_numElem
+data elemToNode_CalcMonotonicQGradientsForElems as Array(8, aspen_param_int)
+param elength = m_numElem
+data pHalfStep as Array(length, aspen_param_sizeof_double)
+param length = m_numElem
+param aspen_param_whilecnt = ((23.25*edgeElems)+476.1)
+kernel TimeIncrement {
+execute  "block_TimeIncrement2" {
+flops [1] as dp
+flops [1] as integer
+flops [1] as dp
+flops [1] as dp
+flops [1] as dp
+flops [1] as dp
+flops [2] as dp
+flops [1] as dp
+flops [3] as dp
+flops [1] as dp
+flops [6] as dp
+flops [1] as dp
+flops [1] as integer
+}
+}
+kernel InitStressTermsForElems {
+execute [numElem_CalcVolumeForceForElems] "block_InitStressTermsForElems6" {
+flops [1] as integer
+}
+execute [numElem_CalcVolumeForceForElems] "block_InitStressTermsForElems7" {
+loads [(1*aspen_param_sizeof_double)] from m_q as stride(1)
+loads [(1*aspen_param_sizeof_double)] from m_p as stride(1)
+stores [(1*aspen_param_sizeof_double)] to sigyy as stride(1)
+stores [(1*aspen_param_sizeof_double)] to sigxx as stride(1)
+stores [(1*aspen_param_sizeof_double)] to sigzz as stride(1)
+flops [1] as dp, simd
+}
+}
+kernel CalcElemShapeFunctionDerivatives {
+execute  "block_CalcElemShapeFunctionDerivatives84" {
+flops [8] as dp
+flops [8] as dp
+flops [8] as dp
+flops [8] as dp
+flops [8] as dp
+flops [8] as dp
+flops [8] as dp
+flops [8] as dp
+flops [8] as dp
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [2] as dp, simd
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [2] as dp, simd
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [2] as dp, simd
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [2] as dp, simd
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [2] as dp, simd
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [2] as dp, simd
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [2] as dp, simd
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [2] as dp, simd
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [2] as dp, simd
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [2] as dp, simd
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [2] as dp, simd
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [2] as dp, simd
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)]
+flops [6] as dp
+}
+}
+kernel SumElemFaceNormal {
+execute  "block_SumElemFaceNormal14" {
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+}
+}
+kernel CalcElemNodeNormals {
+execute  "block_CalcElemNodeNormals2" {
+flops [1] as integer
+stores [((1*aspen_param_sizeof_double)*8)] as stride(1)
+stores [((1*aspen_param_sizeof_double)*8)] as stride(1)
+stores [((1*aspen_param_sizeof_double)*8)] as stride(1)
+loads [(16*aspen_param_sizeof_double)] as stride(0)
+loads [(8*aspen_param_sizeof_double)] as stride(0)
+}
+call SumElemFaceNormal()
+execute  "block_CalcElemNodeNormals9" {
+loads [(16*aspen_param_sizeof_double)] as stride(0)
+loads [(8*aspen_param_sizeof_double)] as stride(0)
+}
+call SumElemFaceNormal()
+execute  "block_CalcElemNodeNormals11" {
+loads [(16*aspen_param_sizeof_double)] as stride(0)
+loads [(8*aspen_param_sizeof_double)] as stride(0)
+}
+call SumElemFaceNormal()
+execute  "block_CalcElemNodeNormals13" {
+loads [(16*aspen_param_sizeof_double)] as stride(0)
+loads [(8*aspen_param_sizeof_double)] as stride(0)
+}
+call SumElemFaceNormal()
+execute  "block_CalcElemNodeNormals15" {
+loads [(16*aspen_param_sizeof_double)] as stride(0)
+loads [(8*aspen_param_sizeof_double)] as stride(0)
+}
+call SumElemFaceNormal()
+execute  "block_CalcElemNodeNormals17" {
+loads [(16*aspen_param_sizeof_double)] as stride(0)
+loads [(8*aspen_param_sizeof_double)] as stride(0)
+}
+call SumElemFaceNormal()
+}
+kernel SumElemStressesToNodeForces {
+execute  "block_SumElemStressesToNodeForces5" {
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] to fx_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fx_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fx_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fx_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fx_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fx_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fx_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fx_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fy_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fy_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fy_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fy_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fy_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fy_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fy_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fy_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fz_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fz_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fz_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fz_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fz_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fz_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fz_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fz_elem as stride(0)
+flops [1] as dp, simd
+}
+}
+kernel IntegrateStressForElems {
+execute [numElem_CalcVolumeForceForElems] "block_IntegrateStressForElems11" {
+flops [1] as integer
+}
+execute [numElem_CalcVolumeForceForElems] "block_IntegrateStressForElems20" {
+flops [1] as integer
+loads [((1*aspen_param_sizeof_int)*8)] from elemNodes as stride(1)
+loads [((1*aspen_param_sizeof_double)*8)] from m_x
+loads [((1*aspen_param_sizeof_double)*8)] from m_y
+loads [((1*aspen_param_sizeof_double)*8)] from m_z
+loads [(1*aspen_param_sizeof_double)] from determ as stride(1)
+flops [8] as dp
+flops [8] as dp
+flops [8] as dp
+flops [8] as dp
+flops [8] as dp
+flops [8] as dp
+flops [8] as dp
+flops [8] as dp
+flops [8] as dp
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [2] as dp, simd
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [2] as dp, simd
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [2] as dp, simd
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [2] as dp, simd
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [2] as dp, simd
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [2] as dp, simd
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [2] as dp, simd
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [2] as dp, simd
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [2] as dp, simd
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [2] as dp, simd
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [2] as dp, simd
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [2] as dp, simd
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)]
+flops [6] as dp
+flops [1] as integer
+stores [((1*aspen_param_sizeof_double)*8)] as stride(1)
+stores [((1*aspen_param_sizeof_double)*8)] as stride(1)
+stores [((1*aspen_param_sizeof_double)*8)] as stride(1)
+loads [(16*aspen_param_sizeof_double)] as stride(0)
+loads [(8*aspen_param_sizeof_double)] as stride(0)
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+loads [(16*aspen_param_sizeof_double)] as stride(0)
+loads [(8*aspen_param_sizeof_double)] as stride(0)
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+loads [(16*aspen_param_sizeof_double)] as stride(0)
+loads [(8*aspen_param_sizeof_double)] as stride(0)
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+loads [(16*aspen_param_sizeof_double)] as stride(0)
+loads [(8*aspen_param_sizeof_double)] as stride(0)
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+loads [(16*aspen_param_sizeof_double)] as stride(0)
+loads [(8*aspen_param_sizeof_double)] as stride(0)
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+loads [(16*aspen_param_sizeof_double)] as stride(0)
+loads [(8*aspen_param_sizeof_double)] as stride(0)
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+flops [4] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+loads [(1*aspen_param_sizeof_double)] from sigzz as stride(1)
+loads [(1*aspen_param_sizeof_double)] from fz_elem
+loads [(1*aspen_param_sizeof_double)] from sigyy as stride(1)
+loads [(1*aspen_param_sizeof_double)] from fy_elem
+loads [(1*aspen_param_sizeof_double)] from fx_elem
+loads [(1*aspen_param_sizeof_double)] from sigxx as stride(1)
+flops [3] as integer
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] to fx_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fx_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fx_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fx_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fx_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fx_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fx_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fx_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fy_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fy_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fy_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fy_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fy_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fy_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fy_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fy_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fz_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fz_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fz_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fz_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fz_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fz_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fz_elem as stride(0)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to fz_elem as stride(0)
+flops [1] as dp, simd
+}
+execute [m_numNode] "block_IntegrateStressForElems35" {
+flops [1] as integer
+}
+execute [m_numNode] "block_IntegrateStressForElems38" {
+loads [(1*aspen_param_sizeof_int)] from m_nodeElemCount as stride(1)
+loads [(1*aspen_param_sizeof_int)] from m_nodeElemStart as stride(1)
+flops [1] as integer
+loads [((1*aspen_param_sizeof_int)*aspen_param_elemCount)] from m_nodeElemCornerList as stride(1)
+flops [(1*aspen_param_elemCount)] as integer
+loads [((1*aspen_param_sizeof_double)*aspen_param_elemCount)] from fx_elem
+flops [(1*aspen_param_elemCount)] as dp
+loads [((1*aspen_param_sizeof_double)*aspen_param_elemCount)] from fy_elem
+flops [(1*aspen_param_elemCount)] as dp
+loads [((1*aspen_param_sizeof_double)*aspen_param_elemCount)] from fz_elem
+flops [(1*aspen_param_elemCount)] as dp
+stores [(1*aspen_param_sizeof_double)] to m_fx as stride(1)
+stores [(1*aspen_param_sizeof_double)] to m_fy as stride(1)
+stores [(1*aspen_param_sizeof_double)] to m_fz as stride(1)
+}
+}
+kernel CollectDomainNodesToElemNodes {
+execute  "block_CollectDomainNodesToElemNodes2" {
+loads [(1*aspen_param_sizeof_int)] from elemToNode_CalcHourglassControlForElems as stride(0)
+loads [(1*aspen_param_sizeof_int)] from elemToNode_CalcHourglassControlForElems as stride(0)
+loads [(1*aspen_param_sizeof_int)] from elemToNode_CalcHourglassControlForElems as stride(0)
+loads [(1*aspen_param_sizeof_int)] from elemToNode_CalcHourglassControlForElems as stride(0)
+loads [(1*aspen_param_sizeof_int)] from elemToNode_CalcHourglassControlForElems as stride(0)
+loads [(1*aspen_param_sizeof_int)] from elemToNode_CalcHourglassControlForElems as stride(0)
+loads [(1*aspen_param_sizeof_int)] from elemToNode_CalcHourglassControlForElems as stride(0)
+loads [(1*aspen_param_sizeof_int)] from elemToNode_CalcHourglassControlForElems as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_x as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_x as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_x as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_x as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_x as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_x as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_x as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_x as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_y as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_y as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_y as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_y as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_y as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_y as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_y as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_y as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_z as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_z as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_z as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_z as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_z as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_z as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_z as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_z as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+}
+}
+kernel VoluDer {
+execute  "block_VoluDer20" {
+stores [(1*aspen_param_sizeof_double)]
+flops [23] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [23] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [23] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+}
+}
+kernel CalcElemVolumeDerivative {
+execute  "block_CalcElemVolumeDerivative0" {
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(6*aspen_param_sizeof_double)] as stride(0)
+loads [(12*aspen_param_sizeof_double)] as stride(0)
+loads [(2*aspen_param_sizeof_double)] as stride(0)
+}
+call VoluDer()
+execute  "block_CalcElemVolumeDerivative1" {
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(6*aspen_param_sizeof_double)] as stride(0)
+loads [(12*aspen_param_sizeof_double)] as stride(0)
+loads [(2*aspen_param_sizeof_double)] as stride(0)
+}
+call VoluDer()
+execute  "block_CalcElemVolumeDerivative2" {
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(6*aspen_param_sizeof_double)] as stride(0)
+loads [(12*aspen_param_sizeof_double)] as stride(0)
+loads [(2*aspen_param_sizeof_double)] as stride(0)
+}
+call VoluDer()
+execute  "block_CalcElemVolumeDerivative3" {
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(6*aspen_param_sizeof_double)] as stride(0)
+loads [(12*aspen_param_sizeof_double)] as stride(0)
+loads [(2*aspen_param_sizeof_double)] as stride(0)
+}
+call VoluDer()
+execute  "block_CalcElemVolumeDerivative4" {
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(6*aspen_param_sizeof_double)] as stride(0)
+loads [(12*aspen_param_sizeof_double)] as stride(0)
+loads [(2*aspen_param_sizeof_double)] as stride(0)
+}
+call VoluDer()
+execute  "block_CalcElemVolumeDerivative5" {
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(6*aspen_param_sizeof_double)] as stride(0)
+loads [(12*aspen_param_sizeof_double)] as stride(0)
+loads [(2*aspen_param_sizeof_double)] as stride(0)
+}
+call VoluDer()
+execute  "block_CalcElemVolumeDerivative6" {
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(6*aspen_param_sizeof_double)] as stride(0)
+loads [(12*aspen_param_sizeof_double)] as stride(0)
+loads [(2*aspen_param_sizeof_double)] as stride(0)
+}
+call VoluDer()
+execute  "block_CalcElemVolumeDerivative7" {
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(6*aspen_param_sizeof_double)] as stride(0)
+loads [(12*aspen_param_sizeof_double)] as stride(0)
+loads [(2*aspen_param_sizeof_double)] as stride(0)
+}
+call VoluDer()
+}
+kernel CBRT8 {
+execute  "block_CBRT83" {
+flops [1] as dp
+}
+}
+kernel CalcElemFBHourglassForce {
+execute  "block_CalcElemFBHourglassForce11" {
+loads [(16*aspen_param_sizeof_double)] as stride(0)
+flops [15] as dp, simd
+loads [(16*aspen_param_sizeof_double)] as stride(0)
+flops [15] as dp, simd
+loads [(16*aspen_param_sizeof_double)] as stride(0)
+flops [15] as dp, simd
+loads [(16*aspen_param_sizeof_double)] as stride(0)
+flops [15] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(16*aspen_param_sizeof_double)] as stride(0)
+flops [15] as dp, simd
+loads [(16*aspen_param_sizeof_double)] as stride(0)
+flops [15] as dp, simd
+loads [(16*aspen_param_sizeof_double)] as stride(0)
+flops [15] as dp, simd
+loads [(16*aspen_param_sizeof_double)] as stride(0)
+flops [15] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(16*aspen_param_sizeof_double)] as stride(0)
+flops [15] as dp, simd
+loads [(16*aspen_param_sizeof_double)] as stride(0)
+flops [15] as dp, simd
+loads [(16*aspen_param_sizeof_double)] as stride(0)
+flops [15] as dp, simd
+loads [(16*aspen_param_sizeof_double)] as stride(0)
+flops [15] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+}
+}
+kernel CalcFBHourglassForceForElems {
+execute  "block_CalcFBHourglassForceForElems15" {
+flops [1] as integer
+}
+execute [m_numElem] "block_CalcFBHourglassForceForElems52" {
+flops [1] as integer
+}
+execute  "block_CalcFBHourglassForceForElems52__intracommIN" {
+intracomm [((aspen_param_sizeof_double*4)*8)] as copyin
+}
+execute [m_numElem] "block_CalcFBHourglassForceForElems74" {
+loads [(1*aspen_param_sizeof_int)] from m_nodelist
+flops [1] as integer
+flops [1] as integer
+loads [(1*aspen_param_sizeof_double)] from determ as stride(1)
+flops [1] as dp, simd
+flops [1] as integer
+loads [((8*aspen_param_sizeof_double)*4)] from x8n
+flops [(15*4)] as dp
+flops [(7*4)] as integer
+loads [((8*aspen_param_sizeof_double)*4)] from y8n
+flops [(15*4)] as dp
+flops [(7*4)] as integer
+loads [((8*aspen_param_sizeof_double)*4)] from z8n
+flops [(15*4)] as dp
+flops [(7*4)] as integer
+loads [((1*aspen_param_sizeof_double)*4)] from dvdz
+loads [((1*aspen_param_sizeof_double)*4)] from dvdy
+loads [((1*aspen_param_sizeof_double)*4)] from dvdx
+flops [(7*4)] as dp, simd
+loads [((1*aspen_param_sizeof_double)*4)] from dvdz
+loads [((1*aspen_param_sizeof_double)*4)] from dvdy
+loads [((1*aspen_param_sizeof_double)*4)] from dvdx
+flops [(7*4)] as dp, simd
+flops [(3*4)] as integer
+loads [((1*aspen_param_sizeof_double)*4)] from dvdz
+loads [((1*aspen_param_sizeof_double)*4)] from dvdy
+loads [((1*aspen_param_sizeof_double)*4)] from dvdx
+flops [(7*4)] as dp, simd
+flops [(3*4)] as integer
+loads [((1*aspen_param_sizeof_double)*4)] from dvdz
+loads [((1*aspen_param_sizeof_double)*4)] from dvdy
+loads [((1*aspen_param_sizeof_double)*4)] from dvdx
+flops [(7*4)] as dp, simd
+flops [(3*4)] as integer
+loads [((1*aspen_param_sizeof_double)*4)] from dvdz
+loads [((1*aspen_param_sizeof_double)*4)] from dvdy
+loads [((1*aspen_param_sizeof_double)*4)] from dvdx
+flops [(7*4)] as dp, simd
+flops [(3*4)] as integer
+loads [((1*aspen_param_sizeof_double)*4)] from dvdz
+loads [((1*aspen_param_sizeof_double)*4)] from dvdy
+loads [((1*aspen_param_sizeof_double)*4)] from dvdx
+flops [(7*4)] as dp, simd
+flops [(3*4)] as integer
+loads [((1*aspen_param_sizeof_double)*4)] from dvdz
+loads [((1*aspen_param_sizeof_double)*4)] from dvdy
+loads [((1*aspen_param_sizeof_double)*4)] from dvdx
+flops [(7*4)] as dp, simd
+flops [(3*4)] as integer
+loads [((1*aspen_param_sizeof_double)*4)] from dvdz
+loads [((1*aspen_param_sizeof_double)*4)] from dvdy
+loads [((1*aspen_param_sizeof_double)*4)] from dvdx
+flops [(7*4)] as dp, simd
+flops [(3*4)] as integer
+loads [(1*aspen_param_sizeof_double)] from m_ss as stride(1)
+loads [(1*aspen_param_sizeof_double)] from m_elemMass as stride(1)
+loads [(1*aspen_param_sizeof_double)] from determ as stride(1)
+flops [1] as dp
+loads [(1*aspen_param_sizeof_int)] from elemToNode_CalcFBHourglassForceForElems as stride(0)
+loads [(1*aspen_param_sizeof_int)] from elemToNode_CalcFBHourglassForceForElems as stride(0)
+loads [(1*aspen_param_sizeof_int)] from elemToNode_CalcFBHourglassForceForElems as stride(0)
+loads [(1*aspen_param_sizeof_int)] from elemToNode_CalcFBHourglassForceForElems as stride(0)
+loads [(1*aspen_param_sizeof_int)] from elemToNode_CalcFBHourglassForceForElems as stride(0)
+loads [(1*aspen_param_sizeof_int)] from elemToNode_CalcFBHourglassForceForElems as stride(0)
+loads [(1*aspen_param_sizeof_int)] from elemToNode_CalcFBHourglassForceForElems as stride(0)
+loads [(1*aspen_param_sizeof_int)] from elemToNode_CalcFBHourglassForceForElems as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_xd
+loads [(1*aspen_param_sizeof_double)] from m_xd
+loads [(1*aspen_param_sizeof_double)] from m_xd
+loads [(1*aspen_param_sizeof_double)] from m_xd
+loads [(1*aspen_param_sizeof_double)] from m_xd
+loads [(1*aspen_param_sizeof_double)] from m_xd
+loads [(1*aspen_param_sizeof_double)] from m_xd
+loads [(1*aspen_param_sizeof_double)] from m_xd
+loads [(1*aspen_param_sizeof_double)] from m_yd
+loads [(1*aspen_param_sizeof_double)] from m_yd
+loads [(1*aspen_param_sizeof_double)] from m_yd
+loads [(1*aspen_param_sizeof_double)] from m_yd
+loads [(1*aspen_param_sizeof_double)] from m_yd
+loads [(1*aspen_param_sizeof_double)] from m_yd
+loads [(1*aspen_param_sizeof_double)] from m_yd
+loads [(1*aspen_param_sizeof_double)] from m_yd
+loads [(1*aspen_param_sizeof_double)] from m_zd
+loads [(1*aspen_param_sizeof_double)] from m_zd
+loads [(1*aspen_param_sizeof_double)] from m_zd
+loads [(1*aspen_param_sizeof_double)] from m_zd
+loads [(1*aspen_param_sizeof_double)] from m_zd
+loads [(1*aspen_param_sizeof_double)] from m_zd
+loads [(1*aspen_param_sizeof_double)] from m_zd
+loads [(1*aspen_param_sizeof_double)] from m_zd
+flops [4] as dp
+loads [(16*aspen_param_sizeof_double)] as stride(0)
+flops [15] as dp, simd
+loads [(16*aspen_param_sizeof_double)] as stride(0)
+flops [15] as dp, simd
+loads [(16*aspen_param_sizeof_double)] as stride(0)
+flops [15] as dp, simd
+loads [(16*aspen_param_sizeof_double)] as stride(0)
+flops [15] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(16*aspen_param_sizeof_double)] as stride(0)
+flops [15] as dp, simd
+loads [(16*aspen_param_sizeof_double)] as stride(0)
+flops [15] as dp, simd
+loads [(16*aspen_param_sizeof_double)] as stride(0)
+flops [15] as dp, simd
+loads [(16*aspen_param_sizeof_double)] as stride(0)
+flops [15] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(16*aspen_param_sizeof_double)] as stride(0)
+flops [15] as dp, simd
+loads [(16*aspen_param_sizeof_double)] as stride(0)
+flops [15] as dp, simd
+loads [(16*aspen_param_sizeof_double)] as stride(0)
+flops [15] as dp, simd
+loads [(16*aspen_param_sizeof_double)] as stride(0)
+flops [15] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [8] as dp, simd
+loads [(1*aspen_param_sizeof_double)] from fx_elem
+stores [(1*aspen_param_sizeof_double)] to fx_local as stride(0)
+stores [(1*aspen_param_sizeof_double)] to fx_local as stride(0)
+stores [(1*aspen_param_sizeof_double)] to fx_local as stride(0)
+stores [(1*aspen_param_sizeof_double)] to fx_local as stride(0)
+stores [(1*aspen_param_sizeof_double)] to fx_local as stride(0)
+stores [(1*aspen_param_sizeof_double)] to fx_local as stride(0)
+stores [(1*aspen_param_sizeof_double)] to fx_local as stride(0)
+stores [(1*aspen_param_sizeof_double)] to fx_local as stride(0)
+loads [(1*aspen_param_sizeof_double)] from fy_elem
+stores [(1*aspen_param_sizeof_double)] to fy_local as stride(0)
+stores [(1*aspen_param_sizeof_double)] to fy_local as stride(0)
+stores [(1*aspen_param_sizeof_double)] to fy_local as stride(0)
+stores [(1*aspen_param_sizeof_double)] to fy_local as stride(0)
+stores [(1*aspen_param_sizeof_double)] to fy_local as stride(0)
+stores [(1*aspen_param_sizeof_double)] to fy_local as stride(0)
+stores [(1*aspen_param_sizeof_double)] to fy_local as stride(0)
+stores [(1*aspen_param_sizeof_double)] to fy_local as stride(0)
+loads [(1*aspen_param_sizeof_double)] from fz_elem
+stores [(1*aspen_param_sizeof_double)] to fz_local as stride(0)
+stores [(1*aspen_param_sizeof_double)] to fz_local as stride(0)
+stores [(1*aspen_param_sizeof_double)] to fz_local as stride(0)
+stores [(1*aspen_param_sizeof_double)] to fz_local as stride(0)
+stores [(1*aspen_param_sizeof_double)] to fz_local as stride(0)
+stores [(1*aspen_param_sizeof_double)] to fz_local as stride(0)
+stores [(1*aspen_param_sizeof_double)] to fz_local as stride(0)
+stores [(1*aspen_param_sizeof_double)] to fz_local as stride(0)
+}
+execute [m_numNode] "block_CalcFBHourglassForceForElems194" {
+flops [1] as integer
+}
+execute [m_numNode] "block_CalcFBHourglassForceForElems197" {
+loads [(1*aspen_param_sizeof_int)] from m_nodeElemCount as stride(1)
+loads [(1*aspen_param_sizeof_int)] from m_nodeElemStart as stride(1)
+flops [1] as integer
+loads [((1*aspen_param_sizeof_int)*aspen_param_elemCount)] from m_nodeElemCornerList as stride(1)
+flops [(1*aspen_param_elemCount)] as integer
+loads [((1*aspen_param_sizeof_double)*aspen_param_elemCount)] from fx_elem
+flops [(1*aspen_param_elemCount)] as dp
+loads [((1*aspen_param_sizeof_double)*aspen_param_elemCount)] from fy_elem
+flops [(1*aspen_param_elemCount)] as dp
+loads [((1*aspen_param_sizeof_double)*aspen_param_elemCount)] from fz_elem
+flops [(1*aspen_param_elemCount)] as dp
+stores [(1*aspen_param_sizeof_double)] to m_fx as stride(1)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to m_fy as stride(1)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to m_fz as stride(1)
+flops [1] as dp, simd
+}
+}
+kernel CalcHourglassControlForElems {
+execute  "block_CalcHourglassControlForElems10" {
+flops [1] as integer
+}
+execute [m_numElem] "block_CalcHourglassControlForElems15" {
+flops [1] as integer
+}
+execute [m_numElem] "block_CalcHourglassControlForElems24" {
+loads [(1*aspen_param_sizeof_int)] from m_nodelist
+flops [1] as integer
+loads [(1*aspen_param_sizeof_int)] from elemToNode_CalcHourglassControlForElems as stride(0)
+loads [(1*aspen_param_sizeof_int)] from elemToNode_CalcHourglassControlForElems as stride(0)
+loads [(1*aspen_param_sizeof_int)] from elemToNode_CalcHourglassControlForElems as stride(0)
+loads [(1*aspen_param_sizeof_int)] from elemToNode_CalcHourglassControlForElems as stride(0)
+loads [(1*aspen_param_sizeof_int)] from elemToNode_CalcHourglassControlForElems as stride(0)
+loads [(1*aspen_param_sizeof_int)] from elemToNode_CalcHourglassControlForElems as stride(0)
+loads [(1*aspen_param_sizeof_int)] from elemToNode_CalcHourglassControlForElems as stride(0)
+loads [(1*aspen_param_sizeof_int)] from elemToNode_CalcHourglassControlForElems as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_x as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_x as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_x as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_x as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_x as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_x as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_x as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_x as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_y as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_y as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_y as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_y as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_y as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_y as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_y as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_y as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_z as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_z as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_z as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_z as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_z as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_z as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_z as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_z as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(6*aspen_param_sizeof_double)] as stride(0)
+loads [(12*aspen_param_sizeof_double)] as stride(0)
+loads [(2*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)]
+flops [23] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [23] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [23] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(6*aspen_param_sizeof_double)] as stride(0)
+loads [(12*aspen_param_sizeof_double)] as stride(0)
+loads [(2*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)]
+flops [23] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [23] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [23] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(6*aspen_param_sizeof_double)] as stride(0)
+loads [(12*aspen_param_sizeof_double)] as stride(0)
+loads [(2*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)]
+flops [23] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [23] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [23] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(6*aspen_param_sizeof_double)] as stride(0)
+loads [(12*aspen_param_sizeof_double)] as stride(0)
+loads [(2*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)]
+flops [23] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [23] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [23] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(6*aspen_param_sizeof_double)] as stride(0)
+loads [(12*aspen_param_sizeof_double)] as stride(0)
+loads [(2*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)]
+flops [23] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [23] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [23] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(6*aspen_param_sizeof_double)] as stride(0)
+loads [(12*aspen_param_sizeof_double)] as stride(0)
+loads [(2*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)]
+flops [23] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [23] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [23] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(6*aspen_param_sizeof_double)] as stride(0)
+loads [(12*aspen_param_sizeof_double)] as stride(0)
+loads [(2*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)]
+flops [23] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [23] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [23] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(6*aspen_param_sizeof_double)] as stride(0)
+loads [(12*aspen_param_sizeof_double)] as stride(0)
+loads [(2*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)]
+flops [23] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [23] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [23] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)]
+flops [1] as dp
+flops [1] as integer
+flops [(2*8)] as integer
+stores [((1*aspen_param_sizeof_double)*8)] to dvdx
+stores [((1*aspen_param_sizeof_double)*8)] to dvdy
+stores [((1*aspen_param_sizeof_double)*8)] to dvdz
+stores [((1*aspen_param_sizeof_double)*8)] to x8n
+stores [((1*aspen_param_sizeof_double)*8)] to y8n
+stores [((1*aspen_param_sizeof_double)*8)] to z8n
+loads [(1*aspen_param_sizeof_double)] from m_volo as stride(1)
+loads [(1*aspen_param_sizeof_double)] from m_v as stride(1)
+stores [(1*aspen_param_sizeof_double)] to determ as stride(1)
+flops [1] as dp, simd
+}
+execute  "block_CalcHourglassControlForElems907" {
+flops [1] as dp
+}
+call CalcFBHourglassForceForElems()
+}
+kernel CalcVolumeForceForElems {
+execute  "block_CalcVolumeForceForElems494" {
+flops [1] as integer
+}
+call InitStressTermsForElems()
+call IntegrateStressForElems()
+execute  "block_CalcVolumeForceForElems19" {
+flops [1] as integer
+}
+call CalcHourglassControlForElems()
+}
+
+kernel CalcForceForNodes {
+execute [m_numNode] "block_CalcForceForNodes5" {
+flops [1] as integer
+}
+execute [m_numNode] "block_CalcForceForNodes6" {
+stores [(1*aspen_param_sizeof_double)] to m_fx as stride(1)
+stores [(1*aspen_param_sizeof_double)] to m_fy as stride(1)
+stores [(1*aspen_param_sizeof_double)] to m_fz as stride(1)
+}
+call CalcVolumeForceForElems()
+}
+
+kernel CalcAccelerationForNodes {
+execute [m_numNode] "block_CalcAccelerationForNodes5" {
+flops [1] as integer
+}
+execute [m_numNode] "block_CalcAccelerationForNodes6" {
+loads [(1*aspen_param_sizeof_double)] from m_fx as stride(1)
+loads [(1*aspen_param_sizeof_double)] from m_nodalMass as stride(1)
+stores [(1*aspen_param_sizeof_double)] to m_xdd as stride(1)
+flops [1] as dp, simd
+loads [(1*aspen_param_sizeof_double)] from m_nodalMass as stride(1)
+loads [(1*aspen_param_sizeof_double)] from m_fy as stride(1)
+stores [(1*aspen_param_sizeof_double)] to m_ydd as stride(1)
+flops [1] as dp, simd
+loads [(1*aspen_param_sizeof_double)] from m_nodalMass as stride(1)
+loads [(1*aspen_param_sizeof_double)] from m_fz as stride(1)
+stores [(1*aspen_param_sizeof_double)] to m_zdd as stride(1)
+flops [1] as dp, simd
+}
+}
+kernel ApplyAccelerationBoundaryConditionsForNodes {
+execute  "block_ApplyAccelerationBoundaryConditionsForNodes4" {
+flops [3] as integer
+}
+execute [((1+(2*m_sizeX))+(m_sizeX*m_sizeX))] "block_ApplyAccelerationBoundaryConditionsForNodes6" {
+flops [1] as integer
+}
+execute [((1+(2*m_sizeX))+(m_sizeX*m_sizeX))] "block_ApplyAccelerationBoundaryConditionsForNodes7" {
+loads [(1*aspen_param_sizeof_int)] from m_symmX as stride(1)
+stores [(1*aspen_param_sizeof_double)] to m_xdd as random
+}
+execute [((1+(2*m_sizeX))+(m_sizeX*m_sizeX))] "block_ApplyAccelerationBoundaryConditionsForNodes8" {
+flops [1] as integer
+}
+execute [((1+(2*m_sizeX))+(m_sizeX*m_sizeX))] "block_ApplyAccelerationBoundaryConditionsForNodes9" {
+loads [(1*aspen_param_sizeof_int)] from m_symmY as stride(1)
+stores [(1*aspen_param_sizeof_double)] to m_ydd as random
+}
+execute [((1+(2*m_sizeX))+(m_sizeX*m_sizeX))] "block_ApplyAccelerationBoundaryConditionsForNodes10" {
+flops [1] as integer
+}
+execute [((1+(2*m_sizeX))+(m_sizeX*m_sizeX))] "block_ApplyAccelerationBoundaryConditionsForNodes11" {
+loads [(1*aspen_param_sizeof_int)] from m_symmZ as stride(1)
+stores [(1*aspen_param_sizeof_double)] to m_zdd as random
+}
+}
+kernel FABS8 {
+execute  "block_FABS83" {
+flops [1] as dp
+}
+}
+kernel CalcVelocityForNodes {
+execute [m_numNode] "block_CalcVelocityForNodes7" {
+flops [1] as integer
+}
+execute [m_numNode] "block_CalcVelocityForNodes14" {
+loads [(1*aspen_param_sizeof_double)] from m_xdd as stride(1)
+loads [(1*aspen_param_sizeof_double)] from m_xd as stride(1)
+flops [2] as dp, simd
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)] to m_xd as stride(1)
+loads [(1*aspen_param_sizeof_double)] from m_yd as stride(1)
+loads [(1*aspen_param_sizeof_double)] from m_ydd as stride(1)
+flops [2] as dp, simd
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)] to m_yd as stride(1)
+loads [(1*aspen_param_sizeof_double)] from m_zdd as stride(1)
+loads [(1*aspen_param_sizeof_double)] from m_zd as stride(1)
+flops [2] as dp, simd
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)] to m_zd as stride(1)
+}
+}
+kernel CalcPositionForNodes {
+execute [m_numNode] "block_CalcPositionForNodes6" {
+flops [1] as integer
+}
+execute [m_numNode] "block_CalcPositionForNodes7" {
+loads [(1*aspen_param_sizeof_double)] from m_xd as stride(1)
+stores [(1*aspen_param_sizeof_double)] to m_x as stride(1)
+flops [2] as dp, simd
+loads [(1*aspen_param_sizeof_double)] from m_yd as stride(1)
+stores [(1*aspen_param_sizeof_double)] to m_y as stride(1)
+flops [2] as dp, simd
+loads [(1*aspen_param_sizeof_double)] from m_zd as stride(1)
+stores [(1*aspen_param_sizeof_double)] to m_z as stride(1)
+flops [2] as dp, simd
+}
+}
+kernel LagrangeNodal {
+call CalcForceForNodes()
+call CalcAccelerationForNodes()
+call ApplyAccelerationBoundaryConditionsForNodes()
+call CalcVelocityForNodes()
+call CalcPositionForNodes()
+}
+kernel AreaFace {
+execute  "block_AreaFace14" {
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [23] as dp
+}
+}
+kernel SQRT8 {
+execute  "block_SQRT83" {
+flops [1] as dp
+}
+}
+kernel CalcElemCharacteristicLength {
+execute  "block_CalcElemCharacteristicLength5" {
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+loads [(8*aspen_param_sizeof_double)] as stride(0)
+}
+call AreaFace()
+execute  "block_CalcElemCharacteristicLength6" {
+flops [1] as dp
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+loads [(8*aspen_param_sizeof_double)] as stride(0)
+}
+call AreaFace()
+execute  "block_CalcElemCharacteristicLength8" {
+flops [1] as dp
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+loads [(8*aspen_param_sizeof_double)] as stride(0)
+}
+call AreaFace()
+execute  "block_CalcElemCharacteristicLength10" {
+flops [1] as dp
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+loads [(8*aspen_param_sizeof_double)] as stride(0)
+}
+call AreaFace()
+execute  "block_CalcElemCharacteristicLength12" {
+flops [1] as dp
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+loads [(8*aspen_param_sizeof_double)] as stride(0)
+}
+call AreaFace()
+execute  "block_CalcElemCharacteristicLength14" {
+flops [1] as dp
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+loads [(8*aspen_param_sizeof_double)] as stride(0)
+}
+call AreaFace()
+execute  "block_CalcElemCharacteristicLength16" {
+flops [1] as dp
+flops [2] as dp
+}
+call SQRT8()
+}
+kernel CalcElemVelocityGrandient {
+execute  "block_CalcElemVelocityGrandient21" {
+loads [(4*aspen_param_sizeof_double)] from pfx as stride(0)
+loads [(8*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [12] as dp, simd
+loads [(8*aspen_param_sizeof_double)] as stride(0)
+loads [(4*aspen_param_sizeof_double)] from pfy as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [12] as dp, simd
+loads [(8*aspen_param_sizeof_double)] as stride(0)
+loads [(4*aspen_param_sizeof_double)] from pfz as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [12] as dp, simd
+loads [(4*aspen_param_sizeof_double)] from pfx as stride(0)
+loads [(8*aspen_param_sizeof_double)] as stride(0)
+flops [12] as dp, simd
+loads [(8*aspen_param_sizeof_double)] as stride(0)
+loads [(4*aspen_param_sizeof_double)] from pfy as stride(0)
+flops [12] as dp, simd
+loads [(4*aspen_param_sizeof_double)] from pfx as stride(0)
+loads [(8*aspen_param_sizeof_double)] as stride(0)
+flops [12] as dp, simd
+loads [(8*aspen_param_sizeof_double)] as stride(0)
+loads [(4*aspen_param_sizeof_double)] from pfz as stride(0)
+flops [12] as dp, simd
+loads [(8*aspen_param_sizeof_double)] as stride(0)
+loads [(4*aspen_param_sizeof_double)] from pfy as stride(0)
+flops [12] as dp, simd
+loads [(8*aspen_param_sizeof_double)] as stride(0)
+loads [(4*aspen_param_sizeof_double)] from pfz as stride(0)
+flops [12] as dp, simd
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [2] as dp, simd
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [2] as dp, simd
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [2] as dp, simd
+}
+}
+kernel CalcKinematicsForElems {
+execute [numElem_CalcLagrangeElements] "block_CalcKinematicsForElems9" {
+flops [1] as integer
+}
+execute [numElem_CalcLagrangeElements] "block_CalcKinematicsForElems30" {
+flops [1] as integer
+loads [((1*aspen_param_sizeof_int)*8)] from elemToNode_CalcKinematicsForElems as stride(1)
+loads [((1*aspen_param_sizeof_double)*8)] from m_x
+loads [((1*aspen_param_sizeof_double)*8)] from m_y
+loads [((1*aspen_param_sizeof_double)*8)] from m_z
+loads [(1*aspen_param_sizeof_double)] from m_volo as stride(1)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to m_vnew as stride(1)
+loads [(1*aspen_param_sizeof_double)] from m_v as stride(1)
+stores [(1*aspen_param_sizeof_double)] to m_delv as stride(1)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to m_arealg as stride(1)
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+loads [(8*aspen_param_sizeof_double)] as stride(0)
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [23] as dp
+flops [1] as dp
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+loads [(8*aspen_param_sizeof_double)] as stride(0)
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [23] as dp
+flops [1] as dp
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+loads [(8*aspen_param_sizeof_double)] as stride(0)
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [23] as dp
+flops [1] as dp
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+loads [(8*aspen_param_sizeof_double)] as stride(0)
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [23] as dp
+flops [1] as dp
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+loads [(8*aspen_param_sizeof_double)] as stride(0)
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [23] as dp
+flops [1] as dp
+loads [(4*aspen_param_sizeof_double)] as stride(0)
+loads [(8*aspen_param_sizeof_double)] as stride(0)
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [23] as dp
+flops [1] as dp
+flops [2] as dp
+flops [1] as dp
+flops [1] as integer
+loads [((1*aspen_param_sizeof_int)*8)] from elemToNode_CalcKinematicsForElems as stride(1)
+loads [((1*aspen_param_sizeof_double)*8)] from m_xd
+loads [((1*aspen_param_sizeof_double)*8)] from m_yd
+loads [((1*aspen_param_sizeof_double)*8)] from m_zd
+flops [1] as dp
+flops [1] as integer
+flops [(2*8)] as dp, simd
+flops [(2*8)] as dp, simd
+flops [(2*8)] as dp, simd
+flops [8] as dp
+flops [8] as dp
+flops [8] as dp
+flops [8] as dp
+flops [8] as dp
+flops [8] as dp
+flops [8] as dp
+flops [8] as dp
+flops [8] as dp
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [2] as dp, simd
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [2] as dp, simd
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [2] as dp, simd
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [2] as dp, simd
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [2] as dp, simd
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [2] as dp, simd
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [2] as dp, simd
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [2] as dp, simd
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [2] as dp, simd
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [2] as dp, simd
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [2] as dp, simd
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [2] as dp, simd
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+loads [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)]
+flops [6] as dp
+loads [(4*aspen_param_sizeof_double)] from pfx as stride(0)
+loads [(8*aspen_param_sizeof_double)] as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [12] as dp, simd
+loads [(8*aspen_param_sizeof_double)] as stride(0)
+loads [(4*aspen_param_sizeof_double)] from pfy as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [12] as dp, simd
+loads [(8*aspen_param_sizeof_double)] as stride(0)
+loads [(4*aspen_param_sizeof_double)] from pfz as stride(0)
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [12] as dp, simd
+loads [(4*aspen_param_sizeof_double)] from pfx as stride(0)
+loads [(8*aspen_param_sizeof_double)] as stride(0)
+flops [12] as dp, simd
+loads [(8*aspen_param_sizeof_double)] as stride(0)
+loads [(4*aspen_param_sizeof_double)] from pfy as stride(0)
+flops [12] as dp, simd
+loads [(4*aspen_param_sizeof_double)] from pfx as stride(0)
+loads [(8*aspen_param_sizeof_double)] as stride(0)
+flops [12] as dp, simd
+loads [(8*aspen_param_sizeof_double)] as stride(0)
+loads [(4*aspen_param_sizeof_double)] from pfz as stride(0)
+flops [12] as dp, simd
+loads [(8*aspen_param_sizeof_double)] as stride(0)
+loads [(4*aspen_param_sizeof_double)] from pfy as stride(0)
+flops [12] as dp, simd
+loads [(8*aspen_param_sizeof_double)] as stride(0)
+loads [(4*aspen_param_sizeof_double)] from pfz as stride(0)
+flops [12] as dp, simd
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [2] as dp, simd
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [2] as dp, simd
+stores [(1*aspen_param_sizeof_double)] as stride(0)
+flops [2] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to m_dxx as stride(1)
+stores [(1*aspen_param_sizeof_double)] to m_dyy as stride(1)
+stores [(1*aspen_param_sizeof_double)] to m_dzz as stride(1)
+}
+}
+kernel CalcLagrangeElements {
+execute  "block_CalcLagrangeElements1225" {
+flops [1] as integer
+}
+call CalcKinematicsForElems()
+execute [numElem_CalcLagrangeElements] "block_CalcLagrangeElements11" {
+flops [1] as integer
+}
+execute [numElem_CalcLagrangeElements] "block_CalcLagrangeElements15" {
+loads [(1*aspen_param_sizeof_double)] from m_dzz as stride(1)
+loads [(1*aspen_param_sizeof_double)] from m_dxx as stride(1)
+loads [(1*aspen_param_sizeof_double)] from m_dyy as stride(1)
+flops [2] as dp, simd
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)] to m_vdov as stride(1)
+stores [(1*aspen_param_sizeof_double)] to m_dxx as stride(1)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to m_dyy as stride(1)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to m_dzz as stride(1)
+flops [1] as dp, simd
+}
+execute  "block_CalcLagrangeElements26" {
+flops [1] as integer
+}
+}
+kernel CalcMonotonicQGradientsForElems {
+execute [m_numElem] "block_CalcMonotonicQGradientsForElems5" {
+flops [1] as integer
+}
+execute [m_numElem] "block_CalcMonotonicQGradientsForElems22" {
+loads [(1*aspen_param_sizeof_int)] from m_nodelist
+flops [1] as integer
+loads [(1*aspen_param_sizeof_int)] from elemToNode_CalcMonotonicQGradientsForElems as stride(0)
+loads [(1*aspen_param_sizeof_int)] from elemToNode_CalcMonotonicQGradientsForElems as stride(0)
+loads [(1*aspen_param_sizeof_int)] from elemToNode_CalcMonotonicQGradientsForElems as stride(0)
+loads [(1*aspen_param_sizeof_int)] from elemToNode_CalcMonotonicQGradientsForElems as stride(0)
+loads [(1*aspen_param_sizeof_int)] from elemToNode_CalcMonotonicQGradientsForElems as stride(0)
+loads [(1*aspen_param_sizeof_int)] from elemToNode_CalcMonotonicQGradientsForElems as stride(0)
+loads [(1*aspen_param_sizeof_int)] from elemToNode_CalcMonotonicQGradientsForElems as stride(0)
+loads [(1*aspen_param_sizeof_int)] from elemToNode_CalcMonotonicQGradientsForElems as stride(0)
+loads [(1*aspen_param_sizeof_double)] from m_x
+loads [(1*aspen_param_sizeof_double)] from m_x
+loads [(1*aspen_param_sizeof_double)] from m_x
+loads [(1*aspen_param_sizeof_double)] from m_x
+loads [(1*aspen_param_sizeof_double)] from m_x
+loads [(1*aspen_param_sizeof_double)] from m_x
+loads [(1*aspen_param_sizeof_double)] from m_x
+loads [(1*aspen_param_sizeof_double)] from m_x
+loads [(1*aspen_param_sizeof_double)] from m_y
+loads [(1*aspen_param_sizeof_double)] from m_y
+loads [(1*aspen_param_sizeof_double)] from m_y
+loads [(1*aspen_param_sizeof_double)] from m_y
+loads [(1*aspen_param_sizeof_double)] from m_y
+loads [(1*aspen_param_sizeof_double)] from m_y
+loads [(1*aspen_param_sizeof_double)] from m_y
+loads [(1*aspen_param_sizeof_double)] from m_y
+loads [(1*aspen_param_sizeof_double)] from m_z
+loads [(1*aspen_param_sizeof_double)] from m_z
+loads [(1*aspen_param_sizeof_double)] from m_z
+loads [(1*aspen_param_sizeof_double)] from m_z
+loads [(1*aspen_param_sizeof_double)] from m_z
+loads [(1*aspen_param_sizeof_double)] from m_z
+loads [(1*aspen_param_sizeof_double)] from m_z
+loads [(1*aspen_param_sizeof_double)] from m_z
+loads [(1*aspen_param_sizeof_double)] from m_xd
+loads [(1*aspen_param_sizeof_double)] from m_xd
+loads [(1*aspen_param_sizeof_double)] from m_xd
+loads [(1*aspen_param_sizeof_double)] from m_xd
+loads [(1*aspen_param_sizeof_double)] from m_xd
+loads [(1*aspen_param_sizeof_double)] from m_xd
+loads [(1*aspen_param_sizeof_double)] from m_xd
+loads [(1*aspen_param_sizeof_double)] from m_xd
+loads [(1*aspen_param_sizeof_double)] from m_yd
+loads [(1*aspen_param_sizeof_double)] from m_yd
+loads [(1*aspen_param_sizeof_double)] from m_yd
+loads [(1*aspen_param_sizeof_double)] from m_yd
+loads [(1*aspen_param_sizeof_double)] from m_yd
+loads [(1*aspen_param_sizeof_double)] from m_yd
+loads [(1*aspen_param_sizeof_double)] from m_yd
+loads [(1*aspen_param_sizeof_double)] from m_yd
+loads [(1*aspen_param_sizeof_double)] from m_zd
+loads [(1*aspen_param_sizeof_double)] from m_zd
+loads [(1*aspen_param_sizeof_double)] from m_zd
+loads [(1*aspen_param_sizeof_double)] from m_zd
+loads [(1*aspen_param_sizeof_double)] from m_zd
+loads [(1*aspen_param_sizeof_double)] from m_zd
+loads [(1*aspen_param_sizeof_double)] from m_zd
+loads [(1*aspen_param_sizeof_double)] from m_zd
+loads [(1*aspen_param_sizeof_double)] from m_vnew as stride(1)
+loads [(1*aspen_param_sizeof_double)] from m_volo as stride(1)
+flops [1] as dp, simd
+flops [2] as dp
+flops [8] as dp
+flops [8] as dp
+flops [8] as dp
+flops [8] as dp
+flops [8] as dp
+flops [8] as dp
+flops [8] as dp
+flops [8] as dp
+flops [8] as dp
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+stores [(1*aspen_param_sizeof_double)] to m_delx_zeta as stride(1)
+flops [7] as dp, simd
+flops [1] as dp
+flops [1] as dp
+flops [1] as dp
+flops [1] as dp
+flops [8] as dp
+flops [8] as dp
+flops [8] as dp
+stores [(1*aspen_param_sizeof_double)] to m_delv_zeta as stride(1)
+flops [5] as dp, simd
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+stores [(1*aspen_param_sizeof_double)] to m_delx_xi as stride(1)
+flops [7] as dp, simd
+flops [1] as dp
+flops [1] as dp
+flops [1] as dp
+flops [1] as dp
+flops [8] as dp
+flops [8] as dp
+flops [8] as dp
+stores [(1*aspen_param_sizeof_double)] to m_delv_xi as stride(1)
+flops [5] as dp, simd
+flops [3] as dp
+flops [3] as dp
+flops [3] as dp
+stores [(1*aspen_param_sizeof_double)] to m_delx_eta as stride(1)
+flops [7] as dp, simd
+flops [1] as dp
+flops [1] as dp
+flops [1] as dp
+flops [1] as dp
+flops [8] as dp
+flops [8] as dp
+flops [8] as dp
+stores [(1*aspen_param_sizeof_double)] to m_delv_eta as stride(1)
+flops [5] as dp, simd
+}
+}
+kernel CalcMonotonicQRegionForElems {
+execute [elength] "block_CalcMonotonicQRegionForElems8" {
+flops [1] as integer
+}
+execute [elength] "block_CalcMonotonicQRegionForElems21" {
+loads [(1*aspen_param_sizeof_int)] from m_matElemlist as stride(1)
+loads [(1*aspen_param_sizeof_int)] from m_elemBC
+loads [(1*aspen_param_sizeof_double)] from m_delv_xi
+flops [2] as dp
+loads [(1*aspen_param_sizeof_int)] from m_lxim
+loads [(1*aspen_param_sizeof_double)] from m_delv_xi as random
+loads [(1*aspen_param_sizeof_double)] from m_delv_xi
+loads [(1*aspen_param_sizeof_int)] from m_lxip
+loads [(1*aspen_param_sizeof_double)] from m_delv_xi as random
+loads [(1*aspen_param_sizeof_double)] from m_delv_xi
+flops [1] as dp
+flops [1] as dp
+flops [2] as dp
+flops [1] as dp
+flops [1] as dp
+flops [1] as dp
+flops [1] as dp
+flops [1] as dp
+flops [1] as dp
+loads [(1*aspen_param_sizeof_double)] from m_delv_eta
+flops [2] as dp
+loads [(1*aspen_param_sizeof_int)] from m_letam
+loads [(1*aspen_param_sizeof_double)] from m_delv_eta as random
+loads [(1*aspen_param_sizeof_double)] from m_delv_eta
+loads [(1*aspen_param_sizeof_int)] from m_letap
+loads [(1*aspen_param_sizeof_double)] from m_delv_eta as random
+loads [(1*aspen_param_sizeof_double)] from m_delv_eta
+flops [1] as dp
+flops [1] as dp
+flops [2] as dp
+flops [1] as dp
+flops [1] as dp
+flops [1] as dp
+flops [1] as dp
+flops [1] as dp
+flops [1] as dp
+loads [(1*aspen_param_sizeof_double)] from m_delv_zeta
+flops [2] as dp
+loads [(1*aspen_param_sizeof_double)] from m_delv_zeta as random
+loads [(1*aspen_param_sizeof_int)] from m_lzetam
+loads [(1*aspen_param_sizeof_double)] from m_delv_zeta
+loads [(1*aspen_param_sizeof_double)] from m_delv_zeta as random
+loads [(1*aspen_param_sizeof_int)] from m_lzetap
+loads [(1*aspen_param_sizeof_double)] from m_delv_zeta
+flops [1] as dp
+flops [1] as dp
+flops [2] as dp
+flops [1] as dp
+flops [1] as dp
+flops [1] as dp
+flops [1] as dp
+flops [1] as dp
+flops [1] as dp
+loads [(1*aspen_param_sizeof_double)] from m_vdov
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)] to m_qq
+stores [(1*aspen_param_sizeof_double)] to m_ql
+}
+}
+kernel CalcMonotonicQForElems {
+execute  "block_CalcMonotonicQForElems1588" {
+flops [1] as integer
+}
+call CalcMonotonicQRegionForElems()
+}
+kernel CalcQForElems {
+call CalcMonotonicQGradientsForElems()
+call CalcMonotonicQForElems()
+}
+kernel CalcPressureForElems {
+execute [length] "block_CalcPressureForElems6" {
+flops [1] as integer
+}
+execute [length] "block_CalcPressureForElems9" {
+flops [1] as dp
+loads [(1*aspen_param_sizeof_double)] from compHalfStep as stride(1)
+stores [(1*aspen_param_sizeof_double)] to bvc as stride(1)
+flops [2] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to pbvc as stride(1)
+}
+execute [length] "block_CalcPressureForElems12" {
+flops [1] as integer
+}
+execute [length] "block_CalcPressureForElems13" {
+loads [(1*aspen_param_sizeof_double)] from bvc as stride(1)
+loads [(1*aspen_param_sizeof_double)] from e_new as stride(1)
+stores [(1*aspen_param_sizeof_double)] to pHalfStep as stride(1)
+flops [1] as dp, simd
+loads [(1*aspen_param_sizeof_double)] from pHalfStep as stride(1)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to pHalfStep as stride(1)
+loads [(1*aspen_param_sizeof_double)] from pHalfStep as stride(1)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to pHalfStep as stride(1)
+}
+}
+kernel CalcPressureForElems_clnd1 {
+execute [length] "block_CalcPressureForElems_clnd16" {
+flops [1] as integer
+}
+execute [length] "block_CalcPressureForElems_clnd19" {
+flops [1] as dp
+loads [(1*aspen_param_sizeof_double)] from compression as stride(1)
+stores [(1*aspen_param_sizeof_double)] to bvc as stride(1)
+flops [2] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to pbvc as stride(1)
+}
+execute [length] "block_CalcPressureForElems_clnd112" {
+flops [1] as integer
+}
+execute [length] "block_CalcPressureForElems_clnd113" {
+loads [(1*aspen_param_sizeof_double)] from bvc as stride(1)
+loads [(1*aspen_param_sizeof_double)] from e_new as stride(1)
+stores [(1*aspen_param_sizeof_double)] to p_new as stride(1)
+flops [1] as dp, simd
+loads [(1*aspen_param_sizeof_double)] from p_new as stride(1)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to p_new as stride(1)
+loads [(1*aspen_param_sizeof_double)] from p_new as stride(1)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to p_new as stride(1)
+}
+}
+kernel CalcPressureForElems_clnd2 {
+execute [length] "block_CalcPressureForElems_clnd26" {
+flops [1] as integer
+}
+execute [length] "block_CalcPressureForElems_clnd29" {
+flops [1] as dp
+loads [(1*aspen_param_sizeof_double)] from compression as stride(1)
+stores [(1*aspen_param_sizeof_double)] to bvc as stride(1)
+flops [2] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to pbvc as stride(1)
+}
+execute [length] "block_CalcPressureForElems_clnd212" {
+flops [1] as integer
+}
+execute [length] "block_CalcPressureForElems_clnd213" {
+loads [(1*aspen_param_sizeof_double)] from bvc as stride(1)
+loads [(1*aspen_param_sizeof_double)] from e_new as stride(1)
+stores [(1*aspen_param_sizeof_double)] to p_new as stride(1)
+flops [1] as dp, simd
+loads [(1*aspen_param_sizeof_double)] from p_new as stride(1)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to p_new as stride(1)
+loads [(1*aspen_param_sizeof_double)] from p_new as stride(1)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to p_new as stride(1)
+}
+}
+kernel Release {
+execute  "block_Release1964" {
+loads [(1*aspen_param_sizeof_double)] from pHalfStep
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)] to pHalfStep
+stores [(1*aspen_param_sizeof_double)] to pHalfStep
+}
+}
+kernel CalcEnergyForElems {
+execute [length] "block_CalcEnergyForElems14" {
+flops [1] as integer
+}
+execute [length] "block_CalcEnergyForElems15" {
+loads [(1*aspen_param_sizeof_double)] from work as stride(1)
+loads [(1*aspen_param_sizeof_double)] from e_old as stride(1)
+loads [(1*aspen_param_sizeof_double)] from p_old as stride(1)
+loads [(1*aspen_param_sizeof_double)] from q_old as stride(1)
+loads [(1*aspen_param_sizeof_double)] from delvc as stride(1)
+stores [(1*aspen_param_sizeof_double)] to e_new as stride(1)
+flops [6] as dp, simd
+loads [(1*aspen_param_sizeof_double)] from e_new as stride(1)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to e_new as stride(1)
+}
+call CalcPressureForElems()
+execute [length] "block_CalcEnergyForElems19" {
+flops [1] as integer
+}
+execute [length] "block_CalcEnergyForElems22" {
+loads [(1*aspen_param_sizeof_double)] from compHalfStep as stride(1)
+flops [2] as dp, simd
+loads [(1*aspen_param_sizeof_double)] from delvc as stride(1)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to q_new as stride(1)
+loads [(1*aspen_param_sizeof_double)] from pHalfStep as stride(1)
+loads [(1*aspen_param_sizeof_double)] from q_new as stride(1)
+loads [(1*aspen_param_sizeof_double)] from p_old as stride(1)
+loads [(1*aspen_param_sizeof_double)] from q_old as stride(1)
+loads [(1*aspen_param_sizeof_double)] from e_new as stride(1)
+loads [(1*aspen_param_sizeof_double)] from delvc as stride(1)
+stores [(1*aspen_param_sizeof_double)] to e_new as stride(1)
+flops [8] as dp, simd
+}
+execute [length] "block_CalcEnergyForElems27" {
+flops [1] as integer
+}
+execute [length] "block_CalcEnergyForElems28" {
+loads [(1*aspen_param_sizeof_double)] from work as stride(1)
+stores [(1*aspen_param_sizeof_double)] to e_new as stride(1)
+flops [2] as dp, simd
+loads [(1*aspen_param_sizeof_double)] from e_new as stride(1)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to e_new as stride(1)
+loads [(1*aspen_param_sizeof_double)] from e_new as stride(1)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to e_new as stride(1)
+}
+call CalcPressureForElems_clnd1()
+execute [length] "block_CalcEnergyForElems34" {
+flops [1] as integer
+}
+execute [length] "block_CalcEnergyForElems1923" {
+loads [(1*aspen_param_sizeof_double)] from delvc as stride(1)
+flops [1] as dp, simd
+loads [(1*aspen_param_sizeof_double)] from pHalfStep as stride(1)
+loads [(1*aspen_param_sizeof_double)] from q_new as stride(1)
+loads [(1*aspen_param_sizeof_double)] from p_new as stride(1)
+loads [(1*aspen_param_sizeof_double)] from p_old as stride(1)
+loads [(1*aspen_param_sizeof_double)] from q_old as stride(1)
+loads [(1*aspen_param_sizeof_double)] from e_new as stride(1)
+loads [(1*aspen_param_sizeof_double)] from delvc as stride(1)
+stores [(1*aspen_param_sizeof_double)] to e_new as stride(1)
+flops [10] as dp, simd
+loads [(1*aspen_param_sizeof_double)] from e_new as stride(1)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to e_new as stride(1)
+loads [(1*aspen_param_sizeof_double)] from e_new as stride(1)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to e_new as stride(1)
+}
+call CalcPressureForElems_clnd2()
+execute [length] "block_CalcEnergyForElems47" {
+flops [1] as integer
+}
+execute [length] "block_CalcEnergyForElems1955" {
+loads [(1*aspen_param_sizeof_double)] from delvc as stride(1)
+flops [1] as dp, simd
+loads [(1*aspen_param_sizeof_double)] from bvc as stride(1)
+loads [(2*aspen_param_sizeof_double)] from vnewc as stride(1)
+loads [(1*aspen_param_sizeof_double)] from pbvc as stride(1)
+loads [(1*aspen_param_sizeof_double)] from p_new as stride(1)
+loads [(1*aspen_param_sizeof_double)] from e_new as stride(1)
+flops [6] as dp, simd
+loads [(1*aspen_param_sizeof_double)] from qq as stride(1)
+loads [(1*aspen_param_sizeof_double)] from ql as stride(1)
+stores [(1*aspen_param_sizeof_double)] to q_new as stride(1)
+flops [2] as dp, simd
+loads [(1*aspen_param_sizeof_double)] from q_new as stride(1)
+flops [1] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to q_new as stride(1)
+}
+call Release()
+}
+kernel CalcSoundSpeedForElems {
+execute [length] "block_CalcSoundSpeedForElems5" {
+flops [1] as integer
+}
+execute [length] "block_CalcSoundSpeedForElems8" {
+loads [(1*aspen_param_sizeof_int)] from m_matElemlist as stride(1)
+loads [(1*aspen_param_sizeof_double)] from bvc as stride(1)
+loads [(2*aspen_param_sizeof_double)] from vnewc as stride(1)
+loads [(1*aspen_param_sizeof_double)] from p_new as stride(1)
+loads [(1*aspen_param_sizeof_double)] from pbvc as stride(1)
+loads [(1*aspen_param_sizeof_double)] from e_new as stride(1)
+flops [6] as dp, simd
+flops [1] as dp
+stores [(1*aspen_param_sizeof_double)] to m_ss
+flops [1] as dp
+}
+}
+kernel EvalEOSForElems {
+execute [length] "block_EvalEOSForElems33" {
+flops [1] as integer
+}
+execute [length] "block_EvalEOSForElems36" {
+loads [(1*aspen_param_sizeof_int)] from m_matElemlist as stride(1)
+loads [(1*aspen_param_sizeof_double)] from m_e
+stores [(1*aspen_param_sizeof_double)] to e_old as stride(1)
+loads [(1*aspen_param_sizeof_double)] from m_delv
+stores [(1*aspen_param_sizeof_double)] to delvc as stride(1)
+loads [(1*aspen_param_sizeof_double)] from m_p
+stores [(1*aspen_param_sizeof_double)] to p_old as stride(1)
+loads [(1*aspen_param_sizeof_double)] from m_q
+stores [(1*aspen_param_sizeof_double)] to q_old as stride(1)
+}
+execute [length] "block_EvalEOSForElems41" {
+flops [1] as integer
+}
+execute [length] "block_EvalEOSForElems44" {
+loads [(1*aspen_param_sizeof_double)] from vnewc as stride(1)
+stores [(1*aspen_param_sizeof_double)] to compression as stride(1)
+flops [2] as dp, simd
+loads [(1*aspen_param_sizeof_double)] from vnewc as stride(1)
+loads [(1*aspen_param_sizeof_double)] from delvc as stride(1)
+flops [2] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to compHalfStep as stride(1)
+flops [2] as dp, simd
+}
+execute [length] "block_EvalEOSForElems48" {
+flops [1] as integer
+}
+execute [length] "block_EvalEOSForElems51" {
+loads [(1*aspen_param_sizeof_int)] from m_matElemlist as stride(1)
+loads [(1*aspen_param_sizeof_double)] from m_qq
+stores [(1*aspen_param_sizeof_double)] to qq as stride(1)
+loads [(1*aspen_param_sizeof_double)] from m_ql
+stores [(1*aspen_param_sizeof_double)] to ql as stride(1)
+stores [(1*aspen_param_sizeof_double)] to work as stride(1)
+loads [(1*aspen_param_sizeof_double)] from vnewc as stride(1)
+flops [2] as dp, simd
+loads [(1*aspen_param_sizeof_double)] from compression as stride(1)
+stores [(1*aspen_param_sizeof_double)] to compHalfStep as stride(1)
+loads [(1*aspen_param_sizeof_double)] from vnewc as stride(1)
+flops [2] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to p_old as stride(1)
+stores [(1*aspen_param_sizeof_double)] to compression as stride(1)
+stores [(1*aspen_param_sizeof_double)] to compHalfStep as stride(1)
+}
+call CalcEnergyForElems()
+execute [length] "block_EvalEOSForElems62" {
+flops [1] as integer
+}
+execute [length] "block_EvalEOSForElems65" {
+loads [(1*aspen_param_sizeof_int)] from m_matElemlist as stride(1)
+loads [(1*aspen_param_sizeof_double)] from p_new as stride(1)
+stores [(1*aspen_param_sizeof_double)] to m_p
+loads [(1*aspen_param_sizeof_double)] from e_new as stride(1)
+stores [(1*aspen_param_sizeof_double)] to m_e
+loads [(1*aspen_param_sizeof_double)] from q_new as stride(1)
+stores [(1*aspen_param_sizeof_double)] to m_q
+}
+call CalcSoundSpeedForElems()
+}
+kernel ApplyMaterialPropertiesForElems {
+execute  "block_ApplyMaterialPropertiesForElems1773" {
+flops [1] as integer
+}
+execute [m_numElem] "block_ApplyMaterialPropertiesForElems17" {
+flops [1] as integer
+}
+execute [m_numElem] "block_ApplyMaterialPropertiesForElems20" {
+loads [(1*aspen_param_sizeof_int)] from m_matElemlist as stride(1)
+loads [(1*aspen_param_sizeof_double)] from m_vnew
+stores [(1*aspen_param_sizeof_double)] to vnewc as stride(1)
+loads [(1*aspen_param_sizeof_double)] from vnewc as stride(1)
+flops [2] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to vnewc as stride(1)
+loads [(1*aspen_param_sizeof_double)] from vnewc as stride(1)
+flops [2] as dp, simd
+stores [(1*aspen_param_sizeof_double)] to vnewc as stride(1)
+}
+execute [m_numElem] "block_ApplyMaterialPropertiesForElems26" {
+flops [1] as integer
+}
+execute [m_numElem] "block_ApplyMaterialPropertiesForElems29" {
+loads [(1*aspen_param_sizeof_int)] from m_matElemlist as stride(1)
+loads [(1*aspen_param_sizeof_double)] from m_v
+flops [2] as dp
+flops [2] as dp
+}
+call EvalEOSForElems()
+}
+kernel UpdateVolumesForElems {
+execute  "block_UpdateVolumesForElems1997" {
+flops [1] as integer
+}
+execute [m_numElem] "block_UpdateVolumesForElems9" {
+flops [1] as integer
+}
+execute [m_numElem] "block_UpdateVolumesForElems12" {
+loads [(1*aspen_param_sizeof_double)] from m_vnew as stride(1)
+flops [2] as dp
+stores [(1*aspen_param_sizeof_double)] to m_v as stride(1)
+}
+}
+kernel LagrangeElements {
+call CalcLagrangeElements()
+call CalcQForElems()
+call ApplyMaterialPropertiesForElems()
+call UpdateVolumesForElems()
+}
+kernel CalcCourantConstraintForElems {
+execute  "block_CalcCourantConstraintForElems15" {
+flops [2] as dp
+flops [1] as integer
+}
+iterate [m_numElem] {
+execute  "block_CalcCourantConstraintForElems21" {
+loads [(1*aspen_param_sizeof_int)] from m_matElemlist as stride(1)
+loads [(2*aspen_param_sizeof_double)] from m_ss
+flops [1] as dp
+loads [(1*aspen_param_sizeof_double)] from m_vdov
+flops [1] as dp
+loads [(2*aspen_param_sizeof_double)] from m_vdov
+loads [(2*aspen_param_sizeof_double)] from m_arealg
+flops [5] as dp
+}
+call SQRT8()
+execute  "block_CalcCourantConstraintForElems28" {
+loads [(1*aspen_param_sizeof_double)] from m_arealg
+flops [1] as dp
+loads [(1*aspen_param_double)] from m_vdov as stride(1)
+flops [2] as dp
+}
+}
+execute  "block_CalcCourantConstraintForElems32" {
+flops [1] as integer
+}
+}
+kernel CalcHydroConstraintForElems {
+execute  "block_CalcHydroConstraintForElems15" {
+flops [1] as integer
+}
+iterate [m_numElem] {
+execute  "block_CalcHydroConstraintForElems18" {
+loads [(1*aspen_param_sizeof_int)] from m_matElemlist as stride(1)
+loads [(1*aspen_param_sizeof_double)] from m_vdov
+flops [1] as dp
+loads [(1*aspen_param_sizeof_double)] from m_vdov
+flops [2] as dp
+}
+call FABS8()
+}
+execute  "block_CalcHydroConstraintForElems24" {
+flops [1] as integer
+}
+}
+kernel CalcTimeConstraintsForElems {
+execute  "block_CalcTimeConstraintsForElems0__intracommOUT" {
+intracomm [(aspen_param_sizeof_double*m_numElem)] to m_arealg as copyout
+intracomm [(aspen_param_sizeof_double*m_numElem)] to m_ss as copyout
+intracomm [(aspen_param_sizeof_double*m_numElem)] to m_vdov as copyout
+}
+call CalcCourantConstraintForElems()
+call CalcHydroConstraintForElems()
+}
+kernel LagrangeLeapFrog {
+call LagrangeNodal()
+call LagrangeElements()
+call CalcTimeConstraintsForElems()
+}
+kernel main {
+execute  "block_main134__intracommIN" {
+intracomm [(aspen_param_sizeof_double*m_numElem)] to m_e as copyin
+intracomm [(aspen_param_sizeof_double*m_numNode)] to m_yd as copyin
+intracomm [(aspen_param_sizeof_int*m_nCorner)] to m_nodeElemCornerList as copyin
+intracomm [(aspen_param_sizeof_int*m_numElem)] to m_elemBC as copyin
+intracomm [(aspen_param_sizeof_int*(edgeNodes*edgeNodes))] to m_symmY as copyin
+intracomm [(aspen_param_sizeof_double*m_numNode)] to m_xd as copyin
+intracomm [(aspen_param_sizeof_int*m_numElem)] to m_lzetap as copyin
+intracomm [(aspen_param_sizeof_int*m_numElem)] to m_letam as copyin
+intracomm [(aspen_param_sizeof_int*m_numElem)] to m_letap as copyin
+intracomm [(aspen_param_sizeof_double*m_numNode)] to m_x as copyin
+intracomm [(aspen_param_sizeof_double*m_numNode)] to m_xdd as copyin
+intracomm [(aspen_param_sizeof_int*m_numElem)] to m_lzetam as copyin
+intracomm [(aspen_param_sizeof_double*m_numElem)] to m_volo as copyin
+intracomm [(aspen_param_sizeof_int*m_numElem)] to m_matElemlist as copyin
+intracomm [(aspen_param_sizeof_int*(edgeNodes*edgeNodes))] to m_symmX as copyin
+intracomm [(aspen_param_sizeof_double*m_numNode)] to m_z as copyin
+intracomm [(aspen_param_sizeof_double*m_numNode)] to m_ydd as copyin
+intracomm [(aspen_param_sizeof_double*m_numElem)] to m_v as copyin
+intracomm [(aspen_param_sizeof_double*m_numElem)] to m_elemMass as copyin
+intracomm [(aspen_param_sizeof_double*m_numElem)] to m_p as copyin
+intracomm [(aspen_param_sizeof_double*m_numNode)] to m_nodalMass as copyin
+intracomm [(aspen_param_sizeof_int*m_numElem8)] to m_nodelist as copyin
+intracomm [(aspen_param_sizeof_int*(edgeNodes*edgeNodes))] to m_symmZ as copyin
+intracomm [(aspen_param_sizeof_int*m_numNode)] to m_nodeElemCount as copyin
+intracomm [(aspen_param_sizeof_double*m_numNode)] to m_zd as copyin
+intracomm [(aspen_param_sizeof_int*m_numNode)] to m_nodeElemStart as copyin
+intracomm [(aspen_param_sizeof_int*m_numElem)] to m_lxip as copyin
+intracomm [(aspen_param_sizeof_double*m_numNode)] to m_y as copyin
+intracomm [(aspen_param_sizeof_int*m_numElem)] to m_lxim as copyin
+intracomm [(aspen_param_sizeof_double*m_numNode)] to m_zdd as copyin
+flops [1] as dp
+}
+iterate [aspen_param_whilecnt] {
+call TimeIncrement()
+call LagrangeLeapFrog()
+execute  "block_main138" {
+flops [1] as integer
+}
+}
+execute  "block_main134__intracommOUT" {
+intracomm [(aspen_param_sizeof_double*m_numElem)] to m_e as copyout
+intracomm [(aspen_param_sizeof_double*m_numNode)] to m_yd as copyout
+intracomm [(aspen_param_sizeof_double*m_numNode)] to m_xd as copyout
+intracomm [(aspen_param_sizeof_double*m_numNode)] to m_x as copyout
+intracomm [(aspen_param_sizeof_double*m_numNode)] to m_z as copyout
+intracomm [(aspen_param_sizeof_double*m_numElem)] to m_p as copyout
+intracomm [(aspen_param_sizeof_double*m_numNode)] to m_zd as copyout
+intracomm [(aspen_param_sizeof_double*m_numNode)] to m_y as copyout
+}
+}
+}

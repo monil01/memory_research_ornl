@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <iostream>
+//#include <omp.h>
 
 #include <sys/time.h>
 
@@ -20,6 +21,7 @@ int stride = 1;
 void vecMul(float *a, float *b, float *c, int n)
 {
     //for(int i = 0; i < n/2; i += rand())
+    //#pragma omp parallel for
     for(int i = 0; i < n; i += stride)
     {
         c[i] = a[i] * b[i];
@@ -31,6 +33,7 @@ void warmup(float *a, float *b, float *c, int n)
 {
     //for(int i = 0; i < n/2; i += rand())
     float x = 22/7, y=100/3, z = 0;
+    //#pragma omp parallel for
     for(int i = 0; i < 1000000000; i += 1)
     {
 	x = x * y;
@@ -44,6 +47,7 @@ void vecMull(float *a, float *b, float *c, int n)
 {
     //for(int i = 0; i < n/2; i += rand())
     float x = 22/7, y=100/3, z = 0;
+    //#pragma omp parallel for
     for(int i = 0; i < n; i += stride)
     {
 	c[i] = x * i;
@@ -55,6 +59,7 @@ void vecMull(float *a, float *b, float *c, int n)
 void fill_cache(float *a, int n)
 {
     float delta = 1.9;
+    //#pragma omp parallel for
     for(int i = 0; i < n; i++)
     {
         a[i] = a[i] * delta;
@@ -116,6 +121,7 @@ int main( int argc, char* argv[] )
  
      
     // Initialize vectors on host
+    //#pragma omp parallel for
     for( int i = 0; i < n; i++ ) {
         h_a[i] = sin(i)*sin(i);
         h_b[i] = cos(i)*cos(i);
@@ -123,6 +129,7 @@ int main( int argc, char* argv[] )
     }
 
     // Initialize vectors on host
+    //#pragma omp parallel for
     for( int i = 0; i < fill; i++ ) {
         h_d[i] = sin(i)*sin(i);
     }

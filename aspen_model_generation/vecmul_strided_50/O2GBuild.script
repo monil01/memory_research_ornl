@@ -9,11 +9,11 @@ elif [ $# -ge 2 ]; then
 	postprocessing=2
 elif [ $# -ge 1 ]; then
     runMode=$1
-	aspen_param=1024
+	aspen_param=512
 	postprocessing=2
 else
     runMode=3
-	aspen_param=1024
+	aspen_param=512
 	postprocessing=2
 fi
 
@@ -23,19 +23,17 @@ else
     aspenrt=""
 fi
 
-
-
 #openarcbenchlib="../../../../openarcrt"
 #openarcbenchbin="../../../../test/bin"
 #openarclib="../../../../lib"
-
 
 openarcbenchlib="../../../../OpenARC-devel/openarcrt"
 openarcbenchbin="../../../../OpenARC-devel/test/bin"
 openarclib="../../../../OpenARC-devel/lib"
 
 
-benchname="laplace2d"
+
+benchname="vecmul_strided_50"
 verLevel=0
 
 if [ ! -f "openarcConf.txt" ]; then
@@ -55,7 +53,7 @@ if [ "$openarcbenchlib" != "" ]; then
 fi
 
 java -classpath $openarclib/cetus.jar:$openarclib/antlr.jar openacc.exec.ACC2GPUDriver -verbosity=${verLevel} -gpuConfFile=openarcConf.txt -ASPENModelGen=mode=${runMode}:modelname=${benchname}:postprocessing=${postprocessing} *.c ${aspenrt}
-cp -f *.h ./cetus_output/
+#cp -f *.h ./cetus_output/
 if [ -f "$openarcbenchbin/smallmodeltest" ]; then
 	cp $openarcbenchbin/smallmodeltest ./cetus_output/
 fi

@@ -28,7 +28,7 @@
 #endif
 
 #ifndef NN
-#define NN 1024
+#define NN 4096
 #endif 
 
 #ifdef _OPENARC_
@@ -96,7 +96,8 @@ int main(int argc, char** argv)
 
 //aspen_param_whilecnt = 1000 for NN = NN = 4096
 //aspen_param_whilecnt = 1000 for NN = NN = 8192
-#pragma aspen declare param(aspen_param_whilecnt:10)
+#pragma aspen declare param(aspen_param_whilecnt:1)
+//#pragma aspen declare param(aspen_param_whilecnt:10)
 #pragma aspen control loop(aspen_param_whilecnt)
 #pragma acc data copy(A[0:n][0:n]), create(Anew[0:n][0:n])
     while ( error > tol && iter < iter_max )
@@ -106,6 +107,7 @@ int main(int argc, char** argv)
 //#pragma omp parallel for shared(m, n, Anew, A)
 #pragma acc parallel num_gangs(16) num_workers(32) reduction(max:error) private(j)
         {
+#pragma aspen control ignore
 			double lerror = 0.0;
 #pragma acc loop gang
             for( j = 1; j < n-1; j++)
@@ -113,16 +115,21 @@ int main(int argc, char** argv)
 #pragma acc loop worker reduction(max:lerror)
                 for( i = 1; i < m-1; i++ )
                 {
+#pragma aspen  control loads((4*aspen_param_sizeof_double):from(A):traits(pattern(stencil4)))
                     Anew[j][i] = 0.25 * ( A[j][i+1] + A[j][i-1]
-                                          + A[j-1][i] + A[j+1][i]);
+                                                  + A[j-1][i] + A[j+1][i]);
+
+#pragma aspen control ignore
                     lerror = fmax( lerror, fabs(Anew[j][i] - A[j][i]));
                 }
 //[DEBUG] intentionally ignore to flatten nested map constructs.
 #pragma aspen control ignore
 				error = fmax(error, lerror);
             }
+
         }
 
+/*
 //#pragma omp parallel for shared(m, n, Anew, A)
 #pragma acc kernels loop gang
         for( j = 1; j < n-1; j++)
@@ -135,6 +142,7 @@ int main(int argc, char** argv)
         }
 
         if(iter % 100 == 0) printf("%5d, %0.6f\n", iter, error);
+*/
 
         iter++;
     }

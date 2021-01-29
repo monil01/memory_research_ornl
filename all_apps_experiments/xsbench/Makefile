@@ -5,7 +5,7 @@
 # Compiler can be set below, or via environment variable
 ifeq ($(CC),)
 #CC    = icpc
-CC    = tau_cxx.sh -optCompInst
+CC    = tau_cc.sh -optCompInst
 endif
 OPTIMIZE    = yes
 OPENMP      = yes
@@ -37,13 +37,14 @@ obj = $(source:.c=.o)
 ifeq (cc,$(CC))
 #CC    = gcc
 #CC    = icpc
-CC    = tau_cxx.sh -optCompInst
+CC    = tau_cc.sh -optCompInst
 endif
 
 # Standard Flags
-CFLAGS := -g -O3 -march=native -qopenmp -restrict
-#CFLAGS := -std=gnu99 -Wall
+#CFLAGS := -g -O3 -march=native -qopenmp -restrict
+CFLAGS := -std=gnu99 -Wall
 #CFLAGS := -std=gnu99 -Wall -fopenmp -DOPENMP
+
 
 # Linker Flags
 LDFLAGS = -lm

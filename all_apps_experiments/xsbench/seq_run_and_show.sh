@@ -26,14 +26,14 @@ run_skylake()
        #for i in "${ADDR[@]}"; do
        #  echo -n "$i" 
        #done
-    #echo ${ADDR[8]}
-    read=$read+${ADDR[8]} 
+    #echo ${ADDR[7]}
+    read=$read+${ADDR[7]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc1__UNC_M_CAS_COUNT_RD_cpu\=12
     IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-    #echo ${ADDR[8]}
-    read=$read+${ADDR[8]} 
+    #echo ${ADDR[7]}
+    read=$read+${ADDR[7]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc2__UNC_M_CAS_COUNT_RD_cpu\=12
@@ -41,62 +41,62 @@ run_skylake()
        #for i in "${ADDR[@]}"; do
        #  echo -n "$i" 
        #done
-    #echo ${ADDR[8]}
-    read=$read+${ADDR[8]} 
+    #echo ${ADDR[7]}
+    read=$read+${ADDR[7]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc3__UNC_M_CAS_COUNT_RD_cpu\=12
     IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-    #echo ${ADDR[8]}
-    read=$read+${ADDR[8]} 
+    #echo ${ADDR[7]}
+    read=$read+${ADDR[7]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc4__UNC_M_CAS_COUNT_RD_cpu\=12
     IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-    #echo ${ADDR[8]}
-    read=$read+${ADDR[8]} 
+    #echo ${ADDR[7]}
+    read=$read+${ADDR[7]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc5__UNC_M_CAS_COUNT_RD_cpu\=12
     IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-    #echo ${ADDR[8]}
-    read=$read+${ADDR[8]} 
+    #echo ${ADDR[7]}
+    read=$read+${ADDR[7]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc0__UNC_M_CAS_COUNT_WR_cpu\=12
     IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-    #echo ${ADDR[8]}
-    write=$write+${ADDR[8]} 
+    #echo ${ADDR[7]}
+    write=$write+${ADDR[7]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc1__UNC_M_CAS_COUNT_WR_cpu\=12
     IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-    #echo ${ADDR[8]}
-    write=$write+${ADDR[8]} 
+    #echo ${ADDR[7]}
+    write=$write+${ADDR[7]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc2__UNC_M_CAS_COUNT_WR_cpu\=12
     IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-    #echo ${ADDR[8]}
-    write=$write+${ADDR[8]} 
+    #echo ${ADDR[7]}
+    write=$write+${ADDR[7]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc3__UNC_M_CAS_COUNT_WR_cpu\=12
     IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-    #echo ${ADDR[8]}
-    write=$write+${ADDR[8]} 
+    #echo ${ADDR[7]}
+    write=$write+${ADDR[7]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc4__UNC_M_CAS_COUNT_WR_cpu\=12
     IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-    #echo ${ADDR[8]}
-    write=$write+${ADDR[8]} 
+    #echo ${ADDR[7]}
+    write=$write+${ADDR[7]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc5__UNC_M_CAS_COUNT_WR_cpu\=12
     IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-    #echo ${ADDR[8]}
-    write=$write+${ADDR[8]} 
+    #echo ${ADDR[7]}
+    write=$write+${ADDR[7]} 
     cd ..
     
     #write=$write*64
@@ -115,8 +115,8 @@ run_broadwell()
     export TAU_METRICS=TIME,PAPI_NATIVE_bdx_unc_imc0::UNC_M_CAS_COUNT:RD:cpu=16,PAPI_NATIVE_bdx_unc_imc1::UNC_M_CAS_COUNT:RD:cpu=16,PAPI_NATIVE_bdx_unc_imc4::UNC_M_CAS_COUNT:RD:cpu=16,PAPI_NATIVE_bdx_unc_imc5::UNC_M_CAS_COUNT:RD:cpu=16,PAPI_NATIVE_bdx_unc_imc0::UNC_M_CAS_COUNT:WR:cpu=16,PAPI_NATIVE_bdx_unc_imc1::UNC_M_CAS_COUNT:WR:cpu=16,PAPI_NATIVE_bdx_unc_imc4::UNC_M_CAS_COUNT:WR:cpu=16,PAPI_NATIVE_bdx_unc_imc5::UNC_M_CAS_COUNT:WR:cpu=16
     #taskset --cpu 12 ./tau_stencil_jacobi $1 $2
     
-    #taskset --cpu 16 ./XSBench
-    taskset --cpu 16 ./XSBench -s small
+    taskset --cpu 16 ./XSBench
+    #taskset --cpu 16 ./XSBench -s small
 
     #./jacobi $1 $2
 
@@ -133,53 +133,53 @@ run_broadwell()
 
     cd MULTI__PAPI_NATIVE_bdx_unc_imc0__UNC_M_CAS_COUNT_RD_cpu\=16
     IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-       #for i in "${ADDR[@]}"; do
-         #echo  "$i" 
-       #done
-    echo ${ADDR[8]}
-    read=$read+${ADDR[8]} 
+       for i in "${ADDR[@]}"; do
+         echo  "$i" 
+       done
+    echo ${ADDR[7]}
+    read=$read+${ADDR[7]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_bdx_unc_imc1__UNC_M_CAS_COUNT_RD_cpu\=16
     IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-    echo ${ADDR[8]}
-    read=$read+${ADDR[8]} 
+    echo ${ADDR[7]}
+    read=$read+${ADDR[7]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_bdx_unc_imc4__UNC_M_CAS_COUNT_RD_cpu\=16
     IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-    echo ${ADDR[8]}
-    read=$read+${ADDR[8]} 
+    echo ${ADDR[7]}
+    read=$read+${ADDR[7]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_bdx_unc_imc5__UNC_M_CAS_COUNT_RD_cpu\=16
     IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-    echo ${ADDR[8]}
-    read=$read+${ADDR[8]} 
+    echo ${ADDR[7]}
+    read=$read+${ADDR[7]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_bdx_unc_imc0__UNC_M_CAS_COUNT_WR_cpu\=16
     IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-    echo ${ADDR[8]}
-    write=$write+${ADDR[8]} 
+    echo ${ADDR[7]}
+    write=$write+${ADDR[7]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_bdx_unc_imc1__UNC_M_CAS_COUNT_WR_cpu\=16
     IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-    echo ${ADDR[8]}
-    write=$write+${ADDR[8]} 
+    echo ${ADDR[7]}
+    write=$write+${ADDR[7]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_bdx_unc_imc4__UNC_M_CAS_COUNT_WR_cpu\=16
     IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-    echo ${ADDR[8]}
-    write=$write+${ADDR[8]} 
+    echo ${ADDR[7]}
+    write=$write+${ADDR[7]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_bdx_unc_imc5__UNC_M_CAS_COUNT_WR_cpu\=16
     IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-    echo ${ADDR[8]}
-    write=$write+${ADDR[8]} 
+    echo ${ADDR[7]}
+    write=$write+${ADDR[7]} 
     cd ..
     
     #write=$write*64

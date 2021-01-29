@@ -26,10 +26,21 @@ write=[6824619,6755515,6740634,6725749,6734401,3368188,1676038,839272,420643,212
 read1=[18861923,18813995,18800278,18803630,18803353,18590975,14190254,2364840,1183868,594090,297740,149395,75338,37868]
 write1=[6665144,6625435,6662691,6637524,6645248,3644694,2029784,839811,421381,212587,106996,58520,31292,15906]
 
+readc=[18706394, 18750993, 18760631, 18766661, 18763123, 16630885, 11066714, 2930101, 1172688, 590092, 292798, 147153, 74118, 37785]
+writec=[6258120,6265611,6272502,6270325,6275745,3148710,1580119,789113,391925,199966,98858,50376,25516,14507]
+
+reads=[18765642,18772132,18764571,18759543,18764915,16576687,11395672,2952856,1175004,588251,295965,148305,74884,37756]
+writes=[6271286,6264048,6265378,6268979,6266406,3144219,1573146,789636,392824,196725,99267,50322,25902,13290]
+
+
 read = np.array(read) / 1000000
 write = np.array(write) / 1000000
 write1 = np.array(write1) / 1000000
 read1 = np.array(read1) / 1000000
+writec = np.array(writec) / 1000000
+readc = np.array(readc) / 1000000
+writes = np.array(writes) / 1000000
+reads = np.array(reads) / 1000000
 x_pos = np.arange(len(stride))  # the label locations
 
 #ax.barh(x_pos, read, hatch='....', color='white', edgecolor='black')
@@ -37,8 +48,17 @@ x_pos = np.arange(len(stride))  # the label locations
 
 plt.plot(stride, read, marker='o', markersize=3,  color='black', linestyle='dashed', label="Read", linewidth=2)
 plt.plot(stride, write, marker='*', markersize=3,  color='black', linestyle='solid', label="write", linewidth=2)
-plt.plot(stride, read1, marker='x', markersize=4,  color='black', linestyle='dotted', label="read-prefetch", linewidth=1)
-plt.plot(stride, write1, marker='v', markersize=4,  color='black', linestyle='dashdot', label="write-prefetch", linewidth=1)
+plt.plot(stride, read1, marker='x', markersize=4,  color='black', linestyle='dotted', label="read-pref-Broadwell", linewidth=2)
+plt.plot(stride, write1, marker='v', markersize=4,  color='black', linestyle='dashdot', label="write-pref-Broadwell", linewidth=1)
+
+plt.plot(stride, readc, marker='1', markersize=8,  color='blue', linestyle=':', label="read-pref-Cascade-Lake", linewidth=2)
+plt.plot(stride, writec, marker='s', markersize=4,  color='black', linestyle='dashdot', label="write-pref-Cascade-Lake", linewidth=1)
+
+
+plt.plot(stride, reads, marker='2', markersize=8,  color='green', linestyle='-.', label="read-pref-Sky-Lake", linewidth=2)
+plt.plot(stride, writes, marker='P', markersize=4,  color='black', linestyle='dashdot', label="write-pref-Sky-Lake", linewidth=1)
+
+
 
 #plt.plot(stride, read, "-b", label="Read")
 #plt.plot(stride, write, "-r", label="Write")

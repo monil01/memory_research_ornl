@@ -10,21 +10,10 @@ flops [2] as integer
 }
 execute [m_size] "block_openacc_comp18" {
 flops [1] as integer
-loads [((4*aspen_param_sizeof_float)*m_size)] from b as stride(1)
-stores [((1*aspen_param_sizeof_float)*m_size)] to a as stride(1)
+loads [((4*aspen_param_sizeof_float)*m_size)] from b as pattern(stencil4)
+stores [((1*aspen_param_sizeof_float)*m_size)] from a as initialized(0)
 flops [(4*m_size)] as sp, simd
 flops [(9*m_size)] as integer
-}
-}
-kernel openacc_comp2 {
-execute [m_size] "block_openacc_comp27" {
-flops [2] as integer
-}
-execute [m_size] "block_openacc_comp28" {
-flops [1] as integer
-loads [((1*aspen_param_sizeof_float)*m_size)] from a as stride(1)
-stores [((1*aspen_param_sizeof_float)*m_size)] to b as stride(1)
-flops [(2*m_size)] as integer
 }
 }
 kernel main {
@@ -32,9 +21,8 @@ execute  "block_main34" {
 flops [1] as integer
 intracomm [((aspen_param_sizeof_float*(2+m_size))*(2+m_size))] to b as copyin
 }
-iterate [10] {
+iterate [1] {
 call openacc_comp1()
-call openacc_comp2()
 }
 execute  "block_main34__intracommOUT" {
 intracomm [((aspen_param_sizeof_float*(2+m_size))*(2+m_size))] to b as copyout

@@ -1,0 +1,101 @@
+rm -rf XSBench Main.o io.o Simulation.o GridInit.o XSutils.o Materials.o
+tau_cc.sh -optCompInst -std=gnu99 -Wall -O3 -c Main.c -o Main.o
+Debug: Using compiler-based instrumentation
+
+
+Debug: Compiling with Instrumented Code
+Executing> /auto/software/gcc/x86_64/gcc-9.1.0/bin/gcc -std=gnu99 -Wall -O3 -c Main.c -g -DPROFILING_ON -DTAU_PAPI -I/home/mmonil/packages/download_tar/papi/src/install/include -DTAU_GNU -DTAU_DOT_H_LESS_HEADERS -DTAU_LINUX_TIMERS -DTAU_LARGEFILE -D_LARGEFILE64_SOURCE -DTAU_BFD -DHAVE_GNU_DEMANGLE -DHAVE_TR1_HASH_MAP -DTAU_SS_ALLOC_SUPPORT -DEBS_CLOCK_RES=1 -DTAU_STRSIGNAL_OK -DTAU_TRACK_LD_LOADER -DTAU_OPENMP_NESTED -DTAU_USE_TLS -DTAU_PAPI_PERF_RAPL -DTAU_ELF_BFD -fopenmp -DTAU_OPENMP -DTAU_UNIFY -I/home/mmonil/packages/download_tar/tau-2.29-openmp/install/include -g -finstrument-functions -finstrument-functions-exclude-file-list=/usr/include -o Main.o
+Looking for file: Main.o
+
+tau_cc.sh -optCompInst -std=gnu99 -Wall -O3 -c io.c -o io.o
+Debug: Using compiler-based instrumentation
+
+
+Debug: Compiling with Instrumented Code
+Executing> /auto/software/gcc/x86_64/gcc-9.1.0/bin/gcc -std=gnu99 -Wall -O3 -c io.c -g -DPROFILING_ON -DTAU_PAPI -I/home/mmonil/packages/download_tar/papi/src/install/include -DTAU_GNU -DTAU_DOT_H_LESS_HEADERS -DTAU_LINUX_TIMERS -DTAU_LARGEFILE -D_LARGEFILE64_SOURCE -DTAU_BFD -DHAVE_GNU_DEMANGLE -DHAVE_TR1_HASH_MAP -DTAU_SS_ALLOC_SUPPORT -DEBS_CLOCK_RES=1 -DTAU_STRSIGNAL_OK -DTAU_TRACK_LD_LOADER -DTAU_OPENMP_NESTED -DTAU_USE_TLS -DTAU_PAPI_PERF_RAPL -DTAU_ELF_BFD -fopenmp -DTAU_OPENMP -DTAU_UNIFY -I/home/mmonil/packages/download_tar/tau-2.29-openmp/install/include -g -finstrument-functions -finstrument-functions-exclude-file-list=/usr/include -o io.o
+Looking for file: io.o
+
+tau_cc.sh -optCompInst -std=gnu99 -Wall -O3 -c Simulation.c -o Simulation.o
+Debug: Using compiler-based instrumentation
+
+
+Debug: Compiling with Instrumented Code
+Executing> /auto/software/gcc/x86_64/gcc-9.1.0/bin/gcc -std=gnu99 -Wall -O3 -c Simulation.c -g -DPROFILING_ON -DTAU_PAPI -I/home/mmonil/packages/download_tar/papi/src/install/include -DTAU_GNU -DTAU_DOT_H_LESS_HEADERS -DTAU_LINUX_TIMERS -DTAU_LARGEFILE -D_LARGEFILE64_SOURCE -DTAU_BFD -DHAVE_GNU_DEMANGLE -DHAVE_TR1_HASH_MAP -DTAU_SS_ALLOC_SUPPORT -DEBS_CLOCK_RES=1 -DTAU_STRSIGNAL_OK -DTAU_TRACK_LD_LOADER -DTAU_OPENMP_NESTED -DTAU_USE_TLS -DTAU_PAPI_PERF_RAPL -DTAU_ELF_BFD -fopenmp -DTAU_OPENMP -DTAU_UNIFY -I/home/mmonil/packages/download_tar/tau-2.29-openmp/install/include -g -finstrument-functions -finstrument-functions-exclude-file-list=/usr/include -o Simulation.o
+Looking for file: Simulation.o
+
+tau_cc.sh -optCompInst -std=gnu99 -Wall -O3 -c GridInit.c -o GridInit.o
+Debug: Using compiler-based instrumentation
+
+
+Debug: Compiling with Instrumented Code
+Executing> /auto/software/gcc/x86_64/gcc-9.1.0/bin/gcc -std=gnu99 -Wall -O3 -c GridInit.c -g -DPROFILING_ON -DTAU_PAPI -I/home/mmonil/packages/download_tar/papi/src/install/include -DTAU_GNU -DTAU_DOT_H_LESS_HEADERS -DTAU_LINUX_TIMERS -DTAU_LARGEFILE -D_LARGEFILE64_SOURCE -DTAU_BFD -DHAVE_GNU_DEMANGLE -DHAVE_TR1_HASH_MAP -DTAU_SS_ALLOC_SUPPORT -DEBS_CLOCK_RES=1 -DTAU_STRSIGNAL_OK -DTAU_TRACK_LD_LOADER -DTAU_OPENMP_NESTED -DTAU_USE_TLS -DTAU_PAPI_PERF_RAPL -DTAU_ELF_BFD -fopenmp -DTAU_OPENMP -DTAU_UNIFY -I/home/mmonil/packages/download_tar/tau-2.29-openmp/install/include -g -finstrument-functions -finstrument-functions-exclude-file-list=/usr/include -o GridInit.o
+Looking for file: GridInit.o
+
+tau_cc.sh -optCompInst -std=gnu99 -Wall -O3 -c XSutils.c -o XSutils.o
+Debug: Using compiler-based instrumentation
+
+
+Debug: Compiling with Instrumented Code
+Executing> /auto/software/gcc/x86_64/gcc-9.1.0/bin/gcc -std=gnu99 -Wall -O3 -c XSutils.c -g -DPROFILING_ON -DTAU_PAPI -I/home/mmonil/packages/download_tar/papi/src/install/include -DTAU_GNU -DTAU_DOT_H_LESS_HEADERS -DTAU_LINUX_TIMERS -DTAU_LARGEFILE -D_LARGEFILE64_SOURCE -DTAU_BFD -DHAVE_GNU_DEMANGLE -DHAVE_TR1_HASH_MAP -DTAU_SS_ALLOC_SUPPORT -DEBS_CLOCK_RES=1 -DTAU_STRSIGNAL_OK -DTAU_TRACK_LD_LOADER -DTAU_OPENMP_NESTED -DTAU_USE_TLS -DTAU_PAPI_PERF_RAPL -DTAU_ELF_BFD -fopenmp -DTAU_OPENMP -DTAU_UNIFY -I/home/mmonil/packages/download_tar/tau-2.29-openmp/install/include -g -finstrument-functions -finstrument-functions-exclude-file-list=/usr/include -o XSutils.o
+Looking for file: XSutils.o
+
+tau_cc.sh -optCompInst -std=gnu99 -Wall -O3 -c Materials.c -o Materials.o
+Debug: Using compiler-based instrumentation
+
+
+Debug: Compiling with Instrumented Code
+Executing> /auto/software/gcc/x86_64/gcc-9.1.0/bin/gcc -std=gnu99 -Wall -O3 -c Materials.c -g -DPROFILING_ON -DTAU_PAPI -I/home/mmonil/packages/download_tar/papi/src/install/include -DTAU_GNU -DTAU_DOT_H_LESS_HEADERS -DTAU_LINUX_TIMERS -DTAU_LARGEFILE -D_LARGEFILE64_SOURCE -DTAU_BFD -DHAVE_GNU_DEMANGLE -DHAVE_TR1_HASH_MAP -DTAU_SS_ALLOC_SUPPORT -DEBS_CLOCK_RES=1 -DTAU_STRSIGNAL_OK -DTAU_TRACK_LD_LOADER -DTAU_OPENMP_NESTED -DTAU_USE_TLS -DTAU_PAPI_PERF_RAPL -DTAU_ELF_BFD -fopenmp -DTAU_OPENMP -DTAU_UNIFY -I/home/mmonil/packages/download_tar/tau-2.29-openmp/install/include -g -finstrument-functions -finstrument-functions-exclude-file-list=/usr/include -o Materials.o
+Looking for file: Materials.o
+
+tau_cc.sh -optCompInst -std=gnu99 -Wall -O3 Main.o io.o Simulation.o GridInit.o XSutils.o Materials.o -o XSBench -lm
+Debug: Using compiler-based instrumentation
+Debug: Moving these libraries to the end of the link line:
+
+
+Debug: Linking with TAU Options
+Executing> /auto/software/gcc/x86_64/gcc-9.1.0/bin/gcc -std=gnu99 -Wall -O3 Main.o io.o Simulation.o GridInit.o XSutils.o Materials.o -o XSBench -lm -L/home/mmonil/packages/download_tar/tau-2.29-openmp/install/x86_64/lib -ltau-papi-pdt-openmp -Wl,-rpath,/home/mmonil/packages/download_tar/papi/src/install/lib -L/home/mmonil/packages/download_tar/papi/src/install/lib/ -L/home/mmonil/packages/download_tar/papi/src/install/lib64/ -Wl,-rpath,/home/mmonil/packages/download_tar/papi/src/install/lib -lpapi -L/home/mmonil/packages/download_tar/tau-2.29-openmp/install/x86_64/binutils-2.23.2/lib -L/home/mmonil/packages/download_tar/tau-2.29-openmp/install/x86_64/binutils-2.23.2/lib64 -Wl,-rpath,/home/mmonil/packages/download_tar/tau-2.29-openmp/install/x86_64/binutils-2.23.2/lib -Wl,-rpath,/home/mmonil/packages/download_tar/tau-2.29-openmp/install/x86_64/binutils-2.23.2/lib64 -lbfd -liberty -lz -ldl -Wl,--export-dynamic -lrt -ldl -ldl -lm -L/auto/software/gcc/x86_64/gcc-9.1.0/lib/gcc/x86_64-pc-linux-gnu/9.1.0/ -lstdc++ -lgcc_s -L/home/mmonil/packages/download_tar/tau-2.29-openmp/install/x86_64/lib/static-papi-pdt-openmp -fopenmp -g @/home/mmonil/packages/download_tar/tau-2.29-openmp/install/x86_64/lib/wrappers/gomp_wrapper/link_options.tau -L/home/mmonil/packages/download_tar/tau-2.29-openmp/install/x86_64/lib -ltau-papi-pdt-openmp -Wl,-rpath,/home/mmonil/packages/download_tar/papi/src/install/lib -L/home/mmonil/packages/download_tar/papi/src/install/lib/ -L/home/mmonil/packages/download_tar/papi/src/install/lib64/ -Wl,-rpath,/home/mmonil/packages/download_tar/papi/src/install/lib -lpapi -L/home/mmonil/packages/download_tar/tau-2.29-openmp/install/x86_64/binutils-2.23.2/lib -L/home/mmonil/packages/download_tar/tau-2.29-openmp/install/x86_64/binutils-2.23.2/lib64 -Wl,-rpath,/home/mmonil/packages/download_tar/tau-2.29-openmp/install/x86_64/binutils-2.23.2/lib -Wl,-rpath,/home/mmonil/packages/download_tar/tau-2.29-openmp/install/x86_64/binutils-2.23.2/lib64 -lbfd -liberty -lz -ldl -Wl,--export-dynamic -lrt -ldl -ldl -lm -L/auto/software/gcc/x86_64/gcc-9.1.0/lib/gcc/x86_64-pc-linux-gnu/9.1.0/ -lstdc++ -lgcc_s -L/home/mmonil/packages/download_tar/tau-2.29-openmp/install/x86_64/lib/static-papi-pdt-openmp -fopenmp -g
+
+
+Found Skylake / Cascadelake Server CPU
+Disable all prefetch
+	Core 0 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 0 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 1 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 1 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 2 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 2 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 3 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 3 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 4 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 4 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 5 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 5 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 6 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 6 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 7 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 7 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 8 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 8 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 9 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 9 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 10 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 10 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 11 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 11 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 12 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 12 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 13 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 13 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 14 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 14 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 15 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 15 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 16 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 16 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 17 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 17 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 18 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 18 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 19 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 19 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+----------------------Array size = 100000000 -------------------

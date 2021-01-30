@@ -56,7 +56,7 @@ Debug: Linking with TAU Options
 Executing> /usr/lib64/ccache/gcc -std=gnu99 -Wall -O3 Main.o io.o Simulation.o GridInit.o XSutils.o Materials.o -o XSBench -lm -L/home/mmonil/packages/download_tar/tau-2.29/install/x86_64/lib -ltau-papi-pdt -Wl,-rpath,/home/mmonil/packages/download_tar/papi/src/install/lib -L/home/mmonil/packages/download_tar/papi/src/install/lib/ -L/home/mmonil/packages/download_tar/papi/src/install/lib64/ -Wl,-rpath,/home/mmonil/packages/download_tar/papi/src/install/lib -lpapi -L/home/mmonil/packages/download_tar/tau-2.29/install/x86_64/binutils-2.23.2/lib -L/home/mmonil/packages/download_tar/tau-2.29/install/x86_64/binutils-2.23.2/lib64 -Wl,-rpath,/home/mmonil/packages/download_tar/tau-2.29/install/x86_64/binutils-2.23.2/lib -Wl,-rpath,/home/mmonil/packages/download_tar/tau-2.29/install/x86_64/binutils-2.23.2/lib64 -lbfd -liberty -lz -ldl -Wl,--export-dynamic -lrt -ldl -lm -L/usr/lib/gcc/x86_64-redhat-linux/4.8.5/ -lstdc++ -lgcc_s -L/home/mmonil/packages/download_tar/tau-2.29/install/x86_64/lib/static-papi-pdt -g
 
 
-Found Broadwell-DE/EP CPU
+Found Skylake / Cascadelake Server CPU
 Disable all prefetch
 	Core 0 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
 	Core 0 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
@@ -98,30 +98,6 @@ Disable all prefetch
 	Core 18 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
 	Core 19 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
 	Core 19 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
-	Core 20 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
-	Core 20 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
-	Core 21 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
-	Core 21 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
-	Core 22 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
-	Core 22 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
-	Core 23 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
-	Core 23 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
-	Core 24 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
-	Core 24 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
-	Core 25 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
-	Core 25 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
-	Core 26 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
-	Core 26 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
-	Core 27 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
-	Core 27 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
-	Core 28 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
-	Core 28 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
-	Core 29 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
-	Core 29 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
-	Core 30 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
-	Core 30 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
-	Core 31 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
-	Core 31 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
 ----------------------Array size = 100000000 -------------------
 ================================================================================
                    __   __ ___________                 _                        
@@ -140,24 +116,24 @@ Disable all prefetch
 Simulation Method:            History Based
 Grid Type:                    Unionized Grid
 Materials:                    12
-H-M Benchmark Size:           large
-Total Nuclides:               355
+H-M Benchmark Size:           small
+Total Nuclides:               68
 Gridpoints (per Nuclide):     11,303
-Unionized Energy Gridpoints:  4,012,565
+Unionized Energy Gridpoints:  768,604
 Particle Histories:           500,000
 XS Lookups per Particle:      34
 Total XS Lookups:             34
 Threads:                      1
-Est. Memory Usage (MB):       5,649
+Est. Memory Usage (MB):       241
 Binary File Mode:             Off
 ================================================================================
                          INITIALIZATION - DO NOT PROFILE
 ================================================================================
 Intializing nuclide grids...
 Intializing unionized grid...
-siz 4012565
+siz 768604
 Intializing material data...
-Intialization complete. Allocated 5648 MB of data.
+Intialization complete. Allocated 240 MB of data.
 
 ================================================================================
                                    SIMULATION
@@ -169,10 +145,10 @@ Simulation complete.
                                      RESULTS
 ================================================================================
 Threads:     1
-Runtime:     371.930 seconds
+Runtime:     1003.361 seconds
 Lookups:     17,000,000
-Lookups/s:   45,707
-Verification checksum: 954318 (Valid)
+Lookups/s:   16,943
+Verification checksum: 941535 (Valid)
 ================================================================================
 "grid_search
 [{/home/mmonil/memory_research_ornl/all_apps_experiments/xsbench/Simulation.c}
@@ -180,21 +156,20 @@ Verification checksum: 954318 (Valid)
 [THROTTLED]"
 100001
 0
-130675
-130675
+49377
+49377
 0
 GROUP="TAU_DISABLE"
-130675
-266209
-130404
-269215
-7743
-148114
-8033
-149675
-grid: 1 796503 313565
+49377
+49833
+49796
+48826
+48825
+49104
+7729
+stride: 1 295761 45083
 
-Found Broadwell-DE/EP CPU
+Found Skylake / Cascadelake Server CPU
 Enable all prefetch
 	Core 0 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
 	Core 0 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
@@ -236,30 +211,6 @@ Enable all prefetch
 	Core 18 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
 	Core 19 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
 	Core 19 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
-	Core 20 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
-	Core 20 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
-	Core 21 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
-	Core 21 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
-	Core 22 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
-	Core 22 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
-	Core 23 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
-	Core 23 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
-	Core 24 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
-	Core 24 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
-	Core 25 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
-	Core 25 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
-	Core 26 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
-	Core 26 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
-	Core 27 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
-	Core 27 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
-	Core 28 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
-	Core 28 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
-	Core 29 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
-	Core 29 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
-	Core 30 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
-	Core 30 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
-	Core 31 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
-	Core 31 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
 ----------------------Array size = 100000000 -------------------
 ================================================================================
                    __   __ ___________                 _                        
@@ -278,24 +229,24 @@ Enable all prefetch
 Simulation Method:            History Based
 Grid Type:                    Unionized Grid
 Materials:                    12
-H-M Benchmark Size:           large
-Total Nuclides:               355
+H-M Benchmark Size:           small
+Total Nuclides:               68
 Gridpoints (per Nuclide):     11,303
-Unionized Energy Gridpoints:  4,012,565
+Unionized Energy Gridpoints:  768,604
 Particle Histories:           500,000
 XS Lookups per Particle:      34
 Total XS Lookups:             34
 Threads:                      1
-Est. Memory Usage (MB):       5,649
+Est. Memory Usage (MB):       241
 Binary File Mode:             Off
 ================================================================================
                          INITIALIZATION - DO NOT PROFILE
 ================================================================================
 Intializing nuclide grids...
 Intializing unionized grid...
-siz 4012565
+siz 768604
 Intializing material data...
-Intialization complete. Allocated 5648 MB of data.
+Intialization complete. Allocated 240 MB of data.
 
 ================================================================================
                                    SIMULATION
@@ -307,10 +258,10 @@ Simulation complete.
                                      RESULTS
 ================================================================================
 Threads:     1
-Runtime:     361.992 seconds
+Runtime:     1022.482 seconds
 Lookups:     17,000,000
-Lookups/s:   46,962
-Verification checksum: 954318 (Valid)
+Lookups/s:   16,626
+Verification checksum: 941535 (Valid)
 ================================================================================
 "grid_search
 [{/home/mmonil/memory_research_ornl/all_apps_experiments/xsbench/Simulation.c}
@@ -318,16 +269,15 @@ Verification checksum: 954318 (Valid)
 [THROTTLED]"
 100001
 0
-185755
-185755
+114704
+114704
 0
 GROUP="TAU_DISABLE"
-185755
-320021
-185034
-322296
-8327
-146725
-8550
-148414
-grid: 1 1013106 312016
+114704
+114712
+115225
+114394
+114138
+114936
+7868
+stride: 1 688109 49119

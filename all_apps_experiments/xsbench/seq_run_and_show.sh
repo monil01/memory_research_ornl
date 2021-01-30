@@ -115,8 +115,8 @@ run_broadwell()
     export TAU_METRICS=TIME,PAPI_NATIVE_bdx_unc_imc0::UNC_M_CAS_COUNT:RD:cpu=16,PAPI_NATIVE_bdx_unc_imc1::UNC_M_CAS_COUNT:RD:cpu=16,PAPI_NATIVE_bdx_unc_imc4::UNC_M_CAS_COUNT:RD:cpu=16,PAPI_NATIVE_bdx_unc_imc5::UNC_M_CAS_COUNT:RD:cpu=16,PAPI_NATIVE_bdx_unc_imc0::UNC_M_CAS_COUNT:WR:cpu=16,PAPI_NATIVE_bdx_unc_imc1::UNC_M_CAS_COUNT:WR:cpu=16,PAPI_NATIVE_bdx_unc_imc4::UNC_M_CAS_COUNT:WR:cpu=16,PAPI_NATIVE_bdx_unc_imc5::UNC_M_CAS_COUNT:WR:cpu=16
     #taskset --cpu 12 ./tau_stencil_jacobi $1 $2
     
-    taskset --cpu 16 ./XSBench
-    #taskset --cpu 16 ./XSBench -s small
+    #taskset --cpu 16 ./XSBench
+    taskset --cpu 16 ./XSBench -s small
 
     #./jacobi $1 $2
 
@@ -189,7 +189,7 @@ run_broadwell()
 
 }
 
-export OMP_PLACES='{16},{18},{20},{22},{24},{26},{28},{30}'
+#export OMP_PLACES='{16},{18},{20},{22},{24},{26},{28},{30}'
 
 export OMP_NUM_THREADS=1
 #stride_array=(1)

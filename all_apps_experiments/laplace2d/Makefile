@@ -11,7 +11,7 @@ PAPIINCLUDE_PW=-I/home/mmonil/packages/download_tar/papi_pw/src/install/include
 
 #all: omp
 #all: tau
-#all: jacobi
+all: laplace
 #all: nat_papi 
 #all: papi_pw 
 #all: vecmul papi nat_papi papi_pw tau omp

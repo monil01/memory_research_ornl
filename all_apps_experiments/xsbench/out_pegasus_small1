@@ -1,0 +1,538 @@
+rm -rf XSBench Main.o io.o Simulation.o GridInit.o XSutils.o Materials.o
+tau_cc.sh -std=gnu99 -Wall -O3 -c Main.c -o Main.o
+
+WARNING: Disabling instrumentation of source code.
+         Please either configure with -pdt=<dir> option
+         or switch to compiler based instrumentation with -optCompInst
+
+
+Debug: PDT failed, switching to compiler-based instrumentation
+
+Debug: Using compiler-based instrumentation
+
+
+Debug: Compiling with Instrumented Code
+Executing> /packages/gcc/8.1/bin/gcc -std=gnu99 -Wall -O3 -c Main.c -DPROFILING_ON -DTAU_PAPI -I/home/users/mmonil/package/intel/papi/src/install/include -DTAU_GNU -DTAU_DOT_H_LESS_HEADERS -DTAU_LINUX_TIMERS -DTAU_LARGEFILE -D_LARGEFILE64_SOURCE -DTAU_BFD -DHAVE_GNU_DEMANGLE -DHAVE_TR1_HASH_MAP -DTAU_SS_ALLOC_SUPPORT -DEBS_CLOCK_RES=1 -DTAU_STRSIGNAL_OK -DTAU_TRACK_LD_LOADER -DTAU_ELF_BFD -I/home/users/mmonil/package/intel-peg/tau-2.30/install/include -DPROFILING_ON -DTAU_PAPI -I/home/users/mmonil/package/intel/papi/src/install/include -DTAU_GNU -DTAU_DOT_H_LESS_HEADERS -DTAU_LINUX_TIMERS -DTAU_LARGEFILE -D_LARGEFILE64_SOURCE -DTAU_BFD -DHAVE_GNU_DEMANGLE -DHAVE_TR1_HASH_MAP -DTAU_SS_ALLOC_SUPPORT -DEBS_CLOCK_RES=1 -DTAU_STRSIGNAL_OK -DTAU_TRACK_LD_LOADER -DTAU_ELF_BFD -I/home/users/mmonil/package/intel-peg/tau-2.30/install/include -g -finstrument-functions -finstrument-functions-exclude-file-list=/usr/include -o Main.o
+Looking for file: Main.o
+
+tau_cc.sh -std=gnu99 -Wall -O3 -c io.c -o io.o
+
+WARNING: Disabling instrumentation of source code.
+         Please either configure with -pdt=<dir> option
+         or switch to compiler based instrumentation with -optCompInst
+
+
+Debug: PDT failed, switching to compiler-based instrumentation
+
+Debug: Using compiler-based instrumentation
+
+
+Debug: Compiling with Instrumented Code
+Executing> /packages/gcc/8.1/bin/gcc -std=gnu99 -Wall -O3 -c io.c -DPROFILING_ON -DTAU_PAPI -I/home/users/mmonil/package/intel/papi/src/install/include -DTAU_GNU -DTAU_DOT_H_LESS_HEADERS -DTAU_LINUX_TIMERS -DTAU_LARGEFILE -D_LARGEFILE64_SOURCE -DTAU_BFD -DHAVE_GNU_DEMANGLE -DHAVE_TR1_HASH_MAP -DTAU_SS_ALLOC_SUPPORT -DEBS_CLOCK_RES=1 -DTAU_STRSIGNAL_OK -DTAU_TRACK_LD_LOADER -DTAU_ELF_BFD -I/home/users/mmonil/package/intel-peg/tau-2.30/install/include -DPROFILING_ON -DTAU_PAPI -I/home/users/mmonil/package/intel/papi/src/install/include -DTAU_GNU -DTAU_DOT_H_LESS_HEADERS -DTAU_LINUX_TIMERS -DTAU_LARGEFILE -D_LARGEFILE64_SOURCE -DTAU_BFD -DHAVE_GNU_DEMANGLE -DHAVE_TR1_HASH_MAP -DTAU_SS_ALLOC_SUPPORT -DEBS_CLOCK_RES=1 -DTAU_STRSIGNAL_OK -DTAU_TRACK_LD_LOADER -DTAU_ELF_BFD -I/home/users/mmonil/package/intel-peg/tau-2.30/install/include -g -finstrument-functions -finstrument-functions-exclude-file-list=/usr/include -o io.o
+Looking for file: io.o
+
+tau_cc.sh -std=gnu99 -Wall -O3 -c Simulation.c -o Simulation.o
+
+WARNING: Disabling instrumentation of source code.
+         Please either configure with -pdt=<dir> option
+         or switch to compiler based instrumentation with -optCompInst
+
+
+Debug: PDT failed, switching to compiler-based instrumentation
+
+Debug: Using compiler-based instrumentation
+
+
+Debug: Compiling with Instrumented Code
+Executing> /packages/gcc/8.1/bin/gcc -std=gnu99 -Wall -O3 -c Simulation.c -DPROFILING_ON -DTAU_PAPI -I/home/users/mmonil/package/intel/papi/src/install/include -DTAU_GNU -DTAU_DOT_H_LESS_HEADERS -DTAU_LINUX_TIMERS -DTAU_LARGEFILE -D_LARGEFILE64_SOURCE -DTAU_BFD -DHAVE_GNU_DEMANGLE -DHAVE_TR1_HASH_MAP -DTAU_SS_ALLOC_SUPPORT -DEBS_CLOCK_RES=1 -DTAU_STRSIGNAL_OK -DTAU_TRACK_LD_LOADER -DTAU_ELF_BFD -I/home/users/mmonil/package/intel-peg/tau-2.30/install/include -DPROFILING_ON -DTAU_PAPI -I/home/users/mmonil/package/intel/papi/src/install/include -DTAU_GNU -DTAU_DOT_H_LESS_HEADERS -DTAU_LINUX_TIMERS -DTAU_LARGEFILE -D_LARGEFILE64_SOURCE -DTAU_BFD -DHAVE_GNU_DEMANGLE -DHAVE_TR1_HASH_MAP -DTAU_SS_ALLOC_SUPPORT -DEBS_CLOCK_RES=1 -DTAU_STRSIGNAL_OK -DTAU_TRACK_LD_LOADER -DTAU_ELF_BFD -I/home/users/mmonil/package/intel-peg/tau-2.30/install/include -g -finstrument-functions -finstrument-functions-exclude-file-list=/usr/include -o Simulation.o
+Looking for file: Simulation.o
+
+tau_cc.sh -std=gnu99 -Wall -O3 -c GridInit.c -o GridInit.o
+
+WARNING: Disabling instrumentation of source code.
+         Please either configure with -pdt=<dir> option
+         or switch to compiler based instrumentation with -optCompInst
+
+
+Debug: PDT failed, switching to compiler-based instrumentation
+
+Debug: Using compiler-based instrumentation
+
+
+Debug: Compiling with Instrumented Code
+Executing> /packages/gcc/8.1/bin/gcc -std=gnu99 -Wall -O3 -c GridInit.c -DPROFILING_ON -DTAU_PAPI -I/home/users/mmonil/package/intel/papi/src/install/include -DTAU_GNU -DTAU_DOT_H_LESS_HEADERS -DTAU_LINUX_TIMERS -DTAU_LARGEFILE -D_LARGEFILE64_SOURCE -DTAU_BFD -DHAVE_GNU_DEMANGLE -DHAVE_TR1_HASH_MAP -DTAU_SS_ALLOC_SUPPORT -DEBS_CLOCK_RES=1 -DTAU_STRSIGNAL_OK -DTAU_TRACK_LD_LOADER -DTAU_ELF_BFD -I/home/users/mmonil/package/intel-peg/tau-2.30/install/include -DPROFILING_ON -DTAU_PAPI -I/home/users/mmonil/package/intel/papi/src/install/include -DTAU_GNU -DTAU_DOT_H_LESS_HEADERS -DTAU_LINUX_TIMERS -DTAU_LARGEFILE -D_LARGEFILE64_SOURCE -DTAU_BFD -DHAVE_GNU_DEMANGLE -DHAVE_TR1_HASH_MAP -DTAU_SS_ALLOC_SUPPORT -DEBS_CLOCK_RES=1 -DTAU_STRSIGNAL_OK -DTAU_TRACK_LD_LOADER -DTAU_ELF_BFD -I/home/users/mmonil/package/intel-peg/tau-2.30/install/include -g -finstrument-functions -finstrument-functions-exclude-file-list=/usr/include -o GridInit.o
+Looking for file: GridInit.o
+
+tau_cc.sh -std=gnu99 -Wall -O3 -c XSutils.c -o XSutils.o
+
+WARNING: Disabling instrumentation of source code.
+         Please either configure with -pdt=<dir> option
+         or switch to compiler based instrumentation with -optCompInst
+
+
+Debug: PDT failed, switching to compiler-based instrumentation
+
+Debug: Using compiler-based instrumentation
+
+
+Debug: Compiling with Instrumented Code
+Executing> /packages/gcc/8.1/bin/gcc -std=gnu99 -Wall -O3 -c XSutils.c -DPROFILING_ON -DTAU_PAPI -I/home/users/mmonil/package/intel/papi/src/install/include -DTAU_GNU -DTAU_DOT_H_LESS_HEADERS -DTAU_LINUX_TIMERS -DTAU_LARGEFILE -D_LARGEFILE64_SOURCE -DTAU_BFD -DHAVE_GNU_DEMANGLE -DHAVE_TR1_HASH_MAP -DTAU_SS_ALLOC_SUPPORT -DEBS_CLOCK_RES=1 -DTAU_STRSIGNAL_OK -DTAU_TRACK_LD_LOADER -DTAU_ELF_BFD -I/home/users/mmonil/package/intel-peg/tau-2.30/install/include -DPROFILING_ON -DTAU_PAPI -I/home/users/mmonil/package/intel/papi/src/install/include -DTAU_GNU -DTAU_DOT_H_LESS_HEADERS -DTAU_LINUX_TIMERS -DTAU_LARGEFILE -D_LARGEFILE64_SOURCE -DTAU_BFD -DHAVE_GNU_DEMANGLE -DHAVE_TR1_HASH_MAP -DTAU_SS_ALLOC_SUPPORT -DEBS_CLOCK_RES=1 -DTAU_STRSIGNAL_OK -DTAU_TRACK_LD_LOADER -DTAU_ELF_BFD -I/home/users/mmonil/package/intel-peg/tau-2.30/install/include -g -finstrument-functions -finstrument-functions-exclude-file-list=/usr/include -o XSutils.o
+Looking for file: XSutils.o
+
+tau_cc.sh -std=gnu99 -Wall -O3 -c Materials.c -o Materials.o
+
+WARNING: Disabling instrumentation of source code.
+         Please either configure with -pdt=<dir> option
+         or switch to compiler based instrumentation with -optCompInst
+
+
+Debug: PDT failed, switching to compiler-based instrumentation
+
+Debug: Using compiler-based instrumentation
+
+
+Debug: Compiling with Instrumented Code
+Executing> /packages/gcc/8.1/bin/gcc -std=gnu99 -Wall -O3 -c Materials.c -DPROFILING_ON -DTAU_PAPI -I/home/users/mmonil/package/intel/papi/src/install/include -DTAU_GNU -DTAU_DOT_H_LESS_HEADERS -DTAU_LINUX_TIMERS -DTAU_LARGEFILE -D_LARGEFILE64_SOURCE -DTAU_BFD -DHAVE_GNU_DEMANGLE -DHAVE_TR1_HASH_MAP -DTAU_SS_ALLOC_SUPPORT -DEBS_CLOCK_RES=1 -DTAU_STRSIGNAL_OK -DTAU_TRACK_LD_LOADER -DTAU_ELF_BFD -I/home/users/mmonil/package/intel-peg/tau-2.30/install/include -DPROFILING_ON -DTAU_PAPI -I/home/users/mmonil/package/intel/papi/src/install/include -DTAU_GNU -DTAU_DOT_H_LESS_HEADERS -DTAU_LINUX_TIMERS -DTAU_LARGEFILE -D_LARGEFILE64_SOURCE -DTAU_BFD -DHAVE_GNU_DEMANGLE -DHAVE_TR1_HASH_MAP -DTAU_SS_ALLOC_SUPPORT -DEBS_CLOCK_RES=1 -DTAU_STRSIGNAL_OK -DTAU_TRACK_LD_LOADER -DTAU_ELF_BFD -I/home/users/mmonil/package/intel-peg/tau-2.30/install/include -g -finstrument-functions -finstrument-functions-exclude-file-list=/usr/include -o Materials.o
+Looking for file: Materials.o
+
+tau_cc.sh -std=gnu99 -Wall -O3 Main.o io.o Simulation.o GridInit.o XSutils.o Materials.o -o XSBench -lm
+Debug: Moving these libraries to the end of the link line:
+
+
+Debug: Linking with TAU Options
+Executing> /packages/gcc/8.1/bin/gcc -std=gnu99 -Wall -O3 Main.o io.o Simulation.o GridInit.o XSutils.o Materials.o -o XSBench -lm -L/home/users/mmonil/package/intel-peg/tau-2.30/install/x86_64/lib -ltau-papi -Wl,-rpath,/home/users/mmonil/package/intel/papi/src/install/lib -L/home/users/mmonil/package/intel/papi/src/install/lib/ -L/home/users/mmonil/package/intel/papi/src/install/lib64/ -Wl,-rpath,/home/users/mmonil/package/intel/papi/src/install/lib -lpapi -L/home/users/mmonil/package/intel-peg/tau-2.30/install/x86_64/binutils-2.23.2/lib -L/home/users/mmonil/package/intel-peg/tau-2.30/install/x86_64/binutils-2.23.2/lib64 -Wl,-rpath,/home/users/mmonil/package/intel-peg/tau-2.30/install/x86_64/binutils-2.23.2/lib -Wl,-rpath,/home/users/mmonil/package/intel-peg/tau-2.30/install/x86_64/binutils-2.23.2/lib64 -lbfd -liberty -lz -ldl -Wl,--export-dynamic -lrt -ldl -lm -L/storage/packages/gcc/8.1/bin/../lib/gcc/x86_64-pc-linux-gnu/8.1.0/ -lstdc++ -lgcc_s -L/home/users/mmonil/package/intel-peg/tau-2.30/install/x86_64/lib/static-papi
+
+
+Found Skylake / Cascadelake Server CPU
+Disable all prefetch
+	Core 0 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 0 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 1 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 1 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 2 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 2 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 3 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 3 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 4 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 4 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 5 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 5 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 6 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 6 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 7 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 7 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 8 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 8 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 9 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 9 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 10 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 10 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 11 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 11 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 12 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 12 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 13 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 13 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 14 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 14 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 15 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 15 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 16 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 16 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 17 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 17 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 18 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 18 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 19 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 19 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 20 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 20 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 21 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 21 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 22 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 22 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 23 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 23 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 24 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 24 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 25 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 25 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 26 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 26 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 27 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 27 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 28 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 28 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 29 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 29 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 30 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 30 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 31 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 31 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 32 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 32 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 33 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 33 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 34 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 34 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 35 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 35 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 36 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 36 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 37 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 37 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 38 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 38 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 39 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 39 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 40 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 40 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 41 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 41 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 42 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 42 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 43 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 43 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 44 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 44 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 45 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 45 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 46 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 46 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 47 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 47 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 48 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 48 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 49 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 49 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 50 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 50 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 51 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 51 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 52 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 52 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 53 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 53 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 54 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 54 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 55 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 55 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 56 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 56 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 57 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 57 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 58 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 58 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 59 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 59 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 60 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 60 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 61 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 61 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 62 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 62 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 63 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 63 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 64 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 64 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 65 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 65 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 66 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 66 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 67 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 67 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 68 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 68 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 69 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 69 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 70 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 70 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 71 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 71 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+----------------------Array size = 100000000 -------------------
+================================================================================
+                   __   __ ___________                 _                        
+                   \ \ / //  ___| ___ \               | |                       
+                    \ V / \ `--.| |_/ / ___ _ __   ___| |__                     
+                    /   \  `--. \ ___ \/ _ \ '_ \ / __| '_ \                    
+                   / /^\ \/\__/ / |_/ /  __/ | | | (__| | | |                   
+                   \/   \/\____/\____/ \___|_| |_|\___|_| |_|                   
+
+================================================================================
+                    Developed at Argonne National Laboratory
+                                   Version: 19
+================================================================================
+                                  INPUT SUMMARY
+================================================================================
+Simulation Method:            History Based
+Grid Type:                    Unionized Grid
+Materials:                    12
+H-M Benchmark Size:           small
+Total Nuclides:               68
+Gridpoints (per Nuclide):     11,303
+Unionized Energy Gridpoints:  768,604
+Particle Histories:           500,000
+XS Lookups per Particle:      34
+Total XS Lookups:             34
+Threads:                      1
+Est. Memory Usage (MB):       241
+Binary File Mode:             Off
+================================================================================
+                         INITIALIZATION - DO NOT PROFILE
+================================================================================
+Intializing nuclide grids...
+Intializing unionized grid...
+siz 768604
+Intializing material data...
+Intialization complete. Allocated 240 MB of data.
+
+================================================================================
+                                   SIMULATION
+================================================================================
+Beginning history based simulation...
+
+Simulation complete.
+================================================================================
+                                     RESULTS
+================================================================================
+Threads:     1
+Runtime:     219.712 seconds
+Lookups:     17,000,000
+Lookups/s:   77,374
+Verification checksum: 941535 (Valid)
+================================================================================
+"grid_search
+[{/home/users/mmonil/ORNL_seyong/mapmc/applications/memory_research_ornl/all_apps_experiments/xsbench/Simulation.c}
+{351,0}]
+[THROTTLED]"
+100001
+0
+95584
+95584
+0
+GROUP="TAU_DISABLE"
+95584
+96218
+"grid_search[{/home/users/mmonil/ORNL_seyong/mapmc/applications/memory_research_ornl/all_apps_experiments/xsbench/Simulation.c}{351,0}][THROTTLED]"100001095732957320GROUP="TAU_DISABLE"95732
+96243
+95459
+96648
+25828
+stride: 1 575884 154780
+
+Found Skylake / Cascadelake Server CPU
+Enable all prefetch
+	Core 0 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 0 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 1 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 1 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 2 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 2 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 3 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 3 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 4 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 4 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 5 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 5 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 6 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 6 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 7 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 7 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 8 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 8 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 9 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 9 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 10 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 10 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 11 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 11 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 12 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 12 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 13 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 13 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 14 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 14 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 15 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 15 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 16 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 16 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 17 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 17 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 18 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 18 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 19 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 19 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 20 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 20 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 21 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 21 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 22 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 22 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 23 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 23 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 24 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 24 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 25 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 25 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 26 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 26 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 27 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 27 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 28 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 28 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 29 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 29 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 30 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 30 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 31 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 31 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 32 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 32 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 33 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 33 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 34 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 34 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 35 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 35 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 36 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 36 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 37 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 37 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 38 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 38 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 39 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 39 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 40 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 40 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 41 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 41 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 42 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 42 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 43 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 43 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 44 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 44 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 45 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 45 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 46 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 46 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 47 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 47 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 48 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 48 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 49 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 49 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 50 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 50 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 51 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 51 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 52 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 52 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 53 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 53 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 54 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 54 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 55 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 55 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 56 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 56 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 57 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 57 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 58 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 58 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 59 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 59 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 60 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 60 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 61 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 61 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 62 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 62 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 63 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 63 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 64 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 64 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 65 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 65 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 66 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 66 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 67 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 67 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 68 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 68 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 69 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 69 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 70 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 70 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 71 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 71 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+----------------------Array size = 100000000 -------------------
+================================================================================
+                   __   __ ___________                 _                        
+                   \ \ / //  ___| ___ \               | |                       
+                    \ V / \ `--.| |_/ / ___ _ __   ___| |__                     
+                    /   \  `--. \ ___ \/ _ \ '_ \ / __| '_ \                    
+                   / /^\ \/\__/ / |_/ /  __/ | | | (__| | | |                   
+                   \/   \/\____/\____/ \___|_| |_|\___|_| |_|                   
+
+================================================================================
+                    Developed at Argonne National Laboratory
+                                   Version: 19
+================================================================================
+                                  INPUT SUMMARY
+================================================================================
+Simulation Method:            History Based
+Grid Type:                    Unionized Grid
+Materials:                    12
+H-M Benchmark Size:           small
+Total Nuclides:               68
+Gridpoints (per Nuclide):     11,303
+Unionized Energy Gridpoints:  768,604
+Particle Histories:           500,000
+XS Lookups per Particle:      34
+Total XS Lookups:             34
+Threads:                      1
+Est. Memory Usage (MB):       241
+Binary File Mode:             Off
+================================================================================
+                         INITIALIZATION - DO NOT PROFILE
+================================================================================
+Intializing nuclide grids...
+Intializing unionized grid...
+siz 768604
+Intializing material data...
+Intialization complete. Allocated 240 MB of data.
+
+================================================================================
+                                   SIMULATION
+================================================================================
+Beginning history based simulation...
+
+Simulation complete.
+================================================================================
+                                     RESULTS
+================================================================================
+Threads:     1
+Runtime:     218.439 seconds
+Lookups:     17,000,000
+Lookups/s:   77,824
+Verification checksum: 941535 (Valid)
+================================================================================
+"grid_search
+[{/home/users/mmonil/ORNL_seyong/mapmc/applications/memory_research_ornl/all_apps_experiments/xsbench/Simulation.c}
+{351,0}]
+[THROTTLED]"
+100001
+0
+239149
+239149
+0
+GROUP="TAU_DISABLE"
+239149
+240709
+"grid_search[{/home/users/mmonil/ORNL_seyong/mapmc/applications/memory_research_ornl/all_apps_experiments/xsbench/Simulation.c}{351,0}][THROTTLED]"10000102425712425710GROUP="TAU_DISABLE"242571
+235687
+234984
+235477
+47648
+stride: 1 1428577 276024

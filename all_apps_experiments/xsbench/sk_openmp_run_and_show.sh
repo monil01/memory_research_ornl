@@ -190,7 +190,7 @@ do
     do
 	run_skylake $stride $array_size
 	#run_broadwell $stride $array_size
-	rm -rf MULT*
+	#rm -rf MULT*
 
     done
 done

@@ -5,12 +5,15 @@ run_skylake()
 {
     
     # for oswald
-    #export TAU_METRICS=TIME,PAPI_NATIVE_bdx_unc_imc0::UNC_M_CAS_COUNT:RD:cpu=12,PAPI_NATIVE_bdx_unc_imc1::UNC_M_CAS_COUNT:RD:cpu=12,PAPI_NATIVE_bdx_unc_imc4::UNC_M_CAS_COUNT:RD:cpu=12,PAPI_NATIVE_bdx_unc_imc5::UNC_M_CAS_COUNT:RD:cpu=12,PAPI_NATIVE_bdx_unc_imc0::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_bdx_unc_imc1::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_bdx_unc_imc4::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_bdx_unc_imc5::UNC_M_CAS_COUNT:WR:cpu=12
-    export TAU_METRICS=TIME,PAPI_NATIVE_skx_unc_imc0::UNC_M_CAS_COUNT:RD:cpu=12,PAPI_NATIVE_skx_unc_imc1::UNC_M_CAS_COUNT:RD:cpu=12,PAPI_NATIVE_skx_unc_imc4::UNC_M_CAS_COUNT:RD:cpu=12,PAPI_NATIVE_skx_unc_imc5::UNC_M_CAS_COUNT:RD:cpu=12,PAPI_NATIVE_skx_unc_imc0::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_skx_unc_imc1::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_skx_unc_imc4::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_skx_unc_imc5::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_skx_unc_imc2::UNC_M_CAS_COUNT:RD:cpu=12,PAPI_NATIVE_skx_unc_imc3::UNC_M_CAS_COUNT:RD:cpu=12,PAPI_NATIVE_skx_unc_imc2::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_skx_unc_imc3::UNC_M_CAS_COUNT:WR:cpu=12
+    #export TAU_METRICS=TIME,PAPI_NATIVE_bdx_unc_imc0::UNC_M_CAS_COUNT:RD:cpu=18,PAPI_NATIVE_bdx_unc_imc1::UNC_M_CAS_COUNT:RD:cpu=18,PAPI_NATIVE_bdx_unc_imc4::UNC_M_CAS_COUNT:RD:cpu=18,PAPI_NATIVE_bdx_unc_imc5::UNC_M_CAS_COUNT:RD:cpu=18,PAPI_NATIVE_bdx_unc_imc0::UNC_M_CAS_COUNT:WR:cpu=18,PAPI_NATIVE_bdx_unc_imc1::UNC_M_CAS_COUNT:WR:cpu=18,PAPI_NATIVE_bdx_unc_imc4::UNC_M_CAS_COUNT:WR:cpu=18,PAPI_NATIVE_bdx_unc_imc5::UNC_M_CAS_COUNT:WR:cpu=18
+    export TAU_METRICS=TIME,PAPI_NATIVE_skx_unc_imc0::UNC_M_CAS_COUNT:RD:cpu=18,PAPI_NATIVE_skx_unc_imc1::UNC_M_CAS_COUNT:RD:cpu=18,PAPI_NATIVE_skx_unc_imc4::UNC_M_CAS_COUNT:RD:cpu=18,PAPI_NATIVE_skx_unc_imc5::UNC_M_CAS_COUNT:RD:cpu=18,PAPI_NATIVE_skx_unc_imc0::UNC_M_CAS_COUNT:WR:cpu=18,PAPI_NATIVE_skx_unc_imc1::UNC_M_CAS_COUNT:WR:cpu=18,PAPI_NATIVE_skx_unc_imc4::UNC_M_CAS_COUNT:WR:cpu=18,PAPI_NATIVE_skx_unc_imc5::UNC_M_CAS_COUNT:WR:cpu=18,PAPI_NATIVE_skx_unc_imc2::UNC_M_CAS_COUNT:RD:cpu=18,PAPI_NATIVE_skx_unc_imc3::UNC_M_CAS_COUNT:RD:cpu=18,PAPI_NATIVE_skx_unc_imc2::UNC_M_CAS_COUNT:WR:cpu=18,PAPI_NATIVE_skx_unc_imc3::UNC_M_CAS_COUNT:WR:cpu=18
  
-    taskset --cpu 12 ./tau_stencil_jacobi $1 $2
+    #taskset --cpu 12 ./tau_stencil_jacobi $1 $2
 
-    #export TAU_METRICS=TIME,PAPI_NATIVE_bdx_unc_imc0::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_bdx_unc_imc1::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_bdx_unc_imc4::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_bdx_unc_imc5::UNC_M_CAS_COUNT:WR:cpu=12
+    #taskset --cpu 18 ./XSBench -s small
+    taskset --cpu 18 ./XSBench
+
+    #export TAU_METRICS=TIME,PAPI_NATIVE_bdx_unc_imc0::UNC_M_CAS_COUNT:WR:cpu=18,PAPI_NATIVE_bdx_unc_imc1::UNC_M_CAS_COUNT:WR:cpu=18,PAPI_NATIVE_bdx_unc_imc4::UNC_M_CAS_COUNT:WR:cpu=18,PAPI_NATIVE_bdx_unc_imc5::UNC_M_CAS_COUNT:WR:cpu=18
 #taskset --cpu 12 ./tau_stencil_jacobi
 
 
@@ -21,79 +24,79 @@ run_skylake()
     declare -i read=0
     declare -i write=0
 
-    cd MULTI__PAPI_NATIVE_skx_unc_imc0__UNC_M_CAS_COUNT_RD_cpu\=12
+    cd MULTI__PAPI_NATIVE_skx_unc_imc0__UNC_M_CAS_COUNT_RD_cpu\=18
     IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-       #for i in "${ADDR[@]}"; do
-       #  echo -n "$i" 
-       #done
-    #echo ${ADDR[7]}
+       for i in "${ADDR[@]}"; do
+         echo  "$i" 
+       done
+    echo ${ADDR[7]}
     read=$read+${ADDR[7]} 
     cd ..
 
-    cd MULTI__PAPI_NATIVE_skx_unc_imc1__UNC_M_CAS_COUNT_RD_cpu\=12
+    cd MULTI__PAPI_NATIVE_skx_unc_imc1__UNC_M_CAS_COUNT_RD_cpu\=18
     IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-    #echo ${ADDR[7]}
+    echo ${ADDR[7]}
     read=$read+${ADDR[7]} 
     cd ..
 
-    cd MULTI__PAPI_NATIVE_skx_unc_imc2__UNC_M_CAS_COUNT_RD_cpu\=12
+    cd MULTI__PAPI_NATIVE_skx_unc_imc2__UNC_M_CAS_COUNT_RD_cpu\=18
     IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-       #for i in "${ADDR[@]}"; do
-       #  echo -n "$i" 
-       #done
-    #echo ${ADDR[7]}
+       for i in "${ADDR[@]}"; do
+         echo -n "$i" 
+       done
+    echo ${ADDR[7]}
     read=$read+${ADDR[7]} 
     cd ..
 
-    cd MULTI__PAPI_NATIVE_skx_unc_imc3__UNC_M_CAS_COUNT_RD_cpu\=12
+    cd MULTI__PAPI_NATIVE_skx_unc_imc3__UNC_M_CAS_COUNT_RD_cpu\=18
     IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-    #echo ${ADDR[7]}
+    echo ${ADDR[7]}
     read=$read+${ADDR[7]} 
     cd ..
 
-    cd MULTI__PAPI_NATIVE_skx_unc_imc4__UNC_M_CAS_COUNT_RD_cpu\=12
+    cd MULTI__PAPI_NATIVE_skx_unc_imc4__UNC_M_CAS_COUNT_RD_cpu\=18
     IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-    #echo ${ADDR[7]}
+    echo ${ADDR[7]}
     read=$read+${ADDR[7]} 
     cd ..
 
-    cd MULTI__PAPI_NATIVE_skx_unc_imc5__UNC_M_CAS_COUNT_RD_cpu\=12
+    cd MULTI__PAPI_NATIVE_skx_unc_imc5__UNC_M_CAS_COUNT_RD_cpu\=18
     IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-    #echo ${ADDR[7]}
+    echo ${ADDR[7]}
     read=$read+${ADDR[7]} 
     cd ..
 
-    cd MULTI__PAPI_NATIVE_skx_unc_imc0__UNC_M_CAS_COUNT_WR_cpu\=12
+    cd MULTI__PAPI_NATIVE_skx_unc_imc0__UNC_M_CAS_COUNT_WR_cpu\=18
+    IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
+    echo ${ADDR[7]}
+    write=$write+${ADDR[7]} 
+    cd ..
+
+    cd MULTI__PAPI_NATIVE_skx_unc_imc1__UNC_M_CAS_COUNT_WR_cpu\=18
     IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
     #echo ${ADDR[7]}
     write=$write+${ADDR[7]} 
     cd ..
 
-    cd MULTI__PAPI_NATIVE_skx_unc_imc1__UNC_M_CAS_COUNT_WR_cpu\=12
+    cd MULTI__PAPI_NATIVE_skx_unc_imc2__UNC_M_CAS_COUNT_WR_cpu\=18
     IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
     #echo ${ADDR[7]}
     write=$write+${ADDR[7]} 
     cd ..
 
-    cd MULTI__PAPI_NATIVE_skx_unc_imc2__UNC_M_CAS_COUNT_WR_cpu\=12
+    cd MULTI__PAPI_NATIVE_skx_unc_imc3__UNC_M_CAS_COUNT_WR_cpu\=18
     IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
     #echo ${ADDR[7]}
     write=$write+${ADDR[7]} 
     cd ..
 
-    cd MULTI__PAPI_NATIVE_skx_unc_imc3__UNC_M_CAS_COUNT_WR_cpu\=12
+    cd MULTI__PAPI_NATIVE_skx_unc_imc4__UNC_M_CAS_COUNT_WR_cpu\=18
     IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
     #echo ${ADDR[7]}
     write=$write+${ADDR[7]} 
     cd ..
 
-    cd MULTI__PAPI_NATIVE_skx_unc_imc4__UNC_M_CAS_COUNT_WR_cpu\=12
-    IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-    #echo ${ADDR[7]}
-    write=$write+${ADDR[7]} 
-    cd ..
-
-    cd MULTI__PAPI_NATIVE_skx_unc_imc5__UNC_M_CAS_COUNT_WR_cpu\=12
+    cd MULTI__PAPI_NATIVE_skx_unc_imc5__UNC_M_CAS_COUNT_WR_cpu\=18
     IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
     #echo ${ADDR[7]}
     write=$write+${ADDR[7]} 
@@ -112,15 +115,14 @@ run_broadwell()
 
 
 
-    export TAU_METRICS=TIME,PAPI_NATIVE_bdx_unc_imc0::UNC_M_CAS_COUNT:RD:cpu=16,PAPI_NATIVE_bdx_unc_imc1::UNC_M_CAS_COUNT:RD:cpu=16,PAPI_NATIVE_bdx_unc_imc4::UNC_M_CAS_COUNT:RD:cpu=16,PAPI_NATIVE_bdx_unc_imc5::UNC_M_CAS_COUNT:RD:cpu=16,PAPI_NATIVE_bdx_unc_imc0::UNC_M_CAS_COUNT:WR:cpu=16,PAPI_NATIVE_bdx_unc_imc1::UNC_M_CAS_COUNT:WR:cpu=16,PAPI_NATIVE_bdx_unc_imc4::UNC_M_CAS_COUNT:WR:cpu=16,PAPI_NATIVE_bdx_unc_imc5::UNC_M_CAS_COUNT:WR:cpu=16
+    export TAU_METRICS=TIME,PAPI_NATIVE_bdx_unc_imc0::UNC_M_CAS_COUNT:RD:cpu=18,PAPI_NATIVE_bdx_unc_imc1::UNC_M_CAS_COUNT:RD:cpu=18,PAPI_NATIVE_bdx_unc_imc4::UNC_M_CAS_COUNT:RD:cpu=18,PAPI_NATIVE_bdx_unc_imc5::UNC_M_CAS_COUNT:RD:cpu=18,PAPI_NATIVE_bdx_unc_imc0::UNC_M_CAS_COUNT:WR:cpu=18,PAPI_NATIVE_bdx_unc_imc1::UNC_M_CAS_COUNT:WR:cpu=18,PAPI_NATIVE_bdx_unc_imc4::UNC_M_CAS_COUNT:WR:cpu=18,PAPI_NATIVE_bdx_unc_imc5::UNC_M_CAS_COUNT:WR:cpu=18
     #taskset --cpu 12 ./tau_stencil_jacobi $1 $2
     
-    #taskset --cpu 16 ./XSBench
     taskset --cpu 16 ./XSBench -s small
 
     #./jacobi $1 $2
 
-    #export TAU_METRICS=TIME,PAPI_NATIVE_bdx_unc_imc0::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_bdx_unc_imc1::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_bdx_unc_imc4::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_bdx_unc_imc5::UNC_M_CAS_COUNT:WR:cpu=12
+    #export TAU_METRICS=TIME,PAPI_NATIVE_bdx_unc_imc0::UNC_M_CAS_COUNT:WR:cpu=18,PAPI_NATIVE_bdx_unc_imc1::UNC_M_CAS_COUNT:WR:cpu=18,PAPI_NATIVE_bdx_unc_imc4::UNC_M_CAS_COUNT:WR:cpu=18,PAPI_NATIVE_bdx_unc_imc5::UNC_M_CAS_COUNT:WR:cpu=18
 #taskset --cpu 12 ./tau_stencil_jacobi
 
 
@@ -131,52 +133,52 @@ run_broadwell()
     declare -i read=0
     declare -i write=0
 
-    cd MULTI__PAPI_NATIVE_bdx_unc_imc0__UNC_M_CAS_COUNT_RD_cpu\=16
+    cd MULTI__PAPI_NATIVE_bdx_unc_imc0__UNC_M_CAS_COUNT_RD_cpu\=18
     IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-       for i in "${ADDR[@]}"; do
-         echo  "$i" 
-       done
+       #for i in "${ADDR[@]}"; do
+         #echo  "$i" 
+       #done
     echo ${ADDR[7]}
     read=$read+${ADDR[7]} 
     cd ..
 
-    cd MULTI__PAPI_NATIVE_bdx_unc_imc1__UNC_M_CAS_COUNT_RD_cpu\=16
-    IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-    echo ${ADDR[7]}
-    read=$read+${ADDR[7]} 
-    cd ..
-
-    cd MULTI__PAPI_NATIVE_bdx_unc_imc4__UNC_M_CAS_COUNT_RD_cpu\=16
+    cd MULTI__PAPI_NATIVE_bdx_unc_imc1__UNC_M_CAS_COUNT_RD_cpu\=18
     IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
     echo ${ADDR[7]}
     read=$read+${ADDR[7]} 
     cd ..
 
-    cd MULTI__PAPI_NATIVE_bdx_unc_imc5__UNC_M_CAS_COUNT_RD_cpu\=16
+    cd MULTI__PAPI_NATIVE_bdx_unc_imc4__UNC_M_CAS_COUNT_RD_cpu\=18
     IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
     echo ${ADDR[7]}
     read=$read+${ADDR[7]} 
     cd ..
 
-    cd MULTI__PAPI_NATIVE_bdx_unc_imc0__UNC_M_CAS_COUNT_WR_cpu\=16
+    cd MULTI__PAPI_NATIVE_bdx_unc_imc5__UNC_M_CAS_COUNT_RD_cpu\=18
+    IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
+    echo ${ADDR[7]}
+    read=$read+${ADDR[7]} 
+    cd ..
+
+    cd MULTI__PAPI_NATIVE_bdx_unc_imc0__UNC_M_CAS_COUNT_WR_cpu\=18
     IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
     echo ${ADDR[7]}
     write=$write+${ADDR[7]} 
     cd ..
 
-    cd MULTI__PAPI_NATIVE_bdx_unc_imc1__UNC_M_CAS_COUNT_WR_cpu\=16
+    cd MULTI__PAPI_NATIVE_bdx_unc_imc1__UNC_M_CAS_COUNT_WR_cpu\=18
     IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
     echo ${ADDR[7]}
     write=$write+${ADDR[7]} 
     cd ..
 
-    cd MULTI__PAPI_NATIVE_bdx_unc_imc4__UNC_M_CAS_COUNT_WR_cpu\=16
+    cd MULTI__PAPI_NATIVE_bdx_unc_imc4__UNC_M_CAS_COUNT_WR_cpu\=18
     IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
     echo ${ADDR[7]}
     write=$write+${ADDR[7]} 
     cd ..
 
-    cd MULTI__PAPI_NATIVE_bdx_unc_imc5__UNC_M_CAS_COUNT_WR_cpu\=16
+    cd MULTI__PAPI_NATIVE_bdx_unc_imc5__UNC_M_CAS_COUNT_WR_cpu\=18
     IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
     echo ${ADDR[7]}
     write=$write+${ADDR[7]} 
@@ -208,9 +210,10 @@ n_array=(100000000)
 make clean
 make 
 
-intel-prefetch -d
+#intel-prefetch -d
 
 #intel-prefetch-disable -d
+echo "Iamm1nil" | sudo -S /home/users/mmonil/package/intel/uarch-configure/intel-prefetch/intel-prefetch-disable -d
 
 for array_size in "${n_array[@]}"
 do
@@ -221,16 +224,17 @@ do
     for i in 1
     #for i in 1 2 3 4 5 
     do
-	#run_skylake $stride $array_size
-	run_broadwell $stride $array_size
+	run_skylake $stride $array_size
+	#run_broadwell $stride $array_size
 	rm -rf MULT*
 
     done
 done
 done
 
-intel-prefetch -e
+#intel-prefetch -e
 #intel-prefetch-disable -e
+echo "Iamm1nil" | sudo -S /home/users/mmonil/package/intel/uarch-configure/intel-prefetch/intel-prefetch-disable -e
 
 for array_size in "${n_array[@]}"
 do
@@ -241,9 +245,9 @@ do
     for i in 1
     #for i in 1 2 3 4 5 
     do
-	#run_skylake $stride $array_size
-	run_broadwell $stride $array_size
-	#rm -rf MULT*
+	run_skylake $stride $array_size
+	#run_broadwell $stride $array_size
+	rm -rf MULT*
 
     done
 done

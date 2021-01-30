@@ -6,7 +6,7 @@ PAPILD=-lpapi
 
 CC = tau_cxx.sh -optCompInst
 #CFLAGS = -DSTREAM_TYPE=float 
-CFLAGS=  -qopt-streaming-stores=always
+#CFLAGS=  -qopt-streaming-stores=always
 #CFLAGS = -O3 -fopenmp -DSTREAM_ARRAY_SIZE=${val} -DNTIMES=20 -DSTREAM_TYPE=float 
 #CFLAGS = 
 
@@ -22,8 +22,8 @@ PAPIINCLUDE_PW=-I/home/mmonil/packages/download_tar/papi_pw/src/install/include
 
 
 nat: stream.c
-	#${GCC} ${PAPIINCLUDE} ${PAPILDPATH} ${GCCFLAG} vecmul_NAT_PAPI.c -o vecmul_NAT_PAPI ${PAPILD}
-	${ICC} ${PAPIINCLUDE} ${PAPILDPATH} ${ICCFLAG} stream.c -o stream ${PAPILD}
+	${GCC} ${PAPIINCLUDE} ${PAPILDPATH} ${GCCFLAG} vecmul_NAT_PAPI.c -o vecmul_NAT_PAPI ${PAPILD}
+	#${ICC} ${PAPIINCLUDE} ${PAPILDPATH} ${ICCFLAG} stream.c -o stream ${PAPILD}
 
 
 stream_f.exe: stream.f mysecond.o
@@ -32,8 +32,8 @@ stream_f.exe: stream.f mysecond.o
 	$(FF) $(FFLAGS) stream.o mysecond.o -o stream_f.exe
 
 stream_c.exe: stream.c
-	$(CC) $(CFLAGS) stream.c -o stream_c.exe -qopenmp
-	#$(CC) $(CFLAGS) stream.c -o stream_c.exe -fopenmp
+	#$(CC) $(CFLAGS) stream.c -o stream_c.exe -qopenmp
+	$(CC) $(CFLAGS) stream.c -o stream_c.exe 
 
 clean:
 	rm -f stream_f.exe stream_c.exe *.o

@@ -185,23 +185,24 @@ wchar_t uses ISOIEC 10646 (2nd ed., published 2011-03-15) /
  *
  *-----------------------------------------------------------------------
 */
-#pragma aspen  declare data(a:traits(Array(100000000, aspen_param_sizeof_double)))
-static double a[(100000000+0)];
-#pragma aspen  declare data(b:traits(Array(100000000, aspen_param_sizeof_double)))
-static double b[(100000000+0)];
-#pragma aspen  declare data(c:traits(Array(100000000, aspen_param_sizeof_double)))
-static double c[(100000000+0)];
+#pragma aspen  declare data(a:traits(Array(50000000, aspen_param_sizeof_double)))
+static double a[(50000000+0)];
+#pragma aspen  declare data(b:traits(Array(50000000, aspen_param_sizeof_double)))
+static double b[(50000000+0)];
+#pragma aspen  declare data(c:traits(Array(50000000, aspen_param_sizeof_double)))
+static double c[(50000000+0)];
 static double avgtime[4] = {0};
 static double maxtime[4] = {0};
 static double mintime[4] = {3.4028234663852886E38F, 3.4028234663852886E38F, 3.4028234663852886E38F, 3.4028234663852886E38F};
 static char * label[4] = {"Copy:      ", "Scale:     ", "Add:       ", "Triad:     "};
-static double bytes[4] = {(2*sizeof (double))*100000000, (2*sizeof (double))*100000000, (3*sizeof (double))*100000000, (3*sizeof (double))*100000000};
+static double bytes[4] = {(2*sizeof (double))*50000000, (2*sizeof (double))*50000000, (3*sizeof (double))*50000000, (3*sizeof (double))*50000000};
 extern double mysecond();
 extern void checkSTREAMresults();
 extern void tuned_STREAM_Copy();
 extern void tuned_STREAM_Scale(double scalar);
 extern void tuned_STREAM_Add();
 extern void tuned_STREAM_Triad(double scalar);
+extern int omp_get_num_threads();
 int main()
 {
 int quantum;
@@ -211,7 +212,7 @@ int k;
 ssize_t j;
 double scalar;
 double t;
-double times[4][10];
+double times[4][1];
 /* --- SETUP --- determine precision and check timing --- */
 int _ret_val_0 = 0;
 printf("-------------------------------------------------------------\n");
@@ -220,15 +221,29 @@ printf("-------------------------------------------------------------\n");
 BytesPerWord=sizeof (double);
 printf("This system uses %d bytes per array element.\n", BytesPerWord);
 printf("-------------------------------------------------------------\n");
-printf("Array size = %llu (elements), Offset = %d (elements)\n", ((unsigned long long)100000000), 0);
-printf("Memory per array = %.1f MiB (= %.1f GiB).\n", (BytesPerWord*((((double)100000000)/1024.0)/1024.0)), (BytesPerWord*(((((double)100000000)/1024.0)/1024.0)/1024.0)));
-printf("Total memory required = %.1f MiB (= %.1f GiB).\n", ((3.0*BytesPerWord)*((((double)100000000)/1024.0)/1024.0)), ((3.0*BytesPerWord)*(((((double)100000000)/1024.0)/1024.0)/1024.0)));
-printf("Each kernel will be executed %d times.\n", 10);
+printf("Array size = %llu (elements), Offset = %d (elements)\n", ((unsigned long long)50000000), 0);
+printf("Memory per array = %.1f MiB (= %.1f GiB).\n", (BytesPerWord*((((double)50000000)/1024.0)/1024.0)), (BytesPerWord*(((((double)50000000)/1024.0)/1024.0)/1024.0)));
+printf("Total memory required = %.1f MiB (= %.1f GiB).\n", ((3.0*BytesPerWord)*((((double)50000000)/1024.0)/1024.0)), ((3.0*BytesPerWord)*(((((double)50000000)/1024.0)/1024.0)/1024.0)));
+printf("Each kernel will be executed %d times.\n", 1);
 printf(" The *best* time for each kernel (excluding the first iteration)\n");
 printf(" will be used to compute the reported bandwidth.\n");
+printf("-------------------------------------------------------------\n");
+#pragma omp parallel
+{
+#pragma omp master
+{
+/* k = omp_get_num_threads(); */
+printf("Number of Threads requested = %i\n", k);
+}
+}
+k=0;
+#pragma omp parallel
+#pragma omp atomic
+k ++ ;
+printf("Number of Threads counted = %i\n", k);
 /* Get initial value for system clock. */
 #pragma omp parallel for
-for (j=0; j<100000000; j ++ )
+for (j=0; j<50000000; j ++ )
 {
 a[j]=1.0;
 b[j]=2.0;
@@ -246,7 +261,7 @@ quantum=1;
 }
 t=mysecond();
 #pragma omp parallel for
-for (j=0; j<100000000; j ++ )
+for (j=0; j<50000000; j ++ )
 {
 a[j]=(2.0*a[j]);
 }
@@ -262,43 +277,80 @@ printf("precision of your system timer.\n");
 printf("-------------------------------------------------------------\n");
 /* 	--- MAIN LOOP --- repeat test cases NTIMES times --- */
 scalar=3.0;
-for (k=0; k<10; k ++ )
+#pragma aspen  modelregion label(block_main53)
+#pragma aspen  control label(block_main53) loop(1) flops(1:traits(integer))
+for (k=0; k<1; k ++ )
 {
 times[0][k]=mysecond();
-tuned_STREAM_Copy();
-times[0][k]=(mysecond()-times[0][k]);
-times[1][k]=mysecond();
-tuned_STREAM_Scale(scalar);
-times[1][k]=(mysecond()-times[1][k]);
-times[2][k]=mysecond();
-tuned_STREAM_Add();
-times[2][k]=(mysecond()-times[2][k]);
-times[3][k]=mysecond();
-#pragma aspen  modelregion
+/*
+
+#ifdef TUNED
+        tuned_STREAM_Copy();
+#else
+#pragma omp parallel for
+	for (j=0; j<STREAM_ARRAY_SIZE; j++)
+	    c[j] = a[j];
+#endif
+	times[0][k] = mysecond() - times[0][k];
+	
+	times[1][k] = mysecond();
+#ifdef TUNED
+        tuned_STREAM_Scale(scalar);
+#else
+#pragma omp parallel for
+	for (j=0; j<STREAM_ARRAY_SIZE; j++)
+	    b[j] = scalarc[j];
+#endif
+	times[1][k] = mysecond() - times[1][k];
+	
+	times[2][k] = mysecond();
+#ifdef TUNED
+        tuned_STREAM_Add();
+#else
+#pragma omp parallel for
+	for (j=0; j<STREAM_ARRAY_SIZE; j++)
+	    c[j] = a[j]+b[j];
+#endif
+	times[2][k] = mysecond() - times[2][k];
+	
+	times[3][k] = mysecond();
+
+*/
 tuned_STREAM_Triad(scalar);
-times[3][k]=(mysecond()-times[3][k]);
+/* times[3][k] = mysecond() - times[3][k]; */
 }
-/* 	--- SUMMARY --- */
-/* note -- skip first iteration */
-for (k=1; k<10; k ++ )
-{
-for (j=0; j<4; j ++ )
-{
-avgtime[j]=(avgtime[j]+times[j][k]);
-mintime[j]=((mintime[j]<times[j][k]) ? mintime[j] : times[j][k]);
-maxtime[j]=((maxtime[j]>times[j][k]) ? maxtime[j] : times[j][k]);
-}
-}
-printf("Function    Best Rate MB/s  Avg time     Min time     Max time\n");
-for (j=0; j<4; j ++ )
-{
-avgtime[j]=(avgtime[j]/((double)(10-1)));
-printf("%s%12.1f  %11.6f  %11.6f  %11.6f\n", label[j], ((1.0E-6*bytes[j])/mintime[j]), avgtime[j], mintime[j], maxtime[j]);
-}
-printf("-------------------------------------------------------------\n");
-/* --- Check Results --- */
-checkSTREAMresults();
-printf("-------------------------------------------------------------\n");
+/*
+
+
+    	--- SUMMARY --- 
+
+    for (k=1; k<NTIMES; k++) note -- skip first iteration 
+	{
+	for (j=0; j<4; j++)
+	    {
+	    avgtime[j] = avgtime[j] + times[j][k];
+	    mintime[j] = MIN(mintime[j], times[j][k]);
+	    maxtime[j] = MAX(maxtime[j], times[j][k]);
+	    }
+	}
+    
+    printf("Function    Best Rate MBs  Avg time     Min time     Max time\n");
+    for (j=0; j<4; j++) {
+		avgtime[j] = avgtime[j]/(double)(NTIMES-1);
+
+		printf("%s%12.1f  %11.6f  %11.6f  %11.6f\n", label[j],
+	       1.0E-06 * bytes[j]/mintime[j],
+	       avgtime[j],
+	       mintime[j],
+	       maxtime[j]);
+    }
+    printf(HLINE);
+
+    --- Check Results ---
+    checkSTREAMresults();
+    printf(HLINE);
+
+*/
 _ret_val_0=0;
 return _ret_val_0;
 }
@@ -379,7 +431,7 @@ cj=0.0;
 aj=(2.0*aj);
 /* now execute timing loop */
 scalar=3.0;
-for (k=0; k<10; k ++ )
+for (k=0; k<1; k ++ )
 {
 cj=aj;
 bj=(scalar*cj);
@@ -390,16 +442,16 @@ aj=(bj+(scalar*cj));
 aSumErr=0.0;
 bSumErr=0.0;
 cSumErr=0.0;
-for (j=0; j<100000000; j ++ )
+for (j=0; j<50000000; j ++ )
 {
 aSumErr+=(((a[j]-aj)>=0) ? (a[j]-aj) : ( - (a[j]-aj)));
 bSumErr+=(((b[j]-bj)>=0) ? (b[j]-bj) : ( - (b[j]-bj)));
 cSumErr+=(((c[j]-cj)>=0) ? (c[j]-cj) : ( - (c[j]-cj)));
 /* if (j == 417) printf("Index 417: c[j]: %f, cj: %f\n",c[j],cj);	MCCALPIN */
 }
-aAvgErr=(aSumErr/((double)100000000));
-bAvgErr=(bSumErr/((double)100000000));
-cAvgErr=(cSumErr/((double)100000000));
+aAvgErr=(aSumErr/((double)50000000));
+bAvgErr=(bSumErr/((double)50000000));
+cAvgErr=(cSumErr/((double)50000000));
 if (sizeof (double)==4)
 {
 epsilon=1.0E-6;
@@ -423,7 +475,7 @@ err ++ ;
 printf("Failed Validation on array a[], AvgRelAbsErr > epsilon (%e)\n", epsilon);
 printf("     Expected Value: %e, AvgAbsErr: %e, AvgRelAbsErr: %e\n", aj, aAvgErr, (((aAvgErr>=0) ? aAvgErr : ( - aAvgErr))/aj));
 ierr=0;
-for (j=0; j<100000000; j ++ )
+for (j=0; j<50000000; j ++ )
 {
 if (((((a[j]/aj)-1.0)>=0) ? ((a[j]/aj)-1.0) : ( - ((a[j]/aj)-1.0)))>epsilon)
 {
@@ -439,7 +491,7 @@ printf("Failed Validation on array b[], AvgRelAbsErr > epsilon (%e)\n", epsilon)
 printf("     Expected Value: %e, AvgAbsErr: %e, AvgRelAbsErr: %e\n", bj, bAvgErr, (((bAvgErr>=0) ? bAvgErr : ( - bAvgErr))/bj));
 printf("     AvgRelAbsErr > Epsilon (%e)\n", epsilon);
 ierr=0;
-for (j=0; j<100000000; j ++ )
+for (j=0; j<50000000; j ++ )
 {
 if (((((b[j]/bj)-1.0)>=0) ? ((b[j]/bj)-1.0) : ( - ((b[j]/bj)-1.0)))>epsilon)
 {
@@ -455,7 +507,7 @@ printf("Failed Validation on array c[], AvgRelAbsErr > epsilon (%e)\n", epsilon)
 printf("     Expected Value: %e, AvgAbsErr: %e, AvgRelAbsErr: %e\n", cj, cAvgErr, (((cAvgErr>=0) ? cAvgErr : ( - cAvgErr))/cj));
 printf("     AvgRelAbsErr > Epsilon (%e)\n", epsilon);
 ierr=0;
-for (j=0; j<100000000; j ++ )
+for (j=0; j<50000000; j ++ )
 {
 if (((((c[j]/cj)-1.0)>=0) ? ((c[j]/cj)-1.0) : ( - ((c[j]/cj)-1.0)))>epsilon)
 {
@@ -476,7 +528,7 @@ void tuned_STREAM_Copy()
 {
 ssize_t j;
 #pragma omp parallel for
-for (j=0; j<100000000; j ++ )
+for (j=0; j<50000000; j ++ )
 {
 c[j]=a[j];
 }
@@ -487,7 +539,7 @@ void tuned_STREAM_Scale(double scalar)
 {
 ssize_t j;
 #pragma omp parallel for
-for (j=0; j<100000000; j ++ )
+for (j=0; j<50000000; j ++ )
 {
 b[j]=(scalar*c[j]);
 }
@@ -498,7 +550,7 @@ void tuned_STREAM_Add()
 {
 ssize_t j;
 #pragma omp parallel for
-for (j=0; j<100000000; j ++ )
+for (j=0; j<50000000; j ++ )
 {
 c[j]=(a[j]+b[j]);
 }
@@ -509,8 +561,8 @@ void tuned_STREAM_Triad(double scalar)
 {
 ssize_t j;
 #pragma omp parallel for
-#pragma aspen  control label(block_tuned_STREAM_Triad3) loop(100000000) parallelism(100000000) flops(1:traits(integer))
-for (j=0; j<100000000; j ++ )
+#pragma aspen  control label(block_tuned_STREAM_Triad3) loop(50000000) parallelism(50000000) flops(1:traits(integer))
+for (j=0; j<50000000; j ++ )
 {
 #pragma aspen  control execute label(block_tuned_STREAM_Triad4) flops(2:traits(dp, simd)) loads((1*aspen_param_sizeof_double):from(b):traits(stride(1)), (1*aspen_param_sizeof_double):from(c):traits(stride(1))) stores((1*aspen_param_sizeof_double):to(a):traits(stride(1)))
 a[j]=(b[j]+(scalar*c[j]));

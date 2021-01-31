@@ -8,13 +8,10 @@ run_skylake()
     #export TAU_METRICS=TIME,PAPI_NATIVE_bdx_unc_imc0::UNC_M_CAS_COUNT:RD:cpu=24,PAPI_NATIVE_bdx_unc_imc1::UNC_M_CAS_COUNT:RD:cpu=24,PAPI_NATIVE_bdx_unc_imc4::UNC_M_CAS_COUNT:RD:cpu=24,PAPI_NATIVE_bdx_unc_imc5::UNC_M_CAS_COUNT:RD:cpu=24,PAPI_NATIVE_bdx_unc_imc0::UNC_M_CAS_COUNT:WR:cpu=24,PAPI_NATIVE_bdx_unc_imc1::UNC_M_CAS_COUNT:WR:cpu=24,PAPI_NATIVE_bdx_unc_imc4::UNC_M_CAS_COUNT:WR:cpu=24,PAPI_NATIVE_bdx_unc_imc5::UNC_M_CAS_COUNT:WR:cpu=24
     export TAU_METRICS=TIME,PAPI_NATIVE_skx_unc_imc0::UNC_M_CAS_COUNT:RD:cpu=24,PAPI_NATIVE_skx_unc_imc1::UNC_M_CAS_COUNT:RD:cpu=24,PAPI_NATIVE_skx_unc_imc4::UNC_M_CAS_COUNT:RD:cpu=24,PAPI_NATIVE_skx_unc_imc5::UNC_M_CAS_COUNT:RD:cpu=24,PAPI_NATIVE_skx_unc_imc0::UNC_M_CAS_COUNT:WR:cpu=24,PAPI_NATIVE_skx_unc_imc1::UNC_M_CAS_COUNT:WR:cpu=24,PAPI_NATIVE_skx_unc_imc4::UNC_M_CAS_COUNT:WR:cpu=24,PAPI_NATIVE_skx_unc_imc5::UNC_M_CAS_COUNT:WR:cpu=24,PAPI_NATIVE_skx_unc_imc2::UNC_M_CAS_COUNT:RD:cpu=24,PAPI_NATIVE_skx_unc_imc3::UNC_M_CAS_COUNT:RD:cpu=24,PAPI_NATIVE_skx_unc_imc2::UNC_M_CAS_COUNT:WR:cpu=24,PAPI_NATIVE_skx_unc_imc3::UNC_M_CAS_COUNT:WR:cpu=24
  
-    #taskset --cpu 12 ./tau_stencil_jacobi $1 $2
-
-    taskset --cpu 24 ./XSBench -s small
-    #taskset --cpu 24 ./XSBench
+    taskset --cpu 24 ./tau_vecmul $1 $2
 
     #export TAU_METRICS=TIME,PAPI_NATIVE_bdx_unc_imc0::UNC_M_CAS_COUNT:WR:cpu=24,PAPI_NATIVE_bdx_unc_imc1::UNC_M_CAS_COUNT:WR:cpu=24,PAPI_NATIVE_bdx_unc_imc4::UNC_M_CAS_COUNT:WR:cpu=24,PAPI_NATIVE_bdx_unc_imc5::UNC_M_CAS_COUNT:WR:cpu=24
-#taskset --cpu 12 ./tau_stencil_jacobi
+#taskset --cpu 12 ./tau_vecmul
 
 
     #ls
@@ -25,81 +22,81 @@ run_skylake()
     declare -i write=0
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc0__UNC_M_CAS_COUNT_RD_cpu\=24
-    IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-       for i in "${ADDR[@]}"; do
-         echo  "$i" 
-       done
-    echo ${ADDR[7]}
-    read=$read+${ADDR[7]} 
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "vecmul(")
+       #for i in "${ADDR[@]}"; do
+       #  echo -n "$i" 
+       #done
+    #echo ${ADDR[5]}
+    read=$read+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc1__UNC_M_CAS_COUNT_RD_cpu\=24
-    IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-    echo ${ADDR[7]}
-    read=$read+${ADDR[7]} 
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "vecmul(")
+    #echo ${ADDR[5]}
+    read=$read+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc2__UNC_M_CAS_COUNT_RD_cpu\=24
-    IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-       for i in "${ADDR[@]}"; do
-         echo -n "$i" 
-       done
-    echo ${ADDR[7]}
-    read=$read+${ADDR[7]} 
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "vecmul(")
+       #for i in "${ADDR[@]}"; do
+       #  echo -n "$i" 
+       #done
+    #echo ${ADDR[5]}
+    read=$read+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc3__UNC_M_CAS_COUNT_RD_cpu\=24
-    IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-    echo ${ADDR[7]}
-    read=$read+${ADDR[7]} 
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "vecmul(")
+    #echo ${ADDR[5]}
+    read=$read+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc4__UNC_M_CAS_COUNT_RD_cpu\=24
-    IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-    echo ${ADDR[7]}
-    read=$read+${ADDR[7]} 
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "vecmul(")
+    #echo ${ADDR[5]}
+    read=$read+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc5__UNC_M_CAS_COUNT_RD_cpu\=24
-    IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-    echo ${ADDR[7]}
-    read=$read+${ADDR[7]} 
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "vecmul(")
+    #echo ${ADDR[5]}
+    read=$read+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc0__UNC_M_CAS_COUNT_WR_cpu\=24
-    IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-    echo ${ADDR[7]}
-    write=$write+${ADDR[7]} 
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "vecmul(")
+    #echo ${ADDR[5]}
+    write=$write+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc1__UNC_M_CAS_COUNT_WR_cpu\=24
-    IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-    #echo ${ADDR[7]}
-    write=$write+${ADDR[7]} 
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "vecmul(")
+    #echo ${ADDR[5]}
+    write=$write+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc2__UNC_M_CAS_COUNT_WR_cpu\=24
-    IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-    #echo ${ADDR[7]}
-    write=$write+${ADDR[7]} 
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "vecmul(")
+    #echo ${ADDR[5]}
+    write=$write+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc3__UNC_M_CAS_COUNT_WR_cpu\=24
-    IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-    #echo ${ADDR[7]}
-    write=$write+${ADDR[7]} 
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "vecmul(")
+    #echo ${ADDR[5]}
+    write=$write+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc4__UNC_M_CAS_COUNT_WR_cpu\=24
-    IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-    #echo ${ADDR[7]}
-    write=$write+${ADDR[7]} 
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "vecmul(")
+    #echo ${ADDR[5]}
+    write=$write+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc5__UNC_M_CAS_COUNT_WR_cpu\=24
-    IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-    #echo ${ADDR[7]}
-    write=$write+${ADDR[7]} 
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "vecmul(")
+    #echo ${ADDR[5]}
+    write=$write+${ADDR[5]} 
     cd ..
     
     #write=$write*64
@@ -112,18 +109,11 @@ run_broadwell()
 {
     
     # for oswald
-
-
-
     export TAU_METRICS=TIME,PAPI_NATIVE_bdx_unc_imc0::UNC_M_CAS_COUNT:RD:cpu=24,PAPI_NATIVE_bdx_unc_imc1::UNC_M_CAS_COUNT:RD:cpu=24,PAPI_NATIVE_bdx_unc_imc4::UNC_M_CAS_COUNT:RD:cpu=24,PAPI_NATIVE_bdx_unc_imc5::UNC_M_CAS_COUNT:RD:cpu=24,PAPI_NATIVE_bdx_unc_imc0::UNC_M_CAS_COUNT:WR:cpu=24,PAPI_NATIVE_bdx_unc_imc1::UNC_M_CAS_COUNT:WR:cpu=24,PAPI_NATIVE_bdx_unc_imc4::UNC_M_CAS_COUNT:WR:cpu=24,PAPI_NATIVE_bdx_unc_imc5::UNC_M_CAS_COUNT:WR:cpu=24
-    #taskset --cpu 12 ./tau_stencil_jacobi $1 $2
-    
-    taskset --cpu 16 ./XSBench -s small
-
-    #./jacobi $1 $2
+    taskset --cpu 12 ./tau_vecmul $1 $2
 
     #export TAU_METRICS=TIME,PAPI_NATIVE_bdx_unc_imc0::UNC_M_CAS_COUNT:WR:cpu=24,PAPI_NATIVE_bdx_unc_imc1::UNC_M_CAS_COUNT:WR:cpu=24,PAPI_NATIVE_bdx_unc_imc4::UNC_M_CAS_COUNT:WR:cpu=24,PAPI_NATIVE_bdx_unc_imc5::UNC_M_CAS_COUNT:WR:cpu=24
-#taskset --cpu 12 ./tau_stencil_jacobi
+#taskset --cpu 12 ./tau_vecmul
 
 
     #ls
@@ -134,73 +124,71 @@ run_broadwell()
     declare -i write=0
 
     cd MULTI__PAPI_NATIVE_bdx_unc_imc0__UNC_M_CAS_COUNT_RD_cpu\=24
-    IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "vecmul(")
        #for i in "${ADDR[@]}"; do
-         #echo  "$i" 
+       #  echo -n "$i" 
        #done
-    echo ${ADDR[7]}
-    read=$read+${ADDR[7]} 
+    #echo ${ADDR[5]}
+    read=$read+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_bdx_unc_imc1__UNC_M_CAS_COUNT_RD_cpu\=24
-    IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-    echo ${ADDR[7]}
-    read=$read+${ADDR[7]} 
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "vecmul(")
+    #echo ${ADDR[5]}
+    read=$read+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_bdx_unc_imc4__UNC_M_CAS_COUNT_RD_cpu\=24
-    IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-    echo ${ADDR[7]}
-    read=$read+${ADDR[7]} 
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "vecmul(")
+    #echo ${ADDR[5]}
+    read=$read+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_bdx_unc_imc5__UNC_M_CAS_COUNT_RD_cpu\=24
-    IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-    echo ${ADDR[7]}
-    read=$read+${ADDR[7]} 
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "vecmul(")
+    #echo ${ADDR[5]}
+    read=$read+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_bdx_unc_imc0__UNC_M_CAS_COUNT_WR_cpu\=24
-    IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-    echo ${ADDR[7]}
-    write=$write+${ADDR[7]} 
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "vecmul(")
+    #echo ${ADDR[5]}
+    write=$write+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_bdx_unc_imc1__UNC_M_CAS_COUNT_WR_cpu\=24
-    IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-    echo ${ADDR[7]}
-    write=$write+${ADDR[7]} 
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "vecmul(")
+    #echo ${ADDR[5]}
+    write=$write+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_bdx_unc_imc4__UNC_M_CAS_COUNT_WR_cpu\=24
-    IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-    echo ${ADDR[7]}
-    write=$write+${ADDR[7]} 
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "vecmul(")
+    #echo ${ADDR[5]}
+    write=$write+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_bdx_unc_imc5__UNC_M_CAS_COUNT_WR_cpu\=24
-    IFS=' ' read -ra ADDR <<< $(cat profile.0.0.0 | grep -i "grid_search")
-    echo ${ADDR[7]}
-    write=$write+${ADDR[7]} 
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "vecmul(")
+    #echo ${ADDR[5]}
+    write=$write+${ADDR[5]} 
     cd ..
     
     #write=$write*64
     #read=$read*64
-    echo "grid: $stride $read $write"
-
-
+    echo "stride: $stride $read $write"
 }
 
-export OMP_PLACES='{16},{18},{20},{22},{24},{26},{28},{30}'
 
-export OMP_NUM_THREADS=1
-#stride_array=(1)
+
+stride_array=(50)
+#stride_array=(8192)
 #stride_array=( 1 2 4 8 16 32 64 128 256 512 1024 2048	4096	8192	16384	32768	65536	131072	262144	524288	1048576	2097152	4194304	8388608	16777216	33554432	67108864)
-#stride_array=(1)
 #stride_array=(1 2 4 8 16 32 48 64 80 96 112 128 )
-stride_array=(1)
+#stride_array=(1 2 4 8 16 32 64 128 256 512 1024 2048 4096 8192)
 #stride_array=(2 4 8 16 32 64 128 256 512)
-n_array=(100000000)
+n_array=(200000000)
+#n_array=(100000000)
 #n_array=(5000000 50000000 500000000)
 #n_array=(1000000 5000000 10000000 50000000 100000000 500000000)
 #n_array=(1000000 5000000 10000000 50000000 100000000 500000000 1000000000)
@@ -208,12 +196,11 @@ n_array=(100000000)
 
 
 make clean
-make 
+make tau
 
 #intel-prefetch -d
-
-#intel-prefetch-disable -d
 echo "Iamm1nil" | sudo -S /home/users/mmonil/package/intel/uarch-configure/intel-prefetch/intel-prefetch-disable -d
+
 
 for array_size in "${n_array[@]}"
 do
@@ -221,8 +208,8 @@ do
 for stride in "${stride_array[@]}"
 do
     #echo "----------------------stride = $stride-------------------"
-    #for i in 1
-    for i in 1 2 3 4 5 
+    for i in 1
+    #for i in 1 2 3 4 5 
     do
 	run_skylake $stride $array_size
 	#run_broadwell $stride $array_size
@@ -233,8 +220,9 @@ done
 done
 
 #intel-prefetch -e
-#intel-prefetch-disable -e
 echo "Iamm1nil" | sudo -S /home/users/mmonil/package/intel/uarch-configure/intel-prefetch/intel-prefetch-disable -e
+
+
 
 for array_size in "${n_array[@]}"
 do
@@ -242,8 +230,8 @@ do
 for stride in "${stride_array[@]}"
 do
     #echo "----------------------stride = $stride-------------------"
-    #for i in 1
-    for i in 1 2 3 4 5 
+    for i in 1
+    #for i in 1 2 3 4 5 
     do
 	run_skylake $stride $array_size
 	#run_broadwell $stride $array_size

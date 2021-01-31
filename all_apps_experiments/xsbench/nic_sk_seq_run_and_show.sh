@@ -221,8 +221,8 @@ do
 for stride in "${stride_array[@]}"
 do
     #echo "----------------------stride = $stride-------------------"
-    for i in 1
-    #for i in 1 2 3 4 5 
+    #for i in 1
+    for i in 1 2 3 4 5 
     do
 	run_skylake $stride $array_size
 	#run_broadwell $stride $array_size
@@ -242,8 +242,8 @@ do
 for stride in "${stride_array[@]}"
 do
     #echo "----------------------stride = $stride-------------------"
-    for i in 1
-    #for i in 1 2 3 4 5 
+    #for i in 1
+    for i in 1 2 3 4 5 
     do
 	run_skylake $stride $array_size
 	#run_broadwell $stride $array_size

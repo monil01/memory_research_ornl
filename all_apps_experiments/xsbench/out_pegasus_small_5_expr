@@ -1,0 +1,1043 @@
+rm -rf XSBench Main.o io.o Simulation.o GridInit.o XSutils.o Materials.o MULTI_* profile*
+tau_cc.sh -optCompInst -std=gnu99 -Wall -O3 -c Main.c -o Main.o
+Debug: Using compiler-based instrumentation
+
+
+Debug: Compiling with Instrumented Code
+Executing> /packages/gcc/8.1/bin/gcc -std=gnu99 -Wall -O3 -c Main.c -g -DPROFILING_ON -DTAU_PAPI -I/home/users/mmonil/package/intel/papi/src/install/include -DTAU_GNU -DTAU_DOT_H_LESS_HEADERS -DTAU_LINUX_TIMERS -DTAU_LARGEFILE -D_LARGEFILE64_SOURCE -DTAU_BFD -DHAVE_GNU_DEMANGLE -DHAVE_TR1_HASH_MAP -DTAU_SS_ALLOC_SUPPORT -DEBS_CLOCK_RES=1 -DTAU_STRSIGNAL_OK -DTAU_TRACK_LD_LOADER -DTAU_ELF_BFD -I/home/users/mmonil/package/intel-peg/tau-2.30/install/include -g -finstrument-functions -finstrument-functions-exclude-file-list=/usr/include -o Main.o
+Looking for file: Main.o
+
+tau_cc.sh -optCompInst -std=gnu99 -Wall -O3 -c io.c -o io.o
+Debug: Using compiler-based instrumentation
+
+
+Debug: Compiling with Instrumented Code
+Executing> /packages/gcc/8.1/bin/gcc -std=gnu99 -Wall -O3 -c io.c -g -DPROFILING_ON -DTAU_PAPI -I/home/users/mmonil/package/intel/papi/src/install/include -DTAU_GNU -DTAU_DOT_H_LESS_HEADERS -DTAU_LINUX_TIMERS -DTAU_LARGEFILE -D_LARGEFILE64_SOURCE -DTAU_BFD -DHAVE_GNU_DEMANGLE -DHAVE_TR1_HASH_MAP -DTAU_SS_ALLOC_SUPPORT -DEBS_CLOCK_RES=1 -DTAU_STRSIGNAL_OK -DTAU_TRACK_LD_LOADER -DTAU_ELF_BFD -I/home/users/mmonil/package/intel-peg/tau-2.30/install/include -g -finstrument-functions -finstrument-functions-exclude-file-list=/usr/include -o io.o
+Looking for file: io.o
+
+tau_cc.sh -optCompInst -std=gnu99 -Wall -O3 -c Simulation.c -o Simulation.o
+Debug: Using compiler-based instrumentation
+
+
+Debug: Compiling with Instrumented Code
+Executing> /packages/gcc/8.1/bin/gcc -std=gnu99 -Wall -O3 -c Simulation.c -g -DPROFILING_ON -DTAU_PAPI -I/home/users/mmonil/package/intel/papi/src/install/include -DTAU_GNU -DTAU_DOT_H_LESS_HEADERS -DTAU_LINUX_TIMERS -DTAU_LARGEFILE -D_LARGEFILE64_SOURCE -DTAU_BFD -DHAVE_GNU_DEMANGLE -DHAVE_TR1_HASH_MAP -DTAU_SS_ALLOC_SUPPORT -DEBS_CLOCK_RES=1 -DTAU_STRSIGNAL_OK -DTAU_TRACK_LD_LOADER -DTAU_ELF_BFD -I/home/users/mmonil/package/intel-peg/tau-2.30/install/include -g -finstrument-functions -finstrument-functions-exclude-file-list=/usr/include -o Simulation.o
+Looking for file: Simulation.o
+
+tau_cc.sh -optCompInst -std=gnu99 -Wall -O3 -c GridInit.c -o GridInit.o
+Debug: Using compiler-based instrumentation
+
+
+Debug: Compiling with Instrumented Code
+Executing> /packages/gcc/8.1/bin/gcc -std=gnu99 -Wall -O3 -c GridInit.c -g -DPROFILING_ON -DTAU_PAPI -I/home/users/mmonil/package/intel/papi/src/install/include -DTAU_GNU -DTAU_DOT_H_LESS_HEADERS -DTAU_LINUX_TIMERS -DTAU_LARGEFILE -D_LARGEFILE64_SOURCE -DTAU_BFD -DHAVE_GNU_DEMANGLE -DHAVE_TR1_HASH_MAP -DTAU_SS_ALLOC_SUPPORT -DEBS_CLOCK_RES=1 -DTAU_STRSIGNAL_OK -DTAU_TRACK_LD_LOADER -DTAU_ELF_BFD -I/home/users/mmonil/package/intel-peg/tau-2.30/install/include -g -finstrument-functions -finstrument-functions-exclude-file-list=/usr/include -o GridInit.o
+Looking for file: GridInit.o
+
+tau_cc.sh -optCompInst -std=gnu99 -Wall -O3 -c XSutils.c -o XSutils.o
+Debug: Using compiler-based instrumentation
+
+
+Debug: Compiling with Instrumented Code
+Executing> /packages/gcc/8.1/bin/gcc -std=gnu99 -Wall -O3 -c XSutils.c -g -DPROFILING_ON -DTAU_PAPI -I/home/users/mmonil/package/intel/papi/src/install/include -DTAU_GNU -DTAU_DOT_H_LESS_HEADERS -DTAU_LINUX_TIMERS -DTAU_LARGEFILE -D_LARGEFILE64_SOURCE -DTAU_BFD -DHAVE_GNU_DEMANGLE -DHAVE_TR1_HASH_MAP -DTAU_SS_ALLOC_SUPPORT -DEBS_CLOCK_RES=1 -DTAU_STRSIGNAL_OK -DTAU_TRACK_LD_LOADER -DTAU_ELF_BFD -I/home/users/mmonil/package/intel-peg/tau-2.30/install/include -g -finstrument-functions -finstrument-functions-exclude-file-list=/usr/include -o XSutils.o
+Looking for file: XSutils.o
+
+tau_cc.sh -optCompInst -std=gnu99 -Wall -O3 -c Materials.c -o Materials.o
+Debug: Using compiler-based instrumentation
+
+
+Debug: Compiling with Instrumented Code
+Executing> /packages/gcc/8.1/bin/gcc -std=gnu99 -Wall -O3 -c Materials.c -g -DPROFILING_ON -DTAU_PAPI -I/home/users/mmonil/package/intel/papi/src/install/include -DTAU_GNU -DTAU_DOT_H_LESS_HEADERS -DTAU_LINUX_TIMERS -DTAU_LARGEFILE -D_LARGEFILE64_SOURCE -DTAU_BFD -DHAVE_GNU_DEMANGLE -DHAVE_TR1_HASH_MAP -DTAU_SS_ALLOC_SUPPORT -DEBS_CLOCK_RES=1 -DTAU_STRSIGNAL_OK -DTAU_TRACK_LD_LOADER -DTAU_ELF_BFD -I/home/users/mmonil/package/intel-peg/tau-2.30/install/include -g -finstrument-functions -finstrument-functions-exclude-file-list=/usr/include -o Materials.o
+Looking for file: Materials.o
+
+tau_cc.sh -optCompInst -std=gnu99 -Wall -O3 Main.o io.o Simulation.o GridInit.o XSutils.o Materials.o -o XSBench -lm
+Debug: Using compiler-based instrumentation
+Debug: Moving these libraries to the end of the link line:
+
+
+Debug: Linking with TAU Options
+Executing> /packages/gcc/8.1/bin/gcc -std=gnu99 -Wall -O3 Main.o io.o Simulation.o GridInit.o XSutils.o Materials.o -o XSBench -lm -L/home/users/mmonil/package/intel-peg/tau-2.30/install/x86_64/lib -ltau-papi -Wl,-rpath,/home/users/mmonil/package/intel/papi/src/install/lib -L/home/users/mmonil/package/intel/papi/src/install/lib/ -L/home/users/mmonil/package/intel/papi/src/install/lib64/ -Wl,-rpath,/home/users/mmonil/package/intel/papi/src/install/lib -lpapi -L/home/users/mmonil/package/intel-peg/tau-2.30/install/x86_64/binutils-2.23.2/lib -L/home/users/mmonil/package/intel-peg/tau-2.30/install/x86_64/binutils-2.23.2/lib64 -Wl,-rpath,/home/users/mmonil/package/intel-peg/tau-2.30/install/x86_64/binutils-2.23.2/lib -Wl,-rpath,/home/users/mmonil/package/intel-peg/tau-2.30/install/x86_64/binutils-2.23.2/lib64 -lbfd -liberty -lz -ldl -Wl,--export-dynamic -lrt -ldl -lm -L/storage/packages/gcc/8.1/bin/../lib/gcc/x86_64-pc-linux-gnu/8.1.0/ -lstdc++ -lgcc_s -L/home/users/mmonil/package/intel-peg/tau-2.30/install/x86_64/lib/static-papi -g
+
+
+Found Skylake / Cascadelake Server CPU
+Disable all prefetch
+	Core 0 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 0 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 1 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 1 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 2 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 2 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 3 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 3 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 4 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 4 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 5 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 5 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 6 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 6 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 7 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 7 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 8 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 8 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 9 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 9 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 10 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 10 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 11 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 11 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 12 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 12 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 13 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 13 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 14 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 14 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 15 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 15 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 16 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 16 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 17 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 17 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 18 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 18 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 19 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 19 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 20 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 20 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 21 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 21 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 22 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 22 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 23 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 23 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 24 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 24 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 25 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 25 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 26 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 26 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 27 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 27 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 28 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 28 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 29 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 29 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 30 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 30 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 31 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 31 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 32 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 32 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 33 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 33 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 34 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 34 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 35 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 35 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 36 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 36 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 37 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 37 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 38 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 38 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 39 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 39 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 40 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 40 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 41 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 41 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 42 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 42 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 43 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 43 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 44 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 44 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 45 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 45 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 46 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 46 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 47 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 47 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 48 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 48 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 49 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 49 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 50 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 50 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 51 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 51 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 52 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 52 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 53 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 53 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 54 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 54 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 55 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 55 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 56 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 56 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 57 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 57 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 58 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 58 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 59 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 59 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 60 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 60 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 61 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 61 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 62 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 62 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 63 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 63 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 64 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 64 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 65 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 65 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 66 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 66 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 67 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 67 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 68 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 68 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 69 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 69 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 70 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 70 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 71 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 71 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+----------------------Array size = 100000000 -------------------
+================================================================================
+                   __   __ ___________                 _                        
+                   \ \ / //  ___| ___ \               | |                       
+                    \ V / \ `--.| |_/ / ___ _ __   ___| |__                     
+                    /   \  `--. \ ___ \/ _ \ '_ \ / __| '_ \                    
+                   / /^\ \/\__/ / |_/ /  __/ | | | (__| | | |                   
+                   \/   \/\____/\____/ \___|_| |_|\___|_| |_|                   
+
+================================================================================
+                    Developed at Argonne National Laboratory
+                                   Version: 19
+================================================================================
+                                  INPUT SUMMARY
+================================================================================
+Simulation Method:            History Based
+Grid Type:                    Unionized Grid
+Materials:                    12
+H-M Benchmark Size:           small
+Total Nuclides:               68
+Gridpoints (per Nuclide):     11,303
+Unionized Energy Gridpoints:  768,604
+Particle Histories:           500,000
+XS Lookups per Particle:      34
+Total XS Lookups:             34
+Threads:                      1
+Est. Memory Usage (MB):       241
+Binary File Mode:             Off
+================================================================================
+                         INITIALIZATION - DO NOT PROFILE
+================================================================================
+Intializing nuclide grids...
+Intializing unionized grid...
+siz 768604
+Intializing material data...
+Intialization complete. Allocated 240 MB of data.
+
+================================================================================
+                                   SIMULATION
+================================================================================
+Beginning history based simulation...
+
+Simulation complete.
+================================================================================
+                                     RESULTS
+================================================================================
+Threads:     1
+Runtime:     221.760 seconds
+Lookups:     17,000,000
+Lookups/s:   76,659
+Verification checksum: 941535 (Valid)
+================================================================================
+"grid_search
+[{/home/users/mmonil/ORNL_seyong/mapmc/applications/memory_research_ornl/all_apps_experiments/xsbench/Simulation.c}
+{351,0}]
+[THROTTLED]"
+100001
+0
+115379
+115379
+0
+GROUP="TAU_DISABLE"
+115379
+115166
+"grid_search[{/home/users/mmonil/ORNL_seyong/mapmc/applications/memory_research_ornl/all_apps_experiments/xsbench/Simulation.c}{351,0}][THROTTLED]"10000101161241161240GROUP="TAU_DISABLE"116124
+115071
+115448
+114599
+28346
+stride: 1 691787 168415
+================================================================================
+                   __   __ ___________                 _                        
+                   \ \ / //  ___| ___ \               | |                       
+                    \ V / \ `--.| |_/ / ___ _ __   ___| |__                     
+                    /   \  `--. \ ___ \/ _ \ '_ \ / __| '_ \                    
+                   / /^\ \/\__/ / |_/ /  __/ | | | (__| | | |                   
+                   \/   \/\____/\____/ \___|_| |_|\___|_| |_|                   
+
+================================================================================
+                    Developed at Argonne National Laboratory
+                                   Version: 19
+================================================================================
+                                  INPUT SUMMARY
+================================================================================
+Simulation Method:            History Based
+Grid Type:                    Unionized Grid
+Materials:                    12
+H-M Benchmark Size:           small
+Total Nuclides:               68
+Gridpoints (per Nuclide):     11,303
+Unionized Energy Gridpoints:  768,604
+Particle Histories:           500,000
+XS Lookups per Particle:      34
+Total XS Lookups:             34
+Threads:                      1
+Est. Memory Usage (MB):       241
+Binary File Mode:             Off
+================================================================================
+                         INITIALIZATION - DO NOT PROFILE
+================================================================================
+Intializing nuclide grids...
+Intializing unionized grid...
+siz 768604
+Intializing material data...
+Intialization complete. Allocated 240 MB of data.
+
+================================================================================
+                                   SIMULATION
+================================================================================
+Beginning history based simulation...
+
+Simulation complete.
+================================================================================
+                                     RESULTS
+================================================================================
+Threads:     1
+Runtime:     219.909 seconds
+Lookups:     17,000,000
+Lookups/s:   77,304
+Verification checksum: 941535 (Valid)
+================================================================================
+"grid_search
+[{/home/users/mmonil/ORNL_seyong/mapmc/applications/memory_research_ornl/all_apps_experiments/xsbench/Simulation.c}
+{351,0}]
+[THROTTLED]"
+100001
+0
+116455
+116455
+0
+GROUP="TAU_DISABLE"
+116455
+117009
+"grid_search[{/home/users/mmonil/ORNL_seyong/mapmc/applications/memory_research_ornl/all_apps_experiments/xsbench/Simulation.c}{351,0}][THROTTLED]"10000101174951174950GROUP="TAU_DISABLE"117495
+115982
+115302
+116161
+29025
+stride: 1 698404 170112
+================================================================================
+                   __   __ ___________                 _                        
+                   \ \ / //  ___| ___ \               | |                       
+                    \ V / \ `--.| |_/ / ___ _ __   ___| |__                     
+                    /   \  `--. \ ___ \/ _ \ '_ \ / __| '_ \                    
+                   / /^\ \/\__/ / |_/ /  __/ | | | (__| | | |                   
+                   \/   \/\____/\____/ \___|_| |_|\___|_| |_|                   
+
+================================================================================
+                    Developed at Argonne National Laboratory
+                                   Version: 19
+================================================================================
+                                  INPUT SUMMARY
+================================================================================
+Simulation Method:            History Based
+Grid Type:                    Unionized Grid
+Materials:                    12
+H-M Benchmark Size:           small
+Total Nuclides:               68
+Gridpoints (per Nuclide):     11,303
+Unionized Energy Gridpoints:  768,604
+Particle Histories:           500,000
+XS Lookups per Particle:      34
+Total XS Lookups:             34
+Threads:                      1
+Est. Memory Usage (MB):       241
+Binary File Mode:             Off
+================================================================================
+                         INITIALIZATION - DO NOT PROFILE
+================================================================================
+Intializing nuclide grids...
+Intializing unionized grid...
+siz 768604
+Intializing material data...
+Intialization complete. Allocated 240 MB of data.
+
+================================================================================
+                                   SIMULATION
+================================================================================
+Beginning history based simulation...
+
+Simulation complete.
+================================================================================
+                                     RESULTS
+================================================================================
+Threads:     1
+Runtime:     218.882 seconds
+Lookups:     17,000,000
+Lookups/s:   77,667
+Verification checksum: 941535 (Valid)
+================================================================================
+"grid_search
+[{/home/users/mmonil/ORNL_seyong/mapmc/applications/memory_research_ornl/all_apps_experiments/xsbench/Simulation.c}
+{351,0}]
+[THROTTLED]"
+100001
+0
+120421
+120421
+0
+GROUP="TAU_DISABLE"
+120421
+120568
+"grid_search[{/home/users/mmonil/ORNL_seyong/mapmc/applications/memory_research_ornl/all_apps_experiments/xsbench/Simulation.c}{351,0}][THROTTLED]"10000101203701203700GROUP="TAU_DISABLE"120370
+119772
+118850
+119387
+27876
+stride: 1 719368 167712
+================================================================================
+                   __   __ ___________                 _                        
+                   \ \ / //  ___| ___ \               | |                       
+                    \ V / \ `--.| |_/ / ___ _ __   ___| |__                     
+                    /   \  `--. \ ___ \/ _ \ '_ \ / __| '_ \                    
+                   / /^\ \/\__/ / |_/ /  __/ | | | (__| | | |                   
+                   \/   \/\____/\____/ \___|_| |_|\___|_| |_|                   
+
+================================================================================
+                    Developed at Argonne National Laboratory
+                                   Version: 19
+================================================================================
+                                  INPUT SUMMARY
+================================================================================
+Simulation Method:            History Based
+Grid Type:                    Unionized Grid
+Materials:                    12
+H-M Benchmark Size:           small
+Total Nuclides:               68
+Gridpoints (per Nuclide):     11,303
+Unionized Energy Gridpoints:  768,604
+Particle Histories:           500,000
+XS Lookups per Particle:      34
+Total XS Lookups:             34
+Threads:                      1
+Est. Memory Usage (MB):       241
+Binary File Mode:             Off
+================================================================================
+                         INITIALIZATION - DO NOT PROFILE
+================================================================================
+Intializing nuclide grids...
+Intializing unionized grid...
+siz 768604
+Intializing material data...
+Intialization complete. Allocated 240 MB of data.
+
+================================================================================
+                                   SIMULATION
+================================================================================
+Beginning history based simulation...
+
+Simulation complete.
+================================================================================
+                                     RESULTS
+================================================================================
+Threads:     1
+Runtime:     219.301 seconds
+Lookups:     17,000,000
+Lookups/s:   77,519
+Verification checksum: 941535 (Valid)
+================================================================================
+"grid_search
+[{/home/users/mmonil/ORNL_seyong/mapmc/applications/memory_research_ornl/all_apps_experiments/xsbench/Simulation.c}
+{351,0}]
+[THROTTLED]"
+100001
+0
+113183
+113183
+0
+GROUP="TAU_DISABLE"
+113183
+113047
+"grid_search[{/home/users/mmonil/ORNL_seyong/mapmc/applications/memory_research_ornl/all_apps_experiments/xsbench/Simulation.c}{351,0}][THROTTLED]"10000101141221141220GROUP="TAU_DISABLE"114122
+113070
+113142
+113288
+26355
+stride: 1 679852 158369
+================================================================================
+                   __   __ ___________                 _                        
+                   \ \ / //  ___| ___ \               | |                       
+                    \ V / \ `--.| |_/ / ___ _ __   ___| |__                     
+                    /   \  `--. \ ___ \/ _ \ '_ \ / __| '_ \                    
+                   / /^\ \/\__/ / |_/ /  __/ | | | (__| | | |                   
+                   \/   \/\____/\____/ \___|_| |_|\___|_| |_|                   
+
+================================================================================
+                    Developed at Argonne National Laboratory
+                                   Version: 19
+================================================================================
+                                  INPUT SUMMARY
+================================================================================
+Simulation Method:            History Based
+Grid Type:                    Unionized Grid
+Materials:                    12
+H-M Benchmark Size:           small
+Total Nuclides:               68
+Gridpoints (per Nuclide):     11,303
+Unionized Energy Gridpoints:  768,604
+Particle Histories:           500,000
+XS Lookups per Particle:      34
+Total XS Lookups:             34
+Threads:                      1
+Est. Memory Usage (MB):       241
+Binary File Mode:             Off
+================================================================================
+                         INITIALIZATION - DO NOT PROFILE
+================================================================================
+Intializing nuclide grids...
+Intializing unionized grid...
+siz 768604
+Intializing material data...
+Intialization complete. Allocated 240 MB of data.
+
+================================================================================
+                                   SIMULATION
+================================================================================
+Beginning history based simulation...
+
+Simulation complete.
+================================================================================
+                                     RESULTS
+================================================================================
+Threads:     1
+Runtime:     219.550 seconds
+Lookups:     17,000,000
+Lookups/s:   77,431
+Verification checksum: 941535 (Valid)
+================================================================================
+"grid_search
+[{/home/users/mmonil/ORNL_seyong/mapmc/applications/memory_research_ornl/all_apps_experiments/xsbench/Simulation.c}
+{351,0}]
+[THROTTLED]"
+100001
+0
+102068
+102068
+0
+GROUP="TAU_DISABLE"
+102068
+102471
+"grid_search[{/home/users/mmonil/ORNL_seyong/mapmc/applications/memory_research_ornl/all_apps_experiments/xsbench/Simulation.c}{351,0}][THROTTLED]"10000101020801020800GROUP="TAU_DISABLE"102080
+100797
+100693
+101564
+25533
+stride: 1 609673 151470
+
+Found Skylake / Cascadelake Server CPU
+Enable all prefetch
+	Core 0 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 0 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 1 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 1 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 2 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 2 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 3 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 3 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 4 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 4 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 5 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 5 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 6 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 6 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 7 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 7 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 8 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 8 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 9 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 9 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 10 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 10 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 11 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 11 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 12 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 12 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 13 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 13 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 14 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 14 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 15 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 15 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 16 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 16 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 17 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 17 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 18 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 18 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 19 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 19 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 20 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 20 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 21 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 21 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 22 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 22 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 23 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 23 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 24 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 24 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 25 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 25 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 26 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 26 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 27 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 27 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 28 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 28 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 29 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 29 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 30 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 30 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 31 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 31 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 32 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 32 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 33 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 33 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 34 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 34 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 35 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 35 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 36 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 36 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 37 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 37 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 38 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 38 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 39 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 39 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 40 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 40 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 41 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 41 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 42 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 42 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 43 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 43 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 44 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 44 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 45 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 45 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 46 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 46 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 47 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 47 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 48 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 48 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 49 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 49 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 50 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 50 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 51 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 51 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 52 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 52 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 53 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 53 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 54 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 54 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 55 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 55 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 56 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 56 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 57 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 57 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 58 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 58 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 59 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 59 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 60 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 60 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 61 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 61 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 62 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 62 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 63 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 63 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 64 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 64 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 65 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 65 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 66 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 66 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 67 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 67 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 68 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 68 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 69 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 69 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 70 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 70 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 71 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 71 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+----------------------Array size = 100000000 -------------------
+================================================================================
+                   __   __ ___________                 _                        
+                   \ \ / //  ___| ___ \               | |                       
+                    \ V / \ `--.| |_/ / ___ _ __   ___| |__                     
+                    /   \  `--. \ ___ \/ _ \ '_ \ / __| '_ \                    
+                   / /^\ \/\__/ / |_/ /  __/ | | | (__| | | |                   
+                   \/   \/\____/\____/ \___|_| |_|\___|_| |_|                   
+
+================================================================================
+                    Developed at Argonne National Laboratory
+                                   Version: 19
+================================================================================
+                                  INPUT SUMMARY
+================================================================================
+Simulation Method:            History Based
+Grid Type:                    Unionized Grid
+Materials:                    12
+H-M Benchmark Size:           small
+Total Nuclides:               68
+Gridpoints (per Nuclide):     11,303
+Unionized Energy Gridpoints:  768,604
+Particle Histories:           500,000
+XS Lookups per Particle:      34
+Total XS Lookups:             34
+Threads:                      1
+Est. Memory Usage (MB):       241
+Binary File Mode:             Off
+================================================================================
+                         INITIALIZATION - DO NOT PROFILE
+================================================================================
+Intializing nuclide grids...
+Intializing unionized grid...
+siz 768604
+Intializing material data...
+Intialization complete. Allocated 240 MB of data.
+
+================================================================================
+                                   SIMULATION
+================================================================================
+Beginning history based simulation...
+
+Simulation complete.
+================================================================================
+                                     RESULTS
+================================================================================
+Threads:     1
+Runtime:     217.710 seconds
+Lookups:     17,000,000
+Lookups/s:   78,085
+Verification checksum: 941535 (Valid)
+================================================================================
+"grid_search
+[{/home/users/mmonil/ORNL_seyong/mapmc/applications/memory_research_ornl/all_apps_experiments/xsbench/Simulation.c}
+{351,0}]
+[THROTTLED]"
+100001
+0
+210797
+210797
+0
+GROUP="TAU_DISABLE"
+210797
+212857
+"grid_search[{/home/users/mmonil/ORNL_seyong/mapmc/applications/memory_research_ornl/all_apps_experiments/xsbench/Simulation.c}{351,0}][THROTTLED]"10000102123602123600GROUP="TAU_DISABLE"212360
+204513
+203367
+204539
+40011
+stride: 1 1248433 230290
+================================================================================
+                   __   __ ___________                 _                        
+                   \ \ / //  ___| ___ \               | |                       
+                    \ V / \ `--.| |_/ / ___ _ __   ___| |__                     
+                    /   \  `--. \ ___ \/ _ \ '_ \ / __| '_ \                    
+                   / /^\ \/\__/ / |_/ /  __/ | | | (__| | | |                   
+                   \/   \/\____/\____/ \___|_| |_|\___|_| |_|                   
+
+================================================================================
+                    Developed at Argonne National Laboratory
+                                   Version: 19
+================================================================================
+                                  INPUT SUMMARY
+================================================================================
+Simulation Method:            History Based
+Grid Type:                    Unionized Grid
+Materials:                    12
+H-M Benchmark Size:           small
+Total Nuclides:               68
+Gridpoints (per Nuclide):     11,303
+Unionized Energy Gridpoints:  768,604
+Particle Histories:           500,000
+XS Lookups per Particle:      34
+Total XS Lookups:             34
+Threads:                      1
+Est. Memory Usage (MB):       241
+Binary File Mode:             Off
+================================================================================
+                         INITIALIZATION - DO NOT PROFILE
+================================================================================
+Intializing nuclide grids...
+Intializing unionized grid...
+siz 768604
+Intializing material data...
+Intialization complete. Allocated 240 MB of data.
+
+================================================================================
+                                   SIMULATION
+================================================================================
+Beginning history based simulation...
+
+Simulation complete.
+================================================================================
+                                     RESULTS
+================================================================================
+Threads:     1
+Runtime:     218.169 seconds
+Lookups:     17,000,000
+Lookups/s:   77,921
+Verification checksum: 941535 (Valid)
+================================================================================
+"grid_search
+[{/home/users/mmonil/ORNL_seyong/mapmc/applications/memory_research_ornl/all_apps_experiments/xsbench/Simulation.c}
+{351,0}]
+[THROTTLED]"
+100001
+0
+214343
+214343
+0
+GROUP="TAU_DISABLE"
+214343
+212840
+"grid_search[{/home/users/mmonil/ORNL_seyong/mapmc/applications/memory_research_ornl/all_apps_experiments/xsbench/Simulation.c}{351,0}][THROTTLED]"10000102166952166950GROUP="TAU_DISABLE"216695
+208939
+208468
+206120
+42788
+stride: 1 1267405 247487
+================================================================================
+                   __   __ ___________                 _                        
+                   \ \ / //  ___| ___ \               | |                       
+                    \ V / \ `--.| |_/ / ___ _ __   ___| |__                     
+                    /   \  `--. \ ___ \/ _ \ '_ \ / __| '_ \                    
+                   / /^\ \/\__/ / |_/ /  __/ | | | (__| | | |                   
+                   \/   \/\____/\____/ \___|_| |_|\___|_| |_|                   
+
+================================================================================
+                    Developed at Argonne National Laboratory
+                                   Version: 19
+================================================================================
+                                  INPUT SUMMARY
+================================================================================
+Simulation Method:            History Based
+Grid Type:                    Unionized Grid
+Materials:                    12
+H-M Benchmark Size:           small
+Total Nuclides:               68
+Gridpoints (per Nuclide):     11,303
+Unionized Energy Gridpoints:  768,604
+Particle Histories:           500,000
+XS Lookups per Particle:      34
+Total XS Lookups:             34
+Threads:                      1
+Est. Memory Usage (MB):       241
+Binary File Mode:             Off
+================================================================================
+                         INITIALIZATION - DO NOT PROFILE
+================================================================================
+Intializing nuclide grids...
+Intializing unionized grid...
+siz 768604
+Intializing material data...
+Intialization complete. Allocated 240 MB of data.
+
+================================================================================
+                                   SIMULATION
+================================================================================
+Beginning history based simulation...
+
+Simulation complete.
+================================================================================
+                                     RESULTS
+================================================================================
+Threads:     1
+Runtime:     219.733 seconds
+Lookups:     17,000,000
+Lookups/s:   77,366
+Verification checksum: 941535 (Valid)
+================================================================================
+"grid_search
+[{/home/users/mmonil/ORNL_seyong/mapmc/applications/memory_research_ornl/all_apps_experiments/xsbench/Simulation.c}
+{351,0}]
+[THROTTLED]"
+100001
+0
+212871
+212871
+0
+GROUP="TAU_DISABLE"
+212871
+213156
+"grid_search[{/home/users/mmonil/ORNL_seyong/mapmc/applications/memory_research_ornl/all_apps_experiments/xsbench/Simulation.c}{351,0}][THROTTLED]"10000102157232157230GROUP="TAU_DISABLE"215723
+208062
+205492
+206930
+43630
+stride: 1 1262234 250639
+================================================================================
+                   __   __ ___________                 _                        
+                   \ \ / //  ___| ___ \               | |                       
+                    \ V / \ `--.| |_/ / ___ _ __   ___| |__                     
+                    /   \  `--. \ ___ \/ _ \ '_ \ / __| '_ \                    
+                   / /^\ \/\__/ / |_/ /  __/ | | | (__| | | |                   
+                   \/   \/\____/\____/ \___|_| |_|\___|_| |_|                   
+
+================================================================================
+                    Developed at Argonne National Laboratory
+                                   Version: 19
+================================================================================
+                                  INPUT SUMMARY
+================================================================================
+Simulation Method:            History Based
+Grid Type:                    Unionized Grid
+Materials:                    12
+H-M Benchmark Size:           small
+Total Nuclides:               68
+Gridpoints (per Nuclide):     11,303
+Unionized Energy Gridpoints:  768,604
+Particle Histories:           500,000
+XS Lookups per Particle:      34
+Total XS Lookups:             34
+Threads:                      1
+Est. Memory Usage (MB):       241
+Binary File Mode:             Off
+================================================================================
+                         INITIALIZATION - DO NOT PROFILE
+================================================================================
+Intializing nuclide grids...
+Intializing unionized grid...
+siz 768604
+Intializing material data...
+Intialization complete. Allocated 240 MB of data.
+
+================================================================================
+                                   SIMULATION
+================================================================================
+Beginning history based simulation...
+
+Simulation complete.
+================================================================================
+                                     RESULTS
+================================================================================
+Threads:     1
+Runtime:     219.684 seconds
+Lookups:     17,000,000
+Lookups/s:   77,383
+Verification checksum: 941535 (Valid)
+================================================================================
+"grid_search
+[{/home/users/mmonil/ORNL_seyong/mapmc/applications/memory_research_ornl/all_apps_experiments/xsbench/Simulation.c}
+{351,0}]
+[THROTTLED]"
+100001
+0
+209910
+209910
+0
+GROUP="TAU_DISABLE"
+209910
+210907
+"grid_search[{/home/users/mmonil/ORNL_seyong/mapmc/applications/memory_research_ornl/all_apps_experiments/xsbench/Simulation.c}{351,0}][THROTTLED]"10000102107252107250GROUP="TAU_DISABLE"210725
+204070
+203774
+204399
+41984
+stride: 1 1243785 242654
+================================================================================
+                   __   __ ___________                 _                        
+                   \ \ / //  ___| ___ \               | |                       
+                    \ V / \ `--.| |_/ / ___ _ __   ___| |__                     
+                    /   \  `--. \ ___ \/ _ \ '_ \ / __| '_ \                    
+                   / /^\ \/\__/ / |_/ /  __/ | | | (__| | | |                   
+                   \/   \/\____/\____/ \___|_| |_|\___|_| |_|                   
+
+================================================================================
+                    Developed at Argonne National Laboratory
+                                   Version: 19
+================================================================================
+                                  INPUT SUMMARY
+================================================================================
+Simulation Method:            History Based
+Grid Type:                    Unionized Grid
+Materials:                    12
+H-M Benchmark Size:           small
+Total Nuclides:               68
+Gridpoints (per Nuclide):     11,303
+Unionized Energy Gridpoints:  768,604
+Particle Histories:           500,000
+XS Lookups per Particle:      34
+Total XS Lookups:             34
+Threads:                      1
+Est. Memory Usage (MB):       241
+Binary File Mode:             Off
+================================================================================
+                         INITIALIZATION - DO NOT PROFILE
+================================================================================
+Intializing nuclide grids...
+Intializing unionized grid...
+siz 768604
+Intializing material data...
+Intialization complete. Allocated 240 MB of data.
+
+================================================================================
+                                   SIMULATION
+================================================================================
+Beginning history based simulation...
+
+Simulation complete.
+================================================================================
+                                     RESULTS
+================================================================================
+Threads:     1
+Runtime:     219.597 seconds
+Lookups:     17,000,000
+Lookups/s:   77,414
+Verification checksum: 941535 (Valid)
+================================================================================
+"grid_search
+[{/home/users/mmonil/ORNL_seyong/mapmc/applications/memory_research_ornl/all_apps_experiments/xsbench/Simulation.c}
+{351,0}]
+[THROTTLED]"
+100001
+0
+210584
+210584
+0
+GROUP="TAU_DISABLE"
+210584
+209715
+"grid_search[{/home/users/mmonil/ORNL_seyong/mapmc/applications/memory_research_ornl/all_apps_experiments/xsbench/Simulation.c}{351,0}][THROTTLED]"10000102109022109020GROUP="TAU_DISABLE"210902
+205008
+203733
+201993
+37857
+stride: 1 1241935 218933

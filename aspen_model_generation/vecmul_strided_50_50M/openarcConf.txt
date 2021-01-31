@@ -782,7 +782,7 @@
 #skipKernelLoopBoundChecking
 #SetAccEntryFunction=filename
 addIncludePath=../../../../openarcrt
-macro=_N_=100000000,_OPENMP,_OPENACCM=1
+macro=_N_=50000000,_OPENMP,_OPENACCM=1
 defaultNumWorkers=64
 #maxNumGangs=N
 #maxNumWorkers=N

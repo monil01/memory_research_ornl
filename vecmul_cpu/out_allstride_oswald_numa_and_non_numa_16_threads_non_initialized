@@ -1,0 +1,341 @@
+rm serial_vecmul papi_add_remove vecmul_PAPI tau_vecmul omp_vecmul profile.0.0* *.o; rm -rf MULT*
+#g++ vecmul_openmp.c -o omp_vecmul -fopenmp
+tau_cxx.sh -optCompInst vecmul_openmp.c -o omp_vecmul -fopenmp
+Debug: Using compiler-based instrumentation
+
+
+Debug: Compiling (Individually) with Instrumented Code
+Executing> /usr/lib64/ccache/g++ -fopenmp -I. -c vecmul_openmp.c -g -DPROFILING_ON -DTAU_PAPI -I/home/mmonil/packages/download_tar/papi/src/install/include -DTAU_GNU -DTAU_DOT_H_LESS_HEADERS -DTAU_LINUX_TIMERS -DTAU_LARGEFILE -D_LARGEFILE64_SOURCE -DTAU_BFD -DHAVE_GNU_DEMANGLE -DHAVE_TR1_HASH_MAP -DTAU_SS_ALLOC_SUPPORT -DEBS_CLOCK_RES=1 -DTAU_STRSIGNAL_OK -DTAU_TRACK_LD_LOADER -DTAU_PAPI_PERF_RAPL -DTAU_ELF_BFD -I/home/mmonil/packages/download_tar/tau-2.29/install/include -o vecmul_openmp.o -g -finstrument-functions -finstrument-functions-exclude-file-list=/usr/include
+
+
+Debug: Linking (Together) object files
+Executing> /usr/lib64/ccache/g++ -fopenmp vecmul_openmp.o -L/home/mmonil/packages/download_tar/tau-2.29/install/x86_64/lib -ltau-papi-pdt -Wl,-rpath,/home/mmonil/packages/download_tar/papi/src/install/lib -L/home/mmonil/packages/download_tar/papi/src/install/lib/ -L/home/mmonil/packages/download_tar/papi/src/install/lib64/ -Wl,-rpath,/home/mmonil/packages/download_tar/papi/src/install/lib -lpapi -L/home/mmonil/packages/download_tar/tau-2.29/install/x86_64/binutils-2.23.2/lib -L/home/mmonil/packages/download_tar/tau-2.29/install/x86_64/binutils-2.23.2/lib64 -Wl,-rpath,/home/mmonil/packages/download_tar/tau-2.29/install/x86_64/binutils-2.23.2/lib -Wl,-rpath,/home/mmonil/packages/download_tar/tau-2.29/install/x86_64/binutils-2.23.2/lib64 -lbfd -liberty -lz -ldl -Wl,--export-dynamic -lrt -ldl -lm -L/usr/lib/gcc/x86_64-redhat-linux/4.8.5/ -lstdc++ -lgcc_s -L/home/mmonil/packages/download_tar/tau-2.29/install/x86_64/lib/static-papi-pdt -g -o omp_vecmul
+
+
+Found Broadwell-DE/EP CPU
+Disable all prefetch
+	Core 0 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 0 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 1 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 1 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 2 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 2 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 3 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 3 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 4 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 4 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 5 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 5 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 6 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 6 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 7 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 7 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 8 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 8 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 9 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 9 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 10 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 10 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 11 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 11 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 12 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 12 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 13 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 13 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 14 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 14 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 15 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 15 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 16 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 16 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 17 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 17 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 18 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 18 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 19 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 19 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 20 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 20 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 21 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 21 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 22 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 22 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 23 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 23 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 24 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 24 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 25 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 25 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 26 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 26 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 27 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 27 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 28 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 28 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 29 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 29 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 30 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 30 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 31 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 31 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+----------------------Array size = 100000000 -------------------
+stride: 1 13127733 7226897
+stride: 2 13032239 7143927
+stride: 4 12933963 7073269
+stride: 8 12896520 6959896
+stride: 16 12876399 6969371
+stride: 32 6611000 6858565
+stride: 64 3497823 6872799
+stride: 128 1945256 6766069
+stride: 256 1155772 6726827
+stride: 512 758483 6672263
+stride: 1024 554314 6637103
+stride: 2048 440331 6605807
+stride: 4096 389928 6604876
+stride: 8192 366524 6612127
+
+Found Broadwell-DE/EP CPU
+Enable all prefetch
+	Core 0 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 0 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 1 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 1 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 2 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 2 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 3 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 3 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 4 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 4 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 5 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 5 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 6 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 6 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 7 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 7 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 8 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 8 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 9 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 9 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 10 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 10 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 11 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 11 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 12 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 12 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 13 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 13 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 14 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 14 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 15 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 15 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 16 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 16 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 17 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 17 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 18 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 18 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 19 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 19 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 20 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 20 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 21 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 21 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 22 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 22 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 23 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 23 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 24 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 24 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 25 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 25 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 26 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 26 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 27 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 27 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 28 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 28 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 29 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 29 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 30 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 30 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 31 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 31 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+----------------------Array size = 100000000 -------------------
+stride: 1 13042515 7263678
+stride: 2 12999389 7431000
+stride: 4 12970880 7248539
+stride: 8 12974662 7256688
+stride: 16 12984566 7406128
+stride: 32 13018577 7603906
+stride: 64 10500219 7649302
+stride: 128 2069562 6840330
+stride: 256 1236710 6731406
+stride: 512 818100 6671563
+stride: 1024 614828 6653805
+stride: 2048 500927 6604177
+stride: 4096 449828 6611382
+stride: 8192 427630 6612136
+
+Found Broadwell-DE/EP CPU
+Disable all prefetch
+	Core 0 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 0 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 1 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 1 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 2 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 2 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 3 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 3 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 4 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 4 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 5 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 5 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 6 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 6 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 7 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 7 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 8 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 8 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 9 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 9 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 10 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 10 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 11 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 11 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 12 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 12 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 13 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 13 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 14 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 14 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 15 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 15 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 16 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 16 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 17 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 17 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 18 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 18 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 19 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 19 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 20 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 20 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 21 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 21 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 22 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 22 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 23 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 23 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 24 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 24 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 25 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 25 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 26 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 26 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 27 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 27 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 28 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 28 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 29 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 29 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 30 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 30 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 31 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 31 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+----------------------Array size = 100000000 -------------------
+stride: 1 13429083 7711633
+stride: 2 13316087 7360170
+stride: 4 13090409 7298527
+stride: 8 12998019 7040337
+stride: 16 12945405 7001815
+stride: 32 6659593 6873072
+stride: 64 3529644 6977162
+stride: 128 1986107 7109141
+stride: 256 1192491 7036749
+stride: 512 802626 6926888
+stride: 1024 602567 7031388
+stride: 2048 483039 6879576
+stride: 4096 411174 6725786
+stride: 8192 385946 6792399
+
+Found Broadwell-DE/EP CPU
+Enable all prefetch
+	Core 0 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 0 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 1 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 1 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 2 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 2 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 3 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 3 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 4 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 4 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 5 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 5 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 6 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 6 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 7 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 7 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 8 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 8 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 9 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 9 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 10 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 10 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 11 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 11 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 12 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 12 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 13 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 13 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 14 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 14 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 15 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 15 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 16 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 16 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 17 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 17 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 18 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 18 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 19 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 19 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 20 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 20 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 21 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 21 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 22 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 22 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 23 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 23 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 24 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 24 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 25 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 25 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 26 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 26 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 27 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 27 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 28 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 28 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 29 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 29 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 30 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 30 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 31 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 31 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+----------------------Array size = 100000000 -------------------
+stride: 1 13218550 7547858
+stride: 2 13140277 8014396
+stride: 4 13096193 8337668
+stride: 8 13105557 8324474
+stride: 16 13086892 8356975
+stride: 32 13215046 10343157
+stride: 64 10579026 7774340
+stride: 128 2094308 6982619
+stride: 256 1287940 7076140
+stride: 512 874587 7033757
+stride: 1024 665797 6980730
+stride: 2048 549738 6930386
+stride: 4096 493373 6919271
+stride: 8192 464919 6865179

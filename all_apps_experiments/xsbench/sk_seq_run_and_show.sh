@@ -10,8 +10,8 @@ run_skylake()
  
     #taskset --cpu 12 ./tau_stencil_jacobi $1 $2
 
-    #taskset --cpu 16 ./XSBench 
-    taskset --cpu 12 ./XSBench -s small
+    taskset --cpu 12 ./XSBench 
+    #taskset --cpu 12 ./XSBench -s small
 
     #export TAU_METRICS=TIME,PAPI_NATIVE_bdx_unc_imc0::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_bdx_unc_imc1::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_bdx_unc_imc4::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_bdx_unc_imc5::UNC_M_CAS_COUNT:WR:cpu=12
 #taskset --cpu 12 ./tau_stencil_jacobi
@@ -220,8 +220,8 @@ do
 for stride in "${stride_array[@]}"
 do
     #echo "----------------------stride = $stride-------------------"
-    for i in 1
-    #for i in 1 2 3 4 5 
+    #for i in 1
+    for i in 1 2 3 4 5 
     do
 	run_skylake $stride $array_size
 	#run_broadwell $stride $array_size
@@ -240,12 +240,12 @@ do
 for stride in "${stride_array[@]}"
 do
     #echo "----------------------stride = $stride-------------------"
-    for i in 1
-    #for i in 1 2 3 4 5 
+    #for i in 1
+    for i in 1 2 3 4 5 
     do
 	run_skylake $stride $array_size
 	#run_broadwell $stride $array_size
-	#rm -rf MULT*
+	rm -rf MULT*
 
     done
 done

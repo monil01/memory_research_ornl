@@ -1,0 +1,724 @@
+/bin/rm -f *.o *~  lulesh2.0
+/bin/rm -rf *.dSYM
+Building lulesh.cc
+tau_cxx.sh -DUSE_MPI=0 -c -g -O3 -fopenmp -I. -Wall -o lulesh.o  lulesh.cc
+
+
+Debug: Parsing with PDT Parser.
+Executing> /home/mmonil/packages/download_tar/pdtoolkit-3.25.1/install/x86_64/bin/cxxparse lulesh.cc -I/home/mmonil/packages/download_tar/tau-2.29/install/include -DPROFILING_ON -DTAU_PAPI -I/home/mmonil/packages/download_tar/papi/src/install/include -DTAU_GNU -DTAU_DOT_H_LESS_HEADERS -DTAU_LINUX_TIMERS -DTAU_LARGEFILE -D_LARGEFILE64_SOURCE -DTAU_BFD -DHAVE_GNU_DEMANGLE -DHAVE_TR1_HASH_MAP -DTAU_SS_ALLOC_SUPPORT -DEBS_CLOCK_RES=1 -DTAU_STRSIGNAL_OK -DTAU_TRACK_LD_LOADER -DTAU_PAPI_PERF_RAPL -DTAU_ELF_BFD -DUSE_MPI=0 -I. -I/home/mmonil/packages/download_tar/tau-2.29/install/include
+
+
+Debug: Instrumenting with TAU
+Executing> /home/mmonil/packages/download_tar/tau-2.29/install/x86_64/bin/tau_instrumentor lulesh.pdb lulesh.cc -o lulesh.inst.cc
+
+
+Debug: Compiling with Instrumented Code
+Executing> /usr/lib64/ccache/g++ -c -g -O3 -fopenmp -Wall lulesh.inst.cc -DUSE_MPI=0 -I. -DPROFILING_ON -DTAU_PAPI -I/home/mmonil/packages/download_tar/papi/src/install/include -DTAU_GNU -DTAU_DOT_H_LESS_HEADERS -DTAU_LINUX_TIMERS -DTAU_LARGEFILE -D_LARGEFILE64_SOURCE -DTAU_BFD -DHAVE_GNU_DEMANGLE -DHAVE_TR1_HASH_MAP -DTAU_SS_ALLOC_SUPPORT -DEBS_CLOCK_RES=1 -DTAU_STRSIGNAL_OK -DTAU_TRACK_LD_LOADER -DTAU_PAPI_PERF_RAPL -DTAU_ELF_BFD -I/home/mmonil/packages/download_tar/tau-2.29/install/include -o lulesh.o
+Looking for file: lulesh.o
+
+
+Debug: cleaning inst file
+Executing> /bin/rm -f lulesh.inst.cc
+
+
+Debug: cleaning PDB file
+Executing> /bin/rm -f lulesh.pdb
+
+Building lulesh-comm.cc
+tau_cxx.sh -DUSE_MPI=0 -c -g -O3 -fopenmp -I. -Wall -o lulesh-comm.o  lulesh-comm.cc
+
+
+Debug: Parsing with PDT Parser.
+Executing> /home/mmonil/packages/download_tar/pdtoolkit-3.25.1/install/x86_64/bin/cxxparse lulesh-comm.cc -I/home/mmonil/packages/download_tar/tau-2.29/install/include -DPROFILING_ON -DTAU_PAPI -I/home/mmonil/packages/download_tar/papi/src/install/include -DTAU_GNU -DTAU_DOT_H_LESS_HEADERS -DTAU_LINUX_TIMERS -DTAU_LARGEFILE -D_LARGEFILE64_SOURCE -DTAU_BFD -DHAVE_GNU_DEMANGLE -DHAVE_TR1_HASH_MAP -DTAU_SS_ALLOC_SUPPORT -DEBS_CLOCK_RES=1 -DTAU_STRSIGNAL_OK -DTAU_TRACK_LD_LOADER -DTAU_PAPI_PERF_RAPL -DTAU_ELF_BFD -DUSE_MPI=0 -I. -I/home/mmonil/packages/download_tar/tau-2.29/install/include
+
+
+Debug: Instrumenting with TAU
+Executing> /home/mmonil/packages/download_tar/tau-2.29/install/x86_64/bin/tau_instrumentor lulesh-comm.pdb lulesh-comm.cc -o lulesh-comm.inst.cc
+
+
+Debug: Compiling with Instrumented Code
+Executing> /usr/lib64/ccache/g++ -c -g -O3 -fopenmp -Wall lulesh-comm.inst.cc -DUSE_MPI=0 -I. -DPROFILING_ON -DTAU_PAPI -I/home/mmonil/packages/download_tar/papi/src/install/include -DTAU_GNU -DTAU_DOT_H_LESS_HEADERS -DTAU_LINUX_TIMERS -DTAU_LARGEFILE -D_LARGEFILE64_SOURCE -DTAU_BFD -DHAVE_GNU_DEMANGLE -DHAVE_TR1_HASH_MAP -DTAU_SS_ALLOC_SUPPORT -DEBS_CLOCK_RES=1 -DTAU_STRSIGNAL_OK -DTAU_TRACK_LD_LOADER -DTAU_PAPI_PERF_RAPL -DTAU_ELF_BFD -I/home/mmonil/packages/download_tar/tau-2.29/install/include -o lulesh-comm.o
+Looking for file: lulesh-comm.o
+
+
+Debug: cleaning inst file
+Executing> /bin/rm -f lulesh-comm.inst.cc
+
+
+Debug: cleaning PDB file
+Executing> /bin/rm -f lulesh-comm.pdb
+
+Building lulesh-viz.cc
+tau_cxx.sh -DUSE_MPI=0 -c -g -O3 -fopenmp -I. -Wall -o lulesh-viz.o  lulesh-viz.cc
+
+
+Debug: Parsing with PDT Parser.
+Executing> /home/mmonil/packages/download_tar/pdtoolkit-3.25.1/install/x86_64/bin/cxxparse lulesh-viz.cc -I/home/mmonil/packages/download_tar/tau-2.29/install/include -DPROFILING_ON -DTAU_PAPI -I/home/mmonil/packages/download_tar/papi/src/install/include -DTAU_GNU -DTAU_DOT_H_LESS_HEADERS -DTAU_LINUX_TIMERS -DTAU_LARGEFILE -D_LARGEFILE64_SOURCE -DTAU_BFD -DHAVE_GNU_DEMANGLE -DHAVE_TR1_HASH_MAP -DTAU_SS_ALLOC_SUPPORT -DEBS_CLOCK_RES=1 -DTAU_STRSIGNAL_OK -DTAU_TRACK_LD_LOADER -DTAU_PAPI_PERF_RAPL -DTAU_ELF_BFD -DUSE_MPI=0 -I. -I/home/mmonil/packages/download_tar/tau-2.29/install/include
+
+
+Debug: Instrumenting with TAU
+Executing> /home/mmonil/packages/download_tar/tau-2.29/install/x86_64/bin/tau_instrumentor lulesh-viz.pdb lulesh-viz.cc -o lulesh-viz.inst.cc
+
+
+Debug: Compiling with Instrumented Code
+Executing> /usr/lib64/ccache/g++ -c -g -O3 -fopenmp -Wall lulesh-viz.inst.cc -DUSE_MPI=0 -I. -DPROFILING_ON -DTAU_PAPI -I/home/mmonil/packages/download_tar/papi/src/install/include -DTAU_GNU -DTAU_DOT_H_LESS_HEADERS -DTAU_LINUX_TIMERS -DTAU_LARGEFILE -D_LARGEFILE64_SOURCE -DTAU_BFD -DHAVE_GNU_DEMANGLE -DHAVE_TR1_HASH_MAP -DTAU_SS_ALLOC_SUPPORT -DEBS_CLOCK_RES=1 -DTAU_STRSIGNAL_OK -DTAU_TRACK_LD_LOADER -DTAU_PAPI_PERF_RAPL -DTAU_ELF_BFD -I/home/mmonil/packages/download_tar/tau-2.29/install/include -o lulesh-viz.o
+Looking for file: lulesh-viz.o
+
+
+Debug: cleaning inst file
+Executing> /bin/rm -f lulesh-viz.inst.cc
+
+
+Debug: cleaning PDB file
+Executing> /bin/rm -f lulesh-viz.pdb
+
+Building lulesh-util.cc
+tau_cxx.sh -DUSE_MPI=0 -c -g -O3 -fopenmp -I. -Wall -o lulesh-util.o  lulesh-util.cc
+
+
+Debug: Parsing with PDT Parser.
+Executing> /home/mmonil/packages/download_tar/pdtoolkit-3.25.1/install/x86_64/bin/cxxparse lulesh-util.cc -I/home/mmonil/packages/download_tar/tau-2.29/install/include -DPROFILING_ON -DTAU_PAPI -I/home/mmonil/packages/download_tar/papi/src/install/include -DTAU_GNU -DTAU_DOT_H_LESS_HEADERS -DTAU_LINUX_TIMERS -DTAU_LARGEFILE -D_LARGEFILE64_SOURCE -DTAU_BFD -DHAVE_GNU_DEMANGLE -DHAVE_TR1_HASH_MAP -DTAU_SS_ALLOC_SUPPORT -DEBS_CLOCK_RES=1 -DTAU_STRSIGNAL_OK -DTAU_TRACK_LD_LOADER -DTAU_PAPI_PERF_RAPL -DTAU_ELF_BFD -DUSE_MPI=0 -I. -I/home/mmonil/packages/download_tar/tau-2.29/install/include
+
+
+Debug: Instrumenting with TAU
+Executing> /home/mmonil/packages/download_tar/tau-2.29/install/x86_64/bin/tau_instrumentor lulesh-util.pdb lulesh-util.cc -o lulesh-util.inst.cc
+
+
+Debug: Compiling with Instrumented Code
+Executing> /usr/lib64/ccache/g++ -c -g -O3 -fopenmp -Wall lulesh-util.inst.cc -DUSE_MPI=0 -I. -DPROFILING_ON -DTAU_PAPI -I/home/mmonil/packages/download_tar/papi/src/install/include -DTAU_GNU -DTAU_DOT_H_LESS_HEADERS -DTAU_LINUX_TIMERS -DTAU_LARGEFILE -D_LARGEFILE64_SOURCE -DTAU_BFD -DHAVE_GNU_DEMANGLE -DHAVE_TR1_HASH_MAP -DTAU_SS_ALLOC_SUPPORT -DEBS_CLOCK_RES=1 -DTAU_STRSIGNAL_OK -DTAU_TRACK_LD_LOADER -DTAU_PAPI_PERF_RAPL -DTAU_ELF_BFD -I/home/mmonil/packages/download_tar/tau-2.29/install/include -o lulesh-util.o
+Looking for file: lulesh-util.o
+
+
+Debug: cleaning inst file
+Executing> /bin/rm -f lulesh-util.inst.cc
+
+
+Debug: cleaning PDB file
+Executing> /bin/rm -f lulesh-util.pdb
+
+Building lulesh-init.cc
+tau_cxx.sh -DUSE_MPI=0 -c -g -O3 -fopenmp -I. -Wall -o lulesh-init.o  lulesh-init.cc
+
+
+Debug: Parsing with PDT Parser.
+Executing> /home/mmonil/packages/download_tar/pdtoolkit-3.25.1/install/x86_64/bin/cxxparse lulesh-init.cc -I/home/mmonil/packages/download_tar/tau-2.29/install/include -DPROFILING_ON -DTAU_PAPI -I/home/mmonil/packages/download_tar/papi/src/install/include -DTAU_GNU -DTAU_DOT_H_LESS_HEADERS -DTAU_LINUX_TIMERS -DTAU_LARGEFILE -D_LARGEFILE64_SOURCE -DTAU_BFD -DHAVE_GNU_DEMANGLE -DHAVE_TR1_HASH_MAP -DTAU_SS_ALLOC_SUPPORT -DEBS_CLOCK_RES=1 -DTAU_STRSIGNAL_OK -DTAU_TRACK_LD_LOADER -DTAU_PAPI_PERF_RAPL -DTAU_ELF_BFD -DUSE_MPI=0 -I. -I/home/mmonil/packages/download_tar/tau-2.29/install/include
+
+
+Debug: Instrumenting with TAU
+Executing> /home/mmonil/packages/download_tar/tau-2.29/install/x86_64/bin/tau_instrumentor lulesh-init.pdb lulesh-init.cc -o lulesh-init.inst.cc
+
+
+Debug: Compiling with Instrumented Code
+Executing> /usr/lib64/ccache/g++ -c -g -O3 -fopenmp -Wall lulesh-init.inst.cc -DUSE_MPI=0 -I. -DPROFILING_ON -DTAU_PAPI -I/home/mmonil/packages/download_tar/papi/src/install/include -DTAU_GNU -DTAU_DOT_H_LESS_HEADERS -DTAU_LINUX_TIMERS -DTAU_LARGEFILE -D_LARGEFILE64_SOURCE -DTAU_BFD -DHAVE_GNU_DEMANGLE -DHAVE_TR1_HASH_MAP -DTAU_SS_ALLOC_SUPPORT -DEBS_CLOCK_RES=1 -DTAU_STRSIGNAL_OK -DTAU_TRACK_LD_LOADER -DTAU_PAPI_PERF_RAPL -DTAU_ELF_BFD -I/home/mmonil/packages/download_tar/tau-2.29/install/include -o lulesh-init.o
+Looking for file: lulesh-init.o
+
+
+Debug: cleaning inst file
+Executing> /bin/rm -f lulesh-init.inst.cc
+
+
+Debug: cleaning PDB file
+Executing> /bin/rm -f lulesh-init.pdb
+
+Linking
+tau_cxx.sh -DUSE_MPI=0 lulesh.o lulesh-comm.o lulesh-viz.o lulesh-util.o lulesh-init.o -g -O3 -fopenmp -lm -o lulesh2.0
+Debug: Moving these libraries to the end of the link line:
+
+
+Debug: Linking with TAU Options
+Executing> /usr/lib64/ccache/g++ -DUSE_MPI=0 lulesh.o lulesh-comm.o lulesh-viz.o lulesh-util.o lulesh-init.o -g -O3 -fopenmp -lm -o lulesh2.0 -L/home/mmonil/packages/download_tar/tau-2.29/install/x86_64/lib -ltau-papi-pdt -Wl,-rpath,/home/mmonil/packages/download_tar/papi/src/install/lib -L/home/mmonil/packages/download_tar/papi/src/install/lib/ -L/home/mmonil/packages/download_tar/papi/src/install/lib64/ -Wl,-rpath,/home/mmonil/packages/download_tar/papi/src/install/lib -lpapi -L/home/mmonil/packages/download_tar/tau-2.29/install/x86_64/binutils-2.23.2/lib -L/home/mmonil/packages/download_tar/tau-2.29/install/x86_64/binutils-2.23.2/lib64 -Wl,-rpath,/home/mmonil/packages/download_tar/tau-2.29/install/x86_64/binutils-2.23.2/lib -Wl,-rpath,/home/mmonil/packages/download_tar/tau-2.29/install/x86_64/binutils-2.23.2/lib64 -lbfd -liberty -lz -ldl -Wl,--export-dynamic -lrt -ldl -lm -L/usr/lib/gcc/x86_64-redhat-linux/4.8.5/ -lstdc++ -lgcc_s -L/home/mmonil/packages/download_tar/tau-2.29/install/x86_64/lib/static-papi-pdt
+
+
+Found Broadwell-DE/EP CPU
+Disable all prefetch
+	Core 0 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 0 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 1 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 1 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 2 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 2 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 3 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 3 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 4 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 4 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 5 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 5 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 6 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 6 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 7 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 7 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 8 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 8 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 9 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 9 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 10 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 10 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 11 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 11 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 12 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 12 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 13 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 13 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 14 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 14 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 15 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 15 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 16 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 16 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 17 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 17 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 18 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 18 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 19 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 19 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 20 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 20 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 21 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 21 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 22 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 22 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 23 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 23 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 24 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 24 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 25 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 25 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 26 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 26 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 27 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 27 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 28 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 28 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 29 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 29 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 30 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 30 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 31 old : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 31 new : L2HW=N L2ADJ=N DCU=N DCUIP=N
+----------------------Array size = 100000000 -------------------
+Running problem size 300^3 per domain until completion
+Num processors: 1
+Num threads: 8
+Total number of elements: 27000000 
+
+To run other sizes, use -s <integer>.
+To run a fixed number of iterations, use -i <integer>.
+To run a more or less balanced region set, use -b <integer>.
+To change the relative costs of regions, use -c <integer>.
+To print out progress, use -p
+To write an output file for VisIt, use -v
+See help (-h) for more options
+
+size 300 numnodebc 90601
+Run completed:
+   Problem size        =  300
+   MPI tasks           =  1
+   Iteration count     =  1
+   Final Origin Energy =  1.169999e+10
+   Testing Plane 0 of Energy Array on rank 0:
+        MaxAbsDiff   = 0.000000e+00
+        TotalAbsDiff = 0.000000e+00
+        MaxRelDiff   = 0.000000e+00
+
+Elapsed time         =        8.6 (s)
+Grind time (us/z/c)  = 0.31717463 (per dom)  (  8.563715 overall)
+FOM                  =  3152.8373 (z/s)
+
+Reading Profile files in profile.*
+
+NODE 0;CONTEXT 0;THREAD 0:
+---------------------------------------------------------------------------------------
+%Time   Exclusive   Inclusive       #Call      #Subrs Count/Call Name
+           counts total counts                            
+---------------------------------------------------------------------------------------
+100.0          49   4.746E+08           1           1  474561450 .TAU application
+100.0   3.934E+08   4.746E+08           1           7  474561401 int main(int, char **) 
+  9.3    2.11E+07   4.434E+07           1      100008   44344666 void Domain::Domain(Int_t, Index_t, Index_t, Index_t, Index_t, Int_t, Int_t, Int_t, Int_t) 
+  4.3   2.044E+07   2.044E+07           1           0   20444416 void CalcKinematicsForElems(Domain &, Real_t, Index_t) 
+  3.4   1.626E+07   1.626E+07           1           0   16261120 void LagrangeNodal(Domain &) 
+  2.7   1.301E+07   1.301E+07           1           0   13014360 void Domain::SetupThreadSupportStructures() 
+  1.3   6.016E+06   6.016E+06           1           0    6016086 void Domain::BuildMesh(Int_t, Int_t, Int_t) 
+  0.6   2.655E+06   2.655E+06           1           0    2655114 void Domain::SetupElementConnectivities(Int_t) 
+  0.2   9.689E+05   9.689E+05           1           0     968945 void Domain::CreateRegionIndexSets(Int_t, Int_t) 
+  0.1   4.468E+05   4.468E+05           1           0     446827 void Domain::SetupBoundaryConditions(Int_t) 
+  0.0   1.359E+05   1.359E+05      100001           0          1 Real_t CalcElemVolume(const Real_t *, const Real_t *, const Real_t *) [THROTTLED]
+  0.0   7.807E+04   7.807E+04           1           0      78069 void Domain::~Domain() 
+  0.0        4488        4488           1           0       4488 void Domain::SetupSymmetryPlanes(Int_t) 
+  0.0        3244        3244           1           0       3244 void VerifyAndWriteFinalOutput(Real_t, Domain &, Int_t, Int_t) 
+  0.0         525         525           1           0        525 void Domain::SetupCommBuffers(Int_t) 
+  0.0          11          20           1           2         20 void ParseCommandLineOptions(int, char **, Int_t, cmdLineOpts *) 
+  0.0          15          15           1           0         15 void InitMeshDecomp(Int_t, Int_t, Int_t *, Int_t *, Int_t *, Int_t *) 
+  0.0           9           9           2           0          4 StrToInt 
+Reading Profile files in profile.*
+
+NODE 0;CONTEXT 0;THREAD 0:
+---------------------------------------------------------------------------------------
+%Time   Exclusive   Inclusive       #Call      #Subrs Count/Call Name
+           counts total counts                            
+---------------------------------------------------------------------------------------
+100.0          35   4.716E+08           1           1  471594125 .TAU application
+100.0   3.926E+08   4.716E+08           1           7  471594090 int main(int, char **) 
+  9.0   2.012E+07   4.247E+07           1      100008   42471605 void Domain::Domain(Int_t, Index_t, Index_t, Index_t, Index_t, Int_t, Int_t, Int_t, Int_t) 
+  4.3    2.02E+07    2.02E+07           1           0   20203098 void CalcKinematicsForElems(Domain &, Real_t, Index_t) 
+  3.4   1.624E+07   1.624E+07           1           0   16236892 void LagrangeNodal(Domain &) 
+  2.7    1.25E+07    1.25E+07           1           0   12502161 void Domain::SetupThreadSupportStructures() 
+  1.3   5.945E+06   5.945E+06           1           0    5944957 void Domain::BuildMesh(Int_t, Int_t, Int_t) 
+  0.5    2.54E+06    2.54E+06           1           0    2540428 void Domain::SetupElementConnectivities(Int_t) 
+  0.2    9.08E+05    9.08E+05           1           0     908015 void Domain::CreateRegionIndexSets(Int_t, Int_t) 
+  0.1   4.439E+05   4.439E+05           1           0     443934 void Domain::SetupBoundaryConditions(Int_t) 
+  0.0   7.705E+04   7.705E+04           1           0      77048 void Domain::~Domain() 
+  0.0        4342        4342           1           0       4342 void Domain::SetupSymmetryPlanes(Int_t) 
+  0.0        3541        3541      100001           0          0 Real_t CalcElemVolume(const Real_t *, const Real_t *, const Real_t *) [THROTTLED]
+  0.0        3145        3145           1           0       3145 void VerifyAndWriteFinalOutput(Real_t, Domain &, Int_t, Int_t) 
+  0.0         456         456           1           0        456 void Domain::SetupCommBuffers(Int_t) 
+  0.0           9           9           1           0          9 void InitMeshDecomp(Int_t, Int_t, Int_t *, Int_t *, Int_t *, Int_t *) 
+  0.0           2           3           1           2          3 void ParseCommandLineOptions(int, char **, Int_t, cmdLineOpts *) 
+  0.0           1           1           2           0          0 StrToInt 
+Reading Profile files in profile.*
+
+NODE 0;CONTEXT 0;THREAD 0:
+---------------------------------------------------------------------------------------
+%Time   Exclusive   Inclusive       #Call      #Subrs Count/Call Name
+           counts total counts                            
+---------------------------------------------------------------------------------------
+100.0          39   4.745E+08           1           1  474475462 .TAU application
+100.0   3.933E+08   4.745E+08           1           7  474475423 int main(int, char **) 
+  9.3    2.11E+07   4.434E+07           1      100008   44343996 void Domain::Domain(Int_t, Index_t, Index_t, Index_t, Index_t, Int_t, Int_t, Int_t, Int_t) 
+  4.3   2.044E+07   2.044E+07           1           0   20444534 void CalcKinematicsForElems(Domain &, Real_t, Index_t) 
+  3.4   1.626E+07   1.626E+07           1           0   16261160 void LagrangeNodal(Domain &) 
+  2.7   1.301E+07   1.301E+07           1           0   13013742 void Domain::SetupThreadSupportStructures() 
+  1.3   6.016E+06   6.016E+06           1           0    6016024 void Domain::BuildMesh(Int_t, Int_t, Int_t) 
+  0.6   2.655E+06   2.655E+06           1           0    2655074 void Domain::SetupElementConnectivities(Int_t) 
+  0.2    9.69E+05    9.69E+05           1           0     969044 void Domain::CreateRegionIndexSets(Int_t, Int_t) 
+  0.1   4.468E+05   4.468E+05           1           0     446764 void Domain::SetupBoundaryConditions(Int_t) 
+  0.0   1.377E+05   1.377E+05      100001           0          1 Real_t CalcElemVolume(const Real_t *, const Real_t *, const Real_t *) [THROTTLED]
+  0.0   7.802E+04   7.802E+04           1           0      78022 void Domain::~Domain() 
+  0.0        4479        4479           1           0       4479 void Domain::SetupSymmetryPlanes(Int_t) 
+  0.0        3195        3195           1           0       3195 void VerifyAndWriteFinalOutput(Real_t, Domain &, Int_t, Int_t) 
+  0.0         469         469           1           0        469 void Domain::SetupCommBuffers(Int_t) 
+  0.0          12          21           1           2         21 void ParseCommandLineOptions(int, char **, Int_t, cmdLineOpts *) 
+  0.0          13          13           1           0         13 void InitMeshDecomp(Int_t, Int_t, Int_t *, Int_t *, Int_t *, Int_t *) 
+  0.0           9           9           2           0          4 StrToInt 
+Reading Profile files in profile.*
+
+NODE 0;CONTEXT 0;THREAD 0:
+---------------------------------------------------------------------------------------
+%Time   Exclusive   Inclusive       #Call      #Subrs Count/Call Name
+           counts total counts                            
+---------------------------------------------------------------------------------------
+100.0          37   4.715E+08           1           1  471523062 .TAU application
+100.0   3.925E+08   4.715E+08           1           7  471523025 int main(int, char **) 
+  9.0   2.012E+07   4.247E+07           1      100008   42467461 void Domain::Domain(Int_t, Index_t, Index_t, Index_t, Index_t, Int_t, Int_t, Int_t, Int_t) 
+  4.3    2.02E+07    2.02E+07           1           0   20200865 void CalcKinematicsForElems(Domain &, Real_t, Index_t) 
+  3.4   1.624E+07   1.624E+07           1           0   16236734 void LagrangeNodal(Domain &) 
+  2.7    1.25E+07    1.25E+07           1           0   12501477 void Domain::SetupThreadSupportStructures() 
+  1.3   5.945E+06   5.945E+06           1           0    5944571 void Domain::BuildMesh(Int_t, Int_t, Int_t) 
+  0.5    2.54E+06    2.54E+06           1           0    2540301 void Domain::SetupElementConnectivities(Int_t) 
+  0.2   9.081E+05   9.081E+05           1           0     908055 void Domain::CreateRegionIndexSets(Int_t, Int_t) 
+  0.1    4.44E+05    4.44E+05           1           0     444050 void Domain::SetupBoundaryConditions(Int_t) 
+  0.0   7.694E+04   7.694E+04           1           0      76941 void Domain::~Domain() 
+  0.0        4344        4344           1           0       4344 void Domain::SetupSymmetryPlanes(Int_t) 
+  0.0        3572        3572      100001           0          0 Real_t CalcElemVolume(const Real_t *, const Real_t *, const Real_t *) [THROTTLED]
+  0.0        3151        3151           1           0       3151 void VerifyAndWriteFinalOutput(Real_t, Domain &, Int_t, Int_t) 
+  0.0         399         399           1           0        399 void Domain::SetupCommBuffers(Int_t) 
+  0.0          11          11           1           0         11 void InitMeshDecomp(Int_t, Int_t, Int_t *, Int_t *, Int_t *, Int_t *) 
+  0.0           1           2           1           2          2 void ParseCommandLineOptions(int, char **, Int_t, cmdLineOpts *) 
+  0.0           1           1           2           0          0 StrToInt 
+Reading Profile files in profile.*
+
+NODE 0;CONTEXT 0;THREAD 0:
+---------------------------------------------------------------------------------------
+%Time   Exclusive   Inclusive       #Call      #Subrs Count/Call Name
+           counts total counts                            
+---------------------------------------------------------------------------------------
+100.0          48   1.965E+08           1           1  196462646 .TAU application
+100.0   1.222E+08   1.965E+08           1           7  196462598 int main(int, char **) 
+ 30.0   4.264E+07   5.893E+07           1      100008   58931651 void Domain::Domain(Int_t, Index_t, Index_t, Index_t, Index_t, Int_t, Int_t, Int_t, Int_t) 
+  3.9   7.676E+06   7.676E+06           1           0    7675693 void LagrangeNodal(Domain &) 
+  3.9   7.667E+06   7.667E+06           1           0    7667176 void CalcKinematicsForElems(Domain &, Real_t, Index_t) 
+  3.2   6.262E+06   6.262E+06           1           0    6262369 void Domain::SetupThreadSupportStructures() 
+  3.1   6.004E+06   6.004E+06           1           0    6004065 void Domain::BuildMesh(Int_t, Int_t, Int_t) 
+  1.3    2.59E+06    2.59E+06           1           0    2590368 void Domain::SetupElementConnectivities(Int_t) 
+  0.4   8.427E+05   8.427E+05           1           0     842714 void Domain::CreateRegionIndexSets(Int_t, Int_t) 
+  0.2   4.459E+05   4.459E+05           1           0     445916 void Domain::SetupBoundaryConditions(Int_t) 
+  0.1   1.386E+05   1.386E+05      100001           0          1 Real_t CalcElemVolume(const Real_t *, const Real_t *, const Real_t *) [THROTTLED]
+  0.0        4747        4747           1           0       4747 void Domain::SetupCommBuffers(Int_t) 
+  0.0        1715        1715           1           0       1715 void Domain::SetupSymmetryPlanes(Int_t) 
+  0.0        1197        1197           1           0       1197 void Domain::~Domain() 
+  0.0          97          97           1           0         97 void VerifyAndWriteFinalOutput(Real_t, Domain &, Int_t, Int_t) 
+  0.0          10          19           1           2         19 void ParseCommandLineOptions(int, char **, Int_t, cmdLineOpts *) 
+  0.0          11          11           1           0         11 void InitMeshDecomp(Int_t, Int_t, Int_t *, Int_t *, Int_t *, Int_t *) 
+  0.0           9           9           2           0          4 StrToInt 
+Reading Profile files in profile.*
+
+NODE 0;CONTEXT 0;THREAD 0:
+---------------------------------------------------------------------------------------
+%Time   Exclusive   Inclusive       #Call      #Subrs Count/Call Name
+           counts total counts                            
+---------------------------------------------------------------------------------------
+100.0          32   1.935E+08           1           1  193528815 .TAU application
+100.0   1.214E+08   1.935E+08           1           7  193528783 int main(int, char **) 
+ 29.5   4.166E+07   5.705E+07           1      100008   57052342 void Domain::Domain(Int_t, Index_t, Index_t, Index_t, Index_t, Int_t, Int_t, Int_t, Int_t) 
+  4.0   7.652E+06   7.652E+06           1           0    7651609 void LagrangeNodal(Domain &) 
+  3.8   7.425E+06   7.425E+06           1           0    7425023 void CalcKinematicsForElems(Domain &, Real_t, Index_t) 
+  3.1   5.933E+06   5.933E+06           1           0    5932572 void Domain::BuildMesh(Int_t, Int_t, Int_t) 
+  3.0    5.75E+06    5.75E+06           1           0    5750406 void Domain::SetupThreadSupportStructures() 
+  1.3   2.476E+06   2.476E+06           1           0    2475793 void Domain::SetupElementConnectivities(Int_t) 
+  0.4    7.82E+05    7.82E+05           1           0     781985 void Domain::CreateRegionIndexSets(Int_t, Int_t) 
+  0.2    4.43E+05    4.43E+05           1           0     442983 void Domain::SetupBoundaryConditions(Int_t) 
+  0.0        4525        4525           1           0       4525 void Domain::SetupCommBuffers(Int_t) 
+  0.0        3437        3437      100001           0          0 Real_t CalcElemVolume(const Real_t *, const Real_t *, const Real_t *) [THROTTLED]
+  0.0        1547        1547           1           0       1547 void Domain::SetupSymmetryPlanes(Int_t) 
+  0.0         134         134           1           0        134 void Domain::~Domain() 
+  0.0          19          19           1           0         19 void VerifyAndWriteFinalOutput(Real_t, Domain &, Int_t, Int_t) 
+  0.0           3           3           1           0          3 void InitMeshDecomp(Int_t, Int_t, Int_t *, Int_t *, Int_t *, Int_t *) 
+  0.0           1           2           1           2          2 void ParseCommandLineOptions(int, char **, Int_t, cmdLineOpts *) 
+  0.0           1           1           2           0          0 StrToInt 
+Reading Profile files in profile.*
+
+NODE 0;CONTEXT 0;THREAD 0:
+---------------------------------------------------------------------------------------
+%Time   Exclusive   Inclusive       #Call      #Subrs Count/Call Name
+           counts total counts                            
+---------------------------------------------------------------------------------------
+100.0          39   1.965E+08           1           1  196478964 .TAU application
+100.0   1.222E+08   1.965E+08           1           7  196478925 int main(int, char **) 
+ 30.0   4.264E+07   5.893E+07           1      100008   58933176 void Domain::Domain(Int_t, Index_t, Index_t, Index_t, Index_t, Int_t, Int_t, Int_t, Int_t) 
+  3.9   7.676E+06   7.676E+06           1           0    7675900 void LagrangeNodal(Domain &) 
+  3.9   7.667E+06   7.667E+06           1           0    7667065 void CalcKinematicsForElems(Domain &, Real_t, Index_t) 
+  3.2   6.263E+06   6.263E+06           1           0    6262911 void Domain::SetupThreadSupportStructures() 
+  3.1   6.004E+06   6.004E+06           1           0    6004230 void Domain::BuildMesh(Int_t, Int_t, Int_t) 
+  1.3   2.591E+06   2.591E+06           1           0    2590649 void Domain::SetupElementConnectivities(Int_t) 
+  0.4   8.428E+05   8.428E+05           1           0     842839 void Domain::CreateRegionIndexSets(Int_t, Int_t) 
+  0.2   4.457E+05   4.457E+05           1           0     445675 void Domain::SetupBoundaryConditions(Int_t) 
+  0.1   1.404E+05   1.404E+05      100001           0          1 Real_t CalcElemVolume(const Real_t *, const Real_t *, const Real_t *) [THROTTLED]
+  0.0        4639        4639           1           0       4639 void Domain::SetupCommBuffers(Int_t) 
+  0.0        1678        1678           1           0       1678 void Domain::SetupSymmetryPlanes(Int_t) 
+  0.0        1190        1190           1           0       1190 void Domain::~Domain() 
+  0.0          93          93           1           0         93 void VerifyAndWriteFinalOutput(Real_t, Domain &, Int_t, Int_t) 
+  0.0          15          15           1           0         15 void InitMeshDecomp(Int_t, Int_t, Int_t *, Int_t *, Int_t *, Int_t *) 
+  0.0           8          15           1           2         15 void ParseCommandLineOptions(int, char **, Int_t, cmdLineOpts *) 
+  0.0           7           7           2           0          4 StrToInt 
+Reading Profile files in profile.*
+
+NODE 0;CONTEXT 0;THREAD 0:
+---------------------------------------------------------------------------------------
+%Time   Exclusive   Inclusive       #Call      #Subrs Count/Call Name
+           counts total counts                            
+---------------------------------------------------------------------------------------
+100.0          36   1.935E+08           1           1  193536654 .TAU application
+100.0   1.214E+08   1.935E+08           1           7  193536618 int main(int, char **) 
+ 29.5   4.166E+07   5.705E+07           1      100008   57050983 void Domain::Domain(Int_t, Index_t, Index_t, Index_t, Index_t, Int_t, Int_t, Int_t, Int_t) 
+  4.0   7.652E+06   7.652E+06           1           0    7652096 void LagrangeNodal(Domain &) 
+  3.8   7.424E+06   7.424E+06           1           0    7423922 void CalcKinematicsForElems(Domain &, Real_t, Index_t) 
+  3.1   5.933E+06   5.933E+06           1           0    5932815 void Domain::BuildMesh(Int_t, Int_t, Int_t) 
+  3.0   5.751E+06   5.751E+06           1           0    5750764 void Domain::SetupThreadSupportStructures() 
+  1.3   2.476E+06   2.476E+06           1           0    2475757 void Domain::SetupElementConnectivities(Int_t) 
+  0.4   7.821E+05   7.821E+05           1           0     782068 void Domain::CreateRegionIndexSets(Int_t, Int_t) 
+  0.2   4.434E+05   4.434E+05           1           0     443402 void Domain::SetupBoundaryConditions(Int_t) 
+  0.0        4561        4561           1           0       4561 void Domain::SetupCommBuffers(Int_t) 
+  0.0        3709        3709      100001           0          0 Real_t CalcElemVolume(const Real_t *, const Real_t *, const Real_t *) [THROTTLED]
+  0.0        1551        1551           1           0       1551 void Domain::SetupSymmetryPlanes(Int_t) 
+  0.0         127         127           1           0        127 void Domain::~Domain() 
+  0.0          16          16           1           0         16 void VerifyAndWriteFinalOutput(Real_t, Domain &, Int_t, Int_t) 
+  0.0           9           9           1           0          9 void InitMeshDecomp(Int_t, Int_t, Int_t *, Int_t *, Int_t *, Int_t *) 
+  0.0           2           2           1           2          2 void ParseCommandLineOptions(int, char **, Int_t, cmdLineOpts *) 
+  0.0            0            0           2           0          0 StrToInt 
+stride: 1 64995906 30655298
+
+Found Broadwell-DE/EP CPU
+Enable all prefetch
+	Core 0 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 0 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 1 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 1 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 2 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 2 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 3 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 3 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 4 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 4 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 5 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 5 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 6 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 6 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 7 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 7 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 8 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 8 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 9 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 9 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 10 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 10 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 11 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 11 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 12 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 12 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 13 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 13 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 14 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 14 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 15 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 15 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 16 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 16 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 17 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 17 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 18 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 18 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 19 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 19 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 20 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 20 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 21 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 21 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 22 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 22 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 23 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 23 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 24 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 24 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 25 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 25 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 26 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 26 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 27 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 27 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 28 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 28 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 29 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 29 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 30 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 30 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+	Core 31 old : L2HW=N L2ADJ=N DCU=N DCUIP=N
+	Core 31 new : L2HW=Y L2ADJ=Y DCU=Y DCUIP=Y
+----------------------Array size = 100000000 -------------------
+Running problem size 300^3 per domain until completion
+Num processors: 1
+Num threads: 8
+Total number of elements: 27000000 
+
+To run other sizes, use -s <integer>.
+To run a fixed number of iterations, use -i <integer>.
+To run a more or less balanced region set, use -b <integer>.
+To change the relative costs of regions, use -c <integer>.
+To print out progress, use -p
+To write an output file for VisIt, use -v
+See help (-h) for more options
+
+size 300 numnodebc 90601
+Run completed:
+   Problem size        =  300
+   MPI tasks           =  1
+   Iteration count     =  1
+   Final Origin Energy =  1.169999e+10
+   Testing Plane 0 of Energy Array on rank 0:
+        MaxAbsDiff   = 0.000000e+00
+        TotalAbsDiff = 0.000000e+00
+        MaxRelDiff   = 0.000000e+00
+
+Elapsed time         =          5 (s)
+Grind time (us/z/c)  = 0.18667993 (per dom)  (  5.040358 overall)
+FOM                  =  5356.7624 (z/s)
+
+Reading Profile files in profile.*
+
+NODE 0;CONTEXT 0;THREAD 0:
+---------------------------------------------------------------------------------------
+%Time   Exclusive   Inclusive       #Call      #Subrs Count/Call Name
+           counts total counts                            
+---------------------------------------------------------------------------------------
+100.0          65   5.375E+08           1           1  537469116 .TAU application
+100.0   4.569E+08   5.375E+08           1           7  537469051 int main(int, char **) 
+  8.1   2.092E+07   4.369E+07           1      100008   43691429 void Domain::Domain(Int_t, Index_t, Index_t, Index_t, Index_t, Int_t, Int_t, Int_t, Int_t) 
+  3.8    2.05E+07    2.05E+07           1           0   20501539 void CalcKinematicsForElems(Domain &, Real_t, Index_t) 
+  3.0   1.628E+07   1.628E+07           1           0   16281558 void LagrangeNodal(Domain &) 
+  2.4   1.266E+07   1.266E+07           1           0   12664340 void Domain::SetupThreadSupportStructures() 
+  1.1   5.981E+06   5.981E+06           1           0    5981443 void Domain::BuildMesh(Int_t, Int_t, Int_t) 
+  0.5    2.56E+06    2.56E+06           1           0    2560183 void Domain::SetupElementConnectivities(Int_t) 
+  0.2   9.747E+05   9.747E+05           1           0     974722 void Domain::CreateRegionIndexSets(Int_t, Int_t) 
+  0.1   4.491E+05   4.491E+05           1           0     449110 void Domain::SetupBoundaryConditions(Int_t) 
+  0.0   1.402E+05   1.402E+05      100001           0          1 Real_t CalcElemVolume(const Real_t *, const Real_t *, const Real_t *) [THROTTLED]
+  0.0   7.991E+04   7.991E+04           1           0      79909 void Domain::~Domain() 
+  0.0        4332        4332           1           0       4332 void Domain::SetupSymmetryPlanes(Int_t) 
+  0.0        3241        3241           1           0       3241 void VerifyAndWriteFinalOutput(Real_t, Domain &, Int_t, Int_t) 
+  0.0         638         638           1           0        638 void Domain::SetupCommBuffers(Int_t) 
+  0.0          11          21           1           2         21 void ParseCommandLineOptions(int, char **, Int_t, cmdLineOpts *) 
+  0.0          20          20           1           0         20 void InitMeshDecomp(Int_t, Int_t, Int_t *, Int_t *, Int_t *, Int_t *) 
+  0.0          10          10           2           0          5 StrToInt 
+Reading Profile files in profile.*
+
+NODE 0;CONTEXT 0;THREAD 0:
+---------------------------------------------------------------------------------------
+%Time   Exclusive   Inclusive       #Call      #Subrs Count/Call Name
+           counts total counts                            
+---------------------------------------------------------------------------------------
+100.0          46   5.358E+08           1           1  535803061 .TAU application
+100.0   4.565E+08   5.358E+08           1           7  535803015 int main(int, char **) 
+  8.0   2.024E+07   4.264E+07           1      100008   42637707 void Domain::Domain(Int_t, Index_t, Index_t, Index_t, Index_t, Int_t, Int_t, Int_t, Int_t) 
+  3.8   2.027E+07   2.027E+07           1           0   20270383 void CalcKinematicsForElems(Domain &, Real_t, Index_t) 
+  3.0   1.627E+07   1.627E+07           1           0   16267510 void LagrangeNodal(Domain &) 
+  2.3   1.251E+07   1.251E+07           1           0   12512999 void Domain::SetupThreadSupportStructures() 
+  1.1   5.943E+06   5.943E+06           1           0    5942522 void Domain::BuildMesh(Int_t, Int_t, Int_t) 
+  0.5   2.538E+06   2.538E+06           1           0    2538351 void Domain::SetupElementConnectivities(Int_t) 
+  0.2   9.422E+05   9.422E+05           1           0     942209 void Domain::CreateRegionIndexSets(Int_t, Int_t) 
+  0.1   4.472E+05   4.472E+05           1           0     447160 void Domain::SetupBoundaryConditions(Int_t) 
+  0.0    7.94E+04    7.94E+04           1           0      79403 void Domain::~Domain() 
+  0.0        5210        5210      100001           0          0 Real_t CalcElemVolume(const Real_t *, const Real_t *, const Real_t *) [THROTTLED]
+  0.0        4297        4297           1           0       4297 void Domain::SetupSymmetryPlanes(Int_t) 
+  0.0        3190        3190           1           0       3190 void VerifyAndWriteFinalOutput(Real_t, Domain &, Int_t, Int_t) 
+  0.0         551         551           1           0        551 void Domain::SetupCommBuffers(Int_t) 
+  0.0           8          15           1           2         15 void ParseCommandLineOptions(int, char **, Int_t, cmdLineOpts *) 
+  0.0          10          10           1           0         10 void InitMeshDecomp(Int_t, Int_t, Int_t *, Int_t *, Int_t *, Int_t *) 
+  0.0           7           7           2           0          4 StrToInt 
+Reading Profile files in profile.*
+
+NODE 0;CONTEXT 0;THREAD 0:
+---------------------------------------------------------------------------------------
+%Time   Exclusive   Inclusive       #Call      #Subrs Count/Call Name
+           counts total counts                            
+---------------------------------------------------------------------------------------
+100.0          51   5.375E+08           1           1  537479993 .TAU application
+100.0   4.569E+08   5.375E+08           1           7  537479942 int main(int, char **) 
+  8.1   2.093E+07   4.371E+07           1      100008   43713397 void Domain::Domain(Int_t, Index_t, Index_t, Index_t, Index_t, Int_t, Int_t, Int_t, Int_t) 
+  3.8    2.05E+07    2.05E+07           1           0   20503495 void CalcKinematicsForElems(Domain &, Real_t, Index_t) 
+  3.0   1.628E+07   1.628E+07           1           0   16281311 void LagrangeNodal(Domain &) 
+  2.4   1.267E+07   1.267E+07           1           0   12666321 void Domain::SetupThreadSupportStructures() 
+  1.1   5.982E+06   5.982E+06           1           0    5981542 void Domain::BuildMesh(Int_t, Int_t, Int_t) 
+  0.5    2.56E+06    2.56E+06           1           0    2559997 void Domain::SetupElementConnectivities(Int_t) 
+  0.2   9.756E+05   9.756E+05           1           0     975598 void Domain::CreateRegionIndexSets(Int_t, Int_t) 
+  0.1   4.493E+05   4.493E+05           1           0     449261 void Domain::SetupBoundaryConditions(Int_t) 
+  0.0   1.427E+05   1.427E+05      100001           0          1 Real_t CalcElemVolume(const Real_t *, const Real_t *, const Real_t *) [THROTTLED]
+  0.0   7.989E+04   7.989E+04           1           0      79892 void Domain::~Domain() 
+  0.0        4331        4331           1           0       4331 void Domain::SetupSymmetryPlanes(Int_t) 
+  0.0        3249        3249           1           0       3249 void VerifyAndWriteFinalOutput(Real_t, Domain &, Int_t, Int_t) 
+  0.0         588         588           1           0        588 void Domain::SetupCommBuffers(Int_t) 
+  0.0          19          35           1           2         35 void ParseCommandLineOptions(int, char **, Int_t, cmdLineOpts *) 
+  0.0          16          16           2           0          8 StrToInt 
+  0.0          10          10           1           0         10 void InitMeshDecomp(Int_t, Int_t, Int_t *, Int_t *, Int_t *, Int_t *) 
+Reading Profile files in profile.*
+
+NODE 0;CONTEXT 0;THREAD 0:
+---------------------------------------------------------------------------------------
+%Time   Exclusive   Inclusive       #Call      #Subrs Count/Call Name
+           counts total counts                            
+---------------------------------------------------------------------------------------
+100.0          39   5.358E+08           1           1  535791935 .TAU application
+100.0   4.565E+08   5.358E+08           1           7  535791896 int main(int, char **) 
+  8.0   2.026E+07   4.265E+07           1      100008   42652303 void Domain::Domain(Int_t, Index_t, Index_t, Index_t, Index_t, Int_t, Int_t, Int_t, Int_t) 
+  3.8   2.027E+07   2.027E+07           1           0   20269541 void CalcKinematicsForElems(Domain &, Real_t, Index_t) 
+  3.0   1.627E+07   1.627E+07           1           0   16267990 void LagrangeNodal(Domain &) 
+  2.3   1.251E+07   1.251E+07           1           0   12514378 void Domain::SetupThreadSupportStructures() 
+  1.1   5.942E+06   5.942E+06           1           0    5942129 void Domain::BuildMesh(Int_t, Int_t, Int_t) 
+  0.5   2.538E+06   2.538E+06           1           0    2538170 void Domain::SetupElementConnectivities(Int_t) 
+  0.2   9.425E+05   9.425E+05           1           0     942535 void Domain::CreateRegionIndexSets(Int_t, Int_t) 
+  0.1   4.471E+05   4.471E+05           1           0     447124 void Domain::SetupBoundaryConditions(Int_t) 
+  0.0   7.927E+04   7.927E+04           1           0      79267 void Domain::~Domain() 
+  0.0        5666        5666      100001           0          0 Real_t CalcElemVolume(const Real_t *, const Real_t *, const Real_t *) [THROTTLED]
+  0.0        4309        4309           1           0       4309 void Domain::SetupSymmetryPlanes(Int_t) 
+  0.0        3207        3207           1           0       3207 void VerifyAndWriteFinalOutput(Real_t, Domain &, Int_t, Int_t) 
+  0.0         498         498           1           0        498 void Domain::SetupCommBuffers(Int_t) 
+  0.0           8          17           1           2         17 void ParseCommandLineOptions(int, char **, Int_t, cmdLineOpts *) 
+  0.0          11          11           1           0         11 void InitMeshDecomp(Int_t, Int_t, Int_t *, Int_t *, Int_t *, Int_t *) 
+  0.0           9           9           2           0          4 StrToInt 
+Reading Profile files in profile.*
+
+NODE 0;CONTEXT 0;THREAD 0:
+---------------------------------------------------------------------------------------
+%Time   Exclusive   Inclusive       #Call      #Subrs Count/Call Name
+           counts total counts                            
+---------------------------------------------------------------------------------------
+100.0          49   1.954E+08           1           1  195400591 .TAU application
+100.0   1.219E+08   1.954E+08           1           7  195400542 int main(int, char **) 
+ 29.8   4.236E+07   5.815E+07           1      100008   58151644 void Domain::Domain(Int_t, Index_t, Index_t, Index_t, Index_t, Int_t, Int_t, Int_t, Int_t) 
+  3.9   7.684E+06   7.684E+06           1           0    7684039 void CalcKinematicsForElems(Domain &, Real_t, Index_t) 
+  3.9   7.676E+06   7.676E+06           1           0    7675859 void LagrangeNodal(Domain &) 
+  3.1   5.971E+06   5.971E+06           1           0    5971258 void Domain::BuildMesh(Int_t, Int_t, Int_t) 
+  3.0   5.898E+06   5.898E+06           1           0    5898462 void Domain::SetupThreadSupportStructures() 
+  1.3   2.482E+06   2.482E+06           1           0    2481834 void Domain::SetupElementConnectivities(Int_t) 
+  0.4   8.445E+05   8.445E+05           1           0     844548 void Domain::CreateRegionIndexSets(Int_t, Int_t) 
+  0.2   4.478E+05   4.478E+05           1           0     447814 void Domain::SetupBoundaryConditions(Int_t) 
+  0.1   1.429E+05   1.429E+05      100001           0          1 Real_t CalcElemVolume(const Real_t *, const Real_t *, const Real_t *) [THROTTLED]
+  0.0        4740        4740           1           0       4740 void Domain::SetupCommBuffers(Int_t) 
+  0.0        2106        2106           1           0       2106 void Domain::SetupSymmetryPlanes(Int_t) 
+  0.0         715         715           1           0        715 void Domain::~Domain() 
+  0.0          50          50           1           0         50 void VerifyAndWriteFinalOutput(Real_t, Domain &, Int_t, Int_t) 
+  0.0          14          27           1           2         27 void ParseCommandLineOptions(int, char **, Int_t, cmdLineOpts *) 
+  0.0          14          14           1           0         14 void InitMeshDecomp(Int_t, Int_t, Int_t *, Int_t *, Int_t *, Int_t *) 
+  0.0          13          13           2           0          6 StrToInt 
+Reading Profile files in profile.*
+
+NODE 0;CONTEXT 0;THREAD 0:
+---------------------------------------------------------------------------------------
+%Time   Exclusive   Inclusive       #Call      #Subrs Count/Call Name
+           counts total counts                            
+---------------------------------------------------------------------------------------
+100.0          47   1.937E+08           1           1  193703924 .TAU application
+100.0   1.215E+08   1.937E+08           1           7  193703877 int main(int, char **) 
+ 29.5   4.168E+07   5.709E+07           1      100008   57087989 void Domain::Domain(Int_t, Index_t, Index_t, Index_t, Index_t, Int_t, Int_t, Int_t, Int_t) 
+  4.0   7.663E+06   7.663E+06           1           0    7662710 void LagrangeNodal(Domain &) 
+  3.8   7.451E+06   7.451E+06           1           0    7451041 void CalcKinematicsForElems(Domain &, Real_t, Index_t) 
+  3.1   5.932E+06   5.932E+06           1           0    5932075 void Domain::BuildMesh(Int_t, Int_t, Int_t) 
+  3.0   5.747E+06   5.747E+06           1           0    5746877 void Domain::SetupThreadSupportStructures() 
+  1.3    2.46E+06    2.46E+06           1           0    2459868 void Domain::SetupElementConnectivities(Int_t) 
+  0.4   8.118E+05   8.118E+05           1           0     811808 void Domain::CreateRegionIndexSets(Int_t, Int_t) 
+  0.2   4.458E+05   4.458E+05           1           0     445771 void Domain::SetupBoundaryConditions(Int_t) 
+  0.0        5185        5185      100001           0          0 Real_t CalcElemVolume(const Real_t *, const Real_t *, const Real_t *) [THROTTLED]
+  0.0        4678        4678           1           0       4678 void Domain::SetupCommBuffers(Int_t) 
+  0.0        2165        2165           1           0       2165 void Domain::SetupSymmetryPlanes(Int_t) 
+  0.0          67          67           1           0         67 void Domain::~Domain() 
+  0.0           9          14           1           2         14 void ParseCommandLineOptions(int, char **, Int_t, cmdLineOpts *) 
+  0.0          11          11           1           0         11 void InitMeshDecomp(Int_t, Int_t, Int_t *, Int_t *, Int_t *, Int_t *) 
+  0.0           5           5           2           0          2 StrToInt 
+  0.0            0            0           1           0          0 void VerifyAndWriteFinalOutput(Real_t, Domain &, Int_t, Int_t) 
+Reading Profile files in profile.*
+
+NODE 0;CONTEXT 0;THREAD 0:
+---------------------------------------------------------------------------------------
+%Time   Exclusive   Inclusive       #Call      #Subrs Count/Call Name
+           counts total counts                            
+---------------------------------------------------------------------------------------
+100.0          39   1.954E+08           1           1  195406411 .TAU application
+100.0   1.219E+08   1.954E+08           1           7  195406372 int main(int, char **) 
+ 29.8   4.236E+07   5.816E+07           1      100008   58155582 void Domain::Domain(Int_t, Index_t, Index_t, Index_t, Index_t, Int_t, Int_t, Int_t, Int_t) 
+  3.9   7.685E+06   7.685E+06           1           0    7684715 void CalcKinematicsForElems(Domain &, Real_t, Index_t) 
+  3.9   7.676E+06   7.676E+06           1           0    7676349 void LagrangeNodal(Domain &) 
+  3.1   5.971E+06   5.971E+06           1           0    5971256 void Domain::BuildMesh(Int_t, Int_t, Int_t) 
+  3.0   5.899E+06   5.899E+06           1           0    5898624 void Domain::SetupThreadSupportStructures() 
+  1.3   2.482E+06   2.482E+06           1           0    2481973 void Domain::SetupElementConnectivities(Int_t) 
+  0.4   8.446E+05   8.446E+05           1           0     844593 void Domain::CreateRegionIndexSets(Int_t, Int_t) 
+  0.2    4.48E+05    4.48E+05           1           0     447998 void Domain::SetupBoundaryConditions(Int_t) 
+  0.1   1.462E+05   1.462E+05      100001           0          1 Real_t CalcElemVolume(const Real_t *, const Real_t *, const Real_t *) [THROTTLED]
+  0.0        4768        4768           1           0       4768 void Domain::SetupCommBuffers(Int_t) 
+  0.0        2200        2200           1           0       2200 void Domain::SetupSymmetryPlanes(Int_t) 
+  0.0         700         700           1           0        700 void Domain::~Domain() 
+  0.0          49          49           1           0         49 void VerifyAndWriteFinalOutput(Real_t, Domain &, Int_t, Int_t) 
+  0.0          15          26           1           2         26 void ParseCommandLineOptions(int, char **, Int_t, cmdLineOpts *) 
+  0.0          14          14           1           0         14 void InitMeshDecomp(Int_t, Int_t, Int_t *, Int_t *, Int_t *, Int_t *) 
+  0.0          11          11           2           0          6 StrToInt 
+Reading Profile files in profile.*
+
+NODE 0;CONTEXT 0;THREAD 0:
+---------------------------------------------------------------------------------------
+%Time   Exclusive   Inclusive       #Call      #Subrs Count/Call Name
+           counts total counts                            
+---------------------------------------------------------------------------------------
+100.0          45   1.937E+08           1           1  193705731 .TAU application
+100.0   1.215E+08   1.937E+08           1           7  193705686 int main(int, char **) 
+ 29.5   4.168E+07   5.709E+07           1      100008   57089695 void Domain::Domain(Int_t, Index_t, Index_t, Index_t, Index_t, Int_t, Int_t, Int_t, Int_t) 
+  4.0   7.663E+06   7.663E+06           1           0    7662919 void LagrangeNodal(Domain &) 
+  3.8   7.451E+06   7.451E+06           1           0    7451341 void CalcKinematicsForElems(Domain &, Real_t, Index_t) 
+  3.1   5.932E+06   5.932E+06           1           0    5932382 void Domain::BuildMesh(Int_t, Int_t, Int_t) 
+  3.0   5.747E+06   5.747E+06           1           0    5746704 void Domain::SetupThreadSupportStructures() 
+  1.3    2.46E+06    2.46E+06           1           0    2460221 void Domain::SetupElementConnectivities(Int_t) 
+  0.4   8.116E+05   8.116E+05           1           0     811635 void Domain::CreateRegionIndexSets(Int_t, Int_t) 
+  0.2   4.455E+05   4.455E+05           1           0     445549 void Domain::SetupBoundaryConditions(Int_t) 
+  0.0        6018        6018      100001           0          0 Real_t CalcElemVolume(const Real_t *, const Real_t *, const Real_t *) [THROTTLED]
+  0.0        4673        4673           1           0       4673 void Domain::SetupCommBuffers(Int_t) 
+  0.0        2116        2116           1           0       2116 void Domain::SetupSymmetryPlanes(Int_t) 
+  0.0          45          45           1           0         45 void Domain::~Domain() 
+  0.0          18          18           1           0         18 void InitMeshDecomp(Int_t, Int_t, Int_t *, Int_t *, Int_t *, Int_t *) 
+  0.0           8          18           1           2         18 void ParseCommandLineOptions(int, char **, Int_t, cmdLineOpts *) 
+  0.0          10          10           2           0          5 StrToInt 
+  0.0           1           1           1           0          1 void VerifyAndWriteFinalOutput(Real_t, Domain &, Int_t, Int_t) 
+stride: 1 65098369 30677837

@@ -134,7 +134,7 @@ int main( int argc, char* argv[] )
         //h_a[i] = sin(i)*sin(i);
         h_b[i] = 2; 
         //h_b[i] = cos(i)*cos(i);
-        h_c[i] = 3;
+        //h_c[i] = 3;
         //h_c[i] = cos(i)*cos(i);
     }
 

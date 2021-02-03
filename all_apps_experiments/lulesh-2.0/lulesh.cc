@@ -1058,7 +1058,7 @@ void CalcHourglassControlForElems(Domain& domain,
 
 /******************************************/
 
-//static inline
+static inline
 void CalcVolumeForceForElems(Domain& domain)
 {
    Index_t numElem = domain.numElem() ;
@@ -1101,7 +1101,7 @@ void CalcVolumeForceForElems(Domain& domain)
 
 /******************************************/
 
-//static inline 
+static inline 
 void CalcForceForNodes(Domain& domain)
 {
   Index_t numNode = domain.numNode() ;
@@ -1137,7 +1137,7 @@ void CalcForceForNodes(Domain& domain)
 
 /******************************************/
 
-//static inline
+static inline
 void CalcAccelerationForNodes(Domain &domain, Index_t numNode)
 {
    
@@ -1151,7 +1151,7 @@ void CalcAccelerationForNodes(Domain &domain, Index_t numNode)
 
 /******************************************/
 
-//static inline
+static inline
 void ApplyAccelerationBoundaryConditionsForNodes(Domain& domain)
 {
    Index_t size = domain.sizeX();
@@ -1208,7 +1208,7 @@ void CalcVelocityForNodes(Domain &domain, const Real_t dt, const Real_t u_cut,
 
 /******************************************/
 
-//static inline
+static inline
 void CalcPositionForNodes(Domain &domain, const Real_t dt, Index_t numNode)
 {
 #pragma omp parallel for firstprivate(numNode)
@@ -2616,7 +2616,7 @@ void LagrangeLeapFrog(Domain& domain)
 
    /* calculate element quantities (i.e. velocity gradient & q), and update
     * material states */
-   LagrangeElements(domain, domain.numElem());
+   //LagrangeElements(domain, domain.numElem());
 
 #if USE_MPI   
 #ifdef SEDOV_SYNC_POS_VEL_LATE

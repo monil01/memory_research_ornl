@@ -23,7 +23,7 @@ run_skylake()
     declare -i write=0
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc0__UNC_M_CAS_COUNT_RD_cpu\=9
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "stencil_jacobi(")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "LagrangeNodal")
        #for i in "${ADDR[@]}"; do
        #  echo -n "$i" 
        #done
@@ -32,13 +32,13 @@ run_skylake()
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc1__UNC_M_CAS_COUNT_RD_cpu\=9
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "stencil_jacobi(")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "LagrangeNodal")
     #echo ${ADDR[5]}
     read=$read+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc2__UNC_M_CAS_COUNT_RD_cpu\=9
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "stencil_jacobi(")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "LagrangeNodal")
        #for i in "${ADDR[@]}"; do
        #  echo -n "$i" 
        #done
@@ -47,55 +47,55 @@ run_skylake()
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc3__UNC_M_CAS_COUNT_RD_cpu\=9
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "stencil_jacobi(")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "LagrangeNodal")
     #echo ${ADDR[5]}
     read=$read+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc4__UNC_M_CAS_COUNT_RD_cpu\=9
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "stencil_jacobi(")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "LagrangeNodal")
     #echo ${ADDR[5]}
     read=$read+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc5__UNC_M_CAS_COUNT_RD_cpu\=9
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "stencil_jacobi(")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "LagrangeNodal")
     #echo ${ADDR[5]}
     read=$read+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc0__UNC_M_CAS_COUNT_WR_cpu\=9
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "stencil_jacobi(")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "LagrangeNodal")
     #echo ${ADDR[5]}
     write=$write+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc1__UNC_M_CAS_COUNT_WR_cpu\=9
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "stencil_jacobi(")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "LagrangeNodal")
     #echo ${ADDR[5]}
     write=$write+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc2__UNC_M_CAS_COUNT_WR_cpu\=9
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "stencil_jacobi(")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "LagrangeNodal")
     #echo ${ADDR[5]}
     write=$write+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc3__UNC_M_CAS_COUNT_WR_cpu\=9
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "stencil_jacobi(")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "LagrangeNodal")
     #echo ${ADDR[5]}
     write=$write+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc4__UNC_M_CAS_COUNT_WR_cpu\=9
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "stencil_jacobi(")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "LagrangeNodal")
     #echo ${ADDR[5]}
     write=$write+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc5__UNC_M_CAS_COUNT_WR_cpu\=9
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "stencil_jacobi(")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "LagrangeNodal")
     #echo ${ADDR[5]}
     write=$write+${ADDR[5]} 
     cd ..
@@ -116,7 +116,9 @@ run_broadwell()
     export TAU_METRICS=TIME,PAPI_NATIVE_bdx_unc_imc0::UNC_M_CAS_COUNT:RD:cpu=16,PAPI_NATIVE_bdx_unc_imc1::UNC_M_CAS_COUNT:RD:cpu=16,PAPI_NATIVE_bdx_unc_imc4::UNC_M_CAS_COUNT:RD:cpu=16,PAPI_NATIVE_bdx_unc_imc5::UNC_M_CAS_COUNT:RD:cpu=16,PAPI_NATIVE_bdx_unc_imc0::UNC_M_CAS_COUNT:WR:cpu=16,PAPI_NATIVE_bdx_unc_imc1::UNC_M_CAS_COUNT:WR:cpu=16,PAPI_NATIVE_bdx_unc_imc4::UNC_M_CAS_COUNT:WR:cpu=16,PAPI_NATIVE_bdx_unc_imc5::UNC_M_CAS_COUNT:WR:cpu=16
     #taskset --cpu 12 ./tau_stencil_jacobi $1 $2
     #taskset --cpu 16 ./jacobi $1 $2
-    ./jacobi_omp $1 $2
+    #./jacobi_omp $1 $2
+    taskset --cpu 16 ./lulesh2.0 -s 300 -i 1
+
 
     #export TAU_METRICS=TIME,PAPI_NATIVE_bdx_unc_imc0::UNC_M_CAS_COUNT:WR:cpu=9,PAPI_NATIVE_bdx_unc_imc1::UNC_M_CAS_COUNT:WR:cpu=9,PAPI_NATIVE_bdx_unc_imc4::UNC_M_CAS_COUNT:WR:cpu=9,PAPI_NATIVE_bdx_unc_imc5::UNC_M_CAS_COUNT:WR:cpu=9
 #taskset --cpu 12 ./tau_stencil_jacobi
@@ -130,7 +132,7 @@ run_broadwell()
     declare -i write=0
 
     cd MULTI__PAPI_NATIVE_bdx_unc_imc0__UNC_M_CAS_COUNT_RD_cpu\=16
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "stencil_jacobi(")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "LagrangeNodal")
        #for i in "${ADDR[@]}"; do
        #  echo -n "$i" 
        #done
@@ -139,43 +141,43 @@ run_broadwell()
     cd ..
 
     cd MULTI__PAPI_NATIVE_bdx_unc_imc1__UNC_M_CAS_COUNT_RD_cpu\=16
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "stencil_jacobi(")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "LagrangeNodal")
     #echo ${ADDR[5]}
     read=$read+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_bdx_unc_imc4__UNC_M_CAS_COUNT_RD_cpu\=16
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "stencil_jacobi(")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "LagrangeNodal")
     #echo ${ADDR[5]}
     read=$read+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_bdx_unc_imc5__UNC_M_CAS_COUNT_RD_cpu\=16
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "stencil_jacobi(")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "LagrangeNodal")
     #echo ${ADDR[5]}
     read=$read+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_bdx_unc_imc0__UNC_M_CAS_COUNT_WR_cpu\=16
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "stencil_jacobi(")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "LagrangeNodal")
     #echo ${ADDR[5]}
     write=$write+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_bdx_unc_imc1__UNC_M_CAS_COUNT_WR_cpu\=16
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "stencil_jacobi(")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "LagrangeNodal")
     #echo ${ADDR[5]}
     write=$write+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_bdx_unc_imc4__UNC_M_CAS_COUNT_WR_cpu\=16
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "stencil_jacobi(")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "LagrangeNodal")
     #echo ${ADDR[5]}
     write=$write+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_bdx_unc_imc5__UNC_M_CAS_COUNT_WR_cpu\=16
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "stencil_jacobi(")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "LagrangeNodal")
     #echo ${ADDR[5]}
     write=$write+${ADDR[5]} 
     cd ..

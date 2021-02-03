@@ -22,7 +22,7 @@ def autolabel(rects, xpos='center'):
 
     for rect in rects:
         height = rect.get_height()
-        ax.text(rect.get_x() + rect.get_width()*offset[xpos] + .03, height + 2,
+        ax.text(rect.get_x() + rect.get_width()*offset[xpos], height + 2,
                 '{}'.format(height), ha=ha[xpos], va='bottom', fontsize=14, rotation=90)
 
 
@@ -44,8 +44,17 @@ fig.set_size_inches(7, 3.5)
 #stride = ['MAPInt', 'literature', 'BW_no_pref', 'BW_pref', 'SL_no_pref', 'SL_pref', 'CL_no_pref', 'CL_pref']
 stride = ['BW', 'BW_Pref', 'SK', 'SK_pref', 'CS', 'CS_pref', 'CP', 'CP_pref']
 #stride = ['BW_no_pref', 'BW_Pref', 'SK_no_pref', 'SK_pref', 'CS_no_pref', 'CS_pref', 'CP_no_pref', 'CP_pref']
-mapr=[61.8882181293871, 75.5241712230356, 89.8250019597557, 51.0717951637018, 68.2220805147098, 53.8617689849731, 62.8099049619462, 46.1993693797708]
-lit=[73.9970265429505, 74.7593436919083, 75.1830948946589, 74.8519219398648, 75.8097941563951, 76.5623778192054, 75.8026714559401, 75.2564136525971]
+#mapr=[61.8882181293871, 75.5241712230356, 89.8250019597557, 51.0717951637018, 68.2220805147098, 53.8617689849731, 62.8099049619462, 46.1993693797708]
+mapr=[95.3101043330511, 78.7016557954816, 71.6890368938188, 79.4437128944134, 71.6890368938188, 79.4437128944134, 32.1122980870215, 24.5260870712568]
+
+#Here lit means the corrected results
+#
+#
+lit=[94.7103434724552, 94.6297431281576, 98.0897308123935, 98.7615042635082, 98.177610635759, 97.0360885136902, 95.6535956134869, 99.9241483420006]
+
+
+
+#lit=[73.9970265429505, 74.7593436919083, 75.1830948946589, 74.8519219398648, 75.8097941563951, 76.5623778192054, 75.8026714559401, 75.2564136525971]
 
 mapr=np.round(mapr, 1)
 lit=np.round(lit, 1)
@@ -109,7 +118,7 @@ r2 = [x + barwidth for x in r1]
 #ax.barh(x_pos, read, hatch='....', color='white', edgecolor='black')
 #rects1 = plt.bar(x, traffic, .8, hatch='....', color='white', edgecolor='black')
 rects1=ax.bar(r1, mapr, width=barwidth, hatch='...', color='white', edgecolor='black', label="MAPredict")
-#rects2=ax.bar(r2, lit, width=barwidth, hatch='///', color='grey', edgecolor='black', label="Literature")
+rects2=ax.bar(r2, lit, width=barwidth, hatch='///', color='cornflowerblue', edgecolor='black', label="MAPredict_Corrected")
 
 plt.legend(handlelength=3, fontsize=12)
 
@@ -136,7 +145,7 @@ plt.xticks([r + barwidth/2 for r in range(len(mapr))], stride, fontsize=12, rota
 #ax.set_xticklabels(stride, fontsize=12)
 
 autolabel(rects1, "center")
-#autolabel(rects2, "center")
+autolabel(rects2, "center")
 
 
 

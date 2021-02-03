@@ -10,8 +10,8 @@ run_skylake()
  
     #taskset --cpu 12 ./tau_stencil_jacobi $1 $2
 
-    taskset --cpu 24 ./XSBench -s small
-    #taskset --cpu 24 ./XSBench
+    #taskset --cpu 24 ./XSBench -s small
+    taskset --cpu 24 ./XSBench
 
     #export TAU_METRICS=TIME,PAPI_NATIVE_bdx_unc_imc0::UNC_M_CAS_COUNT:WR:cpu=24,PAPI_NATIVE_bdx_unc_imc1::UNC_M_CAS_COUNT:WR:cpu=24,PAPI_NATIVE_bdx_unc_imc4::UNC_M_CAS_COUNT:WR:cpu=24,PAPI_NATIVE_bdx_unc_imc5::UNC_M_CAS_COUNT:WR:cpu=24
 #taskset --cpu 12 ./tau_stencil_jacobi

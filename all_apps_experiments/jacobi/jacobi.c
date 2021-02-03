@@ -24,6 +24,7 @@
 //#define SIZE    4096 //256 * 16
 //#define SIZE    8192 //256 * 32
 #define SIZE  8192 //256 * 48
+//#define SIZE  16384 //256 * 48
 //#define SIZE  8192 //256 * 48
 #endif
 

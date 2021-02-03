@@ -378,7 +378,7 @@ double sum = 0;
 double * unionize_array;
 
 
-#pragma aspen  control execute label(block_grid_search6) flops((2*aspen_param_lenght_array):traits(sp, simd), (4*aspen_param_length_array)) loads(((1*aspen_param_sizeof_double)*aspen_param_length_array):from(unionize_array):traits(stride(100000), pattern(random), algorithm(logarithm)))  
+#pragma aspen  control execute label(block_grid_search6) flops((2*aspen_param_lenght_array):traits(sp, simd), (4*aspen_param_length_array)) loads(((1*aspen_param_sizeof_double)*aspen_param_length_array):from(unionize_array):traits(stride(100000 * 0.71), pattern(random), algorithm(logarithm)))  
 	while( length > 1 )
 	{
 		examinationPoint = lowerLimit + ( length / 2 );

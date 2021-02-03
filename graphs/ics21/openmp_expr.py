@@ -35,7 +35,7 @@ def average(lst):
 #plt.rcdefaults()
 fig, ax = plt.subplots()
 
-fig.set_size_inches(7, 3.8)
+fig.set_size_inches(7, 3)
 
 
 
@@ -49,7 +49,9 @@ fig.set_size_inches(7, 3.8)
 #Here lit means the corrected results
 #
 #
-stride=['Triad',' Jacobi',' Laplace',' XSBench',' Vecmul-50',' Vecmul-200',' Lulesh']
+#stride=['Triad',' Jacobi',' Laplace',' XSBench',' Vecmul-50',' Vecmul-200',' Lulesh']
+stride=['Triad',' Jacobi',' Lap.2D',' XSBen',' Vec-R7',' Vec-R8',' Lulesh']
+
 
 mapr=[98.6627020572673, 88.8451309025621, 91.6610718151545, 94.0322768608824, 94.1483450073245, 85.5357725569594, 95.8872886618785]
 lit=[99.6791249225443, 90.1013620559838, 92.8038602159329, 90.8235330585984, 92.4337493626419, 85.2295124232668, 96.3028474333542]
@@ -152,8 +154,8 @@ plt.yticks(fontsize=14)
 #plt.yticks(np.arange(0, 100, 10), fontsize=14)
 #ax.get_yaxis().get_major_formatter().set_scientific(False)
 
-#plt.xticks([ + barwidth for r in range(len(stride))], stride, fontsize=12, rotation=90)
-plt.xticks([r + barwidth for r in range(len(mapr))], stride, fontsize=14, rotation=90)
+plt.xticks([r + barwidth for r in range(len(mapr))], stride, fontsize=14, rotation=0)
+#plt.xticks([r + barwidth for r in range(len(mapr))], stride, fontsize=14, rotation=90)
 
 #plt.xticks(rotation=45, fontsize=14)
 

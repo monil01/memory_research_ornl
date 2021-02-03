@@ -35,7 +35,7 @@ def average(lst):
 #plt.rcdefaults()
 fig, ax = plt.subplots()
 
-fig.set_size_inches(7.3, 3)
+fig.set_size_inches(7, 3)
 
 
 
@@ -49,14 +49,14 @@ fig.set_size_inches(7.3, 3)
 #Here lit means the corrected results
 #
 #
-#stride=['Triad',' Jacobi',' Laplace',' XSBench',' Vecmul-50',' Vecmul-200',' Lulesh']
 stride=['Triad',' Jacobi',' Lap.2D',' XSBen',' Vec-R7',' Vec-R8',' Lulesh']
+#stride=['Triad',' Jacobi',' Laplace2D',' XSBench',' Vecmul-50',' Vecmul-200',' Lulesh']
 
+mapr=[98.6627020572673, 88.8451309025621, 91.6610718151545, 94.0322768608824, 94.1483450073245, 85.5357725569594, 95.8872886618785]
+lit=[99.6791249225443, 90.1013620559838, 92.8038602159329, 90.8235330585984, 92.4337493626419, 85.2295124232668, 96.3028474333542]
+mapr1=[93.3486614324703, 88.8527910867239, 92.0371100004625, 89.4489162788748, 94.1012179777594, 85.6369310978098, 94.7576162632665]
+lit1=[93.3627825276059, 90.0054323375693, 93.6543101064076, 94.6334787614222, 91.6308362931736, 85.6235858729646, 95.8942052397938]
 
-mapr=[99.7558734737882, 94.9155196559211, 96.1113866399604, 98.0897308123935, 92.0483227565915, 99.6338952518969, 96.5219302247222]
-lit=[99.8025625864864, 89.4058258147325, 95.7114967073513, 98.7615042635082, 92.5631240329666, 99.4385698347132, 96.4017533263233]
-mapr1=[99.3335275525142, 91.3320038093616, 96.9541631237439, 33.4890681864052, 94.2660012191825, 99.7890957461405, 89.6807058649443]
-lit1=[98.7160394373814, 91.4314912443907, 96.7726119453631, 37.0508250107731, 87.4801732943462, 99.4886779397288, 75.6954577850443]
 
 #lit=[73.9970265429505, 74.7593436919083, 75.1830948946589, 74.8519219398648, 75.8097941563951, 76.5623778192054, 75.8026714559401, 75.2564136525971]
 
@@ -126,10 +126,10 @@ r4 = [x + barwidth for x in r3]
 
 #ax.barh(x_pos, read, hatch='....', color='white', edgecolor='black')
 #rects1 = plt.bar(x, traffic, .8, hatch='....', color='white', edgecolor='black')
-rects1=ax.bar(r1, mapr, width=barwidth, hatch='...', color='white', edgecolor='black', label="quad00")
-rects2=ax.bar(r2, lit, width=barwidth, hatch='///', color='white', edgecolor='black', label="quad00-pref")
-rects3=ax.bar(r3, mapr1, width=barwidth, hatch='...', color='cornflowerblue', edgecolor='black', label="pegasus")
-rects4=ax.bar(r4, lit1, width=barwidth, hatch='///', color='cornflowerblue', edgecolor='black', label="pegasus-pref")
+rects1=ax.bar(r1, mapr, width=barwidth, hatch='...', color='white', edgecolor='black', label="GCC")
+rects2=ax.bar(r2, lit, width=barwidth, hatch='///', color='white', edgecolor='black', label="GCC-pref")
+rects3=ax.bar(r3, mapr1, width=barwidth, hatch='...', color='cornflowerblue', edgecolor='black', label="ICC")
+rects4=ax.bar(r4, lit1, width=barwidth, hatch='///', color='cornflowerblue', edgecolor='black', label="ICC-pref")
 #rects2=ax.bar(r2, lit, width=barwidth, hatch='///', color='cornflowerblue', edgecolor='black', label="MAPredict_Corrected")
 
 plt.legend(loc="upper center", handlelength=2, fontsize=12, ncol=4, framealpha=1)
@@ -170,6 +170,6 @@ autolabel(rects4, "center")
 plt.tight_layout()
 
 plt.show()
-fig.savefig('different_cache_sizes.png', dpi=100)
+fig.savefig('intel.png', dpi=100)
 
 # Example data

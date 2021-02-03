@@ -22,7 +22,7 @@ def autolabel(rects, xpos='center'):
 
     for rect in rects:
         height = rect.get_height()
-        ax.text(rect.get_x() + rect.get_width()*offset[xpos] + 0.05, height + 3,
+        ax.text(rect.get_x() + rect.get_width()*offset[xpos] + 0.05, height + 2,
                 '{}'.format(height), ha=ha[xpos], va='bottom', fontsize=12, rotation=90)
 
 
@@ -35,7 +35,7 @@ def average(lst):
 #plt.rcdefaults()
 fig, ax = plt.subplots()
 
-fig.set_size_inches(7.3, 3)
+fig.set_size_inches(7, 3.8)
 
 
 
@@ -49,22 +49,17 @@ fig.set_size_inches(7.3, 3)
 #Here lit means the corrected results
 #
 #
-#stride=['Triad',' Jacobi',' Laplace',' XSBench',' Vecmul-50',' Vecmul-200',' Lulesh']
-stride=['Triad',' Jacobi',' Lap.2D',' XSBen',' Vec-R7',' Vec-R8',' Lulesh']
 
+stride=['Triad','Triad_pref','Jacobi','Jacobi_pref','Laplace2D','Laplace2D_pref','XSBench','XSBench_pref','Vecmul-50','Vecmul-50_pref','Vecmul-200','Vecmul-200_pref','Lulesh','Lulesh_pref']
 
-mapr=[99.7558734737882, 94.9155196559211, 96.1113866399604, 98.0897308123935, 92.0483227565915, 99.6338952518969, 96.5219302247222]
-lit=[99.8025625864864, 89.4058258147325, 95.7114967073513, 98.7615042635082, 92.5631240329666, 99.4385698347132, 96.4017533263233]
-mapr1=[99.3335275525142, 91.3320038093616, 96.9541631237439, 33.4890681864052, 94.2660012191825, 99.7890957461405, 89.6807058649443]
-lit1=[98.7160394373814, 91.4314912443907, 96.7726119453631, 37.0508250107731, 87.4801732943462, 99.4886779397288, 75.6954577850443]
+mapr=[99.75587347,99.80256259,94.91551966,89.40582581,96.11138664,95.71149671,98.08973081,98.76150426,92.04832276,92.56312403,99.63389525,99.43856983,96.52193022,96.40175333]
+lit=[99.33352755,98.71603944,91.33200381,91.43149124,96.95416312,96.77261195,33.48906819,37.05082501,94.26600122,87.48017329,99.78909575,99.48867794,89.68070586,75.69545779]
+
 
 #lit=[73.9970265429505, 74.7593436919083, 75.1830948946589, 74.8519219398648, 75.8097941563951, 76.5623778192054, 75.8026714559401, 75.2564136525971]
 
 mapr=np.round(mapr, 1)
 lit=np.round(lit, 1)
-mapr1=np.round(mapr1, 1)
-lit1=np.round(lit1, 1)
-
 
 #total=[8388608, 8388608, 9441832, 9310190, 8837973, 9382619, 9266269, 9326488]
 #total = np.array(total) / 1000000
@@ -107,7 +102,7 @@ print("On the other hand, the model from literature provided {:.1f}".format(aver
 #print("Broadwell showed {:.1f}".format((100-average(bwell)))+"\% accuracy, Sky Lake showed {:.1f}".format((100-average(slake)))+"\% accuracy, and Cascade Lake showed {:.1f}".format((100-average(slake)))+"\% accuracy")
 
 
-barwidth=.25
+barwidth=.4
 # Set position of bar on X axis
 #r1 = np.arange(len(bwell))
 #r2 = [x + barwidth for x in r1]
@@ -116,23 +111,19 @@ barwidth=.25
 
 x_pos = np.arange(len(stride))  # the label locations
 barwidth1=.25
-barwidth=.20
+#barwidth=.15
 # Set position of bar on X axis
 r1 = np.arange(len(stride))
 r2 = [x + barwidth for x in r1]
-r3 = [x + barwidth for x in r2]
-r4 = [x + barwidth for x in r3]
 
 
 #ax.barh(x_pos, read, hatch='....', color='white', edgecolor='black')
 #rects1 = plt.bar(x, traffic, .8, hatch='....', color='white', edgecolor='black')
 rects1=ax.bar(r1, mapr, width=barwidth, hatch='...', color='white', edgecolor='black', label="quad00")
-rects2=ax.bar(r2, lit, width=barwidth, hatch='///', color='white', edgecolor='black', label="quad00-pref")
-rects3=ax.bar(r3, mapr1, width=barwidth, hatch='...', color='cornflowerblue', edgecolor='black', label="pegasus")
-rects4=ax.bar(r4, lit1, width=barwidth, hatch='///', color='cornflowerblue', edgecolor='black', label="pegasus-pref")
+rects2=ax.bar(r2, lit, width=barwidth, hatch='///', color='grey', edgecolor='black', label="pegasus")
 #rects2=ax.bar(r2, lit, width=barwidth, hatch='///', color='cornflowerblue', edgecolor='black', label="MAPredict_Corrected")
 
-plt.legend(loc="upper center", handlelength=2, fontsize=12, ncol=4, framealpha=1)
+#plt.legend(handlelength=3, fontsize=12)
 
 #plt.legend(loc="upper right", fontsize=12)
 
@@ -140,10 +131,7 @@ plt.legend(loc="upper center", handlelength=2, fontsize=12, ncol=4, framealpha=1
 ax.set_ylabel('Accuracy', fontsize=16)
 #ax.set_xlabel('Stride', fontsize=16)
 
-plt.yticks(np.arange(0, max(mapr)+90, 20), color="white")
-
-ax.set_yticklabels([])
-
+plt.yticks(np.arange(0, max(mapr)+50, 20))
 
 #plt.title('', fontsize=18)
 #ax.set_xticks(x_pos)
@@ -152,8 +140,8 @@ plt.yticks(fontsize=14)
 #plt.yticks(np.arange(0, 100, 10), fontsize=14)
 #ax.get_yaxis().get_major_formatter().set_scientific(False)
 
-plt.xticks([r + barwidth for r in range(len(mapr))], stride, fontsize=14, rotation=0)
-#plt.xticks([r + barwidth for r in range(len(mapr))], stride, fontsize=14, rotation=90)
+#plt.xticks([ + barwidth for r in range(len(stride))], stride, fontsize=12, rotation=90)
+plt.xticks([r + barwidth/2 for r in range(len(mapr))], stride, fontsize=14, rotation=90)
 
 #plt.xticks(rotation=45, fontsize=14)
 
@@ -161,8 +149,6 @@ plt.xticks([r + barwidth for r in range(len(mapr))], stride, fontsize=14, rotati
 
 autolabel(rects1, "center")
 autolabel(rects2, "center")
-autolabel(rects3, "center")
-autolabel(rects4, "center")
 
 
 

@@ -22,8 +22,8 @@ def autolabel(rects, xpos='center'):
 
     for rect in rects:
         height = rect.get_height()
-        ax.text(rect.get_x() + rect.get_width()*offset[xpos] + .03, height + 2,
-                '{}'.format(height), ha=ha[xpos], va='bottom', fontsize=14, rotation=90)
+        ax.text(rect.get_x() + rect.get_width()*offset[xpos] + .03, height + 4,
+                '{}'.format(height), ha=ha[xpos], va='bottom', fontsize=20, rotation=90)
 
 
 
@@ -35,14 +35,14 @@ def average(lst):
 #plt.rcdefaults()
 fig, ax = plt.subplots()
 
-fig.set_size_inches(7, 3.5)
+fig.set_size_inches(7, 3.2)
 
 
 
 
 #stride = ['stride-1', 'stride-2', 'stride-4', 'stride-8', 'stride-16', 'stride-32', 'stride-64', 'stride-128', 'stride-256', 'stride-512', 'stride-1024', 'stride-2048', 'stride-4096', 'stride-8192']
 #stride = ['MAPInt', 'literature', 'BW_no_pref', 'BW_pref', 'SL_no_pref', 'SL_pref', 'CL_no_pref', 'CL_pref']
-stride = ['BW', 'BW_Pref', 'SK', 'SK_pref', 'CS', 'CS_pref', 'CP', 'CP_pref']
+stride = ['BW', 'BW_Pf', 'SK', 'SK_Pf', 'CS', 'CS_Pf', 'CP', 'CP_Pf']
 #stride = ['BW_no_pref', 'BW_Pref', 'SK_no_pref', 'SK_pref', 'CS_no_pref', 'CS_pref', 'CP_no_pref', 'CP_pref']
 mapr=[98.6627020572673, 99.6791249225443, 99.7558734737882, 99.8025625864864, 98.9202744581399, 97.9168295743928, 98.9297713920799, 99.6581151298705]
 lit=[73.9970265429505, 74.7593436919083, 75.1830948946589, 74.8519219398648, 75.8097941563951, 76.5623778192054, 75.8026714559401, 75.2564136525971]
@@ -91,7 +91,7 @@ print("On the other hand, the model from literature provided {:.1f}".format(aver
 #print("Broadwell showed {:.1f}".format((100-average(bwell)))+"\% accuracy, Sky Lake showed {:.1f}".format((100-average(slake)))+"\% accuracy, and Cascade Lake showed {:.1f}".format((100-average(slake)))+"\% accuracy")
 
 
-barwidth=.25
+barwidth=.35
 # Set position of bar on X axis
 #r1 = np.arange(len(bwell))
 #r2 = [x + barwidth for x in r1]
@@ -108,19 +108,34 @@ r2 = [x + barwidth for x in r1]
 
 #ax.barh(x_pos, read, hatch='....', color='white', edgecolor='black')
 #rects1 = plt.bar(x, traffic, .8, hatch='....', color='white', edgecolor='black')
-rects1=ax.bar(r1, mapr, width=barwidth, hatch='...', color='white', edgecolor='black', label="MAPredict")
-rects2=ax.bar(r2, lit, width=barwidth, hatch='///', color='grey', edgecolor='black', label="Literature")
+rects1=ax.bar(r1, mapr, width=barwidth, hatch='...', color='cornflowerblue', edgecolor='black', label="MAPredict")
+rects2=ax.bar(r2, lit, width=barwidth, hatch='///', color='white', edgecolor='black', label="Literature")
 
-plt.legend(handlelength=3, fontsize=12)
+#plt.legend(handlelength=3, fontsize=12, ncol=2, framealpha=1)
+leg = plt.legend(loc="upper center", handlelength=2, fontsize=20, ncol=2, framealpha=1)
+
+
+# Get the bounding box of the original legend
+#bb = leg.get_bbox_to_anchor().inverse_transformed(ax.transAxes)
+#print(bb)
+# Change to location of the legend. 
+#xOffset = 1.5
+#bb.x0 = 0.0 
+#bb.y0 = 0.0
+#bb.x1 = 1.5
+#bb.y1 = 1.5
+#leg.set_bbox_to_anchor(bb, transform = ax.transAxes)
+
 
 #plt.legend(loc="upper right", fontsize=12)
 
 
-ax.set_ylabel('Accuracy', fontsize=16)
+#ax.set_ylabel('Accuracy', fontsize=16)
 #ax.set_xlabel('Stride', fontsize=16)
 
-plt.yticks(np.arange(0, max(mapr)+80, 20))
+plt.yticks(np.arange(0, max(mapr)+160, 20))
 
+ax.set_yticklabels([])
 #plt.title('', fontsize=18)
 #ax.set_xticks(x_pos)
 
@@ -129,7 +144,7 @@ plt.yticks(fontsize=14)
 #ax.get_yaxis().get_major_formatter().set_scientific(False)
 
 #plt.xticks([ + barwidth for r in range(len(stride))], stride, fontsize=12, rotation=90)
-plt.xticks([r + barwidth/2 for r in range(len(mapr))], stride, fontsize=12, rotation=0)
+plt.xticks([r + barwidth/2 for r in range(len(mapr))], stride, fontsize=20, rotation=0)
 
 #plt.xticks(rotation=45, fontsize=14)
 

@@ -22,7 +22,7 @@ def autolabel(rects, xpos='center'):
 
     for rect in rects:
         height = rect.get_height()
-        ax.text(rect.get_x() + rect.get_width()*offset[xpos] + .03, height + 4,
+        ax.text(rect.get_x() + rect.get_width()*offset[xpos], height + 4,
                 '{}'.format(height), ha=ha[xpos], va='bottom', fontsize=20, rotation=90)
 
 
@@ -46,8 +46,17 @@ fig.set_size_inches(7, 3.2)
 stride = ['BW', 'BW_Pf', 'SK', 'SK_Pf', 'CS', 'CS_Pf', 'CP', 'CP_Pf']
 
 #stride = ['BW_no_pref', 'BW_Pref', 'SK_no_pref', 'SK_pref', 'CS_no_pref', 'CS_pref', 'CP_no_pref', 'CP_pref']
-mapr=[91.6610718151545, 92.8038602159329, 96.1113866399604, 95.7114967073513, 99.8507728593972, 89.0255670327235, 94.7215489719989, 96.0240214817656]
-lit=[61.1372333748368, 61.8994644918517, 69.2929100020717, 69.5596335265737, 66.5997012916611, 74.0190974489439, 70.2199210895119, 69.3511818939404]
+#mapr=[61.8882181293871, 75.5241712230356, 89.8250019597557, 51.0717951637018, 68.2220805147098, 53.8617689849731, 62.8099049619462, 46.1993693797708]
+mapr=[95.3101043330511, 78.7016557954816, 71.6890368938188, 79.4437128944134, 71.6890368938188, 79.4437128944134, 32.1122980870215, 24.5260870712568]
+
+#Here lit means the corrected results
+#
+#
+lit=[94.7103434724552, 94.6297431281576, 98.0897308123935, 98.7615042635082, 98.177610635759, 97.0360885136902, 95.6535956134869, 99.9241483420006]
+
+
+
+#lit=[73.9970265429505, 74.7593436919083, 75.1830948946589, 74.8519219398648, 75.8097941563951, 76.5623778192054, 75.8026714559401, 75.2564136525971]
 
 mapr=np.round(mapr, 1)
 lit=np.round(lit, 1)
@@ -111,10 +120,10 @@ r2 = [x + barwidth for x in r1]
 #ax.barh(x_pos, read, hatch='....', color='white', edgecolor='black')
 #rects1 = plt.bar(x, traffic, .8, hatch='....', color='white', edgecolor='black')
 rects1=ax.bar(r1, mapr, width=barwidth, hatch='...', color='cornflowerblue', edgecolor='black', label="MAPredict")
-rects2=ax.bar(r2, lit, width=barwidth, hatch='///', color='white', edgecolor='black', label="Literature")
+rects2=ax.bar(r2, lit, width=barwidth, hatch='///', color='khaki', edgecolor='black', label="individual_reuse")
 
 #plt.legend(handlelength=3, fontsize=12)
-#plt.legend(loc="upper center", handlelength=2, fontsize=12, ncol=4, framealpha=1)
+plt.legend(loc="upper center", handlelength=2, fontsize=20, ncol=4, framealpha=1)
 
 
 #plt.legend(loc="upper right", fontsize=12)
@@ -123,7 +132,7 @@ rects2=ax.bar(r2, lit, width=barwidth, hatch='///', color='white', edgecolor='bl
 #ax.set_ylabel('Accuracy', fontsize=16)
 #ax.set_xlabel('Stride', fontsize=16)
 
-plt.yticks(np.arange(0, max(mapr)+70, 20))
+plt.yticks(np.arange(0, max(mapr)+160, 20))
 
 #plt.title('', fontsize=18)
 #ax.set_xticks(x_pos)
@@ -132,10 +141,11 @@ plt.yticks(fontsize=14)
 #plt.yticks(np.arange(0, 100, 10), fontsize=14)
 #ax.get_yaxis().get_major_formatter().set_scientific(False)
 
-#plt.xticks([ + barwidth for r in range(len(stride))], stride, fontsize=12, rotation=90)
-plt.xticks([r + barwidth/2 for r in range(len(mapr))], stride, fontsize=20, rotation=0)
 ax.set_yticklabels([])
 
+
+#plt.xticks([ + barwidth for r in range(len(stride))], stride, fontsize=12, rotation=90)
+plt.xticks([r + barwidth/2 for r in range(len(mapr))], stride, fontsize=20, rotation=0)
 
 #plt.xticks(rotation=45, fontsize=14)
 
@@ -150,6 +160,6 @@ autolabel(rects2, "center")
 plt.tight_layout()
 
 plt.show()
-fig.savefig('laplace.png', dpi=100)
+fig.savefig('xsbench.png', dpi=100)
 
 # Example data

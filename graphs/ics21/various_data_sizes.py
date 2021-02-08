@@ -42,18 +42,15 @@ fig.set_size_inches(10, 3.5)
 
 #stride = ['stride-1', 'stride-2', 'stride-4', 'stride-8', 'stride-16', 'stride-32', 'stride-64', 'stride-128', 'stride-256', 'stride-512', 'stride-1024', 'stride-2048', 'stride-4096', 'stride-8192']
 #stride = ['MAPInt', 'literature', 'BW_no_pref', 'BW_pref', 'SL_no_pref', 'SL_pref', 'CL_no_pref', 'CL_pref']
-stride = ['BW', 'BW_Pref', 'SK', 'SK_pref', 'CS', 'CS_pref', 'CP', 'CP_pref']
 #stride = ['BW_no_pref', 'BW_Pref', 'SK_no_pref', 'SK_pref', 'CS_no_pref', 'CS_pref', 'CP_no_pref', 'CP_pref']
 #mapr=[61.8882181293871, 75.5241712230356, 89.8250019597557, 51.0717951637018, 68.2220805147098, 53.8617689849731, 62.8099049619462, 46.1993693797708]
-mapr=[95.3101043330511, 78.7016557954816, 71.6890368938188, 79.4437128944134, 71.6890368938188, 79.4437128944134, 32.1122980870215, 24.5260870712568]
 
 #Here lit means the corrected results
 #
 #
-lit=[94.7103434724552, 94.6297431281576, 98.0897308123935, 98.7615042635082, 98.177610635759, 97.0360885136902, 95.6535956134869, 99.9241483420006]
-stride=['Triad_50','Triad_100','Triad_150','jacobi_4096','jacobi_8192','jacobi_16384','laplace_4096','laplace_8000','laplace_10000','xsbench_small','xsbench_big','Vecmul_R7_50','Vecmul_R7_100','Vecmul_R7_200','Vecmul_R8_50','Vecmul_R8_100','Vecmul_R8_200','lulesh_250','lulesh_300','lulesh_400','xsbench_big']
-mapr=[98.92977139,99.16870648,99.61383181,81.5824526,81.93283401,81.43143327,94.72154897,99.41113128,99.844747,61.00901062,91.89561288,92.56801122,92.50984711,92.48666559,98.7364694,99.13273725,98.96556246,91.79902957,95.03203251,92.76574126,91.89561288]
-lit=[99.65811513,99.30578589,99.7241934,87.88307244,88.97635499,88.65746754,96.02402148,99.6129656,99.70779706,68.91097887,96.5624612,90.94570885,90.44556598,91.0081077,98.7356895,99.05069811,98.89485005,91.25606924,89.05478423,92.59669006,96.5624612]
+stride=['Triad_50','Triad_100','Triad_150','jacobi_4096','jacobi_8192','jacobi_16384','laplace_4096','laplace_8000','laplace_10000','xsbench_small','xsbench_big','Vecm_R7_50','Vecm_R7_100','Vecm_R7_200','Vecm_R8_50','Vecm_R8_100','Vecm_R8_200','lulesh_250','lulesh_300','lulesh_400']
+mapr=[98.92977139,99.16870648,99.61383181,81.5824526,81.93283401,81.43143327,94.72154897,99.41113128,99.844747,61.00901062,91.89561288,92.56801122,92.50984711,92.48666559,98.7364694,99.13273725,98.96556246,91.79902957,95.03203251,92.76574126]
+lit=[99.65811513,99.30578589,99.7241934,87.88307244,88.97635499,88.65746754,96.02402148,99.6129656,99.70779706,68.91097887,96.5624612,90.94570885,90.44556598,91.0081077,98.7356895,99.05069811,98.89485005,91.25606924,89.05478423,92.59669006]
 
 #lit=[73.9970265429505, 74.7593436919083, 75.1830948946589, 74.8519219398648, 75.8097941563951, 76.5623778192054, 75.8026714559401, 75.2564136525971]
 
@@ -118,7 +115,7 @@ r2 = [x + barwidth for x in r1]
 
 #ax.barh(x_pos, read, hatch='....', color='white', edgecolor='black')
 #rects1 = plt.bar(x, traffic, .8, hatch='....', color='white', edgecolor='black')
-rects1=ax.bar(r1, mapr, width=barwidth, hatch='...', color='khaki', edgecolor='black', label="Prefetching")
+rects1=ax.bar(r1, mapr, width=barwidth, hatch='...', color='white', edgecolor='black', label="Prefetching")
 rects2=ax.bar(r2, lit, width=barwidth, hatch='///', color='cornflowerblue', edgecolor='black', label="no_prefetching")
 #rects2=ax.bar(r2, lit, width=barwidth, hatch='///', color='cornflowerblue', edgecolor='black', label="MAPredict_Corrected")
 

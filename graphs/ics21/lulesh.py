@@ -35,7 +35,7 @@ def average(lst):
 #plt.rcdefaults()
 fig, ax = plt.subplots()
 
-fig.set_size_inches(7, 3.5)
+fig.set_size_inches(7, 3)
 
 
 
@@ -49,6 +49,7 @@ lit=[73.9970265429505, 74.7593436919083, 75.1830948946589, 74.8519219398648, 75.
 
 mapr=np.round(mapr, 1)
 lit=np.round(lit, 1)
+print (mapr)
 
 #total=[8388608, 8388608, 9441832, 9310190, 8837973, 9382619, 9266269, 9326488]
 #total = np.array(total) / 1000000
@@ -111,7 +112,8 @@ r2 = [x + barwidth for x in r1]
 rects1=ax.bar(r1, mapr, width=barwidth, hatch='...', color='white', edgecolor='black', label="MAPredict")
 #rects2=ax.bar(r2, lit, width=barwidth, hatch='///', color='grey', edgecolor='black', label="Literature")
 
-plt.legend(handlelength=3, fontsize=12)
+#plt.legend(handlelength=3, fontsize=12)
+plt.legend(loc="upper center", handlelength=2, fontsize=12, ncol=4, framealpha=1)
 
 #plt.legend(loc="upper right", fontsize=12)
 
@@ -127,6 +129,7 @@ plt.yticks(np.arange(0, max(mapr)+80, 20))
 plt.yticks(fontsize=14)
 #plt.yticks(np.arange(0, 100, 10), fontsize=14)
 #ax.get_yaxis().get_major_formatter().set_scientific(False)
+ax.set_yticklabels([])
 
 #plt.xticks([ + barwidth for r in range(len(stride))], stride, fontsize=12, rotation=90)
 plt.xticks([r + barwidth/2 for r in range(len(mapr))], stride, fontsize=12, rotation=0)

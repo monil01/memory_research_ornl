@@ -1,2 +1,4 @@
 # memory_research_ornl
-Memory research with ORNL
+This repository contains application and scripts to generate memory traffic for intel CPUs.
+It also contains the aspen models annotated codes.
+

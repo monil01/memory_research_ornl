@@ -104,6 +104,7 @@ Additional BSD Notice
 #include "../../../../OpenARC-devel/openarcrt/openacc.h"
 #pragma aspen  declare param(aspen_param_sizeof_double:8)
 #pragma aspen  declare param(aspen_param_sizeof_int:4)
+#pragma openarc #define T_EDGEELEM 300 
 #pragma openarc #define T_EDGENODES (T_EDGEELEM+1) 
 #pragma openarc #define T_NUMELEM (T_EDGEELEM*T_EDGEELEM*T_EDGEELEM) 
 #pragma openarc #define T_NUMNODE (T_EDGENODES*T_EDGENODES*T_EDGENODES) 
@@ -406,7 +407,7 @@ double m_dtmax;
 int m_cycle;
 /* iteration count for simulation */
 /* [DEBUG] Moved from main() for easy model generation. */
-#pragma aspen  declare param(edgeElems:40)
+#pragma aspen  declare param(edgeElems:300)
 int edgeElems;
 #pragma aspen  declare param(edgeNodes:(edgeElems+1))
 int edgeNodes;
@@ -695,7 +696,7 @@ m_time+=m_deltatime;
 return ;
 }
 
-static inline void InitStressTermsForElems(int numElem, double sigxx[((40*40)*40)], double sigyy[((40*40)*40)], double sigzz[((40*40)*40)], double m_p[((40*40)*40)], double m_q[((40*40)*40)])
+static inline void InitStressTermsForElems(int numElem, double sigxx[((300*300)*300)], double sigyy[((300*300)*300)], double sigzz[((300*300)*300)], double m_p[((300*300)*300)], double m_q[((300*300)*300)])
 {
 /*  */
 /* pull in the stresses appropriate to the hydro integration */
@@ -1066,7 +1067,7 @@ fz[7]=( - (stress_zz*pfz7));
 return ;
 }
 
-static inline void IntegrateStressForElems(int numElem, double sigxx[((40*40)*40)], double sigyy[((40*40)*40)], double sigzz[((40*40)*40)], double determ[((40*40)*40)], int p_nodelist[(((40*40)*40)*8)], double m_x[(((40+1)*(40+1))*(40+1))], double m_y[(((40+1)*(40+1))*(40+1))], double m_z[(((40+1)*(40+1))*(40+1))], int p_nodeElemCount[(((40+1)*(40+1))*(40+1))], int p_nodeElemStart[(((40+1)*(40+1))*(40+1))], int p_nodeElemCornerList[(((40*40)*40)*8)], double m_fx[(((40+1)*(40+1))*(40+1))], double m_fy[(((40+1)*(40+1))*(40+1))], double m_fz[(((40+1)*(40+1))*(40+1))])
+static inline void IntegrateStressForElems(int numElem, double sigxx[((300*300)*300)], double sigyy[((300*300)*300)], double sigzz[((300*300)*300)], double determ[((300*300)*300)], int p_nodelist[(((300*300)*300)*8)], double m_x[(((300+1)*(300+1))*(300+1))], double m_y[(((300+1)*(300+1))*(300+1))], double m_z[(((300+1)*(300+1))*(300+1))], int p_nodeElemCount[(((300+1)*(300+1))*(300+1))], int p_nodeElemStart[(((300+1)*(300+1))*(300+1))], int p_nodeElemCornerList[(((300*300)*300)*8)], double m_fx[(((300+1)*(300+1))*(300+1))], double m_fy[(((300+1)*(300+1))*(300+1))], double m_fz[(((300+1)*(300+1))*(300+1))])
 {
 int k;
 int lnode;
@@ -1305,7 +1306,7 @@ hgfz[7]=(coefficient*((((hourgam7[i00]*h00)+(hourgam7[i01]*h01))+(hourgam7[i02]*
 return ;
 }
 
-static inline void CalcFBHourglassForceForElems(double determ[((40*40)*40)], double x8n[(((40*40)*40)*8)], double y8n[(((40*40)*40)*8)], double z8n[(((40*40)*40)*8)], double dvdx[(((40*40)*40)*8)], double dvdy[(((40*40)*40)*8)], double dvdz[(((40*40)*40)*8)], double hourg, double p_ss[((40*40)*40)], int p_nodelist[(((40*40)*40)*8)], double p_elemMass[((40*40)*40)], double p_xd[(((40+1)*(40+1))*(40+1))], double p_yd[(((40+1)*(40+1))*(40+1))], double p_zd[(((40+1)*(40+1))*(40+1))], int p_nodeElemCount[(((40+1)*(40+1))*(40+1))], int p_nodeElemStart[(((40+1)*(40+1))*(40+1))], int p_nodeElemCornerList[(((40*40)*40)*8)], double p_fx[(((40+1)*(40+1))*(40+1))], double p_fy[(((40+1)*(40+1))*(40+1))], double p_fz[(((40+1)*(40+1))*(40+1))])
+static inline void CalcFBHourglassForceForElems(double determ[((300*300)*300)], double x8n[(((300*300)*300)*8)], double y8n[(((300*300)*300)*8)], double z8n[(((300*300)*300)*8)], double dvdx[(((300*300)*300)*8)], double dvdy[(((300*300)*300)*8)], double dvdz[(((300*300)*300)*8)], double hourg, double p_ss[((300*300)*300)], int p_nodelist[(((300*300)*300)*8)], double p_elemMass[((300*300)*300)], double p_xd[(((300+1)*(300+1))*(300+1))], double p_yd[(((300+1)*(300+1))*(300+1))], double p_zd[(((300+1)*(300+1))*(300+1))], int p_nodeElemCount[(((300+1)*(300+1))*(300+1))], int p_nodeElemStart[(((300+1)*(300+1))*(300+1))], int p_nodeElemCornerList[(((300*300)*300)*8)], double p_fx[(((300+1)*(300+1))*(300+1))], double p_fy[(((300+1)*(300+1))*(300+1))], double p_fz[(((300+1)*(300+1))*(300+1))])
 {
 /*
 
@@ -1528,7 +1529,7 @@ p_fz[gnode]+=fz;
 return ;
 }
 
-static inline void CalcHourglassControlForElems(double determ[((40*40)*40)], double hgcoef, int p_nodelist[(((40*40)*40)*8)], double p_volo[((40*40)*40)], double p_v[((40*40)*40)])
+static inline void CalcHourglassControlForElems(double determ[((300*300)*300)], double hgcoef, int p_nodelist[(((300*300)*300)*8)], double p_volo[((300*300)*300)], double p_v[((300*300)*300)])
 {
 int i;
 int ii;
@@ -1662,7 +1663,7 @@ exit(VolumeError);
 return ;
 }
 
-static inline void CalcForceForNodes(double m_fx[(((40+1)*(40+1))*(40+1))], double m_fy[(((40+1)*(40+1))*(40+1))], double m_fz[(((40+1)*(40+1))*(40+1))])
+static inline void CalcForceForNodes(double m_fx[(((300+1)*(300+1))*(300+1))], double m_fy[(((300+1)*(300+1))*(300+1))], double m_fz[(((300+1)*(300+1))*(300+1))])
 {
 int i;
 int numNode;
@@ -1685,7 +1686,7 @@ CalcVolumeForceForElems();
 return ;
 }
 
-static inline void CalcAccelerationForNodes(double m_fx[(((40+1)*(40+1))*(40+1))], double m_fy[(((40+1)*(40+1))*(40+1))], double m_fz[(((40+1)*(40+1))*(40+1))], double m_xdd[(((40+1)*(40+1))*(40+1))], double m_ydd[(((40+1)*(40+1))*(40+1))], double m_zdd[(((40+1)*(40+1))*(40+1))], double m_nodalMass[(((40+1)*(40+1))*(40+1))])
+static inline void CalcAccelerationForNodes(double m_fx[(((300+1)*(300+1))*(300+1))], double m_fy[(((300+1)*(300+1))*(300+1))], double m_fz[(((300+1)*(300+1))*(300+1))], double m_xdd[(((300+1)*(300+1))*(300+1))], double m_ydd[(((300+1)*(300+1))*(300+1))], double m_zdd[(((300+1)*(300+1))*(300+1))], double m_nodalMass[(((300+1)*(300+1))*(300+1))])
 {
 int i;
 int numNode;
@@ -1704,7 +1705,7 @@ m_zdd[i]=(m_fz[i]/m_nodalMass[i]);
 return ;
 }
 
-static inline void ApplyAccelerationBoundaryConditionsForNodes(double m_xdd[(((40+1)*(40+1))*(40+1))], double m_ydd[(((40+1)*(40+1))*(40+1))], double m_zdd[(((40+1)*(40+1))*(40+1))], int m_symmX[((40+1)*(40+1))], int m_symmY[((40+1)*(40+1))], int m_symmZ[((40+1)*(40+1))])
+static inline void ApplyAccelerationBoundaryConditionsForNodes(double m_xdd[(((300+1)*(300+1))*(300+1))], double m_ydd[(((300+1)*(300+1))*(300+1))], double m_zdd[(((300+1)*(300+1))*(300+1))], int m_symmX[((300+1)*(300+1))], int m_symmY[((300+1)*(300+1))], int m_symmZ[((300+1)*(300+1))])
 {
 int i;
 int numNodeBC;
@@ -1733,7 +1734,7 @@ m_zdd[m_symmZ[i]]=0.0;
 return ;
 }
 
-static inline void CalcVelocityForNodes(const double dt, const double u_cut, double m_xd[(((40+1)*(40+1))*(40+1))], double m_yd[(((40+1)*(40+1))*(40+1))], double m_zd[(((40+1)*(40+1))*(40+1))], double m_xdd[(((40+1)*(40+1))*(40+1))], double m_ydd[(((40+1)*(40+1))*(40+1))], double m_zdd[(((40+1)*(40+1))*(40+1))])
+static inline void CalcVelocityForNodes(const double dt, const double u_cut, double m_xd[(((300+1)*(300+1))*(300+1))], double m_yd[(((300+1)*(300+1))*(300+1))], double m_zd[(((300+1)*(300+1))*(300+1))], double m_xdd[(((300+1)*(300+1))*(300+1))], double m_ydd[(((300+1)*(300+1))*(300+1))], double m_zdd[(((300+1)*(300+1))*(300+1))])
 {
 int i;
 int numNode;
@@ -1779,7 +1780,7 @@ m_zd[i]=zdtmp;
 return ;
 }
 
-static inline void CalcPositionForNodes(const double dt, double m_x[(((40+1)*(40+1))*(40+1))], double m_y[(((40+1)*(40+1))*(40+1))], double m_z[(((40+1)*(40+1))*(40+1))], double m_xd[(((40+1)*(40+1))*(40+1))], double m_yd[(((40+1)*(40+1))*(40+1))], double m_zd[(((40+1)*(40+1))*(40+1))])
+static inline void CalcPositionForNodes(const double dt, double m_x[(((300+1)*(300+1))*(300+1))], double m_y[(((300+1)*(300+1))*(300+1))], double m_z[(((300+1)*(300+1))*(300+1))], double m_xd[(((300+1)*(300+1))*(300+1))], double m_yd[(((300+1)*(300+1))*(300+1))], double m_zd[(((300+1)*(300+1))*(300+1))])
 {
 int i;
 int numNode;
@@ -1979,7 +1980,7 @@ d[3]=(0.5*(dzddy+dyddz));
 return ;
 }
 
-static inline void CalcKinematicsForElems(int numElem, double dt, int p_nodelist[(((40*40)*40)*8)], double p_x[(((40+1)*(40+1))*(40+1))], double p_y[(((40+1)*(40+1))*(40+1))], double p_z[(((40+1)*(40+1))*(40+1))], double p_volo[((40*40)*40)], double p_v[((40*40)*40)], double p_vnew[((40*40)*40)], double p_delv[((40*40)*40)], double p_arealg[((40*40)*40)], double p_xd[(((40+1)*(40+1))*(40+1))], double p_yd[(((40+1)*(40+1))*(40+1))], double p_zd[(((40+1)*(40+1))*(40+1))], double p_dxx[((40*40)*40)], double p_dyy[((40*40)*40)], double p_dzz[((40*40)*40)])
+static inline void CalcKinematicsForElems(int numElem, double dt, int p_nodelist[(((300*300)*300)*8)], double p_x[(((300+1)*(300+1))*(300+1))], double p_y[(((300+1)*(300+1))*(300+1))], double p_z[(((300+1)*(300+1))*(300+1))], double p_volo[((300*300)*300)], double p_v[((300*300)*300)], double p_vnew[((300*300)*300)], double p_delv[((300*300)*300)], double p_arealg[((300*300)*300)], double p_xd[(((300+1)*(300+1))*(300+1))], double p_yd[(((300+1)*(300+1))*(300+1))], double p_zd[(((300+1)*(300+1))*(300+1))], double p_dxx[((300*300)*300)], double p_dyy[((300*300)*300)], double p_dzz[((300*300)*300)])
 {
 int k;
 int lnode;
@@ -2044,7 +2045,7 @@ p_dzz[k]=D[2];
 return ;
 }
 
-static inline void CalcLagrangeElements(double deltatime, double p_vnew[((40*40)*40)], double p_vdov[((40*40)*40)], double p_dxx[((40*40)*40)], double p_dyy[((40*40)*40)], double p_dzz[((40*40)*40)])
+static inline void CalcLagrangeElements(double deltatime, double p_vnew[((300*300)*300)], double p_vdov[((300*300)*300)], double p_dxx[((300*300)*300)], double p_dyy[((300*300)*300)], double p_dzz[((300*300)*300)])
 {
 int k;
 int numElem;
@@ -2083,7 +2084,7 @@ exit(VolumeError);
 return ;
 }
 
-static inline void CalcMonotonicQGradientsForElems(int p_nodelist[(((40*40)*40)*8)], double p_x[(((40+1)*(40+1))*(40+1))], double p_y[(((40+1)*(40+1))*(40+1))], double p_z[(((40+1)*(40+1))*(40+1))], double p_xd[(((40+1)*(40+1))*(40+1))], double p_yd[(((40+1)*(40+1))*(40+1))], double p_zd[(((40+1)*(40+1))*(40+1))], double p_volo[((40*40)*40)], double p_vnew[((40*40)*40)], double p_delx_zeta[((40*40)*40)], double p_delv_zeta[((40*40)*40)], double p_delx_xi[((40*40)*40)], double p_delv_xi[((40*40)*40)], double p_delx_eta[((40*40)*40)], double p_delv_eta[((40*40)*40)])
+static inline void CalcMonotonicQGradientsForElems(int p_nodelist[(((300*300)*300)*8)], double p_x[(((300+1)*(300+1))*(300+1))], double p_y[(((300+1)*(300+1))*(300+1))], double p_z[(((300+1)*(300+1))*(300+1))], double p_xd[(((300+1)*(300+1))*(300+1))], double p_yd[(((300+1)*(300+1))*(300+1))], double p_zd[(((300+1)*(300+1))*(300+1))], double p_volo[((300*300)*300)], double p_vnew[((300*300)*300)], double p_delx_zeta[((300*300)*300)], double p_delv_zeta[((300*300)*300)], double p_delx_xi[((300*300)*300)], double p_delv_xi[((300*300)*300)], double p_delx_eta[((300*300)*300)], double p_delv_eta[((300*300)*300)])
 {
 int i;
 int numElem;
@@ -2276,7 +2277,7 @@ return ;
 
 /* parameters */
 /* the elementset length */
-static inline void CalcMonotonicQRegionForElems(double qlc_monoq, double qqc_monoq, double monoq_limiter_mult, double monoq_max_slope, double ptiny, int elength, int p_matElemlist[((40*40)*40)], int p_elemBC[((40*40)*40)], double p_delx_xi[((40*40)*40)], double p_delx_eta[((40*40)*40)], double p_delx_zeta[((40*40)*40)], double p_delv_xi[((40*40)*40)], double p_delv_eta[((40*40)*40)], double p_delv_zeta[((40*40)*40)], int p_lxim[((40*40)*40)], int p_lxip[((40*40)*40)], int p_letam[((40*40)*40)], int p_letap[((40*40)*40)], int p_lzetam[((40*40)*40)], int p_lzetap[((40*40)*40)], double p_vnew[((40*40)*40)], double p_vdov[((40*40)*40)], double p_volo[((40*40)*40)], double p_elemMass[((40*40)*40)], double p_qq[((40*40)*40)], double p_ql[((40*40)*40)])
+static inline void CalcMonotonicQRegionForElems(double qlc_monoq, double qqc_monoq, double monoq_limiter_mult, double monoq_max_slope, double ptiny, int elength, int p_matElemlist[((300*300)*300)], int p_elemBC[((300*300)*300)], double p_delx_xi[((300*300)*300)], double p_delx_eta[((300*300)*300)], double p_delx_zeta[((300*300)*300)], double p_delv_xi[((300*300)*300)], double p_delv_eta[((300*300)*300)], double p_delv_zeta[((300*300)*300)], int p_lxim[((300*300)*300)], int p_lxip[((300*300)*300)], int p_letam[((300*300)*300)], int p_letap[((300*300)*300)], int p_lzetam[((300*300)*300)], int p_lzetap[((300*300)*300)], double p_vnew[((300*300)*300)], double p_vdov[((300*300)*300)], double p_volo[((300*300)*300)], double p_elemMass[((300*300)*300)], double p_qq[((300*300)*300)], double p_ql[((300*300)*300)])
 {
 int ielem;
 for (ielem=0; ielem<elength;  ++ ielem)
@@ -2566,7 +2567,7 @@ exit(QStopError);
 return ;
 }
 
-static inline void CalcPressureForElems(double p_new[((40*40)*40)], double bvc[((40*40)*40)], double pbvc[((40*40)*40)], double e_old[((40*40)*40)], double compression[((40*40)*40)], double vnewc[((40*40)*40)], double pmin, double p_cut, double eosvmax, int length)
+static inline void CalcPressureForElems(double p_new[((300*300)*300)], double bvc[((300*300)*300)], double pbvc[((300*300)*300)], double e_old[((300*300)*300)], double compression[((300*300)*300)], double vnewc[((300*300)*300)], double pmin, double p_cut, double eosvmax, int length)
 {
 int i;
 for (i=0; i<length;  ++ i)
@@ -2599,7 +2600,7 @@ p_new[i]=pmin;
 return ;
 }
 
-static inline void CalcEnergyForElems(double p_new[((40*40)*40)], double e_new[((40*40)*40)], double q_new[((40*40)*40)], double bvc[((40*40)*40)], double pbvc[((40*40)*40)], double p_old[((40*40)*40)], double e_old[((40*40)*40)], double q_old[((40*40)*40)], double compression[((40*40)*40)], double compHalfStep[((40*40)*40)], double vnewc[((40*40)*40)], double * work, double * delvc, double pmin, double p_cut, double e_cut, double q_cut, double emin, double * qq, double * ql, double rho0, double eosvmax, int length)
+static inline void CalcEnergyForElems(double p_new[((300*300)*300)], double e_new[((300*300)*300)], double q_new[((300*300)*300)], double bvc[((300*300)*300)], double pbvc[((300*300)*300)], double p_old[((300*300)*300)], double e_old[((300*300)*300)], double q_old[((300*300)*300)], double compression[((300*300)*300)], double compHalfStep[((300*300)*300)], double vnewc[((300*300)*300)], double * work, double * delvc, double pmin, double p_cut, double e_cut, double q_cut, double emin, double * qq, double * ql, double rho0, double eosvmax, int length)
 {
 int i;
 double * pHalfStep;
@@ -2724,7 +2725,7 @@ Release(( & pHalfStep));
 return ;
 }
 
-static inline void CalcSoundSpeedForElems(double vnewc[((40*40)*40)], double rho0, double * enewc, double * pnewc, double * pbvc, double * bvc, double ss4o3, int nz, int p_matElemlist[((40*40)*40)], double p_ss[((40*40)*40)])
+static inline void CalcSoundSpeedForElems(double vnewc[((300*300)*300)], double rho0, double * enewc, double * pnewc, double * pbvc, double * bvc, double ss4o3, int nz, int p_matElemlist[((300*300)*300)], double p_ss[((300*300)*300)])
 {
 int i;
 for (i=0; i<nz;  ++ i)
@@ -2742,7 +2743,7 @@ p_ss[iz]=SQRT8(ssTmp);
 return ;
 }
 
-static inline void EvalEOSForElems(double vnewc[((40*40)*40)], int length, int p_matElemlist[((40*40)*40)], double p_e[((40*40)*40)], double p_delv[((40*40)*40)], double p_p[((40*40)*40)], double p_q[((40*40)*40)], double p_qq[((40*40)*40)], double p_ql[((40*40)*40)], double p_ss[((40*40)*40)])
+static inline void EvalEOSForElems(double vnewc[((300*300)*300)], int length, int p_matElemlist[((300*300)*300)], double p_e[((300*300)*300)], double p_delv[((300*300)*300)], double p_p[((300*300)*300)], double p_q[((300*300)*300)], double p_qq[((300*300)*300)], double p_ql[((300*300)*300)], double p_ss[((300*300)*300)])
 {
 double e_cut;
 e_cut=m_e_cut;
@@ -2852,7 +2853,7 @@ CalcSoundSpeedForElems(vnewc, rho0, e_new, p_new, pbvc, bvc, ss4o3, length, p_ma
 return ;
 }
 
-static inline void ApplyMaterialPropertiesForElems(int p_matElemlist[((40*40)*40)], double p_vnew[((40*40)*40)], double p_v[((40*40)*40)], double p_e[((40*40)*40)], double p_delv[((40*40)*40)], double p_p[((40*40)*40)], double p_q[((40*40)*40)], double p_qq[((40*40)*40)], double p_ql[((40*40)*40)], double p_ss[((40*40)*40)])
+static inline void ApplyMaterialPropertiesForElems(int p_matElemlist[((300*300)*300)], double p_vnew[((300*300)*300)], double p_v[((300*300)*300)], double p_e[((300*300)*300)], double p_delv[((300*300)*300)], double p_p[((300*300)*300)], double p_q[((300*300)*300)], double p_qq[((300*300)*300)], double p_ql[((300*300)*300)], double p_ss[((300*300)*300)])
 {
 int i;
 int length;
@@ -2927,7 +2928,7 @@ EvalEOSForElems(vnewc, length, p_matElemlist, p_e, p_delv, p_p, p_q, p_qq, p_ql,
 return ;
 }
 
-static inline void UpdateVolumesForElems(double p_vnew[((40*40)*40)], double p_v[((40*40)*40)])
+static inline void UpdateVolumesForElems(double p_vnew[((300*300)*300)], double p_v[((300*300)*300)])
 {
 int i;
 int numElem;
@@ -2963,7 +2964,7 @@ UpdateVolumesForElems(m_vnew, m_v);
 return ;
 }
 
-static inline void CalcCourantConstraintForElems(int p_matElemlist[((40*40)*40)], double p_ss[((40*40)*40)], double p_vdov[((40*40)*40)], double p_arealg[((40*40)*40)])
+static inline void CalcCourantConstraintForElems(int p_matElemlist[((300*300)*300)], double p_ss[((300*300)*300)], double p_vdov[((300*300)*300)], double p_arealg[((300*300)*300)])
 {
 int i;
 double dtcourant = 1.0E20;
@@ -3015,7 +3016,7 @@ m_dtcourant=dtcourant;
 return ;
 }
 
-static inline void CalcHydroConstraintForElems(int p_matElemlist[((40*40)*40)], double p_vdov[((40*40)*40)])
+static inline void CalcHydroConstraintForElems(int p_matElemlist[((300*300)*300)], double p_vdov[((300*300)*300)])
 {
 int i;
 double dthydro = 1.0E20;
@@ -3104,7 +3105,7 @@ double strt_time2;
 double end_time2;
 int _ret_val_0 = 0;
 strt_time1=my_timer();
-edgeElems=40;
+edgeElems=300;
 edgeNodes=(edgeElems+1);
 /* get run options to measure various metrics */
 /* ... */

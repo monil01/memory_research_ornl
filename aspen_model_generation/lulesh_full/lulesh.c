@@ -2301,8 +2301,6 @@ p_yd, p_zd, p_v, p_volo, p_vnew, p_delv, p_arealg, p_nodelist)
     const Index_t* const elemToNode = &p_nodelist[8*k] ;
     Real_t dt2;
     
-    //Index_t gnode;
-    // get nodal coordinates from global arrays and copy into local arrays.
 /*
     for( lnode=0 ; lnode<2; ++lnode )
     {
@@ -2314,7 +2312,7 @@ p_yd, p_zd, p_v, p_volo, p_vnew, p_delv, p_arealg, p_nodelist)
     }
 */
 
-///*
+    // get nodal coordinates from global arrays and copy into local arrays.
     for( lnode=0 ; lnode<8; ++lnode )
     {
 
@@ -2332,9 +2330,7 @@ p_yd, p_zd, p_v, p_volo, p_vnew, p_delv, p_arealg, p_nodelist)
       z_local[lnode] = p_z[gnode];
     }
 
-//*/
 
-/*
     // volume calculations
     volume = CalcElemVolume(x_local, y_local, z_local );
     relativeVolume = volume / p_volo[k] ;
@@ -2346,7 +2342,7 @@ p_yd, p_zd, p_v, p_volo, p_vnew, p_delv, p_arealg, p_nodelist)
                                                   y_local,
                                                   z_local,
                                                   volume);
-
+/*
     // get nodal velocities from global array and copy into local arrays.
 
     for( lnode=0 ; lnode<2 ; ++lnode )
@@ -2356,27 +2352,30 @@ p_yd, p_zd, p_v, p_volo, p_vnew, p_delv, p_arealg, p_nodelist)
       yd_local[lnode] = p_yd[gnode];
       zd_local[lnode] = p_zd[gnode];
     }
-#pragma aspen control ignore
+*/
+
+    // get nodal velocities from global array and copy into local arrays.
     for( lnode=0 ; lnode<8; ++lnode )
     {
 
-//#pragma aspen control ignore
+#pragma aspen control ignore
       {
       Index_t gnode = elemToNode[lnode];
       }
-//#pragma aspen  control loads(((1*aspen_param_sizeof_int)):from(elemToNode):traits(pattern(stencil4)))
+#pragma aspen  control loads(((1*aspen_param_sizeof_int)):from(elemToNode):traits(pattern(stencil4)))
 
-//#pragma aspen  control loads(0:from(p_xd):traits(pattern(stencil4)))
+#pragma aspen  control loads(0:from(p_xd):traits(pattern(stencil4)))
       xd_local[lnode] = p_xd[gnode];
-//#pragma aspen  control loads(0:from(p_yd):traits(pattern(stencil4)))
+#pragma aspen  control loads(0:from(p_yd):traits(pattern(stencil4)))
       yd_local[lnode] = p_yd[gnode];
-//#pragma aspen  control loads(0:from(p_zd):traits(pattern(stencil4)))
+#pragma aspen  control loads(0:from(p_zd):traits(pattern(stencil4)))
       zd_local[lnode] = p_zd[gnode];
     }
 
 
     dt2 = 0.5 * dt;
-#pragma aspen control ignore
+
+//#pragma aspen control ignore
     for ( j=0 ; j<8 ; ++j )
     {
        x_local[j] -= dt2 * xd_local[j];
@@ -2407,7 +2406,6 @@ p_yd, p_zd, p_v, p_volo, p_vnew, p_delv, p_arealg, p_nodelist)
     p_dxx[k] = D[0];
     p_dyy[k] = D[1];
     p_dzz[k] = D[2];
-*/
   }
 }
 
@@ -2425,7 +2423,6 @@ void CalcLagrangeElements(Real_t deltatime,
    if (numElem > 0) {
       CalcKinematicsForElems(numElem,deltatime,m_nodelist,m_x,m_y,m_z,m_volo,m_v,p_vnew,
           m_delv,m_arealg,m_xd,m_yd,m_zd,p_dxx,p_dyy,p_dzz);
-/*
       // element loop to do some stuff not included in the elemlib function.
 #ifdef _OPENACC
 #pragma acc parallel loop independent present(p_vdov, p_dxx, p_dyy, p_dzz, p_vnew) \
@@ -2440,27 +2437,43 @@ reduction(||: abort)
         Real_t vdovthird = vdov/3.0 ;
         
         // make the rate of deformation tensor deviatoric
+        // Monil this is a genuine uninitialzed write
+#pragma aspen  control stores(0:from(p_vdov):traits(initialized(0)))
         p_vdov[k] = vdov ;
+
+//Monil here uninitialized traits is used not because it is uninitialized but because 
+//the variables are already read three lines before and already in the cache and hence
+// while allocating store they will not be brought to the cache again and hence the behaviour
+// is totaly like uninitialized variables
+
+#pragma aspen  control stores(0:from(p_dxx):traits(initialized(0)))
         p_dxx[k] -= vdovthird ;
+#pragma aspen  control stores(0:from(p_dyy):traits(initialized(0)))
         p_dyy[k] -= vdovthird ;
+#pragma aspen  control stores(0:from(p_dzz):traits(initialized(0)))
         p_dzz[k] -= vdovthird ;
 
         // See if any volumes are negative, and take appropriate action.
-#pragma aspen control ignore
+
+//Monil commented out this since the if logic will access the variable
+//#pragma aspen control ignore
+#pragma aspen control probability(0)
         if (p_vnew[k] <= 0.0)
         {
            abort = 1;
         }
       }
+#pragma aspen control ignore
       if (abort == 1)
       {
          fprintf(stderr, "VolumeError in CalcLagrangeElements(); exit\n");
          exit(VolumeError) ;
       }
-*/
    }
 }
 
+
+// Monil currently working here
 static inline
 void CalcMonotonicQGradientsForElems(Index_t p_nodelist[T_NUMELEM8], 
         Real_t p_x[T_NUMNODE], Real_t p_y[T_NUMNODE], Real_t p_z[T_NUMNODE],
@@ -2488,14 +2501,38 @@ p_delv_zeta)
 
 #pragma aspen declare data(elemToNode:traits(Array(8,aspen_param_int)))
       const Index_t *elemToNode = &p_nodelist[8*i];
+
+#pragma aspen  control ignore 
       Index_t n0 = elemToNode[0] ;
+#pragma aspen  control loads((1*aspen_param_sizeof_int):from(elemToNode):traits(pattern(stencil4)))
+
+#pragma aspen  control ignore 
       Index_t n1 = elemToNode[1] ;
+#pragma aspen  control loads((1*aspen_param_sizeof_int):from(elemToNode):traits(pattern(stencil4)))
+
+#pragma aspen  control ignore 
       Index_t n2 = elemToNode[2] ;
+#pragma aspen  control loads((1*aspen_param_sizeof_int):from(elemToNode):traits(pattern(stencil4)))
+
+#pragma aspen  control ignore 
       Index_t n3 = elemToNode[3] ;
+#pragma aspen  control loads((1*aspen_param_sizeof_int):from(elemToNode):traits(pattern(stencil4)))
+
+#pragma aspen  control ignore 
       Index_t n4 = elemToNode[4] ;
+#pragma aspen  control loads((1*aspen_param_sizeof_int):from(elemToNode):traits(pattern(stencil4)))
+
+#pragma aspen  control ignore 
       Index_t n5 = elemToNode[5] ;
+#pragma aspen  control loads((1*aspen_param_sizeof_int):from(elemToNode):traits(pattern(stencil4)))
+
+#pragma aspen  control ignore 
       Index_t n6 = elemToNode[6] ;
+#pragma aspen  control loads((1*aspen_param_sizeof_int):from(elemToNode):traits(pattern(stencil4)))
+
+#pragma aspen  control ignore 
       Index_t n7 = elemToNode[7] ;
+#pragma aspen  control loads((1*aspen_param_sizeof_int):from(elemToNode):traits(pattern(stencil4)))
 
       Real_t x0 = p_x[n0] ;
       Real_t x1 = p_x[n1] ;
@@ -2840,11 +2877,12 @@ void CalcQForElems()
    CalcMonotonicQGradientsForElems(m_nodelist,m_x,m_y,m_z,m_xd,m_yd,m_zd,m_volo,m_vnew,
        m_delx_zeta,m_delv_zeta,m_delx_xi,m_delv_xi,m_delx_eta,m_delv_eta) ;
 
-   /* Transfer veloctiy gradients in the first order elements */
-   /* problem->commElements->Transfer(CommElements::monoQ) ; */
+   // Transfer veloctiy gradients in the first order elements 
+   // problem->commElements->Transfer(CommElements::monoQ) ; 
+/*
    CalcMonotonicQForElems() ;
 
-   /* Don't allow excessive artificial viscosity */
+   // Don't allow excessive artificial viscosity 
 #pragma aspen control ignore
    if (numElem != 0) {
       //Index_t idx = -1; 
@@ -2866,6 +2904,8 @@ void CalcQForElems()
          exit(QStopError) ;
       }
    }
+
+*/
 }
 
 static inline
@@ -3479,10 +3519,10 @@ void LagrangeElements()
 {
   const Real_t deltatime = m_deltatime;
 
-  CalcLagrangeElements(deltatime,m_vnew,m_vdov,m_dxx,m_dyy,m_dzz) ;
+  //CalcLagrangeElements(deltatime,m_vnew,m_vdov,m_dxx,m_dyy,m_dzz) ;
 
   /* Calculate Q.  (Monotonic q option requires communication) */
-  //CalcQForElems() ;
+  CalcQForElems() ;
 
   //ApplyMaterialPropertiesForElems(m_matElemlist,m_vnew,m_v,m_e,m_delv,m_p,m_q,
          //m_qq,m_ql,m_ss);

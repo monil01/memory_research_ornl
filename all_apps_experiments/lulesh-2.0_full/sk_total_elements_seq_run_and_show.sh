@@ -9,7 +9,8 @@ run_skylake()
     export TAU_METRICS=TIME,PAPI_NATIVE_skx_unc_imc0::UNC_M_CAS_COUNT:RD:cpu=12,PAPI_NATIVE_skx_unc_imc1::UNC_M_CAS_COUNT:RD:cpu=12,PAPI_NATIVE_skx_unc_imc4::UNC_M_CAS_COUNT:RD:cpu=12,PAPI_NATIVE_skx_unc_imc5::UNC_M_CAS_COUNT:RD:cpu=12,PAPI_NATIVE_skx_unc_imc0::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_skx_unc_imc1::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_skx_unc_imc4::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_skx_unc_imc5::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_skx_unc_imc2::UNC_M_CAS_COUNT:RD:cpu=12,PAPI_NATIVE_skx_unc_imc3::UNC_M_CAS_COUNT:RD:cpu=12,PAPI_NATIVE_skx_unc_imc2::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_skx_unc_imc3::UNC_M_CAS_COUNT:WR:cpu=12
  
     #taskset --cpu 12 ./tau_stencil_jacobi $1 $2
-    taskset --cpu 12 ./jacobi $1 $2
+    #taskset --cpu 12 ./jacobi $1 $2
+    taskset --cpu 16 ./lulesh2.0 -s 300 -i 1
 
     #export TAU_METRICS=TIME,PAPI_NATIVE_bdx_unc_imc0::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_bdx_unc_imc1::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_bdx_unc_imc4::UNC_M_CAS_COUNT:WR:cpu=12,PAPI_NATIVE_bdx_unc_imc5::UNC_M_CAS_COUNT:WR:cpu=12
 #taskset --cpu 12 ./tau_stencil_jacobi
@@ -23,7 +24,7 @@ run_skylake()
     declare -i write=0
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc0__UNC_M_CAS_COUNT_RD_cpu\=12
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcPositionForNodes")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcQForElems")
        #for i in "${ADDR[@]}"; do
        #  echo -n "$i" 
        #done
@@ -32,13 +33,13 @@ run_skylake()
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc1__UNC_M_CAS_COUNT_RD_cpu\=12
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcPositionForNodes")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcQForElems")
     #echo ${ADDR[5]}
     read=$read+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc2__UNC_M_CAS_COUNT_RD_cpu\=12
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcPositionForNodes")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcQForElems")
        #for i in "${ADDR[@]}"; do
        #  echo -n "$i" 
        #done
@@ -47,55 +48,55 @@ run_skylake()
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc3__UNC_M_CAS_COUNT_RD_cpu\=12
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcPositionForNodes")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcQForElems")
     #echo ${ADDR[5]}
     read=$read+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc4__UNC_M_CAS_COUNT_RD_cpu\=12
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcPositionForNodes")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcQForElems")
     #echo ${ADDR[5]}
     read=$read+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc5__UNC_M_CAS_COUNT_RD_cpu\=12
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcPositionForNodes")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcQForElems")
     #echo ${ADDR[5]}
     read=$read+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc0__UNC_M_CAS_COUNT_WR_cpu\=12
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcPositionForNodes")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcQForElems")
     #echo ${ADDR[5]}
     write=$write+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc1__UNC_M_CAS_COUNT_WR_cpu\=12
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcPositionForNodes")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcQForElems")
     #echo ${ADDR[5]}
     write=$write+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc2__UNC_M_CAS_COUNT_WR_cpu\=12
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcPositionForNodes")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcQForElems")
     #echo ${ADDR[5]}
     write=$write+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc3__UNC_M_CAS_COUNT_WR_cpu\=12
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcPositionForNodes")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcQForElems")
     #echo ${ADDR[5]}
     write=$write+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc4__UNC_M_CAS_COUNT_WR_cpu\=12
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcPositionForNodes")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcQForElems")
     #echo ${ADDR[5]}
     write=$write+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc5__UNC_M_CAS_COUNT_WR_cpu\=12
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcPositionForNodes")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcQForElems")
     #echo ${ADDR[5]}
     write=$write+${ADDR[5]} 
     cd ..
@@ -103,6 +104,8 @@ run_skylake()
     #write=$write*64
     #read=$read*64
     echo "stride: $stride $read $write"
+    read=$read+$write
+    echo "total: $read"
 }
 
 
@@ -131,7 +134,7 @@ run_broadwell()
 
     cd MULTI__PAPI_NATIVE_bdx_unc_imc0__UNC_M_CAS_COUNT_RD_cpu\=16
 pprof
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcPositionForNodes")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcQForElems")
        #for i in "${ADDR[@]}"; do
        #  echo -n "$i" 
        #done
@@ -141,49 +144,49 @@ pprof
 
     cd MULTI__PAPI_NATIVE_bdx_unc_imc1__UNC_M_CAS_COUNT_RD_cpu\=16
 pprof
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcPositionForNodes")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcQForElems")
     #echo ${ADDR[5]}
     read=$read+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_bdx_unc_imc4__UNC_M_CAS_COUNT_RD_cpu\=16
 pprof
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcPositionForNodes")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcQForElems")
     #echo ${ADDR[5]}
     read=$read+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_bdx_unc_imc5__UNC_M_CAS_COUNT_RD_cpu\=16
 pprof
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcPositionForNodes")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcQForElems")
     #echo ${ADDR[5]}
     read=$read+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_bdx_unc_imc0__UNC_M_CAS_COUNT_WR_cpu\=16
 pprof
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcPositionForNodes")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcQForElems")
     #echo ${ADDR[5]}
     write=$write+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_bdx_unc_imc1__UNC_M_CAS_COUNT_WR_cpu\=16
 pprof
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcPositionForNodes")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcQForElems")
     #echo ${ADDR[5]}
     write=$write+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_bdx_unc_imc4__UNC_M_CAS_COUNT_WR_cpu\=16
 pprof
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcPositionForNodes")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcQForElems")
     #echo ${ADDR[5]}
     write=$write+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_bdx_unc_imc5__UNC_M_CAS_COUNT_WR_cpu\=16
 pprof
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcPositionForNodes")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcQForElems")
     #echo ${ADDR[5]}
     write=$write+${ADDR[5]} 
     cd ..
@@ -211,9 +214,9 @@ n_array=(100000000)
 make clean
 make
 
-intel-prefetch -d
-
-#intel-prefetch-disable -d
+#intel-prefetch -d
+#echo "Iamm1nil" | sudo /usr/local/bin/intel-prefetch-disable -d
+intel-prefetch-disable -d
 
 for array_size in "${n_array[@]}"
 do
@@ -224,16 +227,17 @@ do
     for i in 1
     #for i in 1 2 3 4 5 
     do
-	#run_skylake $stride $array_size
-	run_broadwell $stride $array_size
+	run_skylake $stride $array_size
+	#run_broadwell $stride $array_size
 	rm -rf MULT*
 
     done
 done
 done
 
-intel-prefetch -e
-#intel-prefetch-disable -e
+#intel-prefetch -e
+#echo "Iamm1nil" | sudo /usr/local/bin/intel-prefetch-disable -e
+intel-prefetch-disable -e
 
 for array_size in "${n_array[@]}"
 do
@@ -244,8 +248,8 @@ do
     for i in 1
     #for i in 1 2 3 4 5 
     do
-	#run_skylake $stride $array_size
-	run_broadwell $stride $array_size
+	run_skylake $stride $array_size
+	#run_broadwell $stride $array_size
 	rm -rf MULT*
 
     done

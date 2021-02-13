@@ -180,7 +180,6 @@ return _ret_val_0;
 inline double FABS8(double arg)
 {
 double _ret_val_0;
-#pragma aspen  control execute label(block_FABS83) flops(1:traits(dp))
 _ret_val_0=fabs(arg);
 return _ret_val_0;
 }
@@ -228,12 +227,9 @@ double * m_xdd;
 double * m_ydd;
 #pragma aspen  declare data(m_zdd:traits(Array(m_numNode, aspen_param_sizeof_double)))
 double * m_zdd;
-#pragma aspen  declare data(m_fx:traits(Array(m_numNode, aspen_param_sizeof_double)))
 double * m_fx;
 /* forces */
-#pragma aspen  declare data(m_fy:traits(Array(m_numNode, aspen_param_sizeof_double)))
 double * m_fy;
-#pragma aspen  declare data(m_fz:traits(Array(m_numNode, aspen_param_sizeof_double)))
 double * m_fz;
 #pragma aspen  declare data(m_nodalMass:traits(Array(m_numNode, aspen_param_sizeof_double)))
 double * m_nodalMass;
@@ -292,7 +288,6 @@ double * m_e;
 #pragma aspen  declare data(m_p:traits(Array(m_numElem, aspen_param_sizeof_double)))
 double * m_p;
 /* pressure */
-#pragma aspen  declare data(m_q:traits(Array(m_numElem, aspen_param_sizeof_double)))
 double * m_q;
 /* q */
 double * m_ql;
@@ -347,13 +342,9 @@ double * pbvc;
 /* Temporary variables from ApplyMaterialPropertiesForElems() */
 double * vnewc;
 /* Temporary variables from CalcVolumeForceForElems() */
-#pragma aspen  declare data(sigxx:traits(Array(m_numElem, aspen_param_sizeof_double)))
 double * sigxx;
-#pragma aspen  declare data(sigyy:traits(Array(m_numElem, aspen_param_sizeof_double)))
 double * sigyy;
-#pragma aspen  declare data(sigzz:traits(Array(m_numElem, aspen_param_sizeof_double)))
 double * sigzz;
-#pragma aspen  declare data(determ:traits(Array(m_numElem, aspen_param_sizeof_double)))
 double * determ;
 /* Parameters */
 double m_dtfixed;
@@ -412,7 +403,6 @@ int edgeElems;
 #pragma aspen  declare param(edgeNodes:(edgeElems+1))
 int edgeNodes;
 /* #pragma aspen declare param(m_sizeX:edgeElems) */
-#pragma aspen  declare param(m_sizeX:edgeElems)
 int m_sizeX;
 /* X,Y,Z extent of this block */
 int m_sizeY;
@@ -696,17 +686,15 @@ m_time+=m_deltatime;
 return ;
 }
 
-static inline void InitStressTermsForElems(int numElem, double sigxx[((300*300)*300)], double sigyy[((300*300)*300)], double sigzz[((300*300)*300)], double m_p[((300*300)*300)], double m_q[((300*300)*300)])
+static inline void InitStressTermsForElems(int numElem, double sigxx[((300*300)*300)], double sigyy[((300*300)*300)], double sigzz[((300*300)*300)], double p_p[((300*300)*300)], double p_q[((300*300)*300)])
 {
 /*  */
 /* pull in the stresses appropriate to the hydro integration */
 /*  */
 int i;
-#pragma aspen  control label(block_InitStressTermsForElems6) loop(numElem) parallelism(numElem) flops(1:traits(integer))
 for (i=0; i<numElem;  ++ i)
 {
-#pragma aspen  control execute label(block_InitStressTermsForElems7) flops(1:traits(dp, simd)) loads((1*aspen_param_sizeof_double):from(m_p):traits(stride(1)), (1*aspen_param_sizeof_double):from(m_q):traits(stride(1))) stores((1*aspen_param_sizeof_double):to(sigxx):traits(stride(1)), (1*aspen_param_sizeof_double):to(sigyy):traits(stride(1)), (1*aspen_param_sizeof_double):to(sigzz):traits(stride(1)))
-sigxx[i]=(sigyy[i]=(sigzz[i]=(( - m_p[i])-m_q[i])));
+sigxx[i]=(sigyy[i]=(sigzz[i]=(( - p_p[i])-p_q[i])));
 }
 return ;
 }
@@ -755,42 +743,24 @@ double cjyze;
 double cjzxi;
 double cjzet;
 double cjzze;
-#pragma aspen  control execute label(block_CalcElemShapeFunctionDerivatives84) flops(8:traits(dp))
 fjxxi=(0.125*((((x6-x0)+(x5-x3))-(x7-x1))-(x4-x2)));
-#pragma aspen  control execute label(block_CalcElemShapeFunctionDerivatives85) flops(8:traits(dp))
 fjxet=(0.125*((((x6-x0)-(x5-x3))+(x7-x1))-(x4-x2)));
-#pragma aspen  control execute label(block_CalcElemShapeFunctionDerivatives86) flops(8:traits(dp))
 fjxze=(0.125*((((x6-x0)+(x5-x3))+(x7-x1))+(x4-x2)));
-#pragma aspen  control execute label(block_CalcElemShapeFunctionDerivatives87) flops(8:traits(dp))
 fjyxi=(0.125*((((y6-y0)+(y5-y3))-(y7-y1))-(y4-y2)));
-#pragma aspen  control execute label(block_CalcElemShapeFunctionDerivatives88) flops(8:traits(dp))
 fjyet=(0.125*((((y6-y0)-(y5-y3))+(y7-y1))-(y4-y2)));
-#pragma aspen  control execute label(block_CalcElemShapeFunctionDerivatives89) flops(8:traits(dp))
 fjyze=(0.125*((((y6-y0)+(y5-y3))+(y7-y1))+(y4-y2)));
-#pragma aspen  control execute label(block_CalcElemShapeFunctionDerivatives90) flops(8:traits(dp))
 fjzxi=(0.125*((((z6-z0)+(z5-z3))-(z7-z1))-(z4-z2)));
-#pragma aspen  control execute label(block_CalcElemShapeFunctionDerivatives91) flops(8:traits(dp))
 fjzet=(0.125*((((z6-z0)-(z5-z3))+(z7-z1))-(z4-z2)));
-#pragma aspen  control execute label(block_CalcElemShapeFunctionDerivatives92) flops(8:traits(dp))
 fjzze=(0.125*((((z6-z0)+(z5-z3))+(z7-z1))+(z4-z2)));
 /* compute cofactors */
-#pragma aspen  control execute label(block_CalcElemShapeFunctionDerivatives94) flops(3:traits(dp))
 cjxxi=((fjyet*fjzze)-(fjzet*fjyze));
-#pragma aspen  control execute label(block_CalcElemShapeFunctionDerivatives95) flops(3:traits(dp))
 cjxet=(( - (fjyxi*fjzze))+(fjzxi*fjyze));
-#pragma aspen  control execute label(block_CalcElemShapeFunctionDerivatives96) flops(3:traits(dp))
 cjxze=((fjyxi*fjzet)-(fjzxi*fjyet));
-#pragma aspen  control execute label(block_CalcElemShapeFunctionDerivatives97) flops(3:traits(dp))
 cjyxi=(( - (fjxet*fjzze))+(fjzet*fjxze));
-#pragma aspen  control execute label(block_CalcElemShapeFunctionDerivatives98) flops(3:traits(dp))
 cjyet=((fjxxi*fjzze)-(fjzxi*fjxze));
-#pragma aspen  control execute label(block_CalcElemShapeFunctionDerivatives99) flops(3:traits(dp))
 cjyze=(( - (fjxxi*fjzet))+(fjzxi*fjxet));
-#pragma aspen  control execute label(block_CalcElemShapeFunctionDerivatives100) flops(3:traits(dp))
 cjzxi=((fjxet*fjyze)-(fjyet*fjxze));
-#pragma aspen  control execute label(block_CalcElemShapeFunctionDerivatives101) flops(3:traits(dp))
 cjzet=(( - (fjxxi*fjyze))+(fjyxi*fjxze));
-#pragma aspen  control execute label(block_CalcElemShapeFunctionDerivatives102) flops(3:traits(dp))
 cjzze=((fjxxi*fjyet)-(fjyxi*fjxet));
 /*
 calculate partials :
@@ -798,56 +768,31 @@ calculate partials :
      (6,7,4,5) = - (0,1,2,3) .
  
 */
-#pragma aspen  control execute label(block_CalcElemShapeFunctionDerivatives104) flops(2:traits(dp, simd)) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 b[0][0]=((( - cjxxi)-cjxet)-cjxze);
-#pragma aspen  control execute label(block_CalcElemShapeFunctionDerivatives105) flops(2:traits(dp, simd)) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 b[0][1]=((cjxxi-cjxet)-cjxze);
-#pragma aspen  control execute label(block_CalcElemShapeFunctionDerivatives106) flops(2:traits(dp, simd)) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 b[0][2]=((cjxxi+cjxet)-cjxze);
-#pragma aspen  control execute label(block_CalcElemShapeFunctionDerivatives107) flops(2:traits(dp, simd)) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 b[0][3]=((( - cjxxi)+cjxet)-cjxze);
-#pragma aspen  control execute label(block_CalcElemShapeFunctionDerivatives108) loads((1*aspen_param_sizeof_double):traits(stride(0))) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 b[0][4]=( - b[0][2]);
-#pragma aspen  control execute label(block_CalcElemShapeFunctionDerivatives109) loads((1*aspen_param_sizeof_double):traits(stride(0))) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 b[0][5]=( - b[0][3]);
-#pragma aspen  control execute label(block_CalcElemShapeFunctionDerivatives110) loads((1*aspen_param_sizeof_double):traits(stride(0))) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 b[0][6]=( - b[0][0]);
-#pragma aspen  control execute label(block_CalcElemShapeFunctionDerivatives111) loads((1*aspen_param_sizeof_double):traits(stride(0))) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 b[0][7]=( - b[0][1]);
-#pragma aspen  control execute label(block_CalcElemShapeFunctionDerivatives112) flops(2:traits(dp, simd)) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 b[1][0]=((( - cjyxi)-cjyet)-cjyze);
-#pragma aspen  control execute label(block_CalcElemShapeFunctionDerivatives113) flops(2:traits(dp, simd)) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 b[1][1]=((cjyxi-cjyet)-cjyze);
-#pragma aspen  control execute label(block_CalcElemShapeFunctionDerivatives114) flops(2:traits(dp, simd)) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 b[1][2]=((cjyxi+cjyet)-cjyze);
-#pragma aspen  control execute label(block_CalcElemShapeFunctionDerivatives115) flops(2:traits(dp, simd)) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 b[1][3]=((( - cjyxi)+cjyet)-cjyze);
-#pragma aspen  control execute label(block_CalcElemShapeFunctionDerivatives116) loads((1*aspen_param_sizeof_double):traits(stride(0))) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 b[1][4]=( - b[1][2]);
-#pragma aspen  control execute label(block_CalcElemShapeFunctionDerivatives117) loads((1*aspen_param_sizeof_double):traits(stride(0))) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 b[1][5]=( - b[1][3]);
-#pragma aspen  control execute label(block_CalcElemShapeFunctionDerivatives118) loads((1*aspen_param_sizeof_double):traits(stride(0))) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 b[1][6]=( - b[1][0]);
-#pragma aspen  control execute label(block_CalcElemShapeFunctionDerivatives119) loads((1*aspen_param_sizeof_double):traits(stride(0))) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 b[1][7]=( - b[1][1]);
-#pragma aspen  control execute label(block_CalcElemShapeFunctionDerivatives120) flops(2:traits(dp, simd)) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 b[2][0]=((( - cjzxi)-cjzet)-cjzze);
-#pragma aspen  control execute label(block_CalcElemShapeFunctionDerivatives121) flops(2:traits(dp, simd)) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 b[2][1]=((cjzxi-cjzet)-cjzze);
-#pragma aspen  control execute label(block_CalcElemShapeFunctionDerivatives122) flops(2:traits(dp, simd)) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 b[2][2]=((cjzxi+cjzet)-cjzze);
-#pragma aspen  control execute label(block_CalcElemShapeFunctionDerivatives123) flops(2:traits(dp, simd)) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 b[2][3]=((( - cjzxi)+cjzet)-cjzze);
-#pragma aspen  control execute label(block_CalcElemShapeFunctionDerivatives124) loads((1*aspen_param_sizeof_double):traits(stride(0))) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 b[2][4]=( - b[2][2]);
-#pragma aspen  control execute label(block_CalcElemShapeFunctionDerivatives125) loads((1*aspen_param_sizeof_double):traits(stride(0))) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 b[2][5]=( - b[2][3]);
-#pragma aspen  control execute label(block_CalcElemShapeFunctionDerivatives126) loads((1*aspen_param_sizeof_double):traits(stride(0))) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 b[2][6]=( - b[2][0]);
-#pragma aspen  control execute label(block_CalcElemShapeFunctionDerivatives127) loads((1*aspen_param_sizeof_double):traits(stride(0))) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 b[2][7]=( - b[2][1]);
 /* calculate jacobian determinant (volume) */
-#pragma aspen  control execute label(block_CalcElemShapeFunctionDerivatives129) flops(6:traits(dp)) stores((1*aspen_param_sizeof_double))
 ( * volume)=(8.0*(((fjxet*cjxet)+(fjyet*cjyet))+(fjzet*cjzet)));
 return ;
 }
@@ -855,55 +800,34 @@ return ;
 static inline void SumElemFaceNormal(double * normalX0, double * normalY0, double * normalZ0, double * normalX1, double * normalY1, double * normalZ1, double * normalX2, double * normalY2, double * normalZ2, double * normalX3, double * normalY3, double * normalZ3, const double x0, const double y0, const double z0, const double x1, const double y1, const double z1, const double x2, const double y2, const double z2, const double x3, const double y3, const double z3)
 {
 double bisectX0;
-#pragma aspen  control execute label(block_SumElemFaceNormal14) flops(4:traits(dp))
 bisectX0=0.5*(((x3+x2)-x1)-x0);
 double bisectY0;
-#pragma aspen  control execute label(block_SumElemFaceNormal17) flops(4:traits(dp))
 bisectY0=0.5*(((y3+y2)-y1)-y0);
 double bisectZ0;
-#pragma aspen  control execute label(block_SumElemFaceNormal20) flops(4:traits(dp))
 bisectZ0=0.5*(((z3+z2)-z1)-z0);
 double bisectX1;
-#pragma aspen  control execute label(block_SumElemFaceNormal23) flops(4:traits(dp))
 bisectX1=0.5*(((x2+x1)-x3)-x0);
 double bisectY1;
-#pragma aspen  control execute label(block_SumElemFaceNormal26) flops(4:traits(dp))
 bisectY1=0.5*(((y2+y1)-y3)-y0);
 double bisectZ1;
-#pragma aspen  control execute label(block_SumElemFaceNormal29) flops(4:traits(dp))
 bisectZ1=0.5*(((z2+z1)-z3)-z0);
 double areaX;
-#pragma aspen  control execute label(block_SumElemFaceNormal32) flops(4:traits(dp))
 areaX=0.25*((bisectY0*bisectZ1)-(bisectZ0*bisectY1));
 double areaY;
-#pragma aspen  control execute label(block_SumElemFaceNormal35) flops(4:traits(dp))
 areaY=0.25*((bisectZ0*bisectX1)-(bisectX0*bisectZ1));
 double areaZ;
-#pragma aspen  control execute label(block_SumElemFaceNormal38) flops(4:traits(dp))
 areaZ=0.25*((bisectX0*bisectY1)-(bisectY0*bisectX1));
-#pragma aspen  control execute label(block_SumElemFaceNormal39) flops(1:traits(dp)) stores((1*aspen_param_sizeof_double))
 ( * normalX0)+=areaX;
-#pragma aspen  control execute label(block_SumElemFaceNormal40) flops(1:traits(dp)) stores((1*aspen_param_sizeof_double))
 ( * normalX1)+=areaX;
-#pragma aspen  control execute label(block_SumElemFaceNormal41) flops(1:traits(dp)) stores((1*aspen_param_sizeof_double))
 ( * normalX2)+=areaX;
-#pragma aspen  control execute label(block_SumElemFaceNormal42) flops(1:traits(dp)) stores((1*aspen_param_sizeof_double))
 ( * normalX3)+=areaX;
-#pragma aspen  control execute label(block_SumElemFaceNormal43) flops(1:traits(dp)) stores((1*aspen_param_sizeof_double))
 ( * normalY0)+=areaY;
-#pragma aspen  control execute label(block_SumElemFaceNormal44) flops(1:traits(dp)) stores((1*aspen_param_sizeof_double))
 ( * normalY1)+=areaY;
-#pragma aspen  control execute label(block_SumElemFaceNormal45) flops(1:traits(dp)) stores((1*aspen_param_sizeof_double))
 ( * normalY2)+=areaY;
-#pragma aspen  control execute label(block_SumElemFaceNormal46) flops(1:traits(dp)) stores((1*aspen_param_sizeof_double))
 ( * normalY3)+=areaY;
-#pragma aspen  control execute label(block_SumElemFaceNormal47) flops(1:traits(dp)) stores((1*aspen_param_sizeof_double))
 ( * normalZ0)+=areaZ;
-#pragma aspen  control execute label(block_SumElemFaceNormal48) flops(1:traits(dp)) stores((1*aspen_param_sizeof_double))
 ( * normalZ1)+=areaZ;
-#pragma aspen  control execute label(block_SumElemFaceNormal49) flops(1:traits(dp)) stores((1*aspen_param_sizeof_double))
 ( * normalZ2)+=areaZ;
-#pragma aspen  control execute label(block_SumElemFaceNormal50) flops(1:traits(dp)) stores((1*aspen_param_sizeof_double))
 ( * normalZ3)+=areaZ;
 return ;
 }
@@ -911,33 +835,23 @@ return ;
 static inline void CalcElemNodeNormals(double pfx[8], double pfy[8], double pfz[8], const double x[8], const double y[8], const double z[8])
 {
 int i;
-#pragma aspen  control label(block_CalcElemNodeNormals2) loop(8) flops(1:traits(integer))
 for (i=0; i<8;  ++ i)
 {
-#pragma aspen  control execute label(block_CalcElemNodeNormals3) stores(((1*aspen_param_sizeof_double)*8):traits(stride(1)))
 pfx[i]=0.0;
-#pragma aspen  control execute label(block_CalcElemNodeNormals4) stores(((1*aspen_param_sizeof_double)*8):traits(stride(1)))
 pfy[i]=0.0;
-#pragma aspen  control execute label(block_CalcElemNodeNormals5) stores(((1*aspen_param_sizeof_double)*8):traits(stride(1)))
 pfz[i]=0.0;
 }
 /* evaluate face one: nodes 0, 1, 2, 3 */
-#pragma aspen  control label(block_CalcElemNodeNormals7) loads((16*aspen_param_sizeof_double):traits(stride(0)), (8*aspen_param_sizeof_double):traits(stride(0)))
 SumElemFaceNormal(( & pfx[0]), ( & pfy[0]), ( & pfz[0]), ( & pfx[1]), ( & pfy[1]), ( & pfz[1]), ( & pfx[2]), ( & pfy[2]), ( & pfz[2]), ( & pfx[3]), ( & pfy[3]), ( & pfz[3]), x[0], y[0], z[0], x[1], y[1], z[1], x[2], y[2], z[2], x[3], y[3], z[3]);
 /* evaluate face two: nodes 0, 4, 5, 1 */
-#pragma aspen  control label(block_CalcElemNodeNormals9) loads((16*aspen_param_sizeof_double):traits(stride(0)), (8*aspen_param_sizeof_double):traits(stride(0)))
 SumElemFaceNormal(( & pfx[0]), ( & pfy[0]), ( & pfz[0]), ( & pfx[4]), ( & pfy[4]), ( & pfz[4]), ( & pfx[5]), ( & pfy[5]), ( & pfz[5]), ( & pfx[1]), ( & pfy[1]), ( & pfz[1]), x[0], y[0], z[0], x[4], y[4], z[4], x[5], y[5], z[5], x[1], y[1], z[1]);
 /* evaluate face three: nodes 1, 5, 6, 2 */
-#pragma aspen  control label(block_CalcElemNodeNormals11) loads((16*aspen_param_sizeof_double):traits(stride(0)), (8*aspen_param_sizeof_double):traits(stride(0)))
 SumElemFaceNormal(( & pfx[1]), ( & pfy[1]), ( & pfz[1]), ( & pfx[5]), ( & pfy[5]), ( & pfz[5]), ( & pfx[6]), ( & pfy[6]), ( & pfz[6]), ( & pfx[2]), ( & pfy[2]), ( & pfz[2]), x[1], y[1], z[1], x[5], y[5], z[5], x[6], y[6], z[6], x[2], y[2], z[2]);
 /* evaluate face four: nodes 2, 6, 7, 3 */
-#pragma aspen  control label(block_CalcElemNodeNormals13) loads((16*aspen_param_sizeof_double):traits(stride(0)), (8*aspen_param_sizeof_double):traits(stride(0)))
 SumElemFaceNormal(( & pfx[2]), ( & pfy[2]), ( & pfz[2]), ( & pfx[6]), ( & pfy[6]), ( & pfz[6]), ( & pfx[7]), ( & pfy[7]), ( & pfz[7]), ( & pfx[3]), ( & pfy[3]), ( & pfz[3]), x[2], y[2], z[2], x[6], y[6], z[6], x[7], y[7], z[7], x[3], y[3], z[3]);
 /* evaluate face five: nodes 3, 7, 4, 0 */
-#pragma aspen  control label(block_CalcElemNodeNormals15) loads((16*aspen_param_sizeof_double):traits(stride(0)), (8*aspen_param_sizeof_double):traits(stride(0)))
 SumElemFaceNormal(( & pfx[3]), ( & pfy[3]), ( & pfz[3]), ( & pfx[7]), ( & pfy[7]), ( & pfz[7]), ( & pfx[4]), ( & pfy[4]), ( & pfz[4]), ( & pfx[0]), ( & pfy[0]), ( & pfz[0]), x[3], y[3], z[3], x[7], y[7], z[7], x[4], y[4], z[4], x[0], y[0], z[0]);
 /* evaluate face six: nodes 4, 7, 6, 5 */
-#pragma aspen  control label(block_CalcElemNodeNormals17) loads((16*aspen_param_sizeof_double):traits(stride(0)), (8*aspen_param_sizeof_double):traits(stride(0)))
 SumElemFaceNormal(( & pfx[4]), ( & pfy[4]), ( & pfz[4]), ( & pfx[7]), ( & pfy[7]), ( & pfz[7]), ( & pfx[6]), ( & pfy[6]), ( & pfz[6]), ( & pfx[5]), ( & pfy[5]), ( & pfz[5]), x[4], y[4], z[4], x[7], y[7], z[7], x[6], y[6], z[6], x[5], y[5], z[5]);
 return ;
 }
@@ -945,129 +859,81 @@ return ;
 static inline void SumElemStressesToNodeForces(const double B[][8], const double stress_xx, const double stress_yy, const double stress_zz, double * const fx, double * const fy, double * const fz)
 {
 double pfx0;
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces5) loads((1*aspen_param_sizeof_double):traits(stride(0)))
 pfx0=B[0][0];
 double pfx1;
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces8) loads((1*aspen_param_sizeof_double):traits(stride(0)))
 pfx1=B[0][1];
 double pfx2;
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces11) loads((1*aspen_param_sizeof_double):traits(stride(0)))
 pfx2=B[0][2];
 double pfx3;
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces14) loads((1*aspen_param_sizeof_double):traits(stride(0)))
 pfx3=B[0][3];
 double pfx4;
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces17) loads((1*aspen_param_sizeof_double):traits(stride(0)))
 pfx4=B[0][4];
 double pfx5;
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces20) loads((1*aspen_param_sizeof_double):traits(stride(0)))
 pfx5=B[0][5];
 double pfx6;
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces23) loads((1*aspen_param_sizeof_double):traits(stride(0)))
 pfx6=B[0][6];
 double pfx7;
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces26) loads((1*aspen_param_sizeof_double):traits(stride(0)))
 pfx7=B[0][7];
 double pfy0;
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces29) loads((1*aspen_param_sizeof_double):traits(stride(0)))
 pfy0=B[1][0];
 double pfy1;
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces32) loads((1*aspen_param_sizeof_double):traits(stride(0)))
 pfy1=B[1][1];
 double pfy2;
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces35) loads((1*aspen_param_sizeof_double):traits(stride(0)))
 pfy2=B[1][2];
 double pfy3;
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces38) loads((1*aspen_param_sizeof_double):traits(stride(0)))
 pfy3=B[1][3];
 double pfy4;
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces41) loads((1*aspen_param_sizeof_double):traits(stride(0)))
 pfy4=B[1][4];
 double pfy5;
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces44) loads((1*aspen_param_sizeof_double):traits(stride(0)))
 pfy5=B[1][5];
 double pfy6;
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces47) loads((1*aspen_param_sizeof_double):traits(stride(0)))
 pfy6=B[1][6];
 double pfy7;
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces50) loads((1*aspen_param_sizeof_double):traits(stride(0)))
 pfy7=B[1][7];
 double pfz0;
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces53) loads((1*aspen_param_sizeof_double):traits(stride(0)))
 pfz0=B[2][0];
 double pfz1;
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces56) loads((1*aspen_param_sizeof_double):traits(stride(0)))
 pfz1=B[2][1];
 double pfz2;
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces59) loads((1*aspen_param_sizeof_double):traits(stride(0)))
 pfz2=B[2][2];
 double pfz3;
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces62) loads((1*aspen_param_sizeof_double):traits(stride(0)))
 pfz3=B[2][3];
 double pfz4;
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces65) loads((1*aspen_param_sizeof_double):traits(stride(0)))
 pfz4=B[2][4];
 double pfz5;
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces68) loads((1*aspen_param_sizeof_double):traits(stride(0)))
 pfz5=B[2][5];
 double pfz6;
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces71) loads((1*aspen_param_sizeof_double):traits(stride(0)))
 pfz6=B[2][6];
 double pfz7;
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces74) loads((1*aspen_param_sizeof_double):traits(stride(0)))
 pfz7=B[2][7];
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces75) flops(1:traits(dp, simd)) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 fx[0]=( - (stress_xx*pfx0));
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces76) flops(1:traits(dp, simd)) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 fx[1]=( - (stress_xx*pfx1));
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces77) flops(1:traits(dp, simd)) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 fx[2]=( - (stress_xx*pfx2));
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces78) flops(1:traits(dp, simd)) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 fx[3]=( - (stress_xx*pfx3));
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces79) flops(1:traits(dp, simd)) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 fx[4]=( - (stress_xx*pfx4));
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces80) flops(1:traits(dp, simd)) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 fx[5]=( - (stress_xx*pfx5));
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces81) flops(1:traits(dp, simd)) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 fx[6]=( - (stress_xx*pfx6));
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces82) flops(1:traits(dp, simd)) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 fx[7]=( - (stress_xx*pfx7));
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces83) flops(1:traits(dp, simd)) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 fy[0]=( - (stress_yy*pfy0));
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces84) flops(1:traits(dp, simd)) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 fy[1]=( - (stress_yy*pfy1));
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces85) flops(1:traits(dp, simd)) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 fy[2]=( - (stress_yy*pfy2));
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces86) flops(1:traits(dp, simd)) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 fy[3]=( - (stress_yy*pfy3));
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces87) flops(1:traits(dp, simd)) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 fy[4]=( - (stress_yy*pfy4));
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces88) flops(1:traits(dp, simd)) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 fy[5]=( - (stress_yy*pfy5));
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces89) flops(1:traits(dp, simd)) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 fy[6]=( - (stress_yy*pfy6));
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces90) flops(1:traits(dp, simd)) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 fy[7]=( - (stress_yy*pfy7));
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces91) flops(1:traits(dp, simd)) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 fz[0]=( - (stress_zz*pfz0));
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces92) flops(1:traits(dp, simd)) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 fz[1]=( - (stress_zz*pfz1));
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces93) flops(1:traits(dp, simd)) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 fz[2]=( - (stress_zz*pfz2));
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces94) flops(1:traits(dp, simd)) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 fz[3]=( - (stress_zz*pfz3));
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces95) flops(1:traits(dp, simd)) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 fz[4]=( - (stress_zz*pfz4));
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces96) flops(1:traits(dp, simd)) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 fz[5]=( - (stress_zz*pfz5));
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces97) flops(1:traits(dp, simd)) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 fz[6]=( - (stress_zz*pfz6));
-#pragma aspen  control execute label(block_SumElemStressesToNodeForces98) flops(1:traits(dp, simd)) stores((1*aspen_param_sizeof_double):traits(stride(0)))
 fz[7]=( - (stress_zz*pfz7));
 return ;
 }
 
-static inline void IntegrateStressForElems(int numElem, double sigxx[((300*300)*300)], double sigyy[((300*300)*300)], double sigzz[((300*300)*300)], double determ[((300*300)*300)], int p_nodelist[(((300*300)*300)*8)], double m_x[(((300+1)*(300+1))*(300+1))], double m_y[(((300+1)*(300+1))*(300+1))], double m_z[(((300+1)*(300+1))*(300+1))], int p_nodeElemCount[(((300+1)*(300+1))*(300+1))], int p_nodeElemStart[(((300+1)*(300+1))*(300+1))], int p_nodeElemCornerList[(((300*300)*300)*8)], double m_fx[(((300+1)*(300+1))*(300+1))], double m_fy[(((300+1)*(300+1))*(300+1))], double m_fz[(((300+1)*(300+1))*(300+1))])
+static inline void IntegrateStressForElems(int numElem, double sigxx[((300*300)*300)], double sigyy[((300*300)*300)], double sigzz[((300*300)*300)], double determ[((300*300)*300)], int p_nodelist[(((300*300)*300)*8)], double p_x[(((300+1)*(300+1))*(300+1))], double p_y[(((300+1)*(300+1))*(300+1))], double p_z[(((300+1)*(300+1))*(300+1))], int p_nodeElemCount[(((300+1)*(300+1))*(300+1))], int p_nodeElemStart[(((300+1)*(300+1))*(300+1))], int p_nodeElemCornerList[(((300*300)*300)*8)], double p_fx[(((300+1)*(300+1))*(300+1))], double p_fy[(((300+1)*(300+1))*(300+1))], double p_fz[(((300+1)*(300+1))*(300+1))])
 {
 int k;
 int lnode;
@@ -1081,7 +947,6 @@ int i;
 
 */
 /* loop over all elements */
-#pragma aspen  control label(block_IntegrateStressForElems11) loop(numElem) parallelism(numElem) flops(1:traits(integer))
 for (k=0; k<numElem;  ++ k)
 {
 double B[3][8];
@@ -1095,7 +960,6 @@ const int * const elemNodes =  & p_nodelist[(8*k)];
 /* Monil this is a stencil loop. Here is some reuse factors. Two 4 point stencil are read in this loop */
 /* #pragma aspen control ignore */
 /*  */
-#pragma aspen  control label(block_IntegrateStressForElems23) loop(8) flops(1:traits(integer))
 for (lnode=0; lnode<8;  ++ lnode)
 {
 /* #pragma aspen  control loads(((1aspen_param_sizeof_int)):from(elemNodes):traits(pattern(stencil4))) */
@@ -1106,28 +970,25 @@ for (lnode=0; lnode<8;  ++ lnode)
 int gnode;
 gnode=elemNodes[lnode];
 }
-#pragma aspen  control execute label(block_IntegrateStressForElems513) loads(((1*aspen_param_sizeof_int)*8):from(elemNodes):traits(pattern(stencil4)))
-#pragma aspen  control label(block_IntegrateStressForElems513) loads(((1*aspen_param_sizeof_double)*8):from(m_x):traits(pattern(stencil4)))
-x_local[lnode]=m_x[gnode];
-#pragma aspen  control execute label(block_IntegrateStressForElems514) loads(((1*aspen_param_sizeof_double)*8):from(m_y):traits(pattern(stencil4)))
-y_local[lnode]=m_y[gnode];
-#pragma aspen  control execute label(block_IntegrateStressForElems515) loads(((1*aspen_param_sizeof_double)*8):from(m_z):traits(pattern(stencil4)))
-z_local[lnode]=m_z[gnode];
+#pragma aspen  control loads((1*aspen_param_sizeof_int):from(elemNodes):traits(pattern(stencil4)))
+#pragma aspen  control loads(0:from(p_x):traits(pattern(stencil4)))
+x_local[lnode]=p_x[gnode];
+#pragma aspen  control loads(0:from(p_y):traits(pattern(stencil4)))
+y_local[lnode]=p_y[gnode];
+#pragma aspen  control loads(0:from(p_z):traits(pattern(stencil4)))
+z_local[lnode]=p_z[gnode];
 }
 /* Volume calculation involves extra work for numerical consistency.  */
 /* Monil this function is ignored becuase this will only be 8X3 accesses and rest of it will be served from cache since same location is repeated numElem times. */
 /* only the determ is written to memory */
 /*  */
-#pragma aspen  control label(block_IntegrateStressForElems35) loads((1*aspen_param_sizeof_double):from(determ):traits(stride(1)))
 CalcElemShapeFunctionDerivatives(x_local, y_local, z_local, B, ( & determ[k]));
 CalcElemNodeNormals(B[0], B[1], B[2], x_local, y_local, z_local);
 /* SumElemStressesToNodeForces( B, sigxx[k], sigyy[k], sigzz[k], */
 /*                             &fx_elem[k8], &fy_elem[k*8], &fz_elem[k*8] ) ; */
-#pragma aspen  control label(block_IntegrateStressForElems39) loads((1*aspen_param_sizeof_double):from(sigxx):traits(stride(1)), (1*aspen_param_sizeof_double):from(sigyy):traits(stride(1)), (1*aspen_param_sizeof_double):from(sigzz):traits(stride(1)))
 SumElemStressesToNodeForces(B, sigxx[k], sigyy[k], sigzz[k], fx_local, fy_local, fz_local);
 /* #if 0 */
 /* copy nodal force contributions to global force arrray. */
-#pragma aspen  control label(block_IntegrateStressForElems42) loop(8) flops(1:traits(integer))
 for (lnode=0; lnode<8;  ++ lnode)
 {
 #pragma aspen  control ignore
@@ -1135,13 +996,13 @@ for (lnode=0; lnode<8;  ++ lnode)
 int gnode;
 gnode=elemNodes[lnode];
 }
-#pragma aspen  control execute label(block_IntegrateStressForElems755) flops((1*8):traits(dp)) loads(((1*aspen_param_sizeof_int)*8):from(elemNodes):traits(pattern(stencil4)))
-#pragma aspen  control label(block_IntegrateStressForElems755) stores(((1*aspen_param_sizeof_double)*8):from(m_fx):traits(pattern(stencil4)))
-m_fx(gnode)+=fx_local[lnode];
-#pragma aspen  control execute label(block_IntegrateStressForElems756) flops((1*8):traits(dp)) stores(((1*aspen_param_sizeof_double)*8):from(m_fy):traits(pattern(stencil4)))
-m_fy(gnode)+=fy_local[lnode];
-#pragma aspen  control execute label(block_IntegrateStressForElems757) flops((1*8):traits(dp)) stores(((1*aspen_param_sizeof_double)*8):from(m_fz):traits(pattern(stencil4)))
-m_fz(gnode)+=fz_local[lnode];
+#pragma aspen  control loads((1*aspen_param_sizeof_int):from(elemNodes):traits(pattern(stencil4)))
+#pragma aspen  control stores(0:from(p_fx):traits(pattern(stencil4)))
+p_fx(gnode)+=fx_local[lnode];
+#pragma aspen  control stores(0:from(p_fy):traits(pattern(stencil4)))
+p_fy(gnode)+=fy_local[lnode];
+#pragma aspen  control stores(0:from(p_fz):traits(pattern(stencil4)))
+p_fz(gnode)+=fz_local[lnode];
 }
 /* #endif */
 }
@@ -1609,16 +1470,13 @@ return ;
 static inline void CalcVolumeForceForElems()
 {
 int k;
-#pragma aspen  declare param(numElem:m_numElem)
 int numElem;
-#pragma aspen  control ignore
 numElem=m_numElem;
 int abort = 0;
-#pragma aspen  control label(block_CalcVolumeForceForElems472) probability(1) flops(1:traits(integer))
+#pragma aspen  control probability(1)
 if (numElem!=0)
 {
 double hgcoef;
-#pragma aspen  control ignore
 hgcoef=m_hgcoef;
 /*
 
@@ -1642,12 +1500,9 @@ if (determ[k]<=0.0)
 abort=1;
 }
 }
-#pragma aspen  control label(block_CalcVolumeForceForElems19) if(abort==1) flops(1:traits(integer))
 if (abort==1)
 {
-#pragma aspen  control ignore
 fprintf(stderr, "VolumeError in CalcVolumeForceForElems(); exit\n");
-#pragma aspen  control ignore
 exit(VolumeError);
 }
 /* CalcHourglassControlForElems(determ,hgcoef,m_nodelist,m_volo,m_v) ; */
@@ -1663,21 +1518,16 @@ exit(VolumeError);
 return ;
 }
 
-static inline void CalcForceForNodes(double m_fx[(((300+1)*(300+1))*(300+1))], double m_fy[(((300+1)*(300+1))*(300+1))], double m_fz[(((300+1)*(300+1))*(300+1))])
+static inline void CalcForceForNodes(double p_fx[(((300+1)*(300+1))*(300+1))], double p_fy[(((300+1)*(300+1))*(300+1))], double p_fz[(((300+1)*(300+1))*(300+1))])
 {
 int i;
 int numNode;
-#pragma aspen  control ignore
 numNode=m_numNode;
-#pragma aspen  control label(block_CalcForceForNodes5) loop(m_numNode) parallelism(m_numNode) flops(1:traits(integer))
 for (i=0; i<numNode;  ++ i)
 {
-#pragma aspen  control execute label(block_CalcForceForNodes6) stores((1*aspen_param_sizeof_double):to(m_fx):traits(stride(1)))
-m_fx[i]=0.0;
-#pragma aspen  control execute label(block_CalcForceForNodes7) stores((1*aspen_param_sizeof_double):to(m_fy):traits(stride(1)))
-m_fy[i]=0.0;
-#pragma aspen  control execute label(block_CalcForceForNodes8) stores((1*aspen_param_sizeof_double):to(m_fz):traits(stride(1)))
-m_fz[i]=0.0;
+p_fx[i]=0.0;
+p_fy[i]=0.0;
+p_fz[i]=0.0;
 }
 /* Calcforce calls partial, force, hourq */
 CalcVolumeForceForElems();
@@ -1686,115 +1536,93 @@ CalcVolumeForceForElems();
 return ;
 }
 
-static inline void CalcAccelerationForNodes(double m_fx[(((300+1)*(300+1))*(300+1))], double m_fy[(((300+1)*(300+1))*(300+1))], double m_fz[(((300+1)*(300+1))*(300+1))], double m_xdd[(((300+1)*(300+1))*(300+1))], double m_ydd[(((300+1)*(300+1))*(300+1))], double m_zdd[(((300+1)*(300+1))*(300+1))], double m_nodalMass[(((300+1)*(300+1))*(300+1))])
+static inline void CalcAccelerationForNodes(double p_fx[(((300+1)*(300+1))*(300+1))], double p_fy[(((300+1)*(300+1))*(300+1))], double p_fz[(((300+1)*(300+1))*(300+1))], double p_xdd[(((300+1)*(300+1))*(300+1))], double p_ydd[(((300+1)*(300+1))*(300+1))], double p_zdd[(((300+1)*(300+1))*(300+1))], double p_nodalMass[(((300+1)*(300+1))*(300+1))])
 {
 int i;
 int numNode;
-#pragma aspen  control ignore
 numNode=m_numNode;
-#pragma aspen  control label(block_CalcAccelerationForNodes5) loop(m_numNode) parallelism(m_numNode) flops(1:traits(integer))
 for (i=0; i<numNode;  ++ i)
 {
-#pragma aspen  control execute label(block_CalcAccelerationForNodes779) flops(1:traits(dp, simd)) loads((1*aspen_param_sizeof_double):from(m_fx):traits(stride(1)), (1*aspen_param_sizeof_double):from(m_nodalMass):traits(stride(1))) stores((1*aspen_param_sizeof_double):from(m_xdd):traits(initialized(0)))
-m_xdd[i]=(m_fx[i]/m_nodalMass[i]);
-#pragma aspen  control execute label(block_CalcAccelerationForNodes780) flops(1:traits(dp, simd)) loads((1*aspen_param_sizeof_double):from(m_fy):traits(stride(1)), (1*aspen_param_sizeof_double):from(m_nodalMass):traits(stride(1))) stores((1*aspen_param_sizeof_double):from(m_ydd):traits(initialized(0)))
-m_ydd[i]=(m_fy[i]/m_nodalMass[i]);
-#pragma aspen  control execute label(block_CalcAccelerationForNodes781) flops(1:traits(dp, simd)) loads((1*aspen_param_sizeof_double):from(m_fz):traits(stride(1)), (1*aspen_param_sizeof_double):from(m_nodalMass):traits(stride(1))) stores((1*aspen_param_sizeof_double):from(m_zdd):traits(initialized(0)))
-m_zdd[i]=(m_fz[i]/m_nodalMass[i]);
+#pragma aspen  control stores(0:from(p_xdd):traits(initialized(0)))
+p_xdd[i]=(p_fx[i]/p_nodalMass[i]);
+#pragma aspen  control stores(0:from(p_ydd):traits(initialized(0)))
+p_ydd[i]=(p_fy[i]/p_nodalMass[i]);
+#pragma aspen  control stores(0:from(p_zdd):traits(initialized(0)))
+p_zdd[i]=(p_fz[i]/p_nodalMass[i]);
 }
 return ;
 }
 
-static inline void ApplyAccelerationBoundaryConditionsForNodes(double m_xdd[(((300+1)*(300+1))*(300+1))], double m_ydd[(((300+1)*(300+1))*(300+1))], double m_zdd[(((300+1)*(300+1))*(300+1))], int m_symmX[((300+1)*(300+1))], int m_symmY[((300+1)*(300+1))], int m_symmZ[((300+1)*(300+1))])
+static inline void ApplyAccelerationBoundaryConditionsForNodes(double p_xdd[(((300+1)*(300+1))*(300+1))], double p_ydd[(((300+1)*(300+1))*(300+1))], double p_zdd[(((300+1)*(300+1))*(300+1))], int p_symmX[((300+1)*(300+1))], int p_symmY[((300+1)*(300+1))], int p_symmZ[((300+1)*(300+1))])
 {
 int i;
 int numNodeBC;
-#pragma aspen  control execute label(block_ApplyAccelerationBoundaryConditionsForNodes4) flops(3:traits(integer))
 numNodeBC=(m_sizeX+1)*(m_sizeX+1);
 {
-#pragma aspen  control label(block_ApplyAccelerationBoundaryConditionsForNodes6) loop(((1+(2*m_sizeX))+(m_sizeX*m_sizeX))) parallelism(((1+(2*m_sizeX))+(m_sizeX*m_sizeX))) flops(1:traits(integer))
 for (i=0; i<numNodeBC;  ++ i)
 {
-#pragma aspen  control execute label(block_ApplyAccelerationBoundaryConditionsForNodes7) loads((1*aspen_param_sizeof_int):from(m_symmX):traits(stride(1))) stores((1*aspen_param_sizeof_double):to(m_xdd):traits(random))
-m_xdd[m_symmX[i]]=0.0;
+p_xdd[p_symmX[i]]=0.0;
 }
-#pragma aspen  control label(block_ApplyAccelerationBoundaryConditionsForNodes8) loop(((1+(2*m_sizeX))+(m_sizeX*m_sizeX))) parallelism(((1+(2*m_sizeX))+(m_sizeX*m_sizeX))) flops(1:traits(integer))
 for (i=0; i<numNodeBC;  ++ i)
 {
-#pragma aspen  control execute label(block_ApplyAccelerationBoundaryConditionsForNodes9) loads((1*aspen_param_sizeof_int):from(m_symmY):traits(stride(1))) stores((1*aspen_param_sizeof_double):to(m_ydd):traits(random))
-m_ydd[m_symmY[i]]=0.0;
+p_ydd[p_symmY[i]]=0.0;
 }
-#pragma aspen  control label(block_ApplyAccelerationBoundaryConditionsForNodes10) loop(((1+(2*m_sizeX))+(m_sizeX*m_sizeX))) parallelism(((1+(2*m_sizeX))+(m_sizeX*m_sizeX))) flops(1:traits(integer))
 for (i=0; i<numNodeBC;  ++ i)
 {
-#pragma aspen  control execute label(block_ApplyAccelerationBoundaryConditionsForNodes11) loads((1*aspen_param_sizeof_int):from(m_symmZ):traits(stride(1))) stores((1*aspen_param_sizeof_double):to(m_zdd):traits(random))
-m_zdd[m_symmZ[i]]=0.0;
+p_zdd[p_symmZ[i]]=0.0;
 }
 }
 return ;
 }
 
-static inline void CalcVelocityForNodes(const double dt, const double u_cut, double m_xd[(((300+1)*(300+1))*(300+1))], double m_yd[(((300+1)*(300+1))*(300+1))], double m_zd[(((300+1)*(300+1))*(300+1))], double m_xdd[(((300+1)*(300+1))*(300+1))], double m_ydd[(((300+1)*(300+1))*(300+1))], double m_zdd[(((300+1)*(300+1))*(300+1))])
+static inline void CalcVelocityForNodes(const double dt, const double u_cut, double p_xd[(((300+1)*(300+1))*(300+1))], double p_yd[(((300+1)*(300+1))*(300+1))], double p_zd[(((300+1)*(300+1))*(300+1))], double p_xdd[(((300+1)*(300+1))*(300+1))], double p_ydd[(((300+1)*(300+1))*(300+1))], double p_zdd[(((300+1)*(300+1))*(300+1))])
 {
 int i;
 int numNode;
-#pragma aspen  control ignore
 numNode=m_numNode;
-#pragma aspen  control label(block_CalcVelocityForNodes7) loop(m_numNode) parallelism(m_numNode) flops(1:traits(integer))
 for (i=0; i<numNode;  ++ i)
 {
 double xdtmp;
 double ydtmp;
 double zdtmp;
-#pragma aspen  control execute label(block_CalcVelocityForNodes14) flops(2:traits(dp, simd)) loads((1*aspen_param_sizeof_double):from(m_xd):traits(stride(1)), (1*aspen_param_sizeof_double):from(m_xdd):traits(stride(1)))
-xdtmp=(m_xd[i]+(m_xdd[i]*dt));
-#pragma aspen  control label(block_CalcVelocityForNodes808) probability(1) flops(1:traits(dp))
+xdtmp=(p_xd[i]+(p_xdd[i]*dt));
+#pragma aspen  control probability(1)
 if (FABS8(xdtmp)<u_cut)
 {
-#pragma aspen  control ignore
 xdtmp=0.0;
 }
-#pragma aspen  control execute label(block_CalcVelocityForNodes814) stores((1*aspen_param_sizeof_double):from(m_xd):traits(initialized(0)))
-m_xd[i]=xdtmp;
-#pragma aspen  control execute label(block_CalcVelocityForNodes18) flops(2:traits(dp, simd)) loads((1*aspen_param_sizeof_double):from(m_yd):traits(stride(1)), (1*aspen_param_sizeof_double):from(m_ydd):traits(stride(1)))
-ydtmp=(m_yd[i]+(m_ydd[i]*dt));
-#pragma aspen  control label(block_CalcVelocityForNodes816) probability(1) flops(1:traits(dp))
+#pragma aspen  control stores(0:from(p_xd):traits(initialized(0)))
+p_xd[i]=xdtmp;
+ydtmp=(p_yd[i]+(p_ydd[i]*dt));
+#pragma aspen  control probability(1)
 if (FABS8(ydtmp)<u_cut)
 {
-#pragma aspen  control ignore
 ydtmp=0.0;
 }
-#pragma aspen  control execute label(block_CalcVelocityForNodes818) stores((1*aspen_param_sizeof_double):from(m_yd):traits(initialized(0)))
-m_yd[i]=ydtmp;
-#pragma aspen  control execute label(block_CalcVelocityForNodes22) flops(2:traits(dp, simd)) loads((1*aspen_param_sizeof_double):from(m_zd):traits(stride(1)), (1*aspen_param_sizeof_double):from(m_zdd):traits(stride(1)))
-zdtmp=(m_zd[i]+(m_zdd[i]*dt));
-#pragma aspen  control label(block_CalcVelocityForNodes820) probability(1) flops(1:traits(dp))
+#pragma aspen  control stores(0:from(p_yd):traits(initialized(0)))
+p_yd[i]=ydtmp;
+zdtmp=(p_zd[i]+(p_zdd[i]*dt));
+#pragma aspen  control probability(1)
 if (FABS8(zdtmp)<u_cut)
 {
-#pragma aspen  control ignore
 zdtmp=0.0;
 }
-#pragma aspen  control execute label(block_CalcVelocityForNodes822) stores((1*aspen_param_sizeof_double):from(m_zd):traits(initialized(0)))
-m_zd[i]=zdtmp;
+#pragma aspen  control stores(0:from(p_zd):traits(initialized(0)))
+p_zd[i]=zdtmp;
 }
 return ;
 }
 
-static inline void CalcPositionForNodes(const double dt, double m_x[(((300+1)*(300+1))*(300+1))], double m_y[(((300+1)*(300+1))*(300+1))], double m_z[(((300+1)*(300+1))*(300+1))], double m_xd[(((300+1)*(300+1))*(300+1))], double m_yd[(((300+1)*(300+1))*(300+1))], double m_zd[(((300+1)*(300+1))*(300+1))])
+static inline void CalcPositionForNodes(const double dt, double p_x[(((300+1)*(300+1))*(300+1))], double p_y[(((300+1)*(300+1))*(300+1))], double p_z[(((300+1)*(300+1))*(300+1))], double p_xd[(((300+1)*(300+1))*(300+1))], double p_yd[(((300+1)*(300+1))*(300+1))], double p_zd[(((300+1)*(300+1))*(300+1))])
 {
 int i;
 int numNode;
-#pragma aspen  control ignore
 numNode=m_numNode;
-#pragma aspen  control label(block_CalcPositionForNodes6) loop(m_numNode) parallelism(m_numNode) flops(1:traits(integer))
 for (i=0; i<numNode;  ++ i)
 {
-#pragma aspen  control execute label(block_CalcPositionForNodes7) flops(2:traits(dp, simd)) loads((1*aspen_param_sizeof_double):from(m_xd):traits(stride(1))) stores((1*aspen_param_sizeof_double):to(m_x):traits(stride(1)))
-m_x[i]+=(m_xd[i]*dt);
-#pragma aspen  control execute label(block_CalcPositionForNodes8) flops(2:traits(dp, simd)) loads((1*aspen_param_sizeof_double):from(m_yd):traits(stride(1))) stores((1*aspen_param_sizeof_double):to(m_y):traits(stride(1)))
-m_y[i]+=(m_yd[i]*dt);
-#pragma aspen  control execute label(block_CalcPositionForNodes9) flops(2:traits(dp, simd)) loads((1*aspen_param_sizeof_double):from(m_zd):traits(stride(1))) stores((1*aspen_param_sizeof_double):to(m_z):traits(stride(1)))
-m_z[i]+=(m_zd[i]*dt);
+p_x[i]+=(p_xd[i]*dt);
+p_y[i]+=(p_yd[i]*dt);
+p_z[i]+=(p_zd[i]*dt);
 }
 return ;
 }
@@ -1803,7 +1631,6 @@ static inline void LagrangeNodal()
 {
 const double delt = m_deltatime;
 double u_cut;
-#pragma aspen  control ignore
 u_cut=m_u_cut;
 /*
 time of boundary condition evaluation is beginning of step for force and
@@ -1980,12 +1807,42 @@ d[3]=(0.5*(dzddy+dyddz));
 return ;
 }
 
-static inline void CalcKinematicsForElems(int numElem, double dt, int p_nodelist[(((300*300)*300)*8)], double p_x[(((300+1)*(300+1))*(300+1))], double p_y[(((300+1)*(300+1))*(300+1))], double p_z[(((300+1)*(300+1))*(300+1))], double p_volo[((300*300)*300)], double p_v[((300*300)*300)], double p_vnew[((300*300)*300)], double p_delv[((300*300)*300)], double p_arealg[((300*300)*300)], double p_xd[(((300+1)*(300+1))*(300+1))], double p_yd[(((300+1)*(300+1))*(300+1))], double p_zd[(((300+1)*(300+1))*(300+1))], double p_dxx[((300*300)*300)], double p_dyy[((300*300)*300)], double p_dzz[((300*300)*300)])
+/*
+
+#pragma aspen control ignore
+    for( lnode=0 ; lnode<8; ++lnode )
+    {
+
+#pragma aspen  control loads((0:from(elemToNode):traits(pattern(stencil4)))
+#pragma aspen  control loads(0:from(elemToNode):traits(pattern(stencil8)))
+      gnode = elemToNode[lnode];
+      Index_t gnode = elemToNode[lnode];
+#pragma aspen  control loads(((1aspen_param_sizeof_int)):from(elemNodes):traits(pattern(stencil4)))
+
+#pragma aspen control ignore
+      {
+      Index_t gnode = elemToNode[lnode];
+      }
+#pragma aspen  control loads(((1*aspen_param_sizeof_int)):from(elemToNode):traits(pattern(stencil8)))
+
+
+
+#pragma aspen  control loads(0:from(p_x):traits(pattern(stencil8)))
+      x_local[lnode] = p_x[gnode];
+#pragma aspen  control loads(0:from(p_y):traits(pattern(stencil8)))
+      y_local[lnode] = p_y[gnode];
+#pragma aspen  control loads(0:from(p_z):traits(pattern(stencil8)))
+      z_local[lnode] = p_z[gnode];
+    }
+
+*/
+static inline void CalcKinematicsForElems(int numElem, double dt, int p_nodelist[(((300*300)*300)*8)], double m_x[(((300+1)*(300+1))*(300+1))], double m_y[(((300+1)*(300+1))*(300+1))], double m_z[(((300+1)*(300+1))*(300+1))], double p_volo[((300*300)*300)], double p_v[((300*300)*300)], double p_vnew[((300*300)*300)], double p_delv[((300*300)*300)], double p_arealg[((300*300)*300)], double p_xd[(((300+1)*(300+1))*(300+1))], double p_yd[(((300+1)*(300+1))*(300+1))], double p_zd[(((300+1)*(300+1))*(300+1))], double p_dxx[((300*300)*300)], double p_dyy[((300*300)*300)], double p_dzz[((300*300)*300)])
 {
 int k;
 int lnode;
 int j;
 /* loop over all elements */
+#pragma aspen  control label(block_CalcKinematicsForElems9) loop(numElem) parallelism(numElem) flops(1:traits(integer))
 for (k=0; k<numElem;  ++ k)
 {
 double B[3][8];
@@ -2003,44 +1860,114 @@ double relativeVolume;
 #pragma aspen  declare data(elemToNode:traits(Array(8, aspen_param_int)))
 const int * const elemToNode =  & p_nodelist[(8*k)];
 double dt2;
+/* Index_t gnode; */
 /* get nodal coordinates from global arrays and copy into local arrays. */
+/*
+
+    for( lnode=0 ; lnode<2; ++lnode )
+    {
+
+      Index_t gnode = elemToNode[lnode];
+      x_local[lnode] = p_x[gnode];
+      y_local[lnode] = p_y[gnode];
+      z_local[lnode] = p_z[gnode];
+    }
+
+*/
+/*  */
+#pragma aspen  control label(block_CalcKinematicsForElems33) loop(8) flops(1:traits(integer))
 for (lnode=0; lnode<8;  ++ lnode)
+{
+#pragma aspen  control ignore
 {
 int gnode;
 gnode=elemToNode[lnode];
-x_local[lnode]=p_x[gnode];
-y_local[lnode]=p_y[gnode];
-z_local[lnode]=p_z[gnode];
 }
-/* volume calculations */
-volume=CalcElemVolume(x_local, y_local, z_local);
-relativeVolume=(volume/p_volo[k]);
-p_vnew[k]=relativeVolume;
-p_delv[k]=(relativeVolume-p_v[k]);
-/* set characteristic length */
-p_arealg[k]=CalcElemCharacteristicLength(x_local, y_local, z_local, volume);
-/* get nodal velocities from global array and copy into local arrays. */
-for (lnode=0; lnode<8;  ++ lnode)
-{
-int gnode;
-gnode=elemToNode[lnode];
-xd_local[lnode]=p_xd[gnode];
-yd_local[lnode]=p_yd[gnode];
-zd_local[lnode]=p_zd[gnode];
+#pragma aspen  control execute label(block_CalcKinematicsForElems493) loads(((1*aspen_param_sizeof_int)*8):from(elemToNode):traits(pattern(stencil4)))
+#pragma aspen  control label(block_CalcKinematicsForElems493) loads(((1*aspen_param_sizeof_double)*8):from(m_x):traits(pattern(stencil4)))
+x_local[lnode]=m_x[gnode];
+#pragma aspen  control execute label(block_CalcKinematicsForElems494) loads(((1*aspen_param_sizeof_double)*8):from(m_y):traits(pattern(stencil4)))
+y_local[lnode]=m_y[gnode];
+#pragma aspen  control execute label(block_CalcKinematicsForElems495) loads(((1*aspen_param_sizeof_double)*8):from(m_z):traits(pattern(stencil4)))
+z_local[lnode]=m_z[gnode];
 }
-dt2=(0.5*dt);
-for (j=0; j<8;  ++ j)
-{
-x_local[j]-=(dt2*xd_local[j]);
-y_local[j]-=(dt2*yd_local[j]);
-z_local[j]-=(dt2*zd_local[j]);
-}
-CalcElemShapeFunctionDerivatives(x_local, y_local, z_local, B, ( & detJ));
-CalcElemVelocityGrandient(xd_local, yd_local, zd_local, B, detJ, D);
-/* put velocity gradient quantities into their global arrays. */
-p_dxx[k]=D[0];
-p_dyy[k]=D[1];
-p_dzz[k]=D[2];
+/*  */
+/*
+
+    volume calculations
+    volume = CalcElemVolume(x_local, y_local, z_local );
+    relativeVolume = volume p_volo[k] ;
+    p_vnew[k] = relativeVolume ;
+    p_delv[k] = relativeVolume - p_v[k] ;
+
+    set characteristic length
+    p_arealg[k] = CalcElemCharacteristicLength(x_local,
+                                                  y_local,
+                                                  z_local,
+                                                  volume);
+
+    get nodal velocities from global array and copy into local arrays.
+
+    for( lnode=0 ; lnode<2 ; ++lnode )
+    {
+      Index_t gnode = elemToNode[lnode];
+      xd_local[lnode] = p_xd[gnode];
+      yd_local[lnode] = p_yd[gnode];
+      zd_local[lnode] = p_zd[gnode];
+    }
+#pragma aspen control ignore
+    for( lnode=0 ; lnode<8; ++lnode )
+    {
+
+#pragma aspen control ignore
+      {
+      Index_t gnode = elemToNode[lnode];
+      }
+#pragma aspen  control loads(((1*aspen_param_sizeof_int)):from(elemToNode):traits(pattern(stencil4)))
+
+#pragma aspen  control loads(0:from(p_xd):traits(pattern(stencil4)))
+      xd_local[lnode] = p_xd[gnode];
+#pragma aspen  control loads(0:from(p_yd):traits(pattern(stencil4)))
+      yd_local[lnode] = p_yd[gnode];
+#pragma aspen  control loads(0:from(p_zd):traits(pattern(stencil4)))
+      zd_local[lnode] = p_zd[gnode];
+    }
+
+
+    dt2 = 0.5 * dt;
+#pragma aspen control ignore
+    for ( j=0 ; j<8 ; ++j )
+    {
+       x_local[j] -= dt2 * xd_local[j];
+       y_local[j] -= dt2 * yd_local[j];
+       z_local[j] -= dt2 * zd_local[j];
+    }
+
+Monil This function does only local computation and does not create memory traffic. 
+#pragma aspen control ignore
+    CalcElemShapeFunctionDerivatives( x_local,
+                                          y_local,
+                                          z_local,
+                                          B, &detJ );
+
+Monil This function is ignored because it only does local computation on local variables of size 8
+For this reason this function does not create any memory traffic and hence ignored. The reason 
+because MAPredict counts this function because, there are some variabled defined in the function 
+which force MAPredict to calculate the memory access.
+However, for execution time prediction this function needs to be take care of
+
+#pragma aspen control ignore
+    CalcElemVelocityGrandient( xd_local,
+                               yd_local,
+                               zd_local,
+                               B, detJ, D );
+
+    put velocity gradient quantities into their global arrays.
+    p_dxx[k] = D[0];
+    p_dyy[k] = D[1];
+    p_dzz[k] = D[2];
+
+*/
 }
 return ;
 }
@@ -2048,38 +1975,50 @@ return ;
 static inline void CalcLagrangeElements(double deltatime, double p_vnew[((300*300)*300)], double p_vdov[((300*300)*300)], double p_dxx[((300*300)*300)], double p_dyy[((300*300)*300)], double p_dzz[((300*300)*300)])
 {
 int k;
+#pragma aspen  declare param(numElem:m_numElem)
 int numElem;
+#pragma aspen  control ignore
 numElem=m_numElem;
 int abort = 0;
-#pragma aspen  control probability(1)
+#pragma aspen  control label(block_CalcLagrangeElements463) probability(1) flops(1:traits(integer))
 if (numElem>0)
 {
 CalcKinematicsForElems(numElem, deltatime, m_nodelist, m_x, m_y, m_z, m_volo, m_v, p_vnew, m_delv, m_arealg, m_xd, m_yd, m_zd, p_dxx, p_dyy, p_dzz);
-/* element loop to do some stuff not included in the elemlib function. */
-for (k=0; k<numElem;  ++ k)
-{
-/* calc strain rate and apply as constraint (only done in FB element) */
-double vdov;
-vdov=(p_dxx[k]+p_dyy[k])+p_dzz[k];
-double vdovthird;
-vdovthird=vdov/3.0;
-/* make the rate of deformation tensor deviatoric */
-p_vdov[k]=vdov;
-p_dxx[k]-=vdovthird;
-p_dyy[k]-=vdovthird;
-p_dzz[k]-=vdovthird;
-/* See if any volumes are negative, and take appropriate action. */
-#pragma aspen  control ignore
-if (p_vnew[k]<=0.0)
-{
-abort=1;
-}
-}
-if (abort==1)
-{
-fprintf(stderr, "VolumeError in CalcLagrangeElements(); exit\n");
-exit(VolumeError);
-}
+/*
+
+      element loop to do some stuff not included in the elemlib function.
+#ifdef _OPENACC
+#pragma acc parallel loop independent present(p_vdov, p_dxx, p_dyy, p_dzz, p_vnew) reduction(||: abort)
+)
+#else
+#pragma omp parallel for private(k) firstprivate(numElem) reduction(||:abort)
+#endif
+      for ( k=0 ; k<numElem ; ++k )
+      {
+        calc strain rate and apply as constraint (only done in FB element)
+        Real_t vdov = p_dxx[k] + p_dyy[k] + p_dzz[k] ;
+        Real_t vdovthird = vdov3.0 ;
+        
+        make the rate of deformation tensor deviatoric
+        p_vdov[k] = vdov ;
+        p_dxx[k] -= vdovthird ;
+        p_dyy[k] -= vdovthird ;
+        p_dzz[k] -= vdovthird ;
+
+        See if any volumes are negative, and take appropriate action.
+#pragma aspen control ignore
+        if (p_vnew[k] <= 0.0)
+        {
+           abort = 1;
+        }
+      }
+      if (abort == 1)
+      {
+         fprintf(stderr, "VolumeError in CalcLagrangeElements(); exit\n");
+         exit(VolumeError) ;
+      }
+
+*/
 }
 return ;
 }
@@ -2958,9 +2897,10 @@ static inline void LagrangeElements()
 const double deltatime = m_deltatime;
 CalcLagrangeElements(deltatime, m_vnew, m_vdov, m_dxx, m_dyy, m_dzz);
 /* Calculate Q.  (Monotonic q option requires communication) */
-CalcQForElems();
-ApplyMaterialPropertiesForElems(m_matElemlist, m_vnew, m_v, m_e, m_delv, m_p, m_q, m_qq, m_ql, m_ss);
-UpdateVolumesForElems(m_vnew, m_v);
+/* CalcQForElems() ; */
+/* ApplyMaterialPropertiesForElems(m_matElemlist,m_vnew,m_v,m_e,m_delv,m_p,m_q, */
+/* m_qq,m_ql,m_ss); */
+/* UpdateVolumesForElems(m_vnew,m_v) ; */
 return ;
 }
 
@@ -3072,12 +3012,13 @@ static inline void LagrangeLeapFrog()
 calculate nodal forces, accelerations, velocities, positions, with
  applied boundary conditions and slide surface considerations
 */
-LagrangeNodal();
+/* LagrangeNodal(); */
 /*
 calculate element quantities (i.e. velocity gradient & q), and update
  material states
 */
 /* Monil LagrangeElements(); */
+LagrangeElements();
 /* Monil CalcTimeConstraintsForElems(); */
 /* Monil LagrangeRelease() ;  Creationdestruction of temps may be important to capture  */
 return ;

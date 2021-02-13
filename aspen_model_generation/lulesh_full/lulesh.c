@@ -2235,6 +2235,33 @@ void CalcElemVelocityGrandient( const Real_t* const xvel,
   d[4]  =  .5 * ( dxddz + dzddx );
   d[3]  =  .5 * ( dzddy + dyddz );
 }
+/*
+#pragma aspen control ignore
+    for( lnode=0 ; lnode<8; ++lnode )
+    {
+
+//#pragma aspen  control loads((0:from(elemToNode):traits(pattern(stencil4)))
+//#pragma aspen  control loads(0:from(elemToNode):traits(pattern(stencil8)))
+      //gnode = elemToNode[lnode];
+      //Index_t gnode = elemToNode[lnode];
+//#pragma aspen  control loads(((1*aspen_param_sizeof_int)):from(elemNodes):traits(pattern(stencil4)))
+
+#pragma aspen control ignore
+      {
+      Index_t gnode = elemToNode[lnode];
+      }
+//#pragma aspen  control loads(((1*aspen_param_sizeof_int)):from(elemToNode):traits(pattern(stencil8)))
+
+
+
+#pragma aspen  control loads(0:from(p_x):traits(pattern(stencil8)))
+      x_local[lnode] = p_x[gnode];
+#pragma aspen  control loads(0:from(p_y):traits(pattern(stencil8)))
+      y_local[lnode] = p_y[gnode];
+#pragma aspen  control loads(0:from(p_z):traits(pattern(stencil8)))
+      z_local[lnode] = p_z[gnode];
+    }
+*/
 
 static inline
 void CalcKinematicsForElems( Index_t numElem,Real_t dt, 
@@ -2273,16 +2300,41 @@ p_yd, p_zd, p_v, p_volo, p_vnew, p_delv, p_arealg, p_nodelist)
 #pragma aspen declare data(elemToNode:traits(Array(8,aspen_param_int)))
     const Index_t* const elemToNode = &p_nodelist[8*k] ;
     Real_t dt2;
-
+    
+    //Index_t gnode;
     // get nodal coordinates from global arrays and copy into local arrays.
-    for( lnode=0 ; lnode<8 ; ++lnode )
+/*
+    for( lnode=0 ; lnode<2; ++lnode )
     {
+
       Index_t gnode = elemToNode[lnode];
       x_local[lnode] = p_x[gnode];
       y_local[lnode] = p_y[gnode];
       z_local[lnode] = p_z[gnode];
     }
+*/
 
+///*
+    for( lnode=0 ; lnode<8; ++lnode )
+    {
+
+#pragma aspen control ignore
+      {
+      Index_t gnode = elemToNode[lnode];
+      }
+#pragma aspen  control loads(((1*aspen_param_sizeof_int)):from(elemToNode):traits(pattern(stencil4)))
+
+#pragma aspen  control loads(0:from(p_x):traits(pattern(stencil4)))
+      x_local[lnode] = p_x[gnode];
+#pragma aspen  control loads(0:from(p_y):traits(pattern(stencil4)))
+      y_local[lnode] = p_y[gnode];
+#pragma aspen  control loads(0:from(p_z):traits(pattern(stencil4)))
+      z_local[lnode] = p_z[gnode];
+    }
+
+//*/
+
+/*
     // volume calculations
     volume = CalcElemVolume(x_local, y_local, z_local );
     relativeVolume = volume / p_volo[k] ;
@@ -2296,15 +2348,35 @@ p_yd, p_zd, p_v, p_volo, p_vnew, p_delv, p_arealg, p_nodelist)
                                                   volume);
 
     // get nodal velocities from global array and copy into local arrays.
-    for( lnode=0 ; lnode<8 ; ++lnode )
+
+    for( lnode=0 ; lnode<2 ; ++lnode )
     {
       Index_t gnode = elemToNode[lnode];
       xd_local[lnode] = p_xd[gnode];
       yd_local[lnode] = p_yd[gnode];
       zd_local[lnode] = p_zd[gnode];
     }
+#pragma aspen control ignore
+    for( lnode=0 ; lnode<8; ++lnode )
+    {
+
+//#pragma aspen control ignore
+      {
+      Index_t gnode = elemToNode[lnode];
+      }
+//#pragma aspen  control loads(((1*aspen_param_sizeof_int)):from(elemToNode):traits(pattern(stencil4)))
+
+//#pragma aspen  control loads(0:from(p_xd):traits(pattern(stencil4)))
+      xd_local[lnode] = p_xd[gnode];
+//#pragma aspen  control loads(0:from(p_yd):traits(pattern(stencil4)))
+      yd_local[lnode] = p_yd[gnode];
+//#pragma aspen  control loads(0:from(p_zd):traits(pattern(stencil4)))
+      zd_local[lnode] = p_zd[gnode];
+    }
+
 
     dt2 = 0.5 * dt;
+#pragma aspen control ignore
     for ( j=0 ; j<8 ; ++j )
     {
        x_local[j] -= dt2 * xd_local[j];
@@ -2312,11 +2384,20 @@ p_yd, p_zd, p_v, p_volo, p_vnew, p_delv, p_arealg, p_nodelist)
        z_local[j] -= dt2 * zd_local[j];
     }
 
+//Monil This function does only local computation and does not create memory traffic. 
+//#pragma aspen control ignore
     CalcElemShapeFunctionDerivatives( x_local,
                                           y_local,
                                           z_local,
                                           B, &detJ );
 
+//Monil This function is ignored because it only does local computation on local variables of size 8
+//For this reason this function does not create any memory traffic and hence ignored. The reason 
+//because MAPredict counts this function because, there are some variabled defined in the function 
+//which force MAPredict to calculate the memory access.
+//However, for execution time prediction this function needs to be take care of
+
+#pragma aspen control ignore
     CalcElemVelocityGrandient( xd_local,
                                yd_local,
                                zd_local,
@@ -2326,6 +2407,7 @@ p_yd, p_zd, p_v, p_volo, p_vnew, p_delv, p_arealg, p_nodelist)
     p_dxx[k] = D[0];
     p_dyy[k] = D[1];
     p_dzz[k] = D[2];
+*/
   }
 }
 
@@ -2343,7 +2425,7 @@ void CalcLagrangeElements(Real_t deltatime,
    if (numElem > 0) {
       CalcKinematicsForElems(numElem,deltatime,m_nodelist,m_x,m_y,m_z,m_volo,m_v,p_vnew,
           m_delv,m_arealg,m_xd,m_yd,m_zd,p_dxx,p_dyy,p_dzz);
-
+/*
       // element loop to do some stuff not included in the elemlib function.
 #ifdef _OPENACC
 #pragma acc parallel loop independent present(p_vdov, p_dxx, p_dyy, p_dzz, p_vnew) \
@@ -2375,6 +2457,7 @@ reduction(||: abort)
          fprintf(stderr, "VolumeError in CalcLagrangeElements(); exit\n");
          exit(VolumeError) ;
       }
+*/
    }
 }
 
@@ -3399,12 +3482,12 @@ void LagrangeElements()
   CalcLagrangeElements(deltatime,m_vnew,m_vdov,m_dxx,m_dyy,m_dzz) ;
 
   /* Calculate Q.  (Monotonic q option requires communication) */
-  CalcQForElems() ;
+  //CalcQForElems() ;
 
-  ApplyMaterialPropertiesForElems(m_matElemlist,m_vnew,m_v,m_e,m_delv,m_p,m_q,
-         m_qq,m_ql,m_ss);
+  //ApplyMaterialPropertiesForElems(m_matElemlist,m_vnew,m_v,m_e,m_delv,m_p,m_q,
+         //m_qq,m_ql,m_ss);
 
-  UpdateVolumesForElems(m_vnew,m_v) ;
+  //UpdateVolumesForElems(m_vnew,m_v) ;
 }
 
 static inline
@@ -3524,11 +3607,12 @@ void LagrangeLeapFrog()
 //#pragma acc wait
    /* calculate nodal forces, accelerations, velocities, positions, with
     * applied boundary conditions and slide surface considerations */
-   LagrangeNodal();
+   //LagrangeNodal();
 
    /* calculate element quantities (i.e. velocity gradient & q), and update
     * material states */
    //Monil LagrangeElements();
+   LagrangeElements();
 
    //Monil CalcTimeConstraintsForElems();
 

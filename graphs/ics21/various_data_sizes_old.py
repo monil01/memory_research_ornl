@@ -22,8 +22,8 @@ def autolabel(rects, xpos='center'):
 
     for rect in rects:
         height = rect.get_height()
-        ax.text(rect.get_x() + rect.get_width()*offset[xpos], height + 4,
-                '{}'.format(height), ha=ha[xpos], va='bottom', fontsize=12, rotation=90)
+        ax.text(rect.get_x() + rect.get_width()*offset[xpos], height + 2,
+                '{}'.format(height), ha=ha[xpos], va='bottom', fontsize=10, rotation=90)
 
 
 
@@ -35,7 +35,7 @@ def average(lst):
 #plt.rcdefaults()
 fig, ax = plt.subplots()
 
-fig.set_size_inches(10, 2.5)
+fig.set_size_inches(10, 3.5)
 
 
 
@@ -48,8 +48,7 @@ fig.set_size_inches(10, 2.5)
 #Here lit means the corrected results
 #
 #
-stride=['Triad_1','Triad_2','Triad_3','Jacobi_1','Jacobi_2','Jacobi_3','Lap.2D_1','Lap.2D_2','Lap.2D_3','XSBen_1','XSBen_2','Vec_R7_1','Vec_R7_2','Vec_R7_3','Vec_R8_1','Vec_R8_2','Vec_R8_3','Lulesh_1','Lulesh_2','Lulesh_3']
-#stride=['Triad_50','Triad_100','Triad_150','jacobi_4096','jacobi_8192','jacobi_16384','laplace_4096','laplace_8000','laplace_10000','xsbench_small','xsbench_big','Vecm_R7_50','Vecm_R7_100','Vecm_R7_200','Vecm_R8_50','Vecm_R8_100','Vecm_R8_200','lulesh_250','lulesh_300','lulesh_400']
+stride=['Triad_50','Triad_100','Triad_150','jacobi_4096','jacobi_8192','jacobi_16384','laplace_4096','laplace_8000','laplace_10000','xsbench_small','xsbench_big','Vecm_R7_50','Vecm_R7_100','Vecm_R7_200','Vecm_R8_50','Vecm_R8_100','Vecm_R8_200','lulesh_250','lulesh_300','lulesh_400']
 mapr=[98.92977139,99.16870648,99.61383181,81.5824526,81.93283401,81.43143327,94.72154897,99.41113128,99.844747,61.00901062,91.89561288,92.56801122,92.50984711,92.48666559,98.7364694,99.13273725,98.96556246,91.79902957,95.03203251,92.76574126]
 lit=[99.65811513,99.30578589,99.7241934,87.88307244,88.97635499,88.65746754,96.02402148,99.6129656,99.70779706,68.91097887,96.5624612,90.94570885,90.44556598,91.0081077,98.7356895,99.05069811,98.89485005,91.25606924,89.05478423,92.59669006]
 
@@ -99,7 +98,7 @@ print("On the other hand, the model from literature provided {:.1f}".format(aver
 #print("Broadwell showed {:.1f}".format((100-average(bwell)))+"\% accuracy, Sky Lake showed {:.1f}".format((100-average(slake)))+"\% accuracy, and Cascade Lake showed {:.1f}".format((100-average(slake)))+"\% accuracy")
 
 
-barwidth=.45
+barwidth=.35
 # Set position of bar on X axis
 #r1 = np.arange(len(bwell))
 #r2 = [x + barwidth for x in r1]
@@ -107,17 +106,17 @@ barwidth=.45
 
 
 x_pos = np.arange(len(stride))  # the label locations
-barwidth1=.4
+barwidth1=.25
 #barwidth=.15
 # Set position of bar on X axis
 r1 = np.arange(len(stride))
-r2 = [x + barwidth1 for x in r1]
+r2 = [x + barwidth for x in r1]
 
 
 #ax.barh(x_pos, read, hatch='....', color='white', edgecolor='black')
 #rects1 = plt.bar(x, traffic, .8, hatch='....', color='white', edgecolor='black')
-rects1=ax.bar(r1, mapr, width=barwidth1, hatch='...', color='white', edgecolor='black', label="Prefetching")
-rects2=ax.bar(r2, lit, width=barwidth1, hatch='///', color='cornflowerblue', edgecolor='black', label="no_prefetching")
+rects1=ax.bar(r1, mapr, width=barwidth, hatch='...', color='white', edgecolor='black', label="Prefetching")
+rects2=ax.bar(r2, lit, width=barwidth, hatch='///', color='cornflowerblue', edgecolor='black', label="no_prefetching")
 #rects2=ax.bar(r2, lit, width=barwidth, hatch='///', color='cornflowerblue', edgecolor='black', label="MAPredict_Corrected")
 
 #plt.legend(handlelength=3, fontsize=12)
@@ -128,18 +127,17 @@ rects2=ax.bar(r2, lit, width=barwidth1, hatch='///', color='cornflowerblue', edg
 ax.set_ylabel('Accuracy', fontsize=16)
 #ax.set_xlabel('Stride', fontsize=16)
 
-plt.yticks(np.arange(0, max(mapr)+80, 20))
+plt.yticks(np.arange(0, max(mapr)+50, 20))
 
 #plt.title('', fontsize=18)
 #ax.set_xticks(x_pos)
 
 plt.yticks(fontsize=14)
-plt.yticks([])
 #plt.yticks(np.arange(0, 100, 10), fontsize=14)
 #ax.get_yaxis().get_major_formatter().set_scientific(False)
 
 #plt.xticks([ + barwidth for r in range(len(stride))], stride, fontsize=12, rotation=90)
-plt.xticks([r + barwidth/2 for r in range(len(mapr))], stride, fontsize=11, rotation=90)
+plt.xticks([r + barwidth/2 for r in range(len(mapr))], stride, fontsize=10, rotation=90)
 
 #plt.xticks(rotation=45, fontsize=14)
 

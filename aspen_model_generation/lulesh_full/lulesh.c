@@ -2568,13 +2568,14 @@ p_delv_zeta)
       Real_t zv7 = p_zd[n7] ;
     }
 
-#pragma aspen  control loads((1*aspen_param_sizeof_int*8):from(elemToNode):traits(pattern(stencil4)))
-#pragma aspen  control loads((1*aspen_param_sizeof_double*8):from(m_x):traits(pattern(stencil4)))
-#pragma aspen  control loads((1*aspen_param_sizeof_double*8):from(m_y):traits(pattern(stencil4)))
-#pragma aspen  control loads((1*aspen_param_sizeof_double*8):from(m_z):traits(pattern(stencil4)))
-#pragma aspen  control loads((1*aspen_param_sizeof_double*8):from(m_xd):traits(pattern(stencil4)))
-#pragma aspen  control loads((1*aspen_param_sizeof_double*8):from(m_yd):traits(pattern(stencil4)))
-#pragma aspen  control loads((1*aspen_param_sizeof_double*8):from(m_zd):traits(pattern(stencil4)))
+//#pragma aspen  control loads((1*aspen_param_sizeof_int):from(elemToNode))
+//#pragma aspen  control loads((1*aspen_param_sizeof_int*8):from(elemToNode):traits(pattern(stencil4)))
+#pragma aspen  control loads((1*aspen_param_sizeof_double*8):from(m_x):traits(pattern(stencil8), reuse_SK_noprefetch(2.5), reuse_SK_prefetch(2.5)))
+#pragma aspen  control loads((1*aspen_param_sizeof_double*8):from(m_y):traits(pattern(stencil8), reuse_SK_noprefetch(2.5), reuse_SK_prefetch(2.5)))
+#pragma aspen  control loads((1*aspen_param_sizeof_double*8):from(m_z):traits(pattern(stencil8), reuse_SK_noprefetch(2.5), reuse_SK_prefetch(2.5)))
+#pragma aspen  control loads((1*aspen_param_sizeof_double*8):from(m_xd):traits(pattern(stencil8), reuse_SK_noprefetch(2.5), reuse_SK_prefetch(2.5)))
+#pragma aspen  control loads((1*aspen_param_sizeof_double*8):from(m_yd):traits(pattern(stencil8), reuse_SK_noprefetch(2.5), reuse_SK_prefetch(2.5)))
+#pragma aspen  control loads((1*aspen_param_sizeof_double*8):from(m_zd):traits(pattern(stencil8), reuse_SK_noprefetch(2.5), reuse_SK_prefetch(2.5)))
 
 
       Real_t vol = p_volo[i]*p_vnew[i] ;
@@ -2899,13 +2900,13 @@ void CalcQForElems()
    //
 
    /* Calculate velocity gradients */
-   //CalcMonotonicQGradientsForElems(m_nodelist,m_x,m_y,m_z,m_xd,m_yd,m_zd,m_volo,m_vnew,
-       //m_delx_zeta,m_delv_zeta,m_delx_xi,m_delv_xi,m_delx_eta,m_delv_eta) ;
+   CalcMonotonicQGradientsForElems(m_nodelist,m_x,m_y,m_z,m_xd,m_yd,m_zd,m_volo,m_vnew,
+       m_delx_zeta,m_delv_zeta,m_delx_xi,m_delv_xi,m_delx_eta,m_delv_eta) ;
 
    // Transfer veloctiy gradients in the first order elements 
    // problem->commElements->Transfer(CommElements::monoQ) ; 
 
-   CalcMonotonicQForElems() ;
+   //CalcMonotonicQForElems() ;
 
    // Don't allow excessive artificial viscosity 
 #pragma aspen control ignore

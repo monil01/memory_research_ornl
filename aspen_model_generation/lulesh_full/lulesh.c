@@ -2503,36 +2503,15 @@ p_delv_zeta)
       const Index_t *elemToNode = &p_nodelist[8*i];
 
 #pragma aspen  control ignore 
+     {
       Index_t n0 = elemToNode[0] ;
-#pragma aspen  control loads((1*aspen_param_sizeof_int):from(elemToNode):traits(pattern(stencil4)))
-
-#pragma aspen  control ignore 
       Index_t n1 = elemToNode[1] ;
-#pragma aspen  control loads((1*aspen_param_sizeof_int):from(elemToNode):traits(pattern(stencil4)))
-
-#pragma aspen  control ignore 
       Index_t n2 = elemToNode[2] ;
-#pragma aspen  control loads((1*aspen_param_sizeof_int):from(elemToNode):traits(pattern(stencil4)))
-
-#pragma aspen  control ignore 
       Index_t n3 = elemToNode[3] ;
-#pragma aspen  control loads((1*aspen_param_sizeof_int):from(elemToNode):traits(pattern(stencil4)))
-
-#pragma aspen  control ignore 
       Index_t n4 = elemToNode[4] ;
-#pragma aspen  control loads((1*aspen_param_sizeof_int):from(elemToNode):traits(pattern(stencil4)))
-
-#pragma aspen  control ignore 
       Index_t n5 = elemToNode[5] ;
-#pragma aspen  control loads((1*aspen_param_sizeof_int):from(elemToNode):traits(pattern(stencil4)))
-
-#pragma aspen  control ignore 
       Index_t n6 = elemToNode[6] ;
-#pragma aspen  control loads((1*aspen_param_sizeof_int):from(elemToNode):traits(pattern(stencil4)))
-
-#pragma aspen  control ignore 
       Index_t n7 = elemToNode[7] ;
-#pragma aspen  control loads((1*aspen_param_sizeof_int):from(elemToNode):traits(pattern(stencil4)))
 
       Real_t x0 = p_x[n0] ;
       Real_t x1 = p_x[n1] ;
@@ -2542,7 +2521,7 @@ p_delv_zeta)
       Real_t x5 = p_x[n5] ;
       Real_t x6 = p_x[n6] ;
       Real_t x7 = p_x[n7] ;
-
+    
       Real_t y0 = p_y[n0] ;
       Real_t y1 = p_y[n1] ;
       Real_t y2 = p_y[n2] ;
@@ -2587,6 +2566,16 @@ p_delv_zeta)
       Real_t zv5 = p_zd[n5] ;
       Real_t zv6 = p_zd[n6] ;
       Real_t zv7 = p_zd[n7] ;
+    }
+
+#pragma aspen  control loads((1*aspen_param_sizeof_int*8):from(elemToNode):traits(pattern(stencil4)))
+#pragma aspen  control loads((1*aspen_param_sizeof_double*8):from(m_x):traits(pattern(stencil4)))
+#pragma aspen  control loads((1*aspen_param_sizeof_double*8):from(m_y):traits(pattern(stencil4)))
+#pragma aspen  control loads((1*aspen_param_sizeof_double*8):from(m_z):traits(pattern(stencil4)))
+#pragma aspen  control loads((1*aspen_param_sizeof_double*8):from(m_xd):traits(pattern(stencil4)))
+#pragma aspen  control loads((1*aspen_param_sizeof_double*8):from(m_yd):traits(pattern(stencil4)))
+#pragma aspen  control loads((1*aspen_param_sizeof_double*8):from(m_zd):traits(pattern(stencil4)))
+
 
       Real_t vol = p_volo[i]*p_vnew[i] ;
       Real_t norm = 1.0 / ( vol + ptiny ) ;
@@ -2660,6 +2649,7 @@ p_delv_zeta)
 #undef SUM4
 }
 
+//Monil workin here
 static inline
 void CalcMonotonicQRegionForElems(// parameters
                           Real_t qlc_monoq,
@@ -2691,6 +2681,8 @@ p_elemBC)
 #else 
 #pragma omp parallel for private(ielem) firstprivate(elength, qlc_monoq, qqc_monoq, monoq_limiter_mult, monoq_max_slope, ptiny)
 #endif
+
+//#pragma aspen  control execute label(block_CalcMonotonicQRegionForElems21) traits(initialized(0)))
    for ( ielem = 0 ; ielem < elength; ++ielem ) {
       Real_t qlin, qquad ;
       Real_t phixi, phieta, phizeta ;
@@ -2698,18 +2690,29 @@ p_elemBC)
       Int_t bcMask = p_elemBC[i] ;
       Real_t delvm, delvp ;
 
+#pragma aspen declare param(aspen_param_reuse_block_CalcMonotonicQRegionForElems22_SK_prefetch:1.75)
+//#pragma aspen declare param(aspen_param_vdov2:0.1)
+
+
       /*  phixi     */
       Real_t norm = 1. / ( p_delv_xi[i] + ptiny ) ;
 
       switch (bcMask & XI_M) {
-         case 0:         delvm = p_delv_xi[p_lxim[i]] ; break ;
-         case XI_M_SYMM: delvm = p_delv_xi[i] ;            break ;
+         case 0:         delvm = p_delv_xi[p_lxim[i]] ; 
+                break ;
+         case XI_M_SYMM: 
+#pragma aspen control probability(0)
+            //if(1){ delvm = p_delv_xi[i] ; }
+            break ;
          case XI_M_FREE: delvm = 0.0 ;                break ;
          default:        /* ERROR */ ;                        break ;
       }
       switch (bcMask & XI_P) {
          case 0:         delvp = p_delv_xi[p_lxip[i]] ; break ;
-         case XI_P_SYMM: delvp = p_delv_xi[i] ;            break ;
+         case XI_P_SYMM: 
+#pragma aspen control probability(0)
+            //if (1) delvp = p_delv_xi[i] ;            
+            break ;
          case XI_P_FREE: delvp = 0.0 ;                break ;
          default:        /* ERROR */ ;                        break ;
       }
@@ -2733,13 +2736,19 @@ p_elemBC)
 
       switch (bcMask & ETA_M) {
          case 0:          delvm = p_delv_eta[p_letam[i]] ; break ;
-         case ETA_M_SYMM: delvm = p_delv_eta[i] ;             break ;
+         case ETA_M_SYMM: 
+#pragma aspen control probability(0)
+            //if(1) delvm = p_delv_eta[i] ;             
+            break ;
          case ETA_M_FREE: delvm = 0.0 ;                  break ;
          default:         /* ERROR */ ;                          break ;
       }
       switch (bcMask & ETA_P) {
          case 0:          delvp = p_delv_eta[p_letap[i]] ; break ;
-         case ETA_P_SYMM: delvp = p_delv_eta[i] ;             break ;
+         case ETA_P_SYMM: 
+#pragma aspen control probability(0)
+            //if(1) delvp = p_delv_eta[i] ;             
+            break ;
          case ETA_P_FREE: delvp = 0.0 ;                  break ;
          default:         /* ERROR */ ;                          break ;
       }
@@ -2762,13 +2771,19 @@ p_elemBC)
 
       switch (bcMask & ZETA_M) {
          case 0:           delvm = p_delv_zeta[p_lzetam[i]] ; break ;
-         case ZETA_M_SYMM: delvm = p_delv_zeta[i] ;              break ;
+         case ZETA_M_SYMM: 
+#pragma aspen control probability(0)
+            //if(1) delvm = p_delv_zeta[i] ;              
+            break ;
          case ZETA_M_FREE: delvm = 0.0 ;                    break ;
          default:          /* ERROR */ ;                            break ;
       }
       switch (bcMask & ZETA_P) {
          case 0:           delvp = p_delv_zeta[p_lzetap[i]] ; break ;
-         case ZETA_P_SYMM: delvp = p_delv_zeta[i] ;              break ;
+         case ZETA_P_SYMM: 
+#pragma aspen control probability(0)
+            //if(1) { delvp = p_delv_zeta[i] ;              }
+            break ;
          case ZETA_P_FREE: delvp = 0.0 ;                    break ;
          default:          /* ERROR */ ;                            break ;
       }
@@ -2793,16 +2808,26 @@ p_elemBC)
 #pragma aspen control probability(aspen_param_vdov2)
 //#pragma aspen control probability(aspen_param_vdov2) flops(1:traits(dp)) loads(1*aspen_param_double:from(p_vdov):traits(stride(1))) 
 #else
-#pragma aspen control probability(1)
+#pragma aspen control probability(0)
 #endif
       if ( p_vdov[i] > 0. )  {
          qlin  = 0. ;
          qquad = 0. ;
       }
       else {
+//#pragma aspen control probability(1)
+      //if ( p_vdov[i] <= 0. )  {
+#pragma aspen control ignore 
+        {
          Real_t delvxxi   = p_delv_xi[i]   * p_delx_xi[i]   ;
          Real_t delvxeta  = p_delv_eta[i]  * p_delx_eta[i]  ;
          Real_t delvxzeta = p_delv_zeta[i] * p_delx_zeta[i] ;
+        }
+
+#pragma aspen  control loads((1*aspen_param_sizeof_double):from(p_delx_xi))
+#pragma aspen  control loads((1*aspen_param_sizeof_double):from(p_delx_eta))
+#pragma aspen  control loads((1*aspen_param_sizeof_double):from(p_delx_zeta))
+//#pragma aspen  control reuse((1*aspen_param_sizeof_double):from(p_delx_zeta))
          Real_t rho;
 
 #pragma aspen control ignore
@@ -2874,12 +2899,12 @@ void CalcQForElems()
    //
 
    /* Calculate velocity gradients */
-   CalcMonotonicQGradientsForElems(m_nodelist,m_x,m_y,m_z,m_xd,m_yd,m_zd,m_volo,m_vnew,
-       m_delx_zeta,m_delv_zeta,m_delx_xi,m_delv_xi,m_delx_eta,m_delv_eta) ;
+   //CalcMonotonicQGradientsForElems(m_nodelist,m_x,m_y,m_z,m_xd,m_yd,m_zd,m_volo,m_vnew,
+       //m_delx_zeta,m_delv_zeta,m_delx_xi,m_delv_xi,m_delx_eta,m_delv_eta) ;
 
    // Transfer veloctiy gradients in the first order elements 
    // problem->commElements->Transfer(CommElements::monoQ) ; 
-/*
+
    CalcMonotonicQForElems() ;
 
    // Don't allow excessive artificial viscosity 
@@ -2905,7 +2930,6 @@ void CalcQForElems()
       }
    }
 
-*/
 }
 
 static inline

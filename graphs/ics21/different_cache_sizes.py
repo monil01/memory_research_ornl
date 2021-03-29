@@ -35,7 +35,7 @@ def average(lst):
 #plt.rcdefaults()
 fig, ax = plt.subplots()
 
-fig.set_size_inches(7.3, 3)
+fig.set_size_inches(7, 3)
 
 
 
@@ -126,8 +126,8 @@ r4 = [x + barwidth for x in r3]
 
 #ax.barh(x_pos, read, hatch='....', color='white', edgecolor='black')
 #rects1 = plt.bar(x, traffic, .8, hatch='....', color='white', edgecolor='black')
-rects1=ax.bar(r1, mapr, width=barwidth, hatch='...', color='white', edgecolor='black', label="quad00")
-rects2=ax.bar(r2, lit, width=barwidth, hatch='///', color='white', edgecolor='black', label="quad00-pref")
+rects1=ax.bar(r1, mapr, width=barwidth, hatch='...', color='white', edgecolor='black', label="quad")
+rects2=ax.bar(r2, lit, width=barwidth, hatch='///', color='white', edgecolor='black', label="quad-pref")
 rects3=ax.bar(r3, mapr1, width=barwidth, hatch='...', color='cornflowerblue', edgecolor='black', label="pegasus")
 rects4=ax.bar(r4, lit1, width=barwidth, hatch='///', color='cornflowerblue', edgecolor='black', label="pegasus-pref")
 #rects2=ax.bar(r2, lit, width=barwidth, hatch='///', color='cornflowerblue', edgecolor='black', label="MAPredict_Corrected")

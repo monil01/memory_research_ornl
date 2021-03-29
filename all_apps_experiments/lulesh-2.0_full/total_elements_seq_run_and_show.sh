@@ -23,7 +23,7 @@ run_skylake()
     declare -i write=0
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc0__UNC_M_CAS_COUNT_RD_cpu\=12
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcForceForNodes")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcKinematicsForElems")
        #for i in "${ADDR[@]}"; do
        #  echo -n "$i" 
        #done
@@ -32,13 +32,13 @@ run_skylake()
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc1__UNC_M_CAS_COUNT_RD_cpu\=12
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcForceForNodes")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcKinematicsForElems")
     #echo ${ADDR[5]}
     read=$read+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc2__UNC_M_CAS_COUNT_RD_cpu\=12
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcForceForNodes")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcKinematicsForElems")
        #for i in "${ADDR[@]}"; do
        #  echo -n "$i" 
        #done
@@ -47,55 +47,55 @@ run_skylake()
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc3__UNC_M_CAS_COUNT_RD_cpu\=12
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcForceForNodes")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcKinematicsForElems")
     #echo ${ADDR[5]}
     read=$read+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc4__UNC_M_CAS_COUNT_RD_cpu\=12
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcForceForNodes")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcKinematicsForElems")
     #echo ${ADDR[5]}
     read=$read+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc5__UNC_M_CAS_COUNT_RD_cpu\=12
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcForceForNodes")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcKinematicsForElems")
     #echo ${ADDR[5]}
     read=$read+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc0__UNC_M_CAS_COUNT_WR_cpu\=12
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcForceForNodes")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcKinematicsForElems")
     #echo ${ADDR[5]}
     write=$write+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc1__UNC_M_CAS_COUNT_WR_cpu\=12
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcForceForNodes")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcKinematicsForElems")
     #echo ${ADDR[5]}
     write=$write+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc2__UNC_M_CAS_COUNT_WR_cpu\=12
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcForceForNodes")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcKinematicsForElems")
     #echo ${ADDR[5]}
     write=$write+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc3__UNC_M_CAS_COUNT_WR_cpu\=12
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcForceForNodes")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcKinematicsForElems")
     #echo ${ADDR[5]}
     write=$write+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc4__UNC_M_CAS_COUNT_WR_cpu\=12
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcForceForNodes")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcKinematicsForElems")
     #echo ${ADDR[5]}
     write=$write+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_skx_unc_imc5__UNC_M_CAS_COUNT_WR_cpu\=12
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcForceForNodes")
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcKinematicsForElems")
     #echo ${ADDR[5]}
     write=$write+${ADDR[5]} 
     cd ..
@@ -130,8 +130,8 @@ run_broadwell()
     declare -i write=0
 
     cd MULTI__PAPI_NATIVE_bdx_unc_imc0__UNC_M_CAS_COUNT_RD_cpu\=16
-pprof
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcForceForNodes")
+#pprof
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcKinematicsForElems")
        #for i in "${ADDR[@]}"; do
        #  echo -n "$i" 
        #done
@@ -140,50 +140,50 @@ pprof
     cd ..
 
     cd MULTI__PAPI_NATIVE_bdx_unc_imc1__UNC_M_CAS_COUNT_RD_cpu\=16
-pprof
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcForceForNodes")
+#pprof
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcKinematicsForElems")
     #echo ${ADDR[5]}
     read=$read+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_bdx_unc_imc4__UNC_M_CAS_COUNT_RD_cpu\=16
-pprof
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcForceForNodes")
+#pprof
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcKinematicsForElems")
     #echo ${ADDR[5]}
     read=$read+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_bdx_unc_imc5__UNC_M_CAS_COUNT_RD_cpu\=16
-pprof
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcForceForNodes")
+#pprof
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcKinematicsForElems")
     #echo ${ADDR[5]}
     read=$read+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_bdx_unc_imc0__UNC_M_CAS_COUNT_WR_cpu\=16
-pprof
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcForceForNodes")
+#pprof
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcKinematicsForElems")
     #echo ${ADDR[5]}
     write=$write+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_bdx_unc_imc1__UNC_M_CAS_COUNT_WR_cpu\=16
-pprof
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcForceForNodes")
+#pprof
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcKinematicsForElems")
     #echo ${ADDR[5]}
     write=$write+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_bdx_unc_imc4__UNC_M_CAS_COUNT_WR_cpu\=16
-pprof
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcForceForNodes")
+#pprof
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcKinematicsForElems")
     #echo ${ADDR[5]}
     write=$write+${ADDR[5]} 
     cd ..
 
     cd MULTI__PAPI_NATIVE_bdx_unc_imc5__UNC_M_CAS_COUNT_WR_cpu\=16
-pprof
-    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcForceForNodes")
+#pprof
+    IFS=' ' read -ra ADDR <<< $(pprof | grep -i "CalcKinematicsForElems")
     #echo ${ADDR[5]}
     write=$write+${ADDR[5]} 
     cd ..
@@ -191,6 +191,8 @@ pprof
     #write=$write*64
     #read=$read*64
     echo "stride: $stride $read $write"
+    read=$read+$write
+    echo "Total: $read"
 }
 
 export OMP_PLACES='{16},{18},{20},{22},{24},{26},{28},{30}'

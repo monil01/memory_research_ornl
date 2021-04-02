@@ -3288,8 +3288,8 @@ void CalcEnergyForElems(Real_t p_new[T_LENGTH], Real_t e_new[T_LENGTH], Real_t q
       }
    } 
 
-   //CalcPressureForElems(pHalfStep, bvc, pbvc, e_new, compHalfStep, vnewc,
-                   //pmin, p_cut, eosvmax, length);
+   CalcPressureForElems(pHalfStep, bvc, pbvc, e_new, compHalfStep, vnewc,
+                   pmin, p_cut, eosvmax, length);
 
 #ifdef _OPENACC
 #pragma acc parallel loop independent present(compHalfStep, pHalfStep, delvc, p_old,\
@@ -3362,8 +3362,8 @@ q_old, ql, qq, q_new, pbvc, bvc, e_new)
       }
    }
 
-   //CalcPressureForElems(p_new, bvc, pbvc, e_new, compression, vnewc,
-                   //pmin, p_cut, eosvmax, length);
+   CalcPressureForElems(p_new, bvc, pbvc, e_new, compression, vnewc,
+                   pmin, p_cut, eosvmax, length);
 
 #ifdef _OPENACC
 #pragma acc parallel loop present(pHalfStep, delvc, pbvc, e_new, bvc, ql,\
@@ -3426,8 +3426,8 @@ qq, p_old, q_old, p_new, q_new, vnewc)
       }
    }
 
-   //CalcPressureForElems(p_new, bvc, pbvc, e_new, compression, vnewc,
-                   //pmin, p_cut, eosvmax, length);
+   CalcPressureForElems(p_new, bvc, pbvc, e_new, compression, vnewc,
+                   pmin, p_cut, eosvmax, length);
 
 #ifdef _OPENACC
 #pragma acc parallel loop present(delvc, pbvc, e_new, vnewc, bvc, ql,\
@@ -3560,7 +3560,7 @@ bvc, pbvc) present(p_matElemlist)
 # else
 #pragma omp parallel
 #endif
-   /*{
+   {
 #ifdef _OPENACC
 #pragma acc parallel loop independent present(e_old, delvc, p_old, q_old, \
 p_e, p_delv, p_p, p_q, p_matElemlist)
@@ -3568,13 +3568,14 @@ p_e, p_delv, p_p, p_q, p_matElemlist)
 #pragma omp for private(i) firstprivate(length)
 #endif
       for (i=0; i<length; ++i) {
+#pragma aspen declare param(aspen_param_reuse_block_EvalEOSForElems37_SK_prefetch:1.2)
          Index_t zidx = p_matElemlist[i] ;
          e_old[i] = p_e[zidx] ;
          delvc[i] = p_delv[zidx] ;
          p_old[i] = p_p[zidx] ;
          q_old[i] = p_q[zidx] ;
-         qq_old[i] = qq[zidx] ; //added by monil
-         ql_old[i] = ql[zidx] ; //added by monil
+         //qq_old[i] = qq[zidx] ; //added by monil
+         //ql_old[i] = ql[zidx] ; //added by monil
 
       }
 
@@ -3584,7 +3585,7 @@ p_e, p_delv, p_p, p_q, p_matElemlist)
 #pragma omp for private(i) firstprivate(length)
 #endif
       for (i = 0; i < length ; ++i) {
-         Index_t ielem = regElemList[i]; //added by monil
+         //Index_t ielem = regElemList[i]; //added by monil
          Real_t vchalf ;
          compression[i] = 1. / vnewc[i] - 1.;
          vchalf = vnewc[i] - delvc[i] * .5;
@@ -3600,6 +3601,7 @@ p_matElemlist, qq, ql, p_qq, p_ql, p_old, work)
 #pragma omp for private(i) firstprivate(length, eosvmax, eosvmin)
 #endif
       for (i = 0 ; i < length ; ++i) {
+#pragma aspen declare param(aspen_param_reuse_block_EvalEOSForElems56_SK_prefetch:1.2)
          Index_t zidx = p_matElemlist[i] ;
          qq[i] = p_qq[zidx] ;
          ql[i] = p_ql[zidx] ;
@@ -3608,7 +3610,7 @@ p_matElemlist, qq, ql, p_qq, p_ql, p_old, work)
 #pragma aspen declare param(aspen_param_vnewc:0)
 #pragma aspen control probability(aspen_param_vnewc)
 #else
-#pragma aspen control probability(1)
+#pragma aspen control probability(0)
 #endif
 		 if( (eosvmin != 0.0) && (vnewc[i] <= eosvmin) ) {
                compHalfStep[i] = compression[i] ;
@@ -3617,7 +3619,8 @@ p_matElemlist, qq, ql, p_qq, p_ql, p_old, work)
 #pragma aspen declare param(aspen_param_vnewc2:0)
 #pragma aspen control probability(aspen_param_vnewc2)
 #else
-#pragma aspen control probability(1)
+//#pragma aspen control probability(0)
+#pragma aspen control ignore
 #endif
 		 if( (eosvmax != 0.0) && (vnewc[i] >= eosvmax) ) {
                p_old[i]        = 0. ;
@@ -3625,20 +3628,21 @@ p_matElemlist, qq, ql, p_qq, p_ql, p_old, work)
                compHalfStep[i] = 0. ;
 		 }
       }
-   } */
+   } 
 
    CalcEnergyForElems(p_new, e_new, q_new, bvc, pbvc,
                  p_old, e_old,  q_old, compression, compHalfStep,
                  vnewc, work,  delvc, pmin,
                  p_cut, e_cut, q_cut, emin,
                  qq, ql, rho0, eosvmax, length); 
-/*
+
 #ifdef _OPENACC
 #pragma acc parallel loop independent present(p_new, e_new, q_new, p_p, p_e, p_q, p_matElemlist)
 #else
 #pragma omp parallel for firstprivate(length)
 #endif
       for (i=0; i<length; ++i) {
+#pragma aspen declare param(aspen_param_reuse_block_EvalEOSForElems68_SK_prefetch:1.2)
          Index_t zidx = p_matElemlist[i] ;
          p_p[zidx] = p_new[i] ;
          p_e[zidx] = e_new[i] ;
@@ -3647,7 +3651,7 @@ p_matElemlist, qq, ql, p_qq, p_ql, p_old, work)
 
     CalcSoundSpeedForElems(vnewc, rho0, e_new, p_new,
              pbvc, bvc, ss4o3, length, p_matElemlist, p_ss) ; 
-*/
+
 /*
    Release(&pbvc) ;
    Release(&bvc) ;
@@ -3696,7 +3700,7 @@ void ApplyMaterialPropertiesForElems(Index_t p_matElemlist[T_NUMELEM],
 */
 
 Real_t vc = 1.0;
-/*
+
 #ifdef _OPENACC
 #pragma acc data present(vnewc[0:m_numElem]) present(p_v, p_matElemlist)
 #else
@@ -3710,14 +3714,15 @@ Real_t vc = 1.0;
 #endif
        for (i=0 ; i<length ; ++i) {
           Index_t zn = p_matElemlist[i] ;
-#pragma aspen  control stores(0:from(vnewc):traits(initialized(0)))
+//#pragma aspen  control stores(0:from(vnewc):traits(initialized(0)))
           vnewc[i] = p_vnew[zn] ;
 
 #if ALLOW_ASPENIFSTMT == 1
 #pragma aspen declare param(aspen_param_vnewc3:0.1)
 #pragma aspen control probability(aspen_param_vnewc3)
 #else
-#pragma aspen control probability(0)
+//#pragma aspen control probability(0)
+#pragma aspen control ignore
 #endif
           if( (eosvmin != 0.0) && (vnewc[i] < eosvmin) ) {
                 vnewc[i] = eosvmin ;
@@ -3726,7 +3731,8 @@ Real_t vc = 1.0;
 #pragma aspen declare param(aspen_param_vnewc4:0.1)
 #pragma aspen control probability(aspen_param_vnewc4)
 #else
-#pragma aspen control probability(0)
+//#pragma aspen control probability(0)
+#pragma aspen control ignore
 #endif
           if( (eosvmax != 0.0) && (vnewc[i] > eosvmax) ) {
                 vnewc[i] = eosvmax ;
@@ -3760,8 +3766,8 @@ Real_t vc = 1.0;
           }
 #endif
        }
-    } */
-/*
+    } 
+
 #ifdef _OPENACC
 #pragma aspen control ignore
           if (vc <= 0.) {
@@ -3769,7 +3775,7 @@ Real_t vc = 1.0;
              exit(VolumeError) ;
           }
 #endif
-*/
+
     EvalEOSForElems(vnewc,length,p_matElemlist,p_e,p_delv,p_p,p_q,p_qq,p_ql,p_ss);
 
 /*

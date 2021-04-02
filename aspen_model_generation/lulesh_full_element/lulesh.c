@@ -3823,15 +3823,15 @@ void LagrangeElements()
 {
   const Real_t deltatime = m_deltatime;
 
-  //CalcLagrangeElements(deltatime,m_vnew,m_vdov,m_dxx,m_dyy,m_dzz) ;
+  CalcLagrangeElements(deltatime,m_vnew,m_vdov,m_dxx,m_dyy,m_dzz) ;
 
   /* Calculate Q.  (Monotonic q option requires communication) */
-  //CalcQForElems() ;
+  CalcQForElems() ;
 
   ApplyMaterialPropertiesForElems(m_matElemlist,m_vnew,m_v,m_e,m_delv,m_p,m_q,
          m_qq,m_ql,m_ss);
 
-  //UpdateVolumesForElems(m_vnew,m_v) ;
+  UpdateVolumesForElems(m_vnew,m_v) ;
 }
 
 static inline

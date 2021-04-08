@@ -1089,6 +1089,8 @@ void CollectDomainNodesToElemNodes(const Index_t* elemToNode,
                                    Real_t elemY[8],
                                    Real_t elemZ[8])
 {
+#pragma aspen control ignore
+ {
    Index_t nd0i = elemToNode[0] ;
    Index_t nd1i = elemToNode[1] ;
    Index_t nd2i = elemToNode[2] ;
@@ -1124,6 +1126,12 @@ void CollectDomainNodesToElemNodes(const Index_t* elemToNode,
    elemZ[5] = m_z[nd5i];
    elemZ[6] = m_z[nd6i];
    elemZ[7] = m_z[nd7i];
+   }
+
+// this is because of the stencil read from CollectDomainNodesToElemNodes function
+#pragma aspen  control loads((1*aspen_param_sizeof_double*8):from(m_x):traits(pattern(stencil8), reuse_SK_noprefetch(2.5), reuse_SK_prefetch(2.5)))
+#pragma aspen  control loads((1*aspen_param_sizeof_double*8):from(m_y):traits(pattern(stencil8), reuse_SK_noprefetch(2.5), reuse_SK_prefetch(2.5)))
+#pragma aspen  control loads((1*aspen_param_sizeof_double*8):from(m_z):traits(pattern(stencil8), reuse_SK_noprefetch(2.5), reuse_SK_prefetch(2.5)))
 
 }
 
@@ -1775,7 +1783,7 @@ void CalcHourglassControlForElems(Real_t determ[T_NUMELEM], Real_t hgcoef,
    /* start loop over elements */
 
 int abort = 0;
-/*
+
 #ifdef _OPENACC
 #pragma acc parallel loop present(dvdx, dvdy, dvdz, x8n, y8n, z8n, \
 m_x, m_y, m_z, p_volo, p_v, determ, p_nodelist) reduction(||:abort)
@@ -1789,22 +1797,41 @@ m_x, m_y, m_z, p_volo, p_v, determ, p_nodelist) reduction(||:abort)
 #pragma aspen declare data(elemToNode:traits(Array(8,aspen_param_int)))
       Index_t* elemToNode = &p_nodelist[8*i];
 
-      CollectDomainNodesToElemNodes(elemToNode, x1, y1, z1);
+// this is because of the stencil read from CollectDomainNodesToElemNodes function
+#pragma aspen  control loads((1*aspen_param_sizeof_double*8):from(determ):traits(pattern(stencil8), reuse_SK_noprefetch(2.5), reuse_SK_prefetch(2.5)))
+#pragma aspen  control loads((1*aspen_param_sizeof_double*8):from(m_volo):traits(pattern(stencil8), reuse_SK_noprefetch(2.5), reuse_SK_prefetch(2.5)))
+#pragma aspen  control loads((1*aspen_param_sizeof_double*8):from(m_v):traits(pattern(stencil8), reuse_SK_noprefetch(2.5), reuse_SK_prefetch(2.5)))
 
+
+      CollectDomainNodesToElemNodes(elemToNode, x1, y1, z1);
       CalcElemVolumeDerivative(pfx, pfy, pfz, x1, y1, z1);
+
+// these reads and writes are for 8 index reading of the CalcElemVolumeDerivative function
+#pragma aspen control stores( ((1*aspen_param_sizeof_double)*8):from(dvdx):traits(initialized(0)))
+#pragma aspen control stores( ((1*aspen_param_sizeof_double)*8):from(dvdy):traits(initialized(0)))
+#pragma aspen control stores( ((1*aspen_param_sizeof_double)*8):from(dvdz):traits(initialized(0)))
+#pragma aspen control loads( ((1*aspen_param_sizeof_double)*8):from(dvdx))
+#pragma aspen control loads( ((1*aspen_param_sizeof_double)*8):from(dvdy))
+#pragma aspen control loads( ((1*aspen_param_sizeof_double)*8):from(dvdz))
+
 
       // load into temporary storage for FB Hour Glass control 
       for(ii=0;ii<8;++ii){
          Index_t jj=8*i+ii;
 
+#pragma aspen  control stores(0:from(dvdx):traits(initialized(0)))
          dvdx[jj] = pfx[ii];
+#pragma aspen  control stores(0:from(dvdy):traits(initialized(0)))
          dvdy[jj] = pfy[ii];
+#pragma aspen  control stores(0:from(dvdz):traits(initialized(0)))
          dvdz[jj] = pfz[ii];
+#pragma aspen  control stores(0:from(x8n):traits(initialized(0)))
          x8n[jj]  = x1[ii];
+#pragma aspen  control stores(0:from(y8n):traits(initialized(0)))
          y8n[jj]  = y1[ii];
+#pragma aspen  control stores(0:from(z8n):traits(initialized(0)))
          z8n[jj]  = z1[ii];
       }
-
       determ[i] = p_volo[i] * p_v[i];
 
       // Do a check for negative volumes 
@@ -1813,10 +1840,16 @@ m_x, m_y, m_z, p_volo, p_v, determ, p_nodelist) reduction(||:abort)
          abort = 1;
       } 
    }
+// this is because of the stencil read from CollectDomainNodesToElemNodes function
+//#pragma aspen declare data(m_x:traits(Array(m_numElem,aspen_param_double)))
+//#pragma aspen declare data(m_y:traits(Array(m_numElem,aspen_param_double)))
+//#pragma aspen declare data(m_z:traits(Array(m_numElem,aspen_param_double)))
+
+
    if ( abort ) {
       fprintf(stderr, "VolumeError in CalcHourglassControlForElems(); exit\n");
       exit(VolumeError) ;
-   } */
+   } 
 
 #pragma aspen control probability(1)
    if ( hgcoef > 0. ) {
@@ -1863,20 +1896,20 @@ void CalcVolumeForceForElems()
 */
 
       /* Sum contributions to total stress tensor */
-      //InitStressTermsForElems(numElem, sigxx, sigyy, sigzz, m_p, m_q);
+      InitStressTermsForElems(numElem, sigxx, sigyy, sigzz, m_p, m_q);
 
       // call elemlib stress integration loop to produce nodal forces from
       // material stresses.
       
-      /*IntegrateStressForElems( numElem, sigxx, sigyy, sigzz, determ, m_nodelist,
+      IntegrateStressForElems( numElem, sigxx, sigyy, sigzz, determ, m_nodelist,
                                m_x, m_y, m_z, m_nodeElemCount, m_nodeElemStart,
-                               m_nodeElemCornerList, m_fx, m_fy, m_fz) ; */
+                               m_nodeElemCornerList, m_fx, m_fy, m_fz) ;
      
 
       // check for negative element volume
 
 
-/*
+
 #pragma aspen control ignore
 #ifdef _OPENACC
 #pragma acc parallel loop independent present(determ) reduction(||: abort)
@@ -1892,7 +1925,7 @@ void CalcVolumeForceForElems()
          fprintf(stderr, "VolumeError in CalcVolumeForceForElems(); exit\n");
          exit(VolumeError) ;
       }
-*/
+
       CalcHourglassControlForElems(determ,hgcoef,m_nodelist,m_volo,m_v) ; 
 /*
       Release(&determ) ;
@@ -1909,7 +1942,7 @@ static inline void CalcForceForNodes(Real_t p_fx[T_NUMNODE], Real_t p_fy[T_NUMNO
 {
   Index_t i;
   Index_t numNode = m_numNode;
-/*
+
 #ifdef _OPENACC
 #pragma acc parallel loop independent present(p_fx, p_fy, p_fz)
 #else
@@ -1921,7 +1954,7 @@ static inline void CalcForceForNodes(Real_t p_fx[T_NUMNODE], Real_t p_fy[T_NUMNO
      p_fy[i] = 0.0 ;
      p_fz[i] = 0.0 ;
   }
-*/
+
 
   /* Calcforce calls partial, force, hourq */
   CalcVolumeForceForElems() ;
@@ -2084,16 +2117,16 @@ void LagrangeNodal()
   CalcForceForNodes(m_fx,m_fy,m_fz);
 
   //Monil CalcAccelerationForNodes(m_fx,m_fy,m_fz,m_xdd,m_ydd,m_zdd,m_nodalMass);
-  //CalcAccelerationForNodes(m_fx,m_fy,m_fz,m_xdd,m_ydd,m_zdd,m_nodalMass);
+  CalcAccelerationForNodes(m_fx,m_fy,m_fz,m_xdd,m_ydd,m_zdd,m_nodalMass);
 
   //Monil ApplyAccelerationBoundaryConditionsForNodes(m_xdd,m_ydd,m_zdd,m_symmX,m_symmY,m_symmZ);
-  //ApplyAccelerationBoundaryConditionsForNodes(m_xdd,m_ydd,m_zdd,m_symmX,m_symmY,m_symmZ);
+  ApplyAccelerationBoundaryConditionsForNodes(m_xdd,m_ydd,m_zdd,m_symmX,m_symmY,m_symmZ);
 
   //CalcVelocityForNodes(delt,u_cut,m_xd,m_yd,m_zd,m_xdd,m_ydd,m_zdd);
-  //CalcVelocityForNodes(delt,u_cut,m_xd,m_yd,m_zd,m_xdd,m_ydd,m_zdd);
+  CalcVelocityForNodes(delt,u_cut,m_xd,m_yd,m_zd,m_xdd,m_ydd,m_zdd);
 
   //Monil CalcPositionForNodes(delt,m_x,m_y,m_z,m_xd,m_yd,m_zd);
-  //CalcPositionForNodes(delt,m_x,m_y,m_z,m_xd,m_yd,m_zd);
+  CalcPositionForNodes(delt,m_x,m_y,m_z,m_xd,m_yd,m_zd);
 
   return;
 }
@@ -4043,10 +4076,12 @@ void LagrangeLeapFrog()
     * material states */
    //Monil LagrangeElements();
    
-   //LagrangeElements();
+   LagrangeElements();
 
    //Monil CalcTimeConstraintsForElems();
+   //CalcTimeConstraintsForElems();
 
+   //LagrangeRelease() ;  Creation/destruction of temps may be important to capture 
    //Monil LagrangeRelease() ;  Creation/destruction of temps may be important to capture 
 }
 

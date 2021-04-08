@@ -223,7 +223,7 @@ void TimeIncrement(Domain& domain)
 
 /******************************************/
 
-static inline
+//static inline
 void CollectDomainNodesToElemNodes(Domain &domain,
                                    const Index_t* elemToNode,
                                    Real_t elemX[8],
@@ -277,7 +277,7 @@ void CollectDomainNodesToElemNodes(Domain &domain,
 
 /******************************************/
 
-static inline
+//static inline
 void InitStressTermsForElems(Domain &domain,
                              Real_t *sigxx, Real_t *sigyy, Real_t *sigzz,
                              Index_t numElem)
@@ -294,7 +294,7 @@ void InitStressTermsForElems(Domain &domain,
 
 /******************************************/
 
-static inline
+//static inline
 void CalcElemShapeFunctionDerivatives( Real_t const x[],
                                        Real_t const y[],
                                        Real_t const z[],
@@ -498,7 +498,7 @@ void SumElemStressesToNodeForces( const Real_t B[][8],
 
 /******************************************/
 
-static inline
+//static inline
 void IntegrateStressForElems( Domain &domain,
                               Real_t *sigxx, Real_t *sigyy, Real_t *sigzz,
                               Real_t *determ, Index_t numElem, Index_t numNode)
@@ -545,7 +545,7 @@ void IntegrateStressForElems( Domain &domain,
 
     CalcElemNodeNormals( B[0] , B[1], B[2], x_local, y_local, z_local );
 
-    if (numthreads > 1) {
+    /*if (numthreads > 1) {
        // Eliminate thread writing conflicts at the nodes by giving
        // each element its own copy to write to
        SumElemStressesToNodeForces( B, sigxx[k], sigyy[k], sigzz[k],
@@ -553,7 +553,8 @@ void IntegrateStressForElems( Domain &domain,
                                     &fy_elem[k*8],
                                     &fz_elem[k*8] ) ;
     }
-    else { 
+    else  */
+    { 
        SumElemStressesToNodeForces( B, sigxx[k], sigyy[k], sigzz[k],
                                     fx_local, fy_local, fz_local ) ;
 
@@ -569,7 +570,7 @@ void IntegrateStressForElems( Domain &domain,
 
 //exit (0);
 
-  if (numthreads > 1) {
+  /*if (numthreads > 1) {
      // If threaded, then we need to copy the data out of the temporary
      // arrays used above into the final forces field
 #pragma omp parallel for firstprivate(numNode)
@@ -593,7 +594,7 @@ void IntegrateStressForElems( Domain &domain,
      Release(&fz_elem) ;
      Release(&fy_elem) ;
      Release(&fx_elem) ;
-  }
+  }*/
 }
 
 /******************************************/
@@ -630,7 +631,7 @@ void VoluDer(const Real_t x0, const Real_t x1, const Real_t x2,
 
 /******************************************/
 
-static inline
+//static inline
 void CalcElemVolumeDerivative(Real_t dvdx[8],
                               Real_t dvdy[8],
                               Real_t dvdz[8],
@@ -674,7 +675,7 @@ void CalcElemVolumeDerivative(Real_t dvdx[8],
 
 /******************************************/
 
-static inline
+//static inline
 void CalcElemFBHourglassForce(Real_t *xd, Real_t *yd, Real_t *zd,  Real_t hourgam[][4],
                               Real_t coefficient,
                               Real_t *hgfx, Real_t *hgfy, Real_t *hgfz )
@@ -717,7 +718,7 @@ void CalcElemFBHourglassForce(Real_t *xd, Real_t *yd, Real_t *zd,  Real_t hourga
 
 /******************************************/
 
-static inline
+//static inline
 void CalcFBHourglassForceForElems( Domain &domain,
                                    Real_t *determ,
                                    Real_t *x8n, Real_t *y8n, Real_t *z8n,
@@ -860,6 +861,7 @@ void CalcFBHourglassForceForElems( Domain &domain,
       /* compute forces */
       /* store forces into h arrays (force arrays) */
 
+      
       ss1=domain.ss(i2);
       mass1=domain.elemMass(i2);
       volume13=CBRT(determ[i2]);
@@ -908,7 +910,7 @@ void CalcFBHourglassForceForElems( Domain &domain,
 
       // With the threaded version, we write into local arrays per elem
       // so we don't have to worry about race conditions
-      if (numthreads > 1) {
+      /*if (numthreads > 1) {
          fx_local = &fx_elem[i3] ;
          fx_local[0] = hgfx[0];
          fx_local[1] = hgfx[1];
@@ -939,7 +941,8 @@ void CalcFBHourglassForceForElems( Domain &domain,
          fz_local[6] = hgfz[6];
          fz_local[7] = hgfz[7];
       }
-      else {
+      else 
+      {*/
          domain.fx(n0si2) += hgfx[0];
          domain.fy(n0si2) += hgfy[0];
          domain.fz(n0si2) += hgfz[0];
@@ -971,10 +974,10 @@ void CalcFBHourglassForceForElems( Domain &domain,
          domain.fx(n7si2) += hgfx[7];
          domain.fy(n7si2) += hgfy[7];
          domain.fz(n7si2) += hgfz[7];
-      }
+      /*} */
    }
 
-   if (numthreads > 1) {
+   /*if (numthreads > 1) {
      // Collect the data from the local arrays into the final force arrays
 #pragma omp parallel for firstprivate(numNode)
       for( Index_t gnode=0 ; gnode<numNode ; ++gnode )
@@ -997,13 +1000,12 @@ void CalcFBHourglassForceForElems( Domain &domain,
       Release(&fz_elem) ;
       Release(&fy_elem) ;
       Release(&fx_elem) ;
-   }
+   }*/
 }
 
 /******************************************/
-
-static inline
-void CalcHourglassControlForElems(Domain& domain,
+//static inline
+void CalcHourglassControlForElems_old(Domain& domain,
                                   Real_t determ[], Real_t hgcoef)
 {
    Index_t numElem = domain.numElem() ;
@@ -1015,6 +1017,7 @@ void CalcHourglassControlForElems(Domain& domain,
    Real_t *y8n  = Allocate<Real_t>(numElem8) ;
    Real_t *z8n  = Allocate<Real_t>(numElem8) ;
 
+   int count = 0;
    /* start loop over elements */
 #pragma omp parallel for firstprivate(numElem)
    for (Index_t i=0 ; i<numElem ; ++i){
@@ -1022,14 +1025,57 @@ void CalcHourglassControlForElems(Domain& domain,
       Real_t pfx[8], pfy[8], pfz[8] ;
 
       Index_t* elemToNode = domain.nodelist(i);
-      CollectDomainNodesToElemNodes(domain, elemToNode, x1, y1, z1);
 
-      CalcElemVolumeDerivative(pfx, pfy, pfz, x1, y1, z1);
+      for( Index_t st_new=0 ; st_new<8 ; ++st_new ){
+          Index_t nd0i = elemToNode[st_new] ;
+          x1[st_new] = domain.x(nd0i);
+          y1[st_new] = domain.y(nd0i);
+          z1[st_new] = domain.z(nd0i);
+      }
+
+//Monil this function is replaced by the above code
+      //CollectDomainNodesToElemNodes(domain, elemToNode, x1, y1, z1);
+
+//Monil this function is replaced by the below code
+      //CalcElemVolumeDerivative(pfx, pfy, pfz, x1, y1, z1);
+
+      VoluDer(x1[1], x1[2], x1[3], x1[4], x1[5], x1[7],
+           y1[1], y1[2], y1[3], y1[4], y1[5], y1[7],
+           z1[1], z1[2], z1[3], z1[4], z1[5], z1[7],
+           &pfx[0], &pfy[0], &pfz[0]);
+      VoluDer(x1[0], x1[1], x1[2], x1[7], x1[4], x1[6],
+           y1[0], y1[1], y1[2], y1[7], y1[4], y1[6],
+           z1[0], z1[1], z1[2], z1[7], z1[4], z1[6],
+           &pfx[3], &pfy[3], &pfz[3]);
+      VoluDer(x1[3], x1[0], x1[1], x1[6], x1[7], x1[5],
+           y1[3], y1[0], y1[1], y1[6], y1[7], y1[5],
+           z1[3], z1[0], z1[1], z1[6], z1[7], z1[5],
+           &pfx[2], &pfy[2], &pfz[2]);
+      VoluDer(x1[2], x1[3], x1[0], x1[5], x1[6], x1[4],
+           y1[2], y1[3], y1[0], y1[5], y1[6], y1[4],
+           z1[2], z1[3], z1[0], z1[5], z1[6], z1[4],
+           &pfx[1], &pfy[1], &pfz[1]);
+      VoluDer(x1[7], x1[6], x1[5], x1[0], x1[3], x1[1],
+           y1[7], y1[6], y1[5], y1[0], y1[3], y1[1],
+           z1[7], z1[6], z1[5], z1[0], z1[3], z1[1],
+           &pfx[4], &pfy[4], &pfz[4]);
+      VoluDer(x1[4], x1[7], x1[6], x1[1], x1[0], x1[2],
+           y1[4], y1[7], y1[6], y1[1], y1[0], y1[2],
+           z1[4], z1[7], z1[6], z1[1], z1[0], z1[2],
+           &pfx[5], &pfy[5], &pfz[5]);
+      VoluDer(x1[5], x1[4], x1[7], x1[2], x1[1], x1[3],
+           y1[5], y1[4], y1[7], y1[2], y1[1], y1[3],
+           z1[5], z1[4], z1[7], z1[2], z1[1], z1[3],
+           &pfx[6], &pfy[6], &pfz[6]);
+      VoluDer(x1[6], x1[5], x1[4], x1[3], x1[2], x1[0],
+           y1[6], y1[5], y1[4], y1[3], y1[2], y1[0],
+           z1[6], z1[5], z1[4], z1[3], z1[2], z1[0],
+           &pfx[7], &pfy[7], &pfz[7]);
+
 
       /* load into temporary storage for FB Hour Glass control */
       for(Index_t ii=0;ii<8;++ii){
          Index_t jj=8*i+ii;
-
          dvdx[jj] = pfx[ii];
          dvdy[jj] = pfy[ii];
          dvdz[jj] = pfz[ii];
@@ -1053,7 +1099,73 @@ void CalcHourglassControlForElems(Domain& domain,
    if ( hgcoef > Real_t(0.) ) {
       CalcFBHourglassForceForElems( domain,
                                     determ, x8n, y8n, z8n, dvdx, dvdy, dvdz,
-                                    hgcoef, numElem, domain.numNode()) ;
+                                    hgcoef, numElem, domain.numNode()) ; 
+   }
+
+   Release(&z8n) ;
+   Release(&y8n) ;
+   Release(&x8n) ;
+   Release(&dvdz) ;
+   Release(&dvdy) ;
+   Release(&dvdx) ;
+
+   return ;
+}
+
+
+/******************************************/
+//static inline
+void CalcHourglassControlForElems(Domain& domain,
+                                  Real_t determ[], Real_t hgcoef)
+{
+   Index_t numElem = domain.numElem() ;
+   Index_t numElem8 = numElem * 8 ;
+   Real_t *dvdx = Allocate<Real_t>(numElem8) ;
+   Real_t *dvdy = Allocate<Real_t>(numElem8) ;
+   Real_t *dvdz = Allocate<Real_t>(numElem8) ;
+   Real_t *x8n  = Allocate<Real_t>(numElem8) ;
+   Real_t *y8n  = Allocate<Real_t>(numElem8) ;
+   Real_t *z8n  = Allocate<Real_t>(numElem8) ;
+
+   int count = 0;
+   /* start loop over elements */
+#pragma omp parallel for firstprivate(numElem)
+   for (Index_t i=0 ; i<numElem ; ++i){
+      Real_t  x1[8],  y1[8],  z1[8] ;
+      Real_t pfx[8], pfy[8], pfz[8] ;
+
+      Index_t* elemToNode = domain.nodelist(i);
+      CollectDomainNodesToElemNodes(domain, elemToNode, x1, y1, z1);
+
+      CalcElemVolumeDerivative(pfx, pfy, pfz, x1, y1, z1);
+
+      /* load into temporary storage for FB Hour Glass control */
+      for(Index_t ii=0;ii<8;++ii){
+         Index_t jj=8*i+ii;
+         dvdx[jj] = pfx[ii];
+         dvdy[jj] = pfy[ii];
+         dvdz[jj] = pfz[ii];
+         x8n[jj]  = x1[ii];
+         y8n[jj]  = y1[ii];
+         z8n[jj]  = z1[ii];
+      }
+
+      determ[i] = domain.volo(i) * domain.v(i);
+
+      /* Do a check for negative volumes */
+      if ( domain.v(i) <= Real_t(0.0) ) {
+#if USE_MPI         
+         MPI_Abort(MPI_COMM_WORLD, VolumeError) ;
+#else
+         exit(VolumeError);
+#endif
+      }
+   }
+
+   if ( hgcoef > Real_t(0.) ) {
+      CalcFBHourglassForceForElems( domain,
+                                    determ, x8n, y8n, z8n, dvdx, dvdy, dvdz,
+                                    hgcoef, numElem, domain.numNode()) ; 
    }
 
    Release(&z8n) ;
@@ -1068,7 +1180,7 @@ void CalcHourglassControlForElems(Domain& domain,
 
 /******************************************/
 
-static inline
+//static inline
 void CalcVolumeForceForElems(Domain& domain)
 {
    Index_t numElem = domain.numElem() ;
@@ -1102,7 +1214,7 @@ void CalcVolumeForceForElems(Domain& domain)
          }
       }
 
-      //CalcHourglassControlForElems(domain, determ, hgcoef) ;
+      CalcHourglassControlForElems(domain, determ, hgcoef) ;
 
       Release(&determ) ;
       Release(&sigzz) ;
@@ -1113,7 +1225,7 @@ void CalcVolumeForceForElems(Domain& domain)
 
 /******************************************/
 
-static inline 
+//static inline 
 void CalcForceForNodes(Domain& domain)
 {
   Index_t numNode = domain.numNode() ;
@@ -1149,7 +1261,7 @@ void CalcForceForNodes(Domain& domain)
 
 /******************************************/
 
-static inline
+//static inline
 void CalcAccelerationForNodes(Domain &domain, Index_t numNode)
 {
    
@@ -1163,7 +1275,7 @@ void CalcAccelerationForNodes(Domain &domain, Index_t numNode)
 
 /******************************************/
 
-static inline
+//static inline
 void ApplyAccelerationBoundaryConditionsForNodes(Domain& domain)
 {
    Index_t size = domain.sizeX();
@@ -1194,7 +1306,7 @@ void ApplyAccelerationBoundaryConditionsForNodes(Domain& domain)
 
 /******************************************/
 
-static inline
+//static inline
 void CalcVelocityForNodes(Domain &domain, const Real_t dt, const Real_t u_cut,
                           Index_t numNode)
 {
@@ -1220,7 +1332,7 @@ void CalcVelocityForNodes(Domain &domain, const Real_t dt, const Real_t u_cut,
 
 /******************************************/
 
-static inline
+//static inline
 void CalcPositionForNodes(Domain &domain, const Real_t dt, Index_t numNode)
 {
 #pragma omp parallel for firstprivate(numNode)
@@ -1934,7 +2046,7 @@ void CalcMonotonicQRegionForElems(Domain &domain, Int_t r,
 
 
 /******************************************/
-static inline
+//static inline
 void CalcMonotonicQRegionForElems(Domain &domain, Int_t r,
                                   Real_t ptiny)
 {
@@ -2610,7 +2722,7 @@ void ApplyMaterialPropertiesForElems(Domain& domain)
 
 /******************************************/
 
-static inline
+//static inline
 void UpdateVolumesForElems(Domain &domain,
                            Real_t v_cut, Index_t length)
 {

@@ -57,7 +57,7 @@ x_pos = np.arange(len(stride))  # the label locations
 #rects1 = plt.bar(x, traffic, .8, hatch='....', color='white', edgecolor='black')
 
 plt.plot(stride, read, marker='o', markersize=3,  color='black', linestyle='dashed', label="Read", linewidth=2)
-plt.plot(stride, write, marker='*', markersize=3,  color='black', linestyle='solid', label="write", linewidth=2)
+plt.plot(stride, write, marker='*', markersize=3,  color='black', linestyle='solid', label="Write", linewidth=2)
 plt.plot(stride, read1, marker='x', markersize=4,  color='black', linestyle='dotted', label="RD-BW-Pf", linewidth=2)
 plt.plot(stride, write1, marker='v', markersize=4,  color='black', linestyle='dashdot', label="WR-BW-Pf", linewidth=1)
 

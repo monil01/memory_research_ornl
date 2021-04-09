@@ -77,7 +77,7 @@ plt.plot(stride, writes, marker='P', markersize=4,  color='black', linestyle='da
 #plt.plot(stride, read, "-b", label="Read")
 #plt.plot(stride, write, "-r", label="Write")
 #plt.legend()
-plt.legend(handlelength=2, fontsize=16)
+plt.legend(loc="upper right", handlelength=2, fontsize=15)
 
 #plt.legend(loc="upper right", fontsize=12)
 

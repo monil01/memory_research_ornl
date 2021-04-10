@@ -227,7 +227,7 @@ make clean
 make
 
 #intel-prefetch -d
-#echo "Iamm1nil" | sudo /usr/local/bin/intel-prefetch-disable -d
+#echo "" | sudo /usr/local/bin/intel-prefetch-disable -d
 intel-prefetch-disable -d
 
 for array_size in "${n_array[@]}"
@@ -248,7 +248,7 @@ done
 done
 
 #intel-prefetch -e
-#echo "Iamm1nil" | sudo /usr/local/bin/intel-prefetch-disable -e
+#echo "" | sudo /usr/local/bin/intel-prefetch-disable -e
 intel-prefetch-disable -e
 
 for array_size in "${n_array[@]}"

@@ -239,6 +239,7 @@ void CollectDomainNodesToElemNodes(Domain &domain,
    Index_t nd6i = elemToNode[6] ;
    Index_t nd7i = elemToNode[7] ;
 
+
    elemX[0] = domain.x(nd0i);
    elemX[1] = domain.x(nd1i);
    elemX[2] = domain.x(nd2i);
@@ -265,6 +266,12 @@ void CollectDomainNodesToElemNodes(Domain &domain,
    elemZ[5] = domain.z(nd5i);
    elemZ[6] = domain.z(nd6i);
    elemZ[7] = domain.z(nd7i);
+
+//std::cout << "elmtonode " << nd0i << " " << nd1i << " " << nd2i << " " << nd3i << " " << nd4i << " " << nd5i << " " << nd6i << " " << nd7i << std::endl;
+//for (int i = 0 ; i < 8; i++){
+
+	//std::cout << "element" << elemX[i] << " " << elemY[i] << " " <<  elemZ[i] << std::endl;
+//}
 
 }
 
@@ -527,15 +534,16 @@ void IntegrateStressForElems( Domain &domain,
     Real_t y_local[8] ;
     Real_t z_local[8] ;
 
+    //std::cout << "element calculation"<< std::endl;
     // get nodal coordinates from global arrays and copy into local arrays.
     CollectDomainNodesToElemNodes(domain, elemToNode, x_local, y_local, z_local);
+    //std::cout << "element calculation"<< std::endl;
+
 
     // Volume calculation involves extra work for numerical consistency
-    CalcElemShapeFunctionDerivatives(x_local, y_local, z_local,
-                                         B, &determ[k]);
+    CalcElemShapeFunctionDerivatives(x_local, y_local, z_local, B, &determ[k]);
 
-    CalcElemNodeNormals( B[0] , B[1], B[2],
-                          x_local, y_local, z_local );
+    CalcElemNodeNormals( B[0] , B[1], B[2], x_local, y_local, z_local );
 
     if (numthreads > 1) {
        // Eliminate thread writing conflicts at the nodes by giving
@@ -545,7 +553,7 @@ void IntegrateStressForElems( Domain &domain,
                                     &fy_elem[k*8],
                                     &fz_elem[k*8] ) ;
     }
-    else {
+    else { 
        SumElemStressesToNodeForces( B, sigxx[k], sigyy[k], sigzz[k],
                                     fx_local, fy_local, fz_local ) ;
 
@@ -555,9 +563,11 @@ void IntegrateStressForElems( Domain &domain,
           domain.fx(gnode) += fx_local[lnode];
           domain.fy(gnode) += fy_local[lnode];
           domain.fz(gnode) += fz_local[lnode];
-       }
+       } 
     }
   }
+
+//exit (0);
 
   if (numthreads > 1) {
      // If threaded, then we need to copy the data out of the temporary
@@ -1074,9 +1084,11 @@ void CalcVolumeForceForElems(Domain& domain)
 
       // call elemlib stress integration loop to produce nodal forces from
       // material stresses.
+      
       IntegrateStressForElems( domain,
                                sigxx, sigyy, sigzz, determ, numElem,
                                domain.numNode()) ;
+
 
       // check for negative element volume
 #pragma omp parallel for firstprivate(numElem)
@@ -1090,7 +1102,7 @@ void CalcVolumeForceForElems(Domain& domain)
          }
       }
 
-      CalcHourglassControlForElems(domain, determ, hgcoef) ;
+      //CalcHourglassControlForElems(domain, determ, hgcoef) ;
 
       Release(&determ) ;
       Release(&sigzz) ;
@@ -1117,7 +1129,7 @@ void CalcForceForNodes(Domain& domain)
      domain.fx(i) = Real_t(0.0) ;
      domain.fy(i) = Real_t(0.0) ;
      domain.fz(i) = Real_t(0.0) ;
-  }
+  } 
 
   /* Calcforce calls partial, force, hourq */
   CalcVolumeForceForElems(domain) ;
@@ -1182,7 +1194,7 @@ void ApplyAccelerationBoundaryConditionsForNodes(Domain& domain)
 
 /******************************************/
 
-//static inline
+static inline
 void CalcVelocityForNodes(Domain &domain, const Real_t dt, const Real_t u_cut,
                           Index_t numNode)
 {
@@ -1208,7 +1220,7 @@ void CalcVelocityForNodes(Domain &domain, const Real_t dt, const Real_t u_cut,
 
 /******************************************/
 
-//static inline
+static inline
 void CalcPositionForNodes(Domain &domain, const Real_t dt, Index_t numNode)
 {
 #pragma omp parallel for firstprivate(numNode)
@@ -1528,7 +1540,6 @@ void CalcKinematicsForElems( Domain &domain,
 
     // get nodal coordinates from global arrays and copy into local arrays.
     CollectDomainNodesToElemNodes(domain, elemToNode, x_local, y_local, z_local);
-
     // volume calculations
     volume = CalcElemVolume(x_local, y_local, z_local );
     relativeVolume = volume / domain.volo(k) ;
@@ -1547,7 +1558,6 @@ void CalcKinematicsForElems( Domain &domain,
       yd_local[lnode] = domain.yd(gnode);
       zd_local[lnode] = domain.zd(gnode);
     }
-
     Real_t dt2 = Real_t(0.5) * deltaTime;
     for ( Index_t j=0 ; j<8 ; ++j )
     {
@@ -1571,7 +1581,7 @@ void CalcKinematicsForElems( Domain &domain,
 
 /******************************************/
 
-static inline
+//static inline
 void CalcLagrangeElements(Domain& domain)
 {
    Index_t numElem = domain.numElem() ;
@@ -1581,7 +1591,6 @@ void CalcLagrangeElements(Domain& domain)
       domain.AllocateStrains(numElem);
 
       CalcKinematicsForElems(domain, deltatime, numElem) ;
-
       // element loop to do some stuff not included in the elemlib function.
 #pragma omp parallel for firstprivate(numElem)
       for ( Index_t k=0 ; k<numElem ; ++k )
@@ -1605,6 +1614,7 @@ void CalcLagrangeElements(Domain& domain)
            exit(VolumeError);
 #endif
         }
+
       }
       domain.DeallocateStrains();
    }
@@ -1612,7 +1622,7 @@ void CalcLagrangeElements(Domain& domain)
 
 /******************************************/
 
-static inline
+//static inline
 void CalcMonotonicQGradientsForElems(Domain& domain)
 {
    Index_t numElem = domain.numElem();
@@ -1758,7 +1768,9 @@ void CalcMonotonicQGradientsForElems(Domain& domain)
    }
 }
 
+
 /******************************************/
+/*
 
 static inline
 void CalcMonotonicQRegionForElems(Domain &domain, Int_t r,
@@ -1777,27 +1789,26 @@ void CalcMonotonicQRegionForElems(Domain &domain, Int_t r,
       Int_t bcMask = domain.elemBC(ielem) ;
       Real_t delvm = 0.0, delvp =0.0;
 
-      /*  phixi     */
       Real_t norm = Real_t(1.) / (domain.delv_xi(ielem)+ ptiny ) ;
 
       switch (bcMask & XI_M) {
-         case XI_M_COMM: /* needs comm data */
+         case XI_M_COMM:
          case 0:         delvm = domain.delv_xi(domain.lxim(ielem)); break ;
          case XI_M_SYMM: delvm = domain.delv_xi(ielem) ;       break ;
          case XI_M_FREE: delvm = Real_t(0.0) ;      break ;
          default:          fprintf(stderr, "Error in switch at %s line %d\n",
                                    __FILE__, __LINE__);
-            delvm = 0; /* ERROR - but quiets the compiler */
+            delvm = 0; 
             break;
       }
       switch (bcMask & XI_P) {
-         case XI_P_COMM: /* needs comm data */
+         case XI_P_COMM: 
          case 0:         delvp = domain.delv_xi(domain.lxip(ielem)) ; break ;
          case XI_P_SYMM: delvp = domain.delv_xi(ielem) ;       break ;
          case XI_P_FREE: delvp = Real_t(0.0) ;      break ;
          default:          fprintf(stderr, "Error in switch at %s line %d\n",
                                    __FILE__, __LINE__);
-            delvp = 0; /* ERROR - but quiets the compiler */
+            delvp = 0;
             break;
       }
 
@@ -1815,27 +1826,26 @@ void CalcMonotonicQRegionForElems(Domain &domain, Int_t r,
       if ( phixi > monoq_max_slope) phixi = monoq_max_slope;
 
 
-      /*  phieta     */
       norm = Real_t(1.) / ( domain.delv_eta(ielem) + ptiny ) ;
 
       switch (bcMask & ETA_M) {
-         case ETA_M_COMM: /* needs comm data */
+         case ETA_M_COMM: 
          case 0:          delvm = domain.delv_eta(domain.letam(ielem)) ; break ;
          case ETA_M_SYMM: delvm = domain.delv_eta(ielem) ;        break ;
          case ETA_M_FREE: delvm = Real_t(0.0) ;        break ;
          default:          fprintf(stderr, "Error in switch at %s line %d\n",
                                    __FILE__, __LINE__);
-            delvm = 0; /* ERROR - but quiets the compiler */
+            delvm = 0;
             break;
       }
       switch (bcMask & ETA_P) {
-         case ETA_P_COMM: /* needs comm data */
+         case ETA_P_COMM: 
          case 0:          delvp = domain.delv_eta(domain.letap(ielem)) ; break ;
          case ETA_P_SYMM: delvp = domain.delv_eta(ielem) ;        break ;
          case ETA_P_FREE: delvp = Real_t(0.0) ;        break ;
          default:          fprintf(stderr, "Error in switch at %s line %d\n",
                                    __FILE__, __LINE__);
-            delvp = 0; /* ERROR - but quiets the compiler */
+            delvp = 0;
             break;
       }
 
@@ -1852,27 +1862,26 @@ void CalcMonotonicQRegionForElems(Domain &domain, Int_t r,
       if ( phieta < Real_t(0.)) phieta = Real_t(0.) ;
       if ( phieta > monoq_max_slope)  phieta = monoq_max_slope;
 
-      /*  phizeta     */
       norm = Real_t(1.) / ( domain.delv_zeta(ielem) + ptiny ) ;
 
       switch (bcMask & ZETA_M) {
-         case ZETA_M_COMM: /* needs comm data */
+         case ZETA_M_COMM: 
          case 0:           delvm = domain.delv_zeta(domain.lzetam(ielem)) ; break ;
          case ZETA_M_SYMM: delvm = domain.delv_zeta(ielem) ;         break ;
          case ZETA_M_FREE: delvm = Real_t(0.0) ;          break ;
          default:          fprintf(stderr, "Error in switch at %s line %d\n",
                                    __FILE__, __LINE__);
-            delvm = 0; /* ERROR - but quiets the compiler */
+            delvm = 0;
             break;
       }
       switch (bcMask & ZETA_P) {
-         case ZETA_P_COMM: /* needs comm data */
+         case ZETA_P_COMM: 
          case 0:           delvp = domain.delv_zeta(domain.lzetap(ielem)) ; break ;
          case ZETA_P_SYMM: delvp = domain.delv_zeta(ielem) ;         break ;
          case ZETA_P_FREE: delvp = Real_t(0.0) ;          break ;
          default:          fprintf(stderr, "Error in switch at %s line %d\n",
                                    __FILE__, __LINE__);
-            delvp = 0; /* ERROR - but quiets the compiler */
+            delvp = 0; 
             break;
       }
 
@@ -1889,7 +1898,6 @@ void CalcMonotonicQRegionForElems(Domain &domain, Int_t r,
       if ( phizeta < Real_t(0.)) phizeta = Real_t(0.);
       if ( phizeta > monoq_max_slope  ) phizeta = monoq_max_slope;
 
-      /* Remove length scale */
 
       if ( domain.vdov(ielem) > Real_t(0.) )  {
          qlin  = Real_t(0.) ;
@@ -1922,9 +1930,194 @@ void CalcMonotonicQRegionForElems(Domain &domain, Int_t r,
    }
 }
 
+*/
+
+
+/******************************************/
+static inline
+void CalcMonotonicQRegionForElems(Domain &domain, Int_t r,
+                                  Real_t ptiny)
+{
+   Real_t monoq_limiter_mult = domain.monoq_limiter_mult();
+   Real_t monoq_max_slope = domain.monoq_max_slope();
+   Real_t qlc_monoq = domain.qlc_monoq();
+   Real_t qqc_monoq = domain.qqc_monoq();
+//std::cout << "domain size " << domain.regElemSize(r) << std::endl;
+   int ax = 0, ax1 =0;
+#pragma omp parallel for firstprivate(qlc_monoq, qqc_monoq, monoq_limiter_mult, monoq_max_slope, ptiny)
+   for ( Index_t i = 0 ; i < domain.regElemSize(r); ++i ) {
+      Index_t ielem = domain.regElemlist(r,i);
+      Real_t qlin, qquad ;
+      Real_t phixi, phieta, phizeta ;
+      Int_t bcMask = domain.elemBC(ielem) ;
+      Real_t delvm = 0.0, delvp =0.0;
+
+      //  phixi    
+      Real_t norm = Real_t(1.) / (domain.delv_xi(ielem)+ ptiny ) ;
+
+
+      switch (bcMask & XI_M) {
+         case XI_M_COMM: /* needs comm data */
+         //case 0:         delvm = domain.delv_xi(domain.lxim(ielem)); std::cout << "FOR 0 " << ax++ << " " << ielem << "\n" ; break ;
+         case 0:         delvm = domain.delv_xi(domain.lxim(ielem)); 
+			break ;
+         case XI_M_SYMM: delvm = domain.delv_xi(ielem) ;  
+			break ;
+         //case XI_M_SYMM: delvm = domain.delv_xi(ielem) ;   std::cout << "SYMM " << ax1++ << " \n";    break ;
+         case XI_M_FREE: delvm = Real_t(0.0) ;      break ;
+         default:          fprintf(stderr, "Error in switch at %s line %d\n",
+                                   __FILE__, __LINE__);
+            delvm = 0; /* ERROR - but quiets the compiler */
+            break;
+      }
+      switch (bcMask & XI_P) {
+         case XI_P_COMM: /* needs comm data */
+         case 0:         delvp = domain.delv_xi(domain.lxip(ielem)) ; 
+		break ;
+         //case 0:         delvp = domain.delv_xi(domain.lxip(ielem)); std::cout << "FOR 0 " << ax++ << " " << ielem << "\n" ; break ;
+         case XI_P_SYMM: delvp = domain.delv_xi(ielem) ;  std::cout << " afafsdfa" << std::endl;     break ;
+         //case XI_P_SYMM: delvp = domain.delv_xi(ielem) ;   std::cout << "SYMM " << ax1++ << " \n";    break ;
+         case XI_P_FREE: delvp = Real_t(0.0) ;      break ;
+         default:          fprintf(stderr, "Error in switch at %s line %d\n",
+                                   __FILE__, __LINE__);
+            delvp = 0; /* ERROR - but quiets the compiler */
+            break;
+      }
+
+      delvm = delvm * norm ;
+      delvp = delvp * norm ;
+
+      phixi = Real_t(.5) * ( delvm + delvp ) ;
+
+      delvm *= monoq_limiter_mult ;
+      delvp *= monoq_limiter_mult ;
+
+      if ( delvm < phixi ) phixi = delvm ;
+      if ( delvp < phixi ) phixi = delvp ;
+      if ( phixi < Real_t(0.)) phixi = Real_t(0.) ;
+      if ( phixi > monoq_max_slope) phixi = monoq_max_slope;
+
+
+      /*  phieta     */
+      norm = Real_t(1.) / ( domain.delv_eta(ielem) + ptiny ) ;
+
+      switch (bcMask & ETA_M) {
+         case ETA_M_COMM: /* needs comm data */
+         case 0:          delvm = domain.delv_eta(domain.letam(ielem)) ; 
+			break ;
+         //case 0:         delvm = domain.delv_eta(domain.letam(ielem)); std::cout << "FOR 0 " << ax++ << " " << ielem << "\n" ; break ;
+         case ETA_M_SYMM: delvm = domain.delv_eta(ielem) ;        
+			break ;
+         //case ETA_M_SYMM: delvm = domain.delv_eta(ielem) ;   std::cout << "SYMM " << ax1++ << " \n";    break ;
+         case ETA_M_FREE: delvm = Real_t(0.0) ;        break ;
+         default:          fprintf(stderr, "Error in switch at %s line %d\n",
+                                   __FILE__, __LINE__);
+            delvm = 0; /* ERROR - but quiets the compiler */
+            break;
+      }
+      switch (bcMask & ETA_P) {
+         case ETA_P_COMM: /* needs comm data */
+         case 0:          delvp = domain.delv_eta(domain.letap(ielem)) ; 
+		break ;
+         case ETA_P_SYMM: delvp = domain.delv_eta(ielem) ;   std::cout << " afafsdfa" << std::endl;      break ;
+         case ETA_P_FREE: delvp = Real_t(0.0) ;        break ;
+         default:          fprintf(stderr, "Error in switch at %s line %d\n",
+                                   __FILE__, __LINE__);
+            delvp = 0; /* ERROR - but quiets the compiler */
+            break;
+      }
+
+      delvm = delvm * norm ;
+      delvp = delvp * norm ;
+
+      phieta = Real_t(.5) * ( delvm + delvp ) ;
+
+      delvm *= monoq_limiter_mult ;
+      delvp *= monoq_limiter_mult ;
+
+      if ( delvm  < phieta ) phieta = delvm ;
+      if ( delvp  < phieta ) phieta = delvp ;
+      if ( phieta < Real_t(0.)) phieta = Real_t(0.) ;
+      if ( phieta > monoq_max_slope)  phieta = monoq_max_slope;
+
+      /*  phizeta     */
+      norm = Real_t(1.) / ( domain.delv_zeta(ielem) + ptiny ) ;
+
+      switch (bcMask & ZETA_M) {
+         case ZETA_M_COMM: /* needs comm data */
+         case 0:           delvm = domain.delv_zeta(domain.lzetam(ielem)) ; 
+			break ;
+         case ZETA_M_SYMM: 
+		delvm = domain.delv_zeta(ielem) ;         
+		break ;
+         case ZETA_M_FREE: delvm = Real_t(0.0) ;          break ;
+         default:          fprintf(stderr, "Error in switch at %s line %d\n",
+                                   __FILE__, __LINE__);
+            delvm = 0; /* ERROR - but quiets the compiler */
+            break;
+      }
+      switch (bcMask & ZETA_P) {
+         case ZETA_P_COMM: /* needs comm data */
+         case 0:           delvp = domain.delv_zeta(domain.lzetap(ielem)) ; 
+			break ;
+         case ZETA_P_SYMM: delvp = domain.delv_zeta(ielem) ;  std::cout << " afafsdfa" << std::endl;        break ;
+         case ZETA_P_FREE: delvp = Real_t(0.0) ;          break ;
+         default:          fprintf(stderr, "Error in switch at %s line %d\n",
+                                   __FILE__, __LINE__);
+            delvp = 0; /* ERROR - but quiets the compiler */
+            break;
+      }
+
+      delvm = delvm * norm ;
+      delvp = delvp * norm ;
+
+      phizeta = Real_t(.5) * ( delvm + delvp ) ;
+
+      delvm *= monoq_limiter_mult ;
+      delvp *= monoq_limiter_mult ;
+
+      if ( delvm   < phizeta ) phizeta = delvm ;
+      if ( delvp   < phizeta ) phizeta = delvp ;
+      if ( phizeta < Real_t(0.)) phizeta = Real_t(0.);
+      if ( phizeta > monoq_max_slope  ) phizeta = monoq_max_slope;
+
+      /* Remove length scale */
+
+      if ( domain.vdov(ielem) > Real_t(0.) )  {
+         qlin  = Real_t(0.) ;
+         qquad = Real_t(0.) ;
+      }
+      else {
+	 //std::cout << "FOR 0 " << ax++ << " " << ielem << "\n" ; 
+         Real_t delvxxi   = domain.delv_xi(ielem)   * domain.delx_xi(ielem)   ;
+         Real_t delvxeta  = domain.delv_eta(ielem)  * domain.delx_eta(ielem)  ;
+         Real_t delvxzeta = domain.delv_zeta(ielem) * domain.delx_zeta(ielem) ;
+
+         if ( delvxxi   > Real_t(0.) ) delvxxi   = Real_t(0.) ;
+         if ( delvxeta  > Real_t(0.) ) delvxeta  = Real_t(0.) ;
+         if ( delvxzeta > Real_t(0.) ) delvxzeta = Real_t(0.) ;
+
+         Real_t rho = domain.elemMass(ielem) / (domain.volo(ielem) * domain.vnew(ielem)) ;
+
+         qlin = -qlc_monoq * rho *
+            (  delvxxi   * (Real_t(1.) - phixi) +
+               delvxeta  * (Real_t(1.) - phieta) +
+               delvxzeta * (Real_t(1.) - phizeta)  ) ;
+
+         qquad = qqc_monoq * rho *
+            (  delvxxi*delvxxi     * (Real_t(1.) - phixi*phixi) +
+               delvxeta*delvxeta   * (Real_t(1.) - phieta*phieta) +
+               delvxzeta*delvxzeta * (Real_t(1.) - phizeta*phizeta)  ) ;
+      }
+
+      domain.qq(ielem) = qquad ;
+      domain.ql(ielem) = qlin  ;
+   }
+}
+
 /******************************************/
 
-static inline
+//static inline
 void CalcMonotonicQForElems(Domain& domain)
 {  
    //
@@ -1935,6 +2128,7 @@ void CalcMonotonicQForElems(Domain& domain)
    //
    // calculate the monotonic q for all regions
    //
+   std::cout << " number of region " << domain.numReg() << std::endl;
    for (Index_t r=0 ; r<domain.numReg() ; ++r) {
       if (domain.regElemSize(r) > 0) {
          CalcMonotonicQRegionForElems(domain, r, ptiny) ;
@@ -1944,7 +2138,7 @@ void CalcMonotonicQForElems(Domain& domain)
 
 /******************************************/
 
-static inline
+//static inline
 void CalcQForElems(Domain& domain)
 {
    //
@@ -1973,8 +2167,8 @@ void CalcQForElems(Domain& domain)
 #if USE_MPI      
       Domain_member fieldData[3] ;
       
-      /* Transfer veloctiy gradients in the first order elements */
-      /* problem->commElements->Transfer(CommElements::monoQ) ; */
+      // Transfer veloctiy gradients in the first order elements
+      // problem->commElements->Transfer(CommElements::monoQ) ;
 
       fieldData[0] = &Domain::delv_xi ;
       fieldData[1] = &Domain::delv_eta ;
@@ -1992,7 +2186,7 @@ void CalcQForElems(Domain& domain)
       // Free up memory
       domain.DeallocateGradients();
 
-      /* Don't allow excessive artificial viscosity */
+      // Don't allow excessive artificial viscosity 
       Index_t idx = -1; 
       for (Index_t i=0; i<numElem; ++i) {
          if ( domain.q(i) > domain.qstop() ) {
@@ -2008,12 +2202,13 @@ void CalcQForElems(Domain& domain)
          exit(QStopError);
 #endif
       }
+
    }
 }
 
 /******************************************/
 
-static inline
+//static inline
 void CalcPressureForElems(Real_t* p_new, Real_t* bvc,
                           Real_t* pbvc, Real_t* e_old,
                           Real_t* compression, Real_t *vnewc,
@@ -2047,7 +2242,7 @@ void CalcPressureForElems(Real_t* p_new, Real_t* bvc,
 
 /******************************************/
 
-static inline
+//static inline
 void CalcEnergyForElems(Real_t* p_new, Real_t* e_new, Real_t* q_new,
                         Real_t* bvc, Real_t* pbvc,
                         Real_t* p_old, Real_t* e_old, Real_t* q_old,
@@ -2179,7 +2374,7 @@ void CalcEnergyForElems(Real_t* p_new, Real_t* e_new, Real_t* q_new,
 
 /******************************************/
 
-static inline
+//static inline
 void CalcSoundSpeedForElems(Domain &domain,
                             Real_t *vnewc, Real_t rho0, Real_t *enewc,
                             Real_t *pnewc, Real_t *pbvc,
@@ -2203,7 +2398,7 @@ void CalcSoundSpeedForElems(Domain &domain,
 
 /******************************************/
 
-static inline
+//static inline
 void EvalEOSForElems(Domain& domain, Real_t *vnewc,
                      Int_t numElemReg, Index_t *regElemList, Int_t rep)
 {
@@ -2268,6 +2463,7 @@ void EvalEOSForElems(Domain& domain, Real_t *vnewc,
                Index_t ielem = regElemList[i];
                if (vnewc[ielem] <= eosvmin) { /* impossible due to calling func? */
                   compHalfStep[i] = compression[i] ;
+		  //std::cout << "alfalfa" << std::endl; 
                }
             }
          }
@@ -2276,6 +2472,7 @@ void EvalEOSForElems(Domain& domain, Real_t *vnewc,
             for(Index_t i=0 ; i<numElemReg ; ++i) {
                Index_t ielem = regElemList[i];
                if (vnewc[ielem] >= eosvmax) { /* impossible due to calling func? */
+		  std::cout << "alfalfa" << std::endl;
                   p_old[i]        = Real_t(0.) ;
                   compression[i]  = Real_t(0.) ;
                   compHalfStep[i] = Real_t(0.) ;
@@ -2307,7 +2504,7 @@ void EvalEOSForElems(Domain& domain, Real_t *vnewc,
    CalcSoundSpeedForElems(domain,
                           vnewc, rho0, e_new, p_new,
                           pbvc, bvc, ss4o3,
-                          numElemReg, regElemList) ;
+                          numElemReg, regElemList) ; 
 
    Release(&pbvc) ;
    Release(&bvc) ;
@@ -2323,11 +2520,12 @@ void EvalEOSForElems(Domain& domain, Real_t *vnewc,
    Release(&p_old) ;
    Release(&delvc) ;
    Release(&e_old) ;
+
 }
 
 /******************************************/
 
-static inline
+//static inline
 void ApplyMaterialPropertiesForElems(Domain& domain)
 {
    Index_t numElem = domain.numElem() ;
@@ -2350,6 +2548,7 @@ void ApplyMaterialPropertiesForElems(Domain& domain)
 #pragma omp for nowait firstprivate(numElem)
           for(Index_t i=0 ; i<numElem ; ++i) {
              if (vnewc[i] < eosvmin)
+		//std::cout << " in first " << std::endl;	
                 vnewc[i] = eosvmin ;
           }
        }
@@ -2358,6 +2557,7 @@ void ApplyMaterialPropertiesForElems(Domain& domain)
 #pragma omp for nowait firstprivate(numElem)
           for(Index_t i=0 ; i<numElem ; ++i) {
              if (vnewc[i] > eosvmax)
+		//std::cout << " in second " << std::endl;	
                 vnewc[i] = eosvmax ;
           }
        }
@@ -2390,16 +2590,17 @@ void ApplyMaterialPropertiesForElems(Domain& domain)
        Index_t numElemReg = domain.regElemSize(r);
        Index_t *regElemList = domain.regElemlist(r);
        Int_t rep;
+ 	rep = 1;
        //Determine load imbalance for this region
        //round down the number with lowest cost
-       if(r < domain.numReg()/2)
+       /*if(r < domain.numReg()/2)
 	 rep = 1;
        //you don't get an expensive region unless you at least have 5 regions
        else if(r < (domain.numReg() - (domain.numReg()+15)/20))
          rep = 1 + domain.cost();
        //very expensive regions
        else
-	 rep = 10 * (1+ domain.cost());
+	 rep = 10 * (1+ domain.cost()); */
        EvalEOSForElems(domain, vnewc, numElemReg, regElemList, rep);
     }
 
@@ -2430,7 +2631,7 @@ void UpdateVolumesForElems(Domain &domain,
 
 /******************************************/
 
-static inline
+//static inline
 void LagrangeElements(Domain& domain, Index_t numElem)
 {
   CalcLagrangeElements(domain) ;
@@ -2599,7 +2800,7 @@ void CalcTimeConstraintsForElems(Domain& domain) {
 
 /******************************************/
 
-static inline
+//static inline
 void LagrangeLeapFrog(Domain& domain)
 {
 #ifdef SEDOV_SYNC_POS_VEL_LATE

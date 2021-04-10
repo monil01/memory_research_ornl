@@ -213,7 +213,7 @@ make
 #intel-prefetch -d
 
 #intel-prefetch-disable -d
-echo "Iamm1nil" | sudo -S /home/users/mmonil/package/intel/uarch-configure/intel-prefetch/intel-prefetch-disable -d
+echo "" | sudo -S /home/users/mmonil/package/intel/uarch-configure/intel-prefetch/intel-prefetch-disable -d
 
 for array_size in "${n_array[@]}"
 do
@@ -234,7 +234,7 @@ done
 
 #intel-prefetch -e
 #intel-prefetch-disable -e
-echo "Iamm1nil" | sudo -S /home/users/mmonil/package/intel/uarch-configure/intel-prefetch/intel-prefetch-disable -e
+echo "" | sudo -S /home/users/mmonil/package/intel/uarch-configure/intel-prefetch/intel-prefetch-disable -e
 
 for array_size in "${n_array[@]}"
 do

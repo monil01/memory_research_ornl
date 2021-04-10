@@ -195,9 +195,10 @@ pprof
 }
 
 
-export OMP_NUM_THREADS=8
+export OMP_NUM_THREADS=16
 
-export OMP_PLACES='{16},{18},{20},{22},{24},{26},{28},{30}'
+export OMP_PLACES='{16}, {17}, {18}, {19},{20}, {21}, {22}, {23}, {24}, {25}, {26}, {27}, {28}, {29}, {30}, {31}'
+#export OMP_PLACES='{16},{18},{20},{22},{24},{26},{28},{30}'
 
 
 

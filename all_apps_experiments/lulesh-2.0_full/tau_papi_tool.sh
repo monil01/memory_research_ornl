@@ -105,7 +105,7 @@ run_broadwell()
 stride_array=(1)
 #stride_array=(2 4 8 16 32 64 128 256 512)
 #n_array=(250 300 400)
-n_array=(400)
+n_array=(300)
 #n_array=(1000000 5000000 10000000 50000000 100000000 500000000 1000000000)
 
 
@@ -135,6 +135,8 @@ done
 done
 
 #intel-prefetch -e
+#echo "" | sudo /usr/local/bin/intel-prefetch-disable -e
+
 intel-prefetch-disable -e
 
 for array_size in "${n_array[@]}"

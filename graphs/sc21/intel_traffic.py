@@ -45,10 +45,10 @@ x_pos = np.arange(len(stride))  # the label locations
 #ax.barh(x_pos, read, hatch='....', color='white', edgecolor='black')
 #rects1 = plt.bar(x, traffic, .8, hatch='....', color='white', edgecolor='black')
 
-plt.plot(stride, readn, marker='o', markersize=5,  color='black', linestyle='dashed', label="Read-non-intialized", linewidth=2)
-plt.plot(stride, writen, marker='*', markersize=5,  color='black', linestyle='solid', label="Write-non-initialized", linewidth=1)
-plt.plot(stride, readi, marker='s', markersize=5,  color='blue', linestyle='dotted', label="Read-initialized", linewidth=2)
-plt.plot(stride, writei, marker='<', markersize=5,  color='blue', linestyle='dashdot', label="Write-initialized", linewidth=1)
+plt.plot(stride, readn, marker='o', markersize=10,  color='black', linestyle='dashed', label="Read-non-intialized", linewidth=2)
+plt.plot(stride, writen, marker='*', markersize=10,  color='black', linestyle='solid', label="Write-non-initialized", linewidth=1)
+plt.plot(stride, readi, marker='s', markersize=10,  color='green', linestyle='dotted', label="Read-initialized", linewidth=2)
+plt.plot(stride, writei, marker='<', markersize=10,  color='blue', linestyle='dashdot', label="Write-initialized", linewidth=1)
 
 #plt.plot(stride, read, "-b", label="Read")
 #plt.plot(stride, write, "-r", label="Write")
@@ -78,7 +78,7 @@ height = 1.5 * maxd / dy
 
 
 x=1
-y=11.5
+y=11
 circle = Ellipse((x, y), width-.8, height, color="black")
 #circle = plt.Circle((x, y), radius=1, color="black")
 ax.add_patch(circle)

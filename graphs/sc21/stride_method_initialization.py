@@ -36,13 +36,13 @@ x_pos = np.arange(len(stride))  # the label locations
 #ax.barh(x_pos, read, hatch='....', color='white', edgecolor='black')
 #rects1 = plt.bar(x, traffic, .8, hatch='....', color='white', edgecolor='black')
 
-plt.plot(stride, read, marker='o', markersize=5,  color='black', linestyle='dashed', label="Read", linewidth=2)
-plt.plot(stride, write, marker='*', markersize=5,  color='black', linestyle='solid', label="Write", linewidth=1)
+plt.plot(stride, read, marker='o', markersize=10,  color='black', linestyle='dashed', label="Read", linewidth=2)
+plt.plot(stride, write, marker='<', markersize=10,  color='black', linestyle='solid', label="Write", linewidth=1)
 
 #plt.plot(stride, read, "-b", label="Read")
 #plt.plot(stride, write, "-r", label="Write")
 #plt.legend()
-plt.legend(handlelength=3, fontsize=16)
+plt.legend(handlelength=3, fontsize=20)
 
 #plt.legend(loc="upper right", fontsize=12)
 
@@ -65,7 +65,7 @@ height = 1.5 * maxd / dy
 
 
 
-x=4.5
+x=4.6
 y=18.5
 circle = Ellipse((x, y), width-.8, height, color="black")
 #circle = plt.Circle((x, y), radius=1, color="black")

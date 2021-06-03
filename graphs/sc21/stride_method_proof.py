@@ -30,13 +30,13 @@ x_pos = np.arange(len(stride))  # the label locations
 #ax.barh(x_pos, read, hatch='....', color='white', edgecolor='black')
 #rects1 = plt.bar(x, traffic, .8, hatch='....', color='white', edgecolor='black')
 
-plt.plot(stride, read, marker='o', markersize=3,  color='black', linestyle='dashed', label="Read", linewidth=2)
-plt.plot(stride, write, marker='*', markersize=3,  color='black', linestyle='solid', label="Write", linewidth=1)
+plt.plot(stride, read, marker='o', markersize=5,  color='black', linestyle='dotted', label="Read", linewidth=2)
+plt.plot(stride, write, marker='x', markersize=8,  color='black', linestyle='solid', label="Write", linewidth=1)
 
 #plt.plot(stride, read, "-b", label="Read")
 #plt.plot(stride, write, "-r", label="Write")
 #plt.legend()
-plt.legend(handlelength=3, fontsize=16)
+plt.legend(handlelength=3, fontsize=20)
 
 #plt.legend(loc="upper right", fontsize=12)
 
@@ -49,19 +49,19 @@ ax.set_xlabel('Stride', fontsize=16)
 
 x=4
 y=14
-circle = plt.Circle((x, y), radius=.7, color="black")
+circle = plt.Circle((x, y), radius=.9, color="black")
 ax.add_patch(circle)
 label = ax.annotate("1", xy=(x, y), fontsize=20, weight="bold", ha="center", va="center", color="white")
 
 x=20
 y=7
-circle = plt.Circle((x, y), radius=.7, color="black")
+circle = plt.Circle((x, y), radius=.9, color="black")
 ax.add_patch(circle)
 label = ax.annotate("3", xy=(x, y), fontsize=20, weight="bold", ha="center", va="center", color="white")
 
 x=10
 y=8
-circle = plt.Circle((x, y), radius=.7, color="black")
+circle = plt.Circle((x, y), radius=.9, color="black")
 ax.add_patch(circle)
 label = ax.annotate("2", xy=(x, y), fontsize=20, weight="bold", ha="center", va="center", color="white")
 

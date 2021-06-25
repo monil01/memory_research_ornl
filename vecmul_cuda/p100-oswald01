@@ -1,0 +1,143 @@
+rm vecmul
+nvcc vecmul.cu -o vecmul
+----------------------Array size = 100000000 -------------------
+==9252== NVPROF is profiling process 9252, command: ./vecmul 1 100000000
+==9252== Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+==9252== Profiling application: ./vecmul 1 100000000
+==9252== Profiling result:
+==9252== Metric result:
+Invocations                               Metric Name                          Metric Description         Min         Max         Avg
+Device "Tesla P100-PCIE-12GB (0)"
+    Kernel: vecMul(float*, float*, float*, int, int)
+          1                           dram_read_bytes      Total bytes read from DRAM to L2 cache   800000800   800000800   800000800
+          1                          dram_write_bytes   Total bytes written from L2 cache to DRAM   399888448   399888448   399888448
+==9265== NVPROF is profiling process 9265, command: ./vecmul 2 100000000
+==9265== Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+==9265== Profiling application: ./vecmul 2 100000000
+==9265== Profiling result:
+==9265== Metric result:
+Invocations                               Metric Name                          Metric Description         Min         Max         Avg
+Device "Tesla P100-PCIE-12GB (0)"
+    Kernel: vecMul(float*, float*, float*, int, int)
+          1                           dram_read_bytes      Total bytes read from DRAM to L2 cache  1199420576  1199420576  1199420576
+          1                          dram_write_bytes   Total bytes written from L2 cache to DRAM   400825440   400825440   400825440
+==9465== NVPROF is profiling process 9465, command: ./vecmul 4 100000000
+==9465== Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+==9465== Profiling application: ./vecmul 4 100000000
+==9465== Profiling result:
+==9465== Metric result:
+Invocations                               Metric Name                          Metric Description         Min         Max         Avg
+Device "Tesla P100-PCIE-12GB (0)"
+    Kernel: vecMul(float*, float*, float*, int, int)
+          1                           dram_read_bytes      Total bytes read from DRAM to L2 cache  1199616416  1199616416  1199616416
+          1                          dram_write_bytes   Total bytes written from L2 cache to DRAM   401014272   401014272   401014272
+==9477== NVPROF is profiling process 9477, command: ./vecmul 8 100000000
+==9477== Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+==9477== Profiling application: ./vecmul 8 100000000
+==9477== Profiling result:
+==9477== Metric result:
+Invocations                               Metric Name                          Metric Description         Min         Max         Avg
+Device "Tesla P100-PCIE-12GB (0)"
+    Kernel: vecMul(float*, float*, float*, int, int)
+          1                           dram_read_bytes      Total bytes read from DRAM to L2 cache  1199429920  1199429920  1199429920
+          1                          dram_write_bytes   Total bytes written from L2 cache to DRAM   400811072   400811072   400811072
+==9492== NVPROF is profiling process 9492, command: ./vecmul 16 100000000
+==9492== Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+==9492== Profiling application: ./vecmul 16 100000000
+==9492== Profiling result:
+==9492== Metric result:
+Invocations                               Metric Name                          Metric Description         Min         Max         Avg
+Device "Tesla P100-PCIE-12GB (0)"
+    Kernel: vecMul(float*, float*, float*, int, int)
+          1                           dram_read_bytes      Total bytes read from DRAM to L2 cache   599708064   599708064   599708064
+          1                          dram_write_bytes   Total bytes written from L2 cache to DRAM   201077184   201077184   201077184
+==9507== NVPROF is profiling process 9507, command: ./vecmul 32 100000000
+==9507== Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+==9507== Profiling application: ./vecmul 32 100000000
+==9507== Profiling result:
+==9507== Metric result:
+Invocations                               Metric Name                          Metric Description         Min         Max         Avg
+Device "Tesla P100-PCIE-12GB (0)"
+    Kernel: vecMul(float*, float*, float*, int, int)
+          1                           dram_read_bytes      Total bytes read from DRAM to L2 cache   299862112   299862112   299862112
+          1                          dram_write_bytes   Total bytes written from L2 cache to DRAM   101228320   101228320   101228320
+==9707== NVPROF is profiling process 9707, command: ./vecmul 64 100000000
+==9707== Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+==9707== Profiling application: ./vecmul 64 100000000
+==9707== Profiling result:
+==9707== Metric result:
+Invocations                               Metric Name                          Metric Description         Min         Max         Avg
+Device "Tesla P100-PCIE-12GB (0)"
+    Kernel: vecMul(float*, float*, float*, int, int)
+          1                           dram_read_bytes      Total bytes read from DRAM to L2 cache   149854336   149854336   149854336
+          1                          dram_write_bytes   Total bytes written from L2 cache to DRAM    51176864    51176864    51176864
+==9719== NVPROF is profiling process 9719, command: ./vecmul 128 100000000
+==9719== Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+==9719== Profiling application: ./vecmul 128 100000000
+==9719== Profiling result:
+==9719== Metric result:
+Invocations                               Metric Name                          Metric Description         Min         Max         Avg
+Device "Tesla P100-PCIE-12GB (0)"
+    Kernel: vecMul(float*, float*, float*, int, int)
+          1                           dram_read_bytes      Total bytes read from DRAM to L2 cache    74863872    74863872    74863872
+          1                          dram_write_bytes   Total bytes written from L2 cache to DRAM    26263168    26263168    26263168
+==9732== NVPROF is profiling process 9732, command: ./vecmul 256 100000000
+==9732== Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+==9732== Profiling application: ./vecmul 256 100000000
+==9732== Profiling result:
+==9732== Metric result:
+Invocations                               Metric Name                          Metric Description         Min         Max         Avg
+Device "Tesla P100-PCIE-12GB (0)"
+    Kernel: vecMul(float*, float*, float*, int, int)
+          1                           dram_read_bytes      Total bytes read from DRAM to L2 cache    37356192    37356192    37356192
+          1                          dram_write_bytes   Total bytes written from L2 cache to DRAM    13756288    13756288    13756288
+==9744== NVPROF is profiling process 9744, command: ./vecmul 512 100000000
+==9744== Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+==9744== Profiling application: ./vecmul 512 100000000
+==9744== Profiling result:
+==9744== Metric result:
+Invocations                               Metric Name                          Metric Description         Min         Max         Avg
+Device "Tesla P100-PCIE-12GB (0)"
+    Kernel: vecMul(float*, float*, float*, int, int)
+          1                           dram_read_bytes      Total bytes read from DRAM to L2 cache    18602016    18602016    18602016
+          1                          dram_write_bytes   Total bytes written from L2 cache to DRAM     7435680     7435680     7435680
+==9956== NVPROF is profiling process 9956, command: ./vecmul 1024 100000000
+==9956== Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+==9956== Profiling application: ./vecmul 1024 100000000
+==9956== Profiling result:
+==9956== Metric result:
+Invocations                               Metric Name                          Metric Description         Min         Max         Avg
+Device "Tesla P100-PCIE-12GB (0)"
+    Kernel: vecMul(float*, float*, float*, int, int)
+          1                           dram_read_bytes      Total bytes read from DRAM to L2 cache     9222240     9222240     9222240
+          1                          dram_write_bytes   Total bytes written from L2 cache to DRAM     4239136     4239136     4239136
+==9968== NVPROF is profiling process 9968, command: ./vecmul 2048 100000000
+==9968== Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+==9968== Profiling application: ./vecmul 2048 100000000
+==9968== Profiling result:
+==9968== Metric result:
+Invocations                               Metric Name                          Metric Description         Min         Max         Avg
+Device "Tesla P100-PCIE-12GB (0)"
+    Kernel: vecMul(float*, float*, float*, int, int)
+          1                           dram_read_bytes      Total bytes read from DRAM to L2 cache     4533120     4533120     4533120
+          1                          dram_write_bytes   Total bytes written from L2 cache to DRAM     2638624     2638624     2638624
+==9980== NVPROF is profiling process 9980, command: ./vecmul 4096 100000000
+==9980== Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+==9980== Profiling application: ./vecmul 4096 100000000
+==9980== Profiling result:
+==9980== Metric result:
+Invocations                               Metric Name                          Metric Description         Min         Max         Avg
+Device "Tesla P100-PCIE-12GB (0)"
+    Kernel: vecMul(float*, float*, float*, int, int)
+          1                           dram_read_bytes      Total bytes read from DRAM to L2 cache     2186144     2186144     2186144
+          1                          dram_write_bytes   Total bytes written from L2 cache to DRAM     1888768     1888768     1888768
+==9993== NVPROF is profiling process 9993, command: ./vecmul 8192 100000000
+==9993== Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+==9993== Profiling application: ./vecmul 8192 100000000
+==9993== Profiling result:
+==9993== Metric result:
+Invocations                               Metric Name                          Metric Description         Min         Max         Avg
+Device "Tesla P100-PCIE-12GB (0)"
+    Kernel: vecMul(float*, float*, float*, int, int)
+          1                           dram_read_bytes      Total bytes read from DRAM to L2 cache     1013152     1013152     1013152
+          1                          dram_write_bytes   Total bytes written from L2 cache to DRAM     1444704     1444704     1444704

@@ -7,14 +7,11 @@ __global__ void vecMul(float *a, float *b, float *c, int n, int stride)
 {
     // Get our global thread ID
     int id = blockIdx.x*blockDim.x+threadIdx.x;
-
+ 
     // Make sure we do not go out of bounds
     if (id*stride < n)
         c[id*stride] = a[id*stride] * b[id*stride];
 }
-
-
-
  
 int main( int argc, char* argv[] )
 {
@@ -23,12 +20,11 @@ int main( int argc, char* argv[] )
     int stride = 1;
 
     if (argc>1) {
-        stride = atoi(argv[1]);
+	stride = atoi(argv[1]);
     }
     if (argc>2) {
-        n = atoi(argv[2]);
+	n = atoi(argv[2]);
     }
-
  
     // Host input vectors
     float *h_a;
@@ -54,12 +50,15 @@ int main( int argc, char* argv[] )
     cudaMalloc(&d_a, bytes);
     cudaMalloc(&d_b, bytes);
     cudaMalloc(&d_c, bytes);
+    cudaMalloc(&d_c, bytes);
  
     int i;
     // Initialize vectors on host
     for( i = 0; i < n; i++ ) {
-        h_a[i] = sin(i)*sin(i);
-        h_b[i] = cos(i)*cos(i);
+        //h_a[i] = sin(i)*sin(i);
+        h_a[i] = i;
+        h_b[i] = i - 1;
+        //h_b[i] = cos(i)*cos(i);
     }
  
     // Copy host vectors to device
@@ -72,10 +71,9 @@ int main( int argc, char* argv[] )
     blockSize = 1024;
  
     // Number of thread blocks in grid
-
     gridSize = (int)ceil((float)n/blockSize/stride);
-    //gridSize = (int)ceil((float)n/blockSize);
     //gridSize = 65535;
+    printf("%d\n", gridSize);
  
     // Execute the kernel
     vecMul<<<gridSize, blockSize>>>(d_a, d_b, d_c, n, stride);

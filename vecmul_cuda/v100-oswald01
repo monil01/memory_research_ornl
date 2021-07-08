@@ -1,0 +1,129 @@
+rm vecmul
+nvcc vecmul.cu -o vecmul
+----------------------Array size = 100000000 -------------------
+==3769458== NVPROF is profiling process 3769458, command: ./vecmul 1 100000000
+==3769458== Profiling application: ./vecmul 1 100000000
+==3769458== Profiling result:
+==3769458== Metric result:
+Invocations                               Metric Name                          Metric Description         Min         Max         Avg
+Device "Tesla V100-SXM2-16GB (0)"
+    Kernel: vecMul(float*, float*, float*, int, int)
+          1                           dram_read_bytes      Total bytes read from DRAM to L2 cache   800010688   800010688   800010688
+          1                          dram_write_bytes   Total bytes written from L2 cache to DRAM   400020352   400020352   400020352
+==3769511== NVPROF is profiling process 3769511, command: ./vecmul 2 100000000
+==3769511== Profiling application: ./vecmul 2 100000000
+==3769511== Profiling result:
+==3769511== Metric result:
+Invocations                               Metric Name                          Metric Description         Min         Max         Avg
+Device "Tesla V100-SXM2-16GB (0)"
+    Kernel: vecMul(float*, float*, float*, int, int)
+          1                           dram_read_bytes      Total bytes read from DRAM to L2 cache  1198831296  1198831296  1198831296
+          1                          dram_write_bytes   Total bytes written from L2 cache to DRAM   402240416   402240416   402240416
+==3769566== NVPROF is profiling process 3769566, command: ./vecmul 4 100000000
+==3769566== Profiling application: ./vecmul 4 100000000
+==3769566== Profiling result:
+==3769566== Metric result:
+Invocations                               Metric Name                          Metric Description         Min         Max         Avg
+Device "Tesla V100-SXM2-16GB (0)"
+    Kernel: vecMul(float*, float*, float*, int, int)
+          1                           dram_read_bytes      Total bytes read from DRAM to L2 cache  1198840064  1198840064  1198840064
+          1                          dram_write_bytes   Total bytes written from L2 cache to DRAM   402366624   402366624   402366624
+==3769878== NVPROF is profiling process 3769878, command: ./vecmul 8 100000000
+==3769878== Profiling application: ./vecmul 8 100000000
+==3769878== Profiling result:
+==3769878== Metric result:
+Invocations                               Metric Name                          Metric Description         Min         Max         Avg
+Device "Tesla V100-SXM2-16GB (0)"
+    Kernel: vecMul(float*, float*, float*, int, int)
+          1                           dram_read_bytes      Total bytes read from DRAM to L2 cache  1198846144  1198846144  1198846144
+          1                          dram_write_bytes   Total bytes written from L2 cache to DRAM   402580736   402580736   402580736
+==3769930== NVPROF is profiling process 3769930, command: ./vecmul 16 100000000
+==3769930== Profiling application: ./vecmul 16 100000000
+==3769930== Profiling result:
+==3769930== Metric result:
+Invocations                               Metric Name                          Metric Description         Min         Max         Avg
+Device "Tesla V100-SXM2-16GB (0)"
+    Kernel: vecMul(float*, float*, float*, int, int)
+          1                           dram_read_bytes      Total bytes read from DRAM to L2 cache   999422144   999422144   999422144
+          1                          dram_write_bytes   Total bytes written from L2 cache to DRAM   203197216   203197216   203197216
+==3769995== NVPROF is profiling process 3769995, command: ./vecmul 32 100000000
+==3769995== Profiling application: ./vecmul 32 100000000
+==3769995== Profiling result:
+==3769995== Metric result:
+Invocations                               Metric Name                          Metric Description         Min         Max         Avg
+Device "Tesla V100-SXM2-16GB (0)"
+    Kernel: vecMul(float*, float*, float*, int, int)
+          1                           dram_read_bytes      Total bytes read from DRAM to L2 cache   499715200   499715200   499715200
+          1                          dram_write_bytes   Total bytes written from L2 cache to DRAM   103305408   103305408   103305408
+==3770342== NVPROF is profiling process 3770342, command: ./vecmul 64 100000000
+==3770342== Profiling application: ./vecmul 64 100000000
+==3770342== Profiling result:
+==3770342== Metric result:
+Invocations                               Metric Name                          Metric Description         Min         Max         Avg
+Device "Tesla V100-SXM2-16GB (0)"
+    Kernel: vecMul(float*, float*, float*, int, int)
+          1                           dram_read_bytes      Total bytes read from DRAM to L2 cache   249715552   249715552   249715552
+          1                          dram_write_bytes   Total bytes written from L2 cache to DRAM    53417856    53417856    53417856
+==3770395== NVPROF is profiling process 3770395, command: ./vecmul 128 100000000
+==3770395== Profiling application: ./vecmul 128 100000000
+==3770395== Profiling result:
+==3770395== Metric result:
+Invocations                               Metric Name                          Metric Description         Min         Max         Avg
+Device "Tesla V100-SXM2-16GB (0)"
+    Kernel: vecMul(float*, float*, float*, int, int)
+          1                           dram_read_bytes      Total bytes read from DRAM to L2 cache   124718976   124718976   124718976
+          1                          dram_write_bytes   Total bytes written from L2 cache to DRAM    28532832    28532832    28532832
+==3770446== NVPROF is profiling process 3770446, command: ./vecmul 256 100000000
+==3770446== Profiling application: ./vecmul 256 100000000
+==3770446== Profiling result:
+==3770446== Metric result:
+Invocations                               Metric Name                          Metric Description         Min         Max         Avg
+Device "Tesla V100-SXM2-16GB (0)"
+    Kernel: vecMul(float*, float*, float*, int, int)
+          1                           dram_read_bytes      Total bytes read from DRAM to L2 cache    62215968    62215968    62215968
+          1                          dram_write_bytes   Total bytes written from L2 cache to DRAM    16317568    16317568    16317568
+==3770760== NVPROF is profiling process 3770760, command: ./vecmul 512 100000000
+==3770760== Profiling application: ./vecmul 512 100000000
+==3770760== Profiling result:
+==3770760== Metric result:
+Invocations                               Metric Name                          Metric Description         Min         Max         Avg
+Device "Tesla V100-SXM2-16GB (0)"
+    Kernel: vecMul(float*, float*, float*, int, int)
+          1                           dram_read_bytes      Total bytes read from DRAM to L2 cache    30974624    30974624    30974624
+          1                          dram_write_bytes   Total bytes written from L2 cache to DRAM    10072096    10072096    10072096
+==3770816== NVPROF is profiling process 3770816, command: ./vecmul 1024 100000000
+==3770816== Profiling application: ./vecmul 1024 100000000
+==3770816== Profiling result:
+==3770816== Metric result:
+Invocations                               Metric Name                          Metric Description         Min         Max         Avg
+Device "Tesla V100-SXM2-16GB (0)"
+    Kernel: vecMul(float*, float*, float*, int, int)
+          1                           dram_read_bytes      Total bytes read from DRAM to L2 cache    15344832    15344832    15344832
+          1                          dram_write_bytes   Total bytes written from L2 cache to DRAM     7058304     7058304     7058304
+==3770870== NVPROF is profiling process 3770870, command: ./vecmul 2048 100000000
+==3770870== Profiling application: ./vecmul 2048 100000000
+==3770870== Profiling result:
+==3770870== Metric result:
+Invocations                               Metric Name                          Metric Description         Min         Max         Avg
+Device "Tesla V100-SXM2-16GB (0)"
+    Kernel: vecMul(float*, float*, float*, int, int)
+          1                           dram_read_bytes      Total bytes read from DRAM to L2 cache     7508864     7508864     7508864
+          1                          dram_write_bytes   Total bytes written from L2 cache to DRAM     5051744     5051744     5051744
+==3770921== NVPROF is profiling process 3770921, command: ./vecmul 4096 100000000
+==3770921== Profiling application: ./vecmul 4096 100000000
+==3770921== Profiling result:
+==3770921== Metric result:
+Invocations                               Metric Name                          Metric Description         Min         Max         Avg
+Device "Tesla V100-SXM2-16GB (0)"
+    Kernel: vecMul(float*, float*, float*, int, int)
+          1                           dram_read_bytes      Total bytes read from DRAM to L2 cache     3605696     3605696     3605696
+          1                          dram_write_bytes   Total bytes written from L2 cache to DRAM     3220384     3220384     3220384
+==3771245== NVPROF is profiling process 3771245, command: ./vecmul 8192 100000000
+==3771245== Profiling application: ./vecmul 8192 100000000
+==3771245== Profiling result:
+==3771245== Metric result:
+Invocations                               Metric Name                          Metric Description         Min         Max         Avg
+Device "Tesla V100-SXM2-16GB (0)"
+    Kernel: vecMul(float*, float*, float*, int, int)
+          1                           dram_read_bytes      Total bytes read from DRAM to L2 cache     1695360     1695360     1695360
+          1                          dram_write_bytes   Total bytes written from L2 cache to DRAM     2537760     2537760     2537760

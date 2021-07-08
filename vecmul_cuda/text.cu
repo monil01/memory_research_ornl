@@ -3,32 +3,20 @@
 #include <math.h>
  
 // CUDA kernel. Each thread takes care of one element of c
-__global__ void vecMul(float *a, float *b, float *c, int n, int stride)
+__global__ void vecMul(float *a, float *b, float *c, int n)
 {
     // Get our global thread ID
     int id = blockIdx.x*blockDim.x+threadIdx.x;
-
+ 
     // Make sure we do not go out of bounds
-    if (id*stride < n)
-        c[id*stride] = a[id*stride] * b[id*stride];
+    if (id < n)
+        c[id] = a[id] * b[id];
 }
-
-
-
  
 int main( int argc, char* argv[] )
 {
     // Size of vectors
     int n = 100000000;
-    int stride = 1;
-
-    if (argc>1) {
-        stride = atoi(argv[1]);
-    }
-    if (argc>2) {
-        n = atoi(argv[2]);
-    }
-
  
     // Host input vectors
     float *h_a;
@@ -72,13 +60,12 @@ int main( int argc, char* argv[] )
     blockSize = 1024;
  
     // Number of thread blocks in grid
-
-    gridSize = (int)ceil((float)n/blockSize/stride);
-    //gridSize = (int)ceil((float)n/blockSize);
+    gridSize = (int)ceil((float)n/blockSize);
+    printf("%d\n", gridsize);
     //gridSize = 65535;
  
     // Execute the kernel
-    vecMul<<<gridSize, blockSize>>>(d_a, d_b, d_c, n, stride);
+    vecMul<<<gridSize, blockSize>>>(d_a, d_b, d_c, n);
  
     // Copy array back to host
     cudaMemcpy( h_c, d_c, bytes, cudaMemcpyDeviceToHost );

@@ -1,0 +1,2 @@
+Index,KernelName,gpu-id,queue-id,queue-index,pid,tid,grd,wgr,lds,scr,vgpr,sgpr,fbar,sig,FETCH_SIZE,WRITE_SIZE
+0,"vecMul(float*, float*, float*, int, int) [clone .kd]",0,0,0,1979388,1979400,12288,1024,0,0,8,24,0,0x0,1532,381

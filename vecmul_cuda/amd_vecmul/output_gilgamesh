@@ -1,0 +1,28 @@
+Index,KernelName,gpu-id,queue-id,queue-index,pid,tid,grd,wgr,lds,scr,vgpr,sgpr,fbar,sig,FETCH_SIZE,WRITE_SIZE
+0,"vecMul(float*, float*, float*, int, int) [clone .kd]",0,0,0,1925765,1925785,100000768,1024,0,0,8,24,0,0x0,781286,390625
+Index,KernelName,gpu-id,queue-id,queue-index,pid,tid,grd,wgr,lds,scr,vgpr,sgpr,fbar,sig,FETCH_SIZE,WRITE_SIZE
+0,"vecMul(float*, float*, float*, int, int) [clone .kd]",0,0,0,1926088,1926114,50000896,1024,0,0,8,24,0,0x0,781286,390625
+Index,KernelName,gpu-id,queue-id,queue-index,pid,tid,grd,wgr,lds,scr,vgpr,sgpr,fbar,sig,FETCH_SIZE,WRITE_SIZE
+0,"vecMul(float*, float*, float*, int, int) [clone .kd]",0,0,0,1926374,1926546,25000960,1024,0,0,8,24,0,0x0,781285,390625
+Index,KernelName,gpu-id,queue-id,queue-index,pid,tid,grd,wgr,lds,scr,vgpr,sgpr,fbar,sig,FETCH_SIZE,WRITE_SIZE
+0,"vecMul(float*, float*, float*, int, int) [clone .kd]",0,0,0,1926851,1926877,12500992,1024,0,0,8,24,0,0x0,781285,390625
+Index,KernelName,gpu-id,queue-id,queue-index,pid,tid,grd,wgr,lds,scr,vgpr,sgpr,fbar,sig,FETCH_SIZE,WRITE_SIZE
+0,"vecMul(float*, float*, float*, int, int) [clone .kd]",0,0,0,1927188,1927252,6250496,1024,0,0,8,24,0,0x0,781280,195312
+Index,KernelName,gpu-id,queue-id,queue-index,pid,tid,grd,wgr,lds,scr,vgpr,sgpr,fbar,sig,FETCH_SIZE,WRITE_SIZE
+0,"vecMul(float*, float*, float*, int, int) [clone .kd]",0,0,0,1927555,1927590,3125248,1024,0,0,8,24,0,0x0,390642,97656
+Index,KernelName,gpu-id,queue-id,queue-index,pid,tid,grd,wgr,lds,scr,vgpr,sgpr,fbar,sig,FETCH_SIZE,WRITE_SIZE
+0,"vecMul(float*, float*, float*, int, int) [clone .kd]",0,0,0,1927880,1927896,1562624,1024,0,0,8,24,0,0x0,195323,48828
+Index,KernelName,gpu-id,queue-id,queue-index,pid,tid,grd,wgr,lds,scr,vgpr,sgpr,fbar,sig,FETCH_SIZE,WRITE_SIZE
+0,"vecMul(float*, float*, float*, int, int) [clone .kd]",0,0,0,1928143,1928148,781312,1024,0,0,8,24,0,0x0,97664,24414
+Index,KernelName,gpu-id,queue-id,queue-index,pid,tid,grd,wgr,lds,scr,vgpr,sgpr,fbar,sig,FETCH_SIZE,WRITE_SIZE
+0,"vecMul(float*, float*, float*, int, int) [clone .kd]",0,0,0,1928411,1928434,391168,1024,0,0,8,24,0,0x0,48835,12207
+Index,KernelName,gpu-id,queue-id,queue-index,pid,tid,grd,wgr,lds,scr,vgpr,sgpr,fbar,sig,FETCH_SIZE,WRITE_SIZE
+0,"vecMul(float*, float*, float*, int, int) [clone .kd]",0,0,0,1929512,1929515,195584,1024,0,0,8,24,0,0x0,24422,6103
+Index,KernelName,gpu-id,queue-id,queue-index,pid,tid,grd,wgr,lds,scr,vgpr,sgpr,fbar,sig,FETCH_SIZE,WRITE_SIZE
+0,"vecMul(float*, float*, float*, int, int) [clone .kd]",0,0,0,1929764,1929780,98304,1024,0,0,8,24,0,0x0,12215,3051
+Index,KernelName,gpu-id,queue-id,queue-index,pid,tid,grd,wgr,lds,scr,vgpr,sgpr,fbar,sig,FETCH_SIZE,WRITE_SIZE
+0,"vecMul(float*, float*, float*, int, int) [clone .kd]",0,0,0,1930060,1930069,49152,1024,0,0,8,24,0,0x0,6113,1525
+Index,KernelName,gpu-id,queue-id,queue-index,pid,tid,grd,wgr,lds,scr,vgpr,sgpr,fbar,sig,FETCH_SIZE,WRITE_SIZE
+0,"vecMul(float*, float*, float*, int, int) [clone .kd]",0,0,0,1930313,1930338,24576,1024,0,0,8,24,0,0x0,3059,762
+Index,KernelName,gpu-id,queue-id,queue-index,pid,tid,grd,wgr,lds,scr,vgpr,sgpr,fbar,sig,FETCH_SIZE,WRITE_SIZE
+0,"vecMul(float*, float*, float*, int, int) [clone .kd]",0,0,0,1930598,1930606,12288,1024,0,0,8,24,0,0x0,1532,381

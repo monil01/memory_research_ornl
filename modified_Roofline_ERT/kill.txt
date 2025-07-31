@@ -1,0 +1,64 @@
+mmonil   28146  0.0  0.0  15016  4788 pts/0    T    00:32   0:01 python3.6 run_scritp.py
+mmonil   28163  0.0  0.0   1676    76 pts/0    T    00:32   0:03 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28173  0.0  0.0   1676    76 pts/0    T    00:32   0:03 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28183  0.0  0.0   1676    76 pts/0    T    00:32   0:03 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28193  0.0  0.0   1676    76 pts/0    T    00:32   0:04 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28200  0.0  0.0   1676    76 pts/0    T    00:32   0:03 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28210  0.0  0.0   1676    76 pts/0    T    00:32   0:03 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28220  0.0  0.0   1676    76 pts/0    T    00:32   0:03 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28243  0.0  0.0   1676    76 pts/0    T    00:32   0:03 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28263  0.0  0.0   1676    80 pts/0    T    00:32   0:03 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28283  0.0  0.0   1676    80 pts/0    T    00:32   0:03 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28296  0.0  0.0   1676    76 pts/0    T    00:32   0:03 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28310  0.0  0.0   1676    80 pts/0    T    00:32   0:03 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28321  0.0  0.0   1676    76 pts/0    T    00:32   0:02 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28338  0.0  0.0   1676    76 pts/0    T    00:32   0:03 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28353  0.0  0.0   1676    76 pts/0    T    00:32   0:03 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28366  0.0  0.0   1676    80 pts/0    T    00:32   0:03 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28380  0.0  0.0   1676    76 pts/0    T    00:32   0:02 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28392  0.0  0.0   1676    76 pts/0    T    00:32   0:03 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28409  0.0  0.0   1676    76 pts/0    T    00:32   0:03 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28424  0.0  0.0   1676    76 pts/0    T    00:32   0:02 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28437  0.0  0.0   1676    76 pts/0    T    00:32   0:02 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28452  0.0  0.0   1676    76 pts/0    T    00:32   0:02 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28466  0.0  0.0   1676    80 pts/0    T    00:32   0:02 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28477  0.0  0.0   1676    80 pts/0    T    00:32   0:02 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28489  0.0  0.0   1676    76 pts/0    T    00:32   0:02 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28504  0.0  0.0   1676    76 pts/0    T    00:32   0:03 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28524  0.0  0.0   1676    76 pts/0    T    00:32   0:03 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28538  0.0  0.0   1676    76 pts/0    T    00:32   0:02 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28548  0.0  0.0   1676    76 pts/0    T    00:32   0:02 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28565  0.0  0.0   1676    80 pts/0    T    00:32   0:02 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28581  0.0  0.0   1676    76 pts/0    T    00:32   0:02 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28593  0.0  0.0   1676    76 pts/0    T    00:32   0:02 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28605  0.0  0.0   1676    76 pts/0    T    00:32   0:03 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28620  0.0  0.0   1676    76 pts/0    T    00:32   0:02 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28637  0.0  0.0   1676    76 pts/0    T    00:32   0:02 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28650  0.0  0.0   1676    80 pts/0    T    00:32   0:02 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28664  0.0  0.0   1676    72 pts/0    T    00:32   0:02 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28678  0.0  0.0   1676    80 pts/0    T    00:32   0:02 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28689  0.0  0.0   1676    76 pts/0    T    00:32   0:02 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28702  0.0  0.0   1676    80 pts/0    T    00:32   0:02 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28713  0.0  0.0   1676    76 pts/0    T    00:32   0:02 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28725  0.0  0.0   1676    76 pts/0    T    00:32   0:02 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28740  0.0  0.0   1676    76 pts/0    T    00:32   0:02 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28756  0.0  0.0   1676    76 pts/0    T    00:32   0:02 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28770  0.0  0.0   1676    76 pts/0    T    00:32   0:02 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28783  0.0  0.0   1676    76 pts/0    T    00:32   0:02 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28797  0.0  0.0   1676    76 pts/0    T    00:32   0:02 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28810  0.0  0.0   1676    76 pts/0    T    00:32   0:02 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28827  0.0  0.0   1676    76 pts/0    T    00:32   0:02 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28838  0.0  0.0   1676    76 pts/0    T    00:32   0:02 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28863  0.0  0.0   1676    76 pts/0    T    00:32   0:02 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28879  0.0  0.0   1676    80 pts/0    T    00:32   0:02 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28895  0.0  0.0   1676    76 pts/0    T    00:32   0:01 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28915  0.0  0.0   1676    76 pts/0    T    00:32   0:02 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   28996  0.0  0.0   1676    76 pts/0    T    00:32   0:01 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   29038  0.0  0.0   1676    72 pts/0    T    00:32   0:01 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   29096  0.0  0.0   1676    72 pts/0    T    00:32   0:01 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+mmonil   29097  0.0  0.0      0     0 pts/0    Z    00:32   0:00 [sh] <defunct>
+mmonil   29105  0.0  0.0      0     0 pts/0    Z    00:32   0:00 [sh] <defunct>
+mmonil   29125  0.0  0.0      0     0 pts/0    Z    00:32   0:00 [sh] <defunct>
+mmonil   29129  0.0  0.0      0     0 pts/0    Z    00:32   0:00 [sh] <defunct>
+mmonil   29371  0.0  0.0   1676    80 pts/0    T    00:32   0:01 ./c_parser/tegra_parse_gpu -p gpu -t 50 -c 0 -l 1
+

@@ -1,0 +1,417 @@
+
+\section{Energy-Performance Balance Aware Collocation Scheduling}
+%\vspace{-0.10in}
+\label{subsection:scheduler}
+The \emph{Collocation Scheduler} takes
+a set of ready-to-execute applications or jobs as its input and generates a processor wise mapping of
+jobs that achieves energy-performance balance. In this research, we term schedule as ordering and
+placement, where ordering refers to the ordering of jobs and placement, refers to the placement of those
+jobs in different heterogeneous processors. An ordering and placement is expressed by processor wise
+stacks, where each processor stack has a set of jobs to be executed.
+In order to obtain the scheduling i.e ordering and placement
+of \emph{n} jobs in \emph{m} heterogeneous processors we address the scheduling problem in five steps.
+They are the followings:
+
+\begin{itemize}
+         \item[$\bullet$] At first, we explain how we represent and measure contention among collocated jobs
+in different processors in terms of energy consumption and execution time.
+        \item [$\bullet$] Then, using the contention behavior, we devise an algorithm to find out the total
+execution time and energy consumption for a given ordering and placement. As the jobs are collocated
+i.e runs concurrently on different processors with different memory intensity, we name the algorithm as
+\emph{Collocation Algorithm}.
+        \item [$\bullet$] In the next step, we consider, we have the execution time and energy consumption of
+every possible ordering and placement and we try to find the optimal ordering and placement that provides
+energy-performance balance based on a user defined knob.
+        \item [$\bullet$] At this step, we define a dynamic programming based heuristic approach that
+provides a near-optimal ordering and placement to achieve the aforementioned energy-performance balance.
+       \item [$\bullet$] At the last step, we design an algorithm to find out the near-optimal scheduling and
+we name the algorithm as \emph{Scheduling Algorithm}.
+\end{itemize}
+
+
+%NP-Hard~\cite{held1962dynamic}. 
+Next, we discuss the scheduling considerations and introduce the terms we use in this research. After
+that we discuss each step.
+
+
+\subsection{Scheduling Considerations}
+We introduce all they symbols and terms for this section in Table.\ref{table:notation} . The 
+\emph{Collocation Schedular} starts with \emph{n} (where $n > 0$) number of jobs $J=\{J_1, J_2, .... J_n\}$
+where every job is represented as $J_i$. We assume every $J_i$ is ready to be
+executed and do not have any dependency with any other jobs. We also assume every $J_i$ is iterative and exhibits
+consistant memory access pattern accross different iterations. Every $J_i$ has $I_{J_i}$ number of iterations
+and $I_{J_i}{\gg}1K$. The \emph{Collocation Schedular} finds the optimal placement of the every $J_i$ on
+\emph{m} (where $m > 0$) number of heterogenous processors $P=\{P_1, P_2,...P_m\}$ where every processor
+is represented as $P_k$. There can be no relation between \emph{n} and \emph{m}.
+If scheduled on different $P_k$, every $J_i$ will provide different Bandwidth, $BW_{P_k}^{J_i}$, Utilization,
+$U_{P_k}^{J_i}$, execution time, $T_{P_k}^{J_i}$ and average power, $Pw_{P_k}^{J_i}$. We assume that for a
+job $J_i$ scheduled on $P_k$, we know the value for $BW_{P_k}^{J_i}$, $U_{P_k}^{J_i}$, $T_{P_k}^{J_i}$ and 
+$Pw_{P_k}^{J_i}$ for \emph{1K} iterations. So, we represent every job $J_i$ = $[I_{J_i},\forall_{P_k\epsilon 
+P}\{BW_{P_k}^{J_i}, U_{P_k}^{J_i}, T_{P_k}^{J_i}, Pw_{P_k}^{J_i}\}]$. However, when collocated, based on memory 
+access pattern
+each $J_i$ exhibits different slowdown in execution time and will consume different average power based on
+their attained bandwidth. So, there will be a slowdown factor for execution time, $TF_{P_k}$ and a factor for 
+average power, $PF_{P_k}$ for a given ${P_k}$. We assume, both $TF_{P_k}$ and $PF_{P_k}$ are derived from a
+polynomial equation defined by the bandwidth $BW_{P_k}$ and utilization $U_{P_k}$ of ${P_k}$ and contention
+on the system memory access by other processors. So, we represent a processor $P_k$ as $P_k=[TF_{P_k}, 
+PF_{P_k}]$.
+
+\begin{table}[]
+\small
+\centering
+%\setlength{\tabcolsep}{0.4em}
+\begin{tabular}{| P{1cm} | p{6.5cm} |}
+\hline
+    \textbf{Notation} & \textbf{Explanation}  \\ \hline 
+$J$ &  A set of Jobs/Applications \\ \hline
+$P$ & 	A set of Heterogeneous processors	 \\  \hline
+$n$ & 	Number of jobs $J$	 \\  \hline
+$m$ & 	Number of Processors in $P$	\\  \hline
+$i$ & 	To denote the i'th job$J_i$	\\  \hline
+$k$ & 	To denote the k'th processor $P_k$	 \\  \hline
+$I_{J_i}$ & Number of Iterations in job $J_i$\\  \hline
+$U_{P_k}^{J_i}$ & Utilization of Processor $P_k$ when $J_i$ is run standalone	 \\  \hline
+$T_{P_k}^{J_i}$ & Standalone Execution time of $J_i$ on Processor $P_k$ \\  \hline
+$BW_{P_k}^{J_i}$ & Standalone Bandwidth of $J_i$ on Processor $P_k$ \\  \hline
+$BWe_{P_k}^{J_i}$ & Effective bandwidth of $J_i$ on Processor $P_k$  \\  \hline
+$Pw_{P_k}^{J_i}$ & Average power of processor $P_k$ when $J_i$ is run \\  \hline
+$TF_{P_k}$ & Slow down Time Factor of  $P_k$ in collocated environment \\  \hline
+$PF_{P_k}$ & Power Factor of  $P_k$ in collocated environment \\  \hline
+$TC_{P_k}^{J_i}$ & Collocation Execution time of $J_i$ on Processor $P_k$ \\  \hline
+$E_{P_k}^{J_i}$ & Energy consumption of $J_i$ when run on Processor $P_k$ \\  \hline
+$c$ & Total number of possible ordering and placement \\  \hline
+$\rho$ & Set of processor wise stack for all processor $P$ which represent ordering and placement \\  \hline
+$\tau$ & Set of execution time for all possible ordering and placement, and $\tau_c$ represents the current one \\  \hline
+$\varepsilon$ & Set of execution time for all possible ordering and placement and $\varepsilon_c$ represents the current one\\  \hline
+$V$ & A variable set of jobs which a subset $J$\\  \hline
+$S(V)$ & Scheduling of V which has ordering and placement, Execution time and Energy consumption for $V$\\  \hline
+${}_{interp}$ & Subscript for inter-processor comparison\\  \hline
+$\alpha$ & Energy and performance balance parameter\\  \hline
+$\omega$ & Weight for a given ordering and placement \\  \hline
+\end{tabular}
+\caption{Notation used}
+\label{table:notation}
+\vspace{-0.15in}
+\end{table}
+
+
+\subsection{Addressing Memory Contention}
+The devices in target for our research are the ones that has heterogeneous processors with sophisticated 
+chache hierarchy connected to common system memory(DRAM). Even though the device manufacturers publish
+peak memory bandwidth, the mentioned memory bandwidth includes cache benefits. However,
+the common contention point starts from where the cache access from a processors ends. We denote the bandwidth 
+that is responsible for contention as effective bandwidth, $BWe_{P_k}$. Based on application's memory access
+pattern and the processor on which the application is running on, $BWe_{P_k}^{J_i}$ 
+can vary widely. The slowdown factor of execution time $TF_{P_k}$ and the power factor $PF_{P_k}$ can be 
+represented as a function  
+of the effective bandwidth of the current processor and effective bandwidth from all other processors. 
+$PF_{P_k}$ also dependent on $U_{P_k}$ as power consumption depends on utilization.
+Considering $P_k$ as the current processor, effected bandwidth from all other processor can be 
+represented as $\Sigma_{P_m \epsilon P, m \neq k} \{BWe_{P_m}\}$. So $TF_{P_k}$ and $PF_{P_k}$ is expressed 
+by the following equations:
+
+
+%\vspace{-0.1in}
+\begin{equation}
+\begin{split}
+TF_{P_k} = a*(BWe_{P_k})^x + b*(\Sigma_{P_m \epsilon P, m \neq k} \{BWe_{P_m}\})^y + d 
+\end{split}
+\label{eq:tf}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+PF_{P_k} = e*(BWe_{P_k})^q + f*(\Sigma_{P_m \epsilon P, m \neq k} \{BWe_{P_m}\})^r \\ + g*(U_{P_k})^s + h 
+\end{split}
+\label{eq:pf}
+\end{equation}
+
+In Equation.\ref{eq:tf} and \ref{eq:pf}, \emph{a, b, d, e, f, g, h, x, y , q, r} and \emph{s} are constants which 
+are generated empirically. We generate a table by varying the effective bandwidht $BWe_{P_k}^{J_i}$, effected colocated 
+bandwidth and utilization and fit the behavior to a curve.
+
+\subsection{Collocation Algorithm}
+At this point, we design a collocation agorithm for a given ordering and placement, \emph{c} of \emph{n} jobs in \emph{m} 
+processors where every processor $P_k$ has a stack of jobs to be scheduled to that \emph{k'th} processor. The objective of 
+the collocation
+algorithm is to calculate the total execution time, $\tau_c$ and total energy consumption, $\varepsilon_c$ for the ordering 
+and placement $c$.
+The main challange is to find execution time when multiple jobs are running in different processors at the same time
+having different memory access pattern. For a job $J_i$ = $[I_{J_i},\forall_{P_k\epsilon P}\{BW_{P_k}^{J_i}, 
+U_{P_k}^{J_i}, T_{P_k}^{J_i}, Pw_{P_k}^{J_i}\}]$ which is placed on $P_k$ and is collocated with $J_{l\epsilon J, l \neq i}$, 
+the collocation time $TC_{P_k}^{J_i}$ is expressed as Equation.\ref{eq:ct} where slowdown time factor, $TF_{P_k}$ is calculated 
+considering the current job in $P_k$ and collocated jobs using Equation.\ref{eq:tf}. Energy consumption for a job $J_i$ in 
+processor $P_k$ is calculated
+using Equation.\ref{eq:e} where average power $Pw_{P_k}^{J_i}$ is multiplied by the power factor $PF_{P_k}$ to deduce 
+average power consumption in a collocated scenario and then multiplied by collocated time $TC_{P_k}^{J_i}$.
+
+\begin{equation}
+TC_{P_k}^{J_i} = I_{J_i}*T_{P_k}^{J_i}*TF_{P_k}/1000
+\label{eq:ct}
+\end{equation}
+
+\begin{equation}
+E_{P_k}^{J_i} = Pw_{P_k}^{J_i}*PF_{P_k}*TC_{P_k}^{J_i}
+\label{eq:e}
+\end{equation}
+
+
+
+
+\begin{algorithm} []
+\small
+\caption{Collocation Algorithm}
+\label{collocationAlgorithm}
+\begin{algorithmic}[1]
+%\Statex $\hookrightarrow$ Step 1: Calculate C(U)
+\State \textbf{Input:} Processor wise job stack $\rho = \{\rho_1, \rho_2 ... \rho_m\}$
+\State \textbf{Output:} Execution time, $\tau_c$ and Energy Consumption, $\varepsilon_c$ 
+\State Initialize: $\tau_c \leftarrow 0 \& \varepsilon_c \leftarrow 0$ 
+\While {$ \exists_{\rho_k \epsilon \rho} Size(\rho_k) > 0$}
+	\For {each $\rho_k \epsilon \rho$ where $Size(\rho_k) > 0$}
+		\State $J_{P_k}=\rho_k.POP()$
+        \EndFor
+	\For {each $J_{P_k} \not= \O$}
+		\State $TF_{P_k} = time\_factor(BWe_{P_k},\Sigma_{P_m \epsilon P, m \neq k} \{BWe_{P_m}\})$
+    		\State \begin{varwidth}[t]{\linewidth}
+      			$PF_{P_k} = power\_factor($\par
+        		\hskip\algorithmicindent $BWe_{P_k},\Sigma_{P_m \epsilon P, m \neq k} \{BWe_{P_m}\},U_{P_k})$\par
+      			\end{varwidth}
+		\State $TC_{P_k} = I_{J_i}*T_{P_k}^{J_i}*TF_{P_k}/1000$
+        \EndFor
+	\State $P_{min}$ = $\min_{\forall P_k where TC_{P_k} \not= 0}[TC_{P_k}]$
+	\State $\tau_{c}$ += $TC_{P_{min}}$
+	\State $\varepsilon_{c}$ += $\Sigma_{\forall P_k where TC_{P_k} \not= 0}[Pw_{P_k}^{J_i}*PF_{P_k}*TC_{P_{min}}]$
+
+	\For {each $TC_{P_k} > TC_{min}$}
+		\State $Tstandalone_{P_k} = [TC_{P_k} - TC_{min}]/PF_{P_k}$
+		\State $\rho_k.PUSH(Tstandalone_{P_k})$ 
+	\EndFor
+\EndWhile
+\end{algorithmic}
+\end{algorithm}
+
+The collocation algorithm is given in Algorithm.\ref{collocationAlgorithm}. This algorithm takes an ordering and placement of 
+jobs $c$ scheduled on processors, $P$. Every processor has it's own stack $\rho = \{\rho_1, \rho_2 ... \rho_m\}$ where jobs are stored in
+in such an order so that the job in the head of stack will be scheduled first in the corresponding processor.
+The algorithm determines the overall execution time, $\tau_c$ and total energy, $\varepsilon_c$ incrementally. At the beginning,
+at [Line 3],
+$\tau_c$ and $\varepsilon_c$ are initialized. Then at [Line 4], a loop is started that continues until all stacks are empty or 
+all jobs are scheduled. In [Line 5-7], stack item at the head is popped from $\rho_k$ and stored as $J_{P_k}$. At [Line 9-10], 
+the time factor,
+$TF_{P_k}$ and power factor, $PF_{P_k}$ is calculated using Equation\ref{eq:tf}-\ref{eq:pf} for all non empty $J_{P_k}$. Collocated
+time $TC_{P_k}$ is calculated using Equation.\ref{eq:ct} at [Line 11]. At [Line 13], the processor having smallest job ${P_{min}}$
+is determined and at [Line 14] minimum time is added to the total time, $\tau_c$. At [Line 15], energy is calculated using
+Equation.\ref{eq:e} considering the minimum time for all processor having jobs running on them. Now a new job will be scheduled at
+$P_min$ and collocation time factor and power factor need to be recalculated for the remaining part of jobs in every other
+processor. For this reason, at [Line 16-18] the remaining part of collocated time ${TC_{P_k}}$ factored back to
+standalone time $Tstandalone_{P_k}$ and pushed to corresponding stack $\rho_k$. These leftover jobs are considered just like a new
+job in the next iterations and this keeps happening until every stack is empty. When Every stack is empty we will have total
+execution time $\tau_c$ and energy $\varepsilon_c$. Algorithm.\ref{collocationAlgorithm} finds $\tau_c$ and $\varepsilon_c$
+in \emph{O(n*m)} time, where \emph{n} is the number jobs and \emph{m} is the number of processors.
+
+\subsection{Energy-Performance Balance}
+Till now we have considered only one ordering and placement for $J=\{J_1, J_2, ... , J_n\}$ jobs in $P=\{P_1, P_2, ..., P_m\}$
+processors. If we consider all the possible ways \emph{n} jobs can be ordered and placed in \emph{m} processors then there
+are \emph{C} number of combinations. We denote the execution time of all possible ordering and placement as $\tau=\{\tau_1, \tau_2,
+...,\tau_c\}$ and energy as $\varepsilon=\{\varepsilon_1, \varepsilon_2,..., \varepsilon_c\}$ where maximum and minimum execution
+time are represented as $\tau_{min}$ and $\tau_{max}$ respectively and maximum and minimum energy consumption for all ordering and
+placement is represented by $\varepsilon_{min}$ and $\varepsilon_{max}$.  For example, for 4 jobs in 2 processors can have 20 ways 
+of ordering and placement. We plot the energy consumption and execution times in Figure.\ref{fig:3-jobs}. So the search space
+ 20 where each point represents a point in the graph. To achieve energy-performance balance, we need a parameter 
+that will select the ordering and placement from this graph that mostly reflects the value of that parameter. At this point, we 
+introduce a balance parameter $\alpha$ which can have any value between \emph{0} and \emph{1}. If the value of $\alpha$ is set 
+to \emph{0}, execution time will be given
+the highest priority and the ordering and placement that is on the top left corner of the graph will be selected. And if the 
+value of $\alpha$ is set to \emph{1} then energy consumption will be given the highest priority and the ordering and placement 
+that is on the bottom right corner of the graph will be selected.
+If the value is set to \emph{0.3} then $70\%$ priority is given to execution time and $30\%$ priority is given to energy
+consumption and select one from the left mid portion of the graph. In order to achive this behaviour, we convert energy and time 
+to distance from min of that set in percentage. Then every ordering and placement becomes a point where energy and time can vary 
+from 0 to 100 where 0 represents is the minimum time or energy. Now, $\alpha$ has a value of .3 then, the balance point becomes
+(30, 70). We measure the distance from the balance point to every ordering and placement. The lower the distance the higher the 
+weight we assign and at the end select the highest weight. This is achieved by a weight function expressed 
+in Equation.\ref{eq:weight}. Based on the value of $\alpha$,
+$\tau_c$ and $\varepsilon_c$, the weight of every ordering and placement is calculated. We express a set of \emph{C} weight as
+$\omega=\{\omega_1, \omega_2, ... , \omega_c \}$. We select the ordering and placement of jobs, $S(J)$ where the weight
+is the highest.
+
+\begin{figure}[]
+	%\vspace{-0.20in}
+	%\includegraphics[]{figures/3-job-2-proc.png}
+	\includegraphics[width=3.45in]{figures/3-job-2-proc.png}
+	%\vspace{-0.15in}
+	\caption{Energy-Performance characteristics for 4 jobs and 2 processors} 
+	\label{fig:3-jobs}
+\end{figure}
+
+
+
+\begin{equation}
+\omega_{c}=1/dist\left [\left \{\frac{\tau_{max} - \tau_{c}}{\tau_{max} - \tau_{min}},\frac{\varepsilon_{max} - \varepsilon_{c}}{\varepsilon_{max} - \varepsilon_{min}}\right \}, \left \{\alpha,(1- \alpha)\right \}\right ]
+%[\frac{\tau_{max} - \tau_c}{\tau_{max} - \tau_{min} * \alpha]
+%S_{selected} = \max_{\forall c \epsilon C} [\frac{\tau_{max} - \tau_c}{\tau_{max} - \tau_{min} * \alpha]
+\label{eq:weight}
+\end{equation}
+
+%\begin{equation}
+%S_{selected}=\max_{\forall c \epsilon C}\left[\omega_c \right]
+%\label{eq:selected}
+%\end{equation}
+
+\subsection{Dynamic Programming Formulation}
+An exhaustive search throughout all the ordering and placement of jobs guarantees an optimal solution but is computationally 
+expensive.
+For this reason, we formulate a dynamic programming approach to reach a near-optimal solution to reduce the complexity. We 
+build the solution from a smaller
+sized set and keep building the bigger ones while maximizing the weights at every step. At each step, we find a new placement
+for one job, ${J_k}$ that maximizes the weight for the current ordering and placement. We consider \emph{V} is a varying
+set of jobs where ${V} \subseteq {J}$. We represent job ordering and placement as \emph{S(V)} which provides the processor
+wise stack info $\rho = \{\rho_1, \rho_2 ... \rho_m\}$. At Equation.\ref{eq:dp}, we build \emph{S(V)} recursively.
+
+%\vspace{-0.1in}
+\begin{equation}
+\small
+\begin{cases}
+%\begin{split}
+    S(\{J_i\}) = {}_{\max weight_{\forall P_k \epsilon P}}[Collocate(\{\emptyset\},\{J_i\}, \rho_k)],	\\ 
+    \quad  \quad  \quad \quad \quad \quad\quad \quad  \quad  \quad \quad \quad \quad\quad  \quad  \quad \quad \quad 
+    \quad  \quad \quad \quad \quad  \text{if } {|V|=1}\\
+    S(V) = {}_{\max weight_{\forall P_k \epsilon P}}[Collocate(S(V - \{J_i\}),\{J_i\}, \rho_k)], \\			
+    \quad  \quad  \quad \quad \quad \quad\quad \quad  \quad  \quad \quad \quad \quad\quad  \quad  \quad \quad \quad 
+    \quad  \quad \quad \quad \quad  \text{if } {|V|>1}\\
+%    S(V)={}_{\max_{\forall P_k \epsilon P}}{[S(V-\{\J_i\}))]},				& \text{if } {|U|>1}
+\end{cases}
+\label{eq:dp}
+\end{equation}
+
+where the function ${Collocate(S(V),J_i,\rho_k)}$ represents the collocation algorithm given at Algorithm.
+\ref{collocationAlgorithm} and parameters constitues the processor wise stack $\rho$. Parameters are given below:
+
+\begin{description}
+        \item \quad $S(V)$ = current ordering and placement $\rho_c$,
+        \item \quad $J_i$ = A new job that will be added to $S(V)$,
+        \item \quad $\rho_k$ = The processor stack where $J_i$ will be added.
+\end{description}
+
+The ${}_{\max weight_{\forall P_k \epsilon P}}$ operation considers the placement of $J_i$ in all processors \emph{P} and
+selects the placement where the weight is the maximum following [Equation.\ref{eq:weight}]. The base case
+of Equation.\ref{eq:dp} finds out the placement with maximum weight for one job considering all \emph{P}.
+
+
+\begin{algorithm} [!t]
+\small
+\caption{Scheduling Algorithm}
+\label{schedulingAlgorithm}
+\begin{algorithmic}[1]
+%\Statex $\hookrightarrow$ Step 1: Calculate C(U)
+\State \begin{varwidth}[t]{\linewidth}
+			\textbf{Input:} $n$ Jobs, $J=\{J_1, J_2 ... J_n\}$,\par
+        		\hskip\algorithmicindent \quad \quad$m$ Processors, $P=\{P_1, P_2 ... P_m\}$. \par
+      			\end{varwidth}
+\State \textbf{Output:} Ordering and placement with MAX weight $S(V)$. \par
+\For {$i=1$ to $n$}
+	\For {each $V \in J$ where $|V|=i$}
+		%\State $\Omega_{min}(U)=\{\emptyset\}$
+		\State $\omega_{max}(V)\leftarrow 0$; $S(V)\leftarrow\{\emptyset\}$
+		\For {each $J_i \in V$}
+			\State $\omega_{interp\_max}(V)\leftarrow 0$; $S(V_{interp})\leftarrow\{\emptyset\}$
+			\State $Intitialize$ $\tau_{max}$, $\varepsilon_{max}$, $\tau_{min}$ and $\varepsilon_{min}$
+			%\State $\tau_{max}= 0$; $\tau_{min}=$FLOAT\_MAX
+			%\State $\varepsilon_{max}= 0$; $\varepsilon_{min}=$FLOAT\_MAX
+
+			\For {each $P_k \in P$}
+    				\State $S(V_{P_k}) = Collocate(S(V - \{J_i\}),\{J_i\}, \rho_k)]$			
+				\State $\tau_c = Time(S(V_{P_k}))$ 
+			        \State Update\_max($\tau_{max},\tau_c$); Update\_min($\tau_{min},\tau_c$)
+				\State $\varepsilon_c = Energy(S(V_{P_k}))$ 
+			        \State Update\_max($\tau_{max},\tau_c$); Update\_min($\tau_{min},\tau_c$)
+
+				%\IfThen {$\tau_c < \tau_{min}$}% If ... 
+				%	{$\tau_{min} = \tau_{c}$}% ...then...
+ 				%\IfThen {$\tau_c > \tau_{max}$}% If ... 
+				%	{$\tau_{max} = \tau_{c}$}% ...then...
+								%\IfThen {$\varepsilon_c < \varepsilon_{min}$}% If ... 
+				%	{$\varepsilon_{min} = \varepsilon_{c}$}% ...then...
+				%\IfThen {$\varepsilon_c > \varepsilon_{max}$}% If ... 
+				%	{$\varepsilon_{max} = \varepsilon_{c}$}% ...then...
+			        %\State \emph{If needed} Update($\tau_{max}$, $\varepsilon_{max}$, $\tau_{min}$ and $\varepsilon_{min}$
+ 
+			\EndFor
+
+			\For {each $P_k \in P$}
+				\State \begin{varwidth}[t]{\linewidth}
+					$\omega(V_{P_k}) = Weight(Time(S(V_{P_k})), $\par
+       					\hskip\algorithmicindent $Energy(S(V_{P_k})), \tau_{min}, \tau_{max}, \varepsilon_{min}, \varepsilon_{max})$\par
+      					\end{varwidth}
+				\If{$\omega(V_{P_k}) > \omega_{interp\_max}$} 
+					\State Set $\omega_{interp\_max} = \omega(V_{P_k})$
+					\State Set $S(V_{interp}) = S(V_{P_k})$
+				\EndIf  
+
+			\EndFor
+			\If{$\omega_{interp\_max} > \omega(V_{P_k})$} 
+				\State Set $\omega_{max}(V) = \omega_{interp\_max}$
+				\State Set $S(V) = S(V_{interp})$
+			\EndIf  
+		\EndFor
+	\EndFor
+\EndFor
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Scheduling Algorithm}
+We design the Scheduling Algorithm based on the dynamic problem formulation. It starts with finding the placement
+for minimal subset \emph{V} (where $|V|=1$) by considering the maximum weight when assigned to a processor $P_k$. We then increase
+the size of \emph{V} iteratively for a new job while re-using the saved maximum weighted ordering and placement from past 
+iterations.
+The scheduling algorithm given in Algorithm \ref{schedulingAlgorithm} finds a near-optimal ordering and placement of jobs in a 
+form of processor
+wise stack, $\rho_{max weight}=\{\rho_1, \rho_2,..., \rho_m\}$. At [Lines 1], the scheduling algorithm takes the set $J$ and $P$
+as inputs which are the sets of all jobs and processors respectively. At [Line 2], the output is defined as $S(V)$ which represents
+three things, 1. One outcome of the \emph{Collocation Algorithm} which is the execution time for set $V$, 2. energy consumption 
+of set $V$ from the same \emph{Collocation Algorithm} and 3. the the set of processor stacks $\rho_{max\_weight}$ that maximizes 
+the weight to reach a near-optimal solution. At [Line 3], the 
+algorithm iterates through the smallest ($|V|=1$) to largest subset size $|V|=n$. And in [Line 4], the algorithm iterates over 
+every possible subset $V$ of $J$ where $|V|=i$. [Line 5] 
+initializes $\omega_{max}(V)$ and $S(V)$. In [Line 6], every $J_i$ is considered from the current set $V$. In [Line 7-8],
+maximum weight for inter processor assignment, $\omega_{interp\_max}(V)$, best scheduling among processors $S(V_{interp})$, 
+maximum and minimum 
+execution time, $\tau_{min}$ and $\tau_{max}$, minimum and maximum energy consumption $\varepsilon_{min}$ and $\varepsilon_{max}$
+are initialized. At [Line 9] every processor $P_k$ is considered for a potential placement option for job $J_i$. At [Line 10],
+\emph{Collocation Algorithm} is used to evaluate the placement. $S(V-\{J_i\})$ represents the placement for the set $\{V-\{J_i\}\}$
+which is calculated in previous iterations. When $|V|=1$, $\{V-\{J_i\}\}$ becomes an empty set and placement of only one job is 
+calculated following the base case of Equation.\ref{eq:dp}. When $|V|>1$, $J_i$ is put in the stack of $P_k$ from the saved 
+ordering and placement of $\{V-\{J_i\}\}$. In [Line 11], 
+execution time, $\tau_c$ is extracted from $S(V_{P_k})$. In [Line 12], $\tau_{min}$,
+ $\tau_{max}$ is updated considering the current value $\tau_c$. In [Line 13-14], $\varepsilon_{c}$ is extraced and 
+$\varepsilon_{min}$ and $\varepsilon_{max}$ is updated. At [Line 16], another loop is started to calculate
+the weight. At [Line 17], weight $\omega(V_{P_k})$ is deduced using Equation.\ref{eq:weight} which is represented as a function
+called \emph{Weight}. At [Line 18-20], weight of inter-processor placement is compared and maximum weight $\omega_{interp\_max}$ 
+and the placement that maximizes the weight is saved to $S(V_{interp})$. [Line 23-25] compare among the different 
+orderings where each ordering represents the placement that maximized the weight. The maximum ordering and placment is then 
+saved in 
+$S(V)$ which is used in subsequent iterations. For the last iteration of the outer loop where $i=n$, $S(V)$ represents the 
+final ordering and placement in a form of processor wise stack, $\rho$, execution time, $\tau$ and energy consumption 
+$\varepsilon$. 
+  
+
+
+\subsection{Complexity}
+%\vspace{-0.10in}
+As mentioned earlier, the $Collocation Algorithm$ has a complexity of $O(nm)$.
+The outer loop in [Line 3] is iterated $n$ times and the selection of subsets $V$ with size $i$ results in the loop at [Line 4]
+and the innermost loop to be iterated $\dbinom{n}{i}$ and $\sum_{i=1}^{n} i\dbinom{n}{i}$ times, respectively, resulting in a
+complexity of $O(n^2 2^{n-1} m^2)$. However, for a brute force search over all the combinations will reach a complexity of
+ $O(n m^2 n!)$. Although this complexity of our algorithm is still exponential, it grows much slower than brute force search
+through all combinations especially when $n$ is large.
+
+DP solution is faster than the brute force solution for any large $n$, however, it may not always yield the optimal
+ordering and placement. The recursive equation in (\ref{eq:dp}) relies on the assumption that the maximum weight for a set 
+$V$ will always
+include the subset $V-\{J_i\}$. However, this may not always be true. We will evaluate the effectiveness of our proposed
+algorithm in the evaluation section.
+
+
+
+

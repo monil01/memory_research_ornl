@@ -1,8 +1,8 @@
 CC = g++
-ARCH=sm_35
+ARCH=sm_70
 #CFLAGS = -DBW_PCT=${pct} -DINFIN_LOOP=${inf} -DLIM=${lim}
-#CFLAGS = -O3 -DINTENS=${intens} -DINFIN_LOOP=${inf} -DLIM=${lim}
-CFLAGS = -O3  -DLIM=${lim}
+CFLAGS = -O3 -DINTENS=${intens} -DINFIN_LOOP=${inf} -DLIM=${lim}
+#CFLAGS = -O3  -DLIM=${lim}
 
 
 

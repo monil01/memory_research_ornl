@@ -9,7 +9,7 @@
 #include <sys/shm.h>
 #include <unistd.h>
 
-int flop = 0;
+//int flop = 0;
 // helper functions and utilities to work with CUDA
 #define ERT_FLOP 2
 #define ERT_TRIALS_MIN 1
@@ -968,33 +968,33 @@ double getTime() {
 }
 
 int main(int argc, char *argv[]) {
+    
+    //key_t shmkey, shmkey1; /*      shared memory key       */
+    //int shmid, shmid1;     /*      shared memory id        */
 
-    key_t shmkey, shmkey1; /*      shared memory key       */
-    int shmid, shmid1;     /*      shared memory id        */
-
-    int *p_gpu, *p_cpu; /*      shared variable         */ /*shared */
+    //int *p_gpu, *p_cpu; /*      shared variable         */ /*shared */
     // shmdt (p);shmctl (shmid, IPC_RMID, 0);exit(0);
 
     /* initialize a shared variable in shared memory */
     // shmkey = ftok ("/home/66m", 5);       /* valid directory name and a
     // number */
-    shmkey = ftok("/dev/null", 5);  /* valid directory name and a number */
-    shmkey1 = ftok("/dev/null", 6); /* valid directory name and a number */
+    //shmkey = ftok("/dev/null", 5);  /* valid directory name and a number */
+    //shmkey1 = ftok("/dev/null", 6); /* valid directory name and a number */
     // printf ("shmkey for p = %d\n", shmkey);
 
-    shmid = shmget(shmkey, sizeof(int), 0644 | IPC_CREAT);
-    shmid1 = shmget(shmkey1, sizeof(int), 0644 | IPC_CREAT);
-    if (shmid < 0) { /* shared memory error check */
-        perror("shmget\n");
-        exit(1);
-    }
+    //shmid = shmget(shmkey, sizeof(int), 0644 | IPC_CREAT);
+    //shmid1 = shmget(shmkey1, sizeof(int), 0644 | IPC_CREAT);
+    //if (shmid < 0) { /* shared memory error check */
+    //    perror("shmget\n");
+    //    exit(1);
+    //}
     // pthread_mutex_t *m;
     // Mutex a(m,false);
-    p_gpu = (int *)shmat(shmid, NULL, 0);  /* attach p to shared memory */
-    p_cpu = (int *)shmat(shmid1, NULL, 0); /* attach p to shared memory */
+    //p_gpu = (int *)shmat(shmid, NULL, 0);  /* attach p to shared memory */
+    //p_cpu = (int *)shmat(shmid1, NULL, 0); /* attach p to shared memory */
     //printf("p_cpu=%d  p_gpu=%d is allocated in shared memory.\n\n", *p_cpu,*p_gpu);
-    *p_gpu = 20;                            //*p = 0;
-    if (*p_cpu != 20 && *p_cpu != 1) *p_cpu = -5;                           //*p = 0;
+    //*p_gpu = 20;                            //*p = 0;
+    //if (*p_cpu != 20 && *p_cpu != 1) *p_cpu = -5;                           //*p = 0;
 
     //if (*p_cpu != 20) *p_cpu = -5;                           //*p = 0;
     //printf("p_cpu=%d  p_gpu=%d is allocated in shared memory.\n\n", *p_cpu,
@@ -1044,7 +1044,6 @@ int main(int argc, char *argv[]) {
         double *d_buf;
         for (int ar = 2; ar <= argc; ar++) {
 
-            sleep(5);
 
             // if (id == 0) printf("Current kernel:  %s\n", argv[ar-1]);
             if (strcmp(argv[ar - 1], "1") == 0)
@@ -1059,7 +1058,8 @@ int main(int argc, char *argv[]) {
                 fun_ptr = &gpuKernel5;
             if (strcmp(argv[ar - 1], "6") == 0)
                 fun_ptr = &gpuKernel_triad;
-
+            if (strcmp(argv[ar - 1], "7") == 0)
+                fun_ptr = &gpuKernel;
 
             uint64_t nsize = PSIZE / nthreads;
             nsize = nsize & (~(64 - 1));
@@ -1083,11 +1083,11 @@ int main(int argc, char *argv[]) {
             uint64_t total_bytes = 0;
             uint64_t total_flops = 0;
 
-            n = 1 << 22;
+            n = 1 << 24;
             n = n * 8;
 
-            // int lim = 35;
-            int lim;
+            int lim = 35;
+            //int lim;
 #ifdef LIM
             lim = LIM;
 #endif
@@ -1116,7 +1116,7 @@ int main(int argc, char *argv[]) {
                                cudaMemcpyHostToDevice);
                     cudaDeviceSynchronize();
 
-                    if (t >= (lim - 19)) {
+                    /*if (t >= (lim - 19)) {
                         *p_gpu = 10;
                         while (1) {
                             if (*p_cpu == 10 || *p_cpu == 1 || *p_cpu == 33 || *p_cpu == -5)
@@ -1130,8 +1130,8 @@ int main(int argc, char *argv[]) {
                             //&mem_accesses_per_elem); cudaDeviceSynchronize();
                         }
 
-                        *p_gpu = 1;
-                    }
+                        *p_gpu = 1; 
+                    } */
 
                     if ((id == 0) && (rank == 0)) {
                         startTime = getTime();
@@ -1142,8 +1142,8 @@ int main(int argc, char *argv[]) {
 
                     cudaDeviceSynchronize();
 
-                    if ((id == 0) && (rank == 0) && (t > (lim - 20))) {
-                        // if ((id == 0) && (rank == 0)) {
+                    //if ((id == 0) && (rank == 0) && (t > (lim - 20))) {
+                    if ((id == 0) && (rank == 0)) {
                         // if ((id == 0) && (rank == 0) && (t > 580)) {
                         endTime = getTime();
                         seconds += (double)(endTime - startTime);
@@ -1151,7 +1151,7 @@ int main(int argc, char *argv[]) {
                         total_bytes += t * working_set_size * bytes_per_elem *
                                        mem_accesses_per_elem;
                         total_flops += t * working_set_size * flop;
-                        // std::cout << "nthreads: " << nthreads << " value of
+                        //std::cout << "nthreads: " << nthreads << " value of
                         // n: "
                         // << n << " working set size: " << working_set_size <<
                         // "total bytes: " << total_bytes << " total_flops: " <<
@@ -1160,6 +1160,7 @@ int main(int argc, char *argv[]) {
                     }
 
                     if ((id == 0) && (rank == 0) && (t == lim)) {
+                    //if ((id == 0) && (rank == 0) ) {
                         // if ((id == 0) && (rank == 0) && (t == 600)) {
 
                         printf("BadnWindth : %15.3lf\n", total_bytes * 1.0 /
@@ -1168,18 +1169,19 @@ int main(int argc, char *argv[]) {
                         printf("Total Bytes: %15" PRIu64 "\n", total_bytes);
                         printf("Total flops: %15" PRIu64 "\n", total_flops);
                         printf("Total time : %15.6lf \n", seconds);
+                        printf("Arithmatic Intensity : %f \n", (double) total_flops/total_bytes);
 
                     } // print
 
-                    if (id == 0)
-                        *p_gpu = 0;
+                    //if (id == 0)
+                    //    *p_gpu = 0;
 
                     cudaMemcpy(&buf[nid], d_buf, n * sizeof(double),
                                cudaMemcpyDeviceToHost);
                     cudaDeviceSynchronize();
                 }
-	            if (id == 0)
-                        *p_gpu = 0;
+	            //if (id == 0)
+                //        *p_gpu = 0;
 
 
                 n = nsize + 1;
@@ -1221,7 +1223,7 @@ int main(int argc, char *argv[]) {
         cudaDeviceReset();
     } // parallel region
 
-    *p_gpu = 33;
+    //*p_gpu = 33;
     free(buf);
 
     return 0;
